@@ -46,15 +46,7 @@ const SignUpForm = () => {
         </Box>
         </Stack>
 
-        <Stack>
-            <ButtonGroup>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={() => alert("Button Submitted")}
-                  >Submit</Button>
-            </ButtonGroup>
-        </Stack>
+        
     </div>
   )
 }

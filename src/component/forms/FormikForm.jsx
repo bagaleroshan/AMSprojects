@@ -51,7 +51,50 @@ const FormikForm = () => {
                 validationSchema={validationSchema}>
                 {
                     (formik) => {
-                        return (<Form>
+                        return (
+                            <Form>
+                                <FormikInput name="firstName" label="First Name" type="text"
+                                    style={{ color: "red" }}
+                                    required={true}
+                                    onChange={e => { formik.setFieldValue("firstName", e.target.value) }}
+                                ></FormikInput>
+
+                                <FormikTextarea name="description"
+                                    label="Description" type="text"
+                                    style={{ color: "blue" }}
+                                    required={true}
+                                    onChange={e => { formik.setFieldValue("description", e.target.value) }}
+                                ></FormikTextarea>
+
+                                <FormikSelect name="country"
+                                    label="Country"
+                                    required={true}
+                                    onChange={e => { formik.setFieldValue("country", e.target.value) }}
+                                    countries={countries}
+                                ></FormikSelect>
+
+                                {/* radio */}
+                                <FormikRadio
+                                    name="gender"
+                                    label="Gender : "
+                                    style={{ color: "blue" }}
+                                    required={true}
+                                    onChange={e => { formik.setFieldValue("gender", e.target.value) }}
+                                    genders={genders}
+                                ></FormikRadio>
+
+                                {/* checkbox */}
+                                <FormikCheckbox
+                                    name="isMarried"
+                                    label="Is Married"
+                                    style={{ color: "blue" }}
+                                    required={true}
+                                    onChange={e => { formik.setFieldValue("isMarried", e.target.checked) }}
+                                ></FormikCheckbox>
+
+                                <button type='submit'>Submit</button>
+                            </Form>
+                             // <Form>
                             {/* <Field name="firstName">
                                 {
                                     ({ field, form, meta }) => {
@@ -74,7 +117,7 @@ const FormikForm = () => {
                                 }
                             </Field> */}
 
-                            {/* <Field name="lastName">
+                        {/* <Field name="lastName">
                                 {
                                     ({ field, form, meta }) => {
                                         return (
@@ -94,7 +137,7 @@ const FormikForm = () => {
                                 }
                             </Field> */}
 
-                            {/* <Field name="description">
+                        {/* <Field name="description">
                                 {
                                     ({ field, form, meta }) => {
                                         return (
@@ -114,48 +157,8 @@ const FormikForm = () => {
                                     }
                                 }
                             </Field> */}
-
-                            <FormikInput name="firstName" label="First Name" type="text"
-                                style={{ color: "red" }}
-                                required={true}
-                                onChange={e => { formik.setFieldValue("firstName", e.target.value) }}
-                            ></FormikInput>
-
-                            <FormikTextarea name="description"
-                                label="Description" type="text"
-                                style={{ color: "blue" }}
-                                required={true}
-                                onChange={e => { formik.setFieldValue("description", e.target.value) }}
-                            ></FormikTextarea>
-
-                            <FormikSelect name="country"
-                                label="Country"
-                                required={true}
-                                onChange={e => { formik.setFieldValue("country", e.target.value) }}
-                                countries={countries}
-                            ></FormikSelect>
-
-                            {/* radio */}
-                            <FormikRadio
-                                name="gender"
-                                label="Gender : "
-                                style={{ color: "blue" }}
-                                required={true}
-                                onChange={e => { formik.setFieldValue("gender", e.target.value) }}
-                                genders={genders}
-                            ></FormikRadio>
-
-                            {/* checkbox */}
-                            <FormikCheckbox
-                                name="isMarried"
-                                label="Is Married"
-                                style={{ color: "blue" }}
-                                required={true}
-                                onChange={e => { formik.setFieldValue("isMarried", e.target.checked) }}
-                            ></FormikCheckbox>
-
-                            <button type='submit'>Submit</button>
-                        </Form>)
+                        {/* </Form> */ }    
+                    )
                     }
                 }
             </Formik>
