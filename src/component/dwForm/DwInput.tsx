@@ -1,34 +1,34 @@
 import { TextField } from "@mui/material";
-import { Field } from "formik";
+import { Field, FieldProps } from "formik";
 
-const DwInput = ({
-  name,
-  label,
-  type,
-  onChange,
-  multiline = false,
-  ...props
-}) => {
+interface DwInputProps {
+  name: string;
+  label: string;
+  type: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  multiline?: false;
+}
+
+const DwInput = (props: DwInputProps) => {
   return (
     <div>
-      <Field name={name}>
-        {({ field, form, meta }) => {
-          console.log(meta);
+      <Field name={props.name}>
+        {({ field, meta }: FieldProps) => {
           return (
             <div>
               <TextField
                 {...field}
                 {...props}
-                id={name}
-                name={name}
-                label={label}
-                type={type}
+                id={props.name}
+                name={props.name}
+                label={props.label}
+                type={props.type}
                 value={meta.value}
-                onChange={onChange ? onChange : field.onChange}
-                variant="standard"
-                multiline={multiline}
+                onChange={props.onChange ? props.onChange : field.onChange}
+                multiline={props.multiline}
                 rows={5}
-                maxRows={10}
+                // maxRows={10}
+                color="secondary"
               />
               {meta.touched && meta.error ? (
                 <div style={{ color: "red" }}>{meta.error}</div>

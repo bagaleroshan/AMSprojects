@@ -9,6 +9,7 @@ import TextFieldMUI from "./component/materialUI/TextFieldMUI";
 import FormikForm2 from "./component/forms/FormikForm2";
 import DwForm from "./component/dwForm/DwForm";
 import MuiCheckbox from "./component/materialUI/MuiCheckbox";
+import DwHideAndShowPass from "./component/dwForm/DwHideAndShowPass";
 
 const App = () => {
   return (
