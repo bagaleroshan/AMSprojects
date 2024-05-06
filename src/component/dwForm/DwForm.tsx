@@ -1,8 +1,8 @@
-import { Button, ButtonGroup, TextField } from "@mui/material";
-import { Field, Form, Formik } from "formik";
+import { Button, ButtonGroup } from "@mui/material";
+import { Form, Formik } from "formik";
 import * as yup from "yup";
+import DwCheckbox from "./DwCheckbox";
 import DwInput from "./DwInput";
-import DwTextArea from "./DwTextArea";
 
 const DwForm = () => {
   let initialValues = {
@@ -10,6 +10,7 @@ const DwForm = () => {
     email: "",
     password: "",
     description: "",
+    isMarried: false,
   };
 
   let submitValue = (value: any) => {
@@ -27,6 +28,7 @@ const DwForm = () => {
       .min(8, "Password should be of minimum 8 characters length")
       .required("Password is required"),
     description: yup.string().required("Please fill in description"),
+    isMarried: yup.boolean().required("Please verify your marital status"),
     // dob: yup.date().required("Please select your date of birth")
   });
 
@@ -82,15 +84,25 @@ const DwForm = () => {
                 }}
               ></DwInput>
 
-              <DwTextArea
+              <DwInput
                 name="description"
                 label="Description"
                 type="text"
+                multiline={true}
                 onChange={(e: any) => {
                   formik.setFieldValue("description", e.target.value);
                 }}
-              ></DwTextArea>
+              ></DwInput>
 
+              <DwCheckbox
+                name="isMarried"
+                label="Is Married ?"
+                onChange={(e: any) => {
+                  formik.setFieldValue("isMarried", e.target.checked);
+                }}
+              ></DwCheckbox>
+
+                
               <ButtonGroup>
                 <Button
                   type="submit"

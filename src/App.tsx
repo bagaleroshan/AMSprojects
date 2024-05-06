@@ -8,6 +8,7 @@ import Form1 from "./component/forms/Form1";
 import TextFieldMUI from "./component/materialUI/TextFieldMUI";
 import FormikForm2 from "./component/forms/FormikForm2";
 import DwForm from "./component/dwForm/DwForm";
+import MuiCheckbox from "./component/materialUI/MuiCheckbox";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
       {/* <Form1></Form1> */}
       {/* <FormikForm2></FormikForm2> */}
       <DwForm></DwForm>
+      {/* <MuiCheckbox></MuiCheckbox> */}
     </>
   );
 };

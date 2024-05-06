@@ -1,7 +1,14 @@
 import { TextField } from "@mui/material";
 import { Field } from "formik";
 
-const DwInput = ({ name, label, type, onChange, ...props }) => {
+const DwInput = ({
+  name,
+  label,
+  type,
+  onChange,
+  multiline = false,
+  ...props
+}) => {
   return (
     <div>
       <Field name={name}>
@@ -19,8 +26,9 @@ const DwInput = ({ name, label, type, onChange, ...props }) => {
                 value={meta.value}
                 onChange={onChange ? onChange : field.onChange}
                 variant="standard"
-                // error={meta.touched}
-                // helperText={meta.touched && meta.error}
+                multiline={multiline}
+                rows={5}
+                maxRows={10}
               />
               {meta.touched && meta.error ? (
                 <div style={{ color: "red" }}>{meta.error}</div>
