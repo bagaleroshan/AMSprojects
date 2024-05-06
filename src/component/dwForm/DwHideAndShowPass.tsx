@@ -1,64 +1,62 @@
-import React, { useState } from "react";
-import { Field, FieldProps } from "formik";
-import {
-  IconButton,
-  InputAdornment,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { Field, FieldProps } from "formik";
+import { useState } from "react";
 
-interface PasswordFieldProps extends FieldProps {
+interface DwPasswordProps {
+  name: string;
   label: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const DwHideAndShowPass: PasswordFieldProps = ({ name, field, label }) => {
+const DwHideAndShowPass: React.FC<DwPasswordProps> = ({
+  name,
+  label,
+  onChange,
+  ...props
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
+  const EndAdorment = ({ showPassword, setShowPassword }) => {
+    return (
+      <InputAdornment position="end">
+        <IconButton onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    );
   };
 
-  //   const handleMouseDownPassword = (
-  //     event: React.MouseEvent<HTMLButtonElement>
-  //   ) => {
-  //     event.preventDefault();
-  //   };
   return (
     <div>
       <Field name={name}>
-        {({ field, form, meta }) => {
+        {({ field, meta }: FieldProps) => {
           return (
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel htmlFor={field.name}>{label}</InputLabel>
-              <OutlinedInput
+            <div>
+              <TextField
                 {...field}
-                id={field.name}
-                type={showPassword ? "text" : "password"}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      //   onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+                {...props}
+                name={name}
                 label={label}
-                error={Boolean(
-                  form.errors[field.name] && form.touched[field.name]
-                )}
-                helperText={
-                  form.errors[field.name] && form.touched[field.name]
-                    ? form.errors[field.name]
-                    : null
-                }
+                value={meta.value}
+                onChange={onChange ? onChange : field.onChange}
+                required
+                color="secondary"
+                type={showPassword ? "password" : "text"}
+                InputProps={{
+                  endAdornment: (
+                    <EndAdorment
+                      showPassword={showPassword}
+                      setShowPassword={setShowPassword}
+                    />
+                  ),
+                }}
+                size="small"
               />
-            </FormControl>
+              {meta.touched && meta.error ? (
+                <div style={{ color: "red" }}>{meta.error}</div>
+              ) : null}
+            </div>
           );
         }}
       </Field>
@@ -67,3 +65,33 @@ const DwHideAndShowPass: PasswordFieldProps = ({ name, field, label }) => {
 };
 
 export default DwHideAndShowPass;
+
+{
+  /* <FormControl variant="outlined" fullWidth>
+  <InputLabel htmlFor={field.name}>{label}</InputLabel>
+  <OutlinedInput
+    {...field}
+    id={field.name}
+    type={showPassword ? "text" : "password"}
+    endAdornment={
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={handleClickShowPassword}
+            onMouseDown={handleMouseDownPassword}
+          edge="end"
+        >
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    }
+    label={label}
+    error={Boolean(form.errors[field.name] && form.touched[field.name])}
+    helperText={
+      form.errors[field.name] && form.touched[field.name]
+        ? form.errors[field.name]
+        : null
+    }
+  />
+</FormControl>; */
+}

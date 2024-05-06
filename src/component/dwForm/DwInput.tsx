@@ -27,8 +27,8 @@ const DwInput = (props: DwInputProps) => {
                 onChange={props.onChange ? props.onChange : field.onChange}
                 multiline={props.multiline}
                 rows={5}
-                // maxRows={10}
                 color="secondary"
+                size="small"
               />
               {meta.touched && meta.error ? (
                 <div style={{ color: "red" }}>{meta.error}</div>

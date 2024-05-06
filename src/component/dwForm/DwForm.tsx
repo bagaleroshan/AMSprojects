@@ -5,6 +5,7 @@ import DwCheckbox from "./DwCheckbox";
 import DwInput from "./DwInput";
 import DwRadio from "./DwRadio";
 import DwSelect from "./DwSelect";
+import DwHideAndShowPass from "./DwHideAndShowPass";
 
 interface FormValues {
   fullName: string;
@@ -90,19 +91,13 @@ const DwForm = () => {
                 }}
               ></DwInput>
 
-              <DwInput
+              <DwHideAndShowPass
                 name="password"
                 label="Password"
-                type="password"
                 onChange={(e) => {
                   formik.setFieldValue("password", e.target.value);
                 }}
-              ></DwInput>
-
-              {/* <DwHideAndShowPass
-                name="password"
-                label="Password"
-              ></DwHideAndShowPass> */}
+              ></DwHideAndShowPass>
 
               <DwInput
                 name="description"
