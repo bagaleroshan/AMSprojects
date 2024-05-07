@@ -5,9 +5,9 @@ import DwForm from "./component/dwForm/DwForm";
 const App = () => {
   return (
     <>
-      {/* <DwForm></DwForm> */}
+      <DwForm></DwForm>
       {/* <DateAndTime></DateAndTime> */}
-      <RoughForm></RoughForm>
+      {/* <RoughForm></RoughForm> */}
     </>
   );
 };

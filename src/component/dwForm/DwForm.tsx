@@ -2,10 +2,10 @@ import { Button, ButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
 import DwCheckbox from "./DwCheckbox";
+import DwHideAndShowPass from "./DwHideAndShowPass";
 import DwInput from "./DwInput";
 import DwRadio from "./DwRadio";
 import DwSelect from "./DwSelect";
-import DwHideAndShowPass from "./DwHideAndShowPass";
 
 interface FormValues {
   fullName: string;
@@ -104,7 +104,7 @@ const DwForm = () => {
                 label="Description"
                 type="text"
                 multiline={true}
-                onChange={(e: onChangeEvent) => {
+                onChange={(e) => {
                   formik.setFieldValue("description", e.target.value);
                 }}
               ></DwInput>
