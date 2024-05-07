@@ -1,7 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TextField } from "@mui/material";
-import { Field } from "formik";
-
-const DwInput = ({
+import { Field, FieldProps } from "formik";
+interface IDwInputProps {
+  name: string;
+  label: string;
+  type: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  multiline?: boolean;
+  [key: string]: unknown;
+}
+const DwInput: React.FC<IDwInputProps> = ({
   name,
   label,
   type,
@@ -12,7 +20,7 @@ const DwInput = ({
   return (
     <div>
       <Field name={name}>
-        {({ field, form, meta }) => {
+        {({ field, meta }: FieldProps) => {
           console.log(meta);
           return (
             <div>
