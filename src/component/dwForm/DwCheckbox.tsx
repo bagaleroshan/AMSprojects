@@ -1,12 +1,22 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { Field } from "formik";
+import { Field, FieldProps } from "formik";
 
-const DwCheckbox = ({ name, label, onChange, ...props }) => {
+interface IDwCheckboxProps {
+  name: string;
+  label: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  [key: string]: unknown;
+}
+const DwCheckbox: React.FC<IDwCheckboxProps> = ({
+  name,
+  label,
+  onChange,
+  ...props
+}) => {
   return (
     <div>
       <Field name={name}>
-        {({ field, form, meta }) => {
-          console.log(meta);
+        {({ field, meta }: FieldProps) => {
           return (
             <div>
               <FormControlLabel
@@ -16,7 +26,6 @@ const DwCheckbox = ({ name, label, onChange, ...props }) => {
                     {...field}
                     {...props}
                     id={name}
-                    type="checkbox"
                     checked={meta.value}
                     onChange={onChange ? onChange : field.onChange}
                   />

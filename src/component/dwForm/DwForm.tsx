@@ -1,11 +1,19 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
+import { ChangeEvent } from "react";
 import * as yup from "yup";
 import DwCheckbox from "./DwCheckbox";
 import DwInput from "./DwInput";
+interface IFormValues {
+  fullName: string;
+  email: string;
+  password: string;
+  description: string;
+  isMarried: boolean;
+}
 
 const DwForm = () => {
-  let initialValues = {
+  const initialValues: IFormValues = {
     fullName: "",
     email: "",
     password: "",
@@ -13,8 +21,11 @@ const DwForm = () => {
     isMarried: false,
   };
 
-  let submitValue = (value: any) => {
-    console.log("Value", value);
+  const submitValue = (
+    values: IFormValues
+    // actions: FormikHelpers<FormValues>
+  ) => {
+    console.log("Values", values);
   };
 
   const validationSchema = yup.object({
@@ -61,7 +72,7 @@ const DwForm = () => {
                 name="fullName"
                 label="Full Name"
                 type="text"
-                onChange={(e: any) => {
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   formik.setFieldValue("fullName", e.target.value);
                 }}
               ></DwInput>
@@ -70,7 +81,7 @@ const DwForm = () => {
                 name="email"
                 label="Email"
                 type="email"
-                onChange={(e: any) => {
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   formik.setFieldValue("email", e.target.value);
                 }}
               ></DwInput>
@@ -79,7 +90,7 @@ const DwForm = () => {
                 name="password"
                 label="Password"
                 type="password"
-                onChange={(e: any) => {
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   formik.setFieldValue("password", e.target.value);
                 }}
               ></DwInput>
@@ -89,7 +100,7 @@ const DwForm = () => {
                 label="Description"
                 type="text"
                 multiline={true}
-                onChange={(e: any) => {
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   formik.setFieldValue("description", e.target.value);
                 }}
               ></DwInput>
@@ -97,19 +108,13 @@ const DwForm = () => {
               <DwCheckbox
                 name="isMarried"
                 label="Is Married ?"
-                onChange={(e: any) => {
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   formik.setFieldValue("isMarried", e.target.checked);
                 }}
               ></DwCheckbox>
 
-                
               <ButtonGroup>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="success"
-                  //   onClick={() => alert("Button Submitted")}
-                >
+                <Button type="submit" variant="contained" color="success">
                   Submit
                 </Button>
               </ButtonGroup>
