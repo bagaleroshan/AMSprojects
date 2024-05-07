@@ -9,24 +9,24 @@ interface DwPasswordProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+const [showPassword, setShowPassword] = useState(false);
+
+const EndAdorment = ({ showPassword, setShowPassword }) => {
+  return (
+    <InputAdornment position="end">
+      <IconButton onClick={() => setShowPassword(!showPassword)}>
+        {showPassword ? <VisibilityOff /> : <Visibility />}
+      </IconButton>
+    </InputAdornment>
+  );
+};
+
 const DwHideAndShowPass: React.FC<DwPasswordProps> = ({
   name,
   label,
   onChange,
   ...props
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const EndAdorment = ({ showPassword, setShowPassword }) => {
-    return (
-      <InputAdornment position="end">
-        <IconButton onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? <VisibilityOff /> : <Visibility />}
-        </IconButton>
-      </InputAdornment>
-    );
-  };
-
   return (
     <div>
       <Field name={name}>
@@ -42,7 +42,7 @@ const DwHideAndShowPass: React.FC<DwPasswordProps> = ({
                 onChange={onChange ? onChange : field.onChange}
                 required
                 color="secondary"
-                type={showPassword ? "password" : "text"}
+                type={showPassword ? "text" : "password"}
                 InputProps={{
                   endAdornment: (
                     <EndAdorment
@@ -53,7 +53,7 @@ const DwHideAndShowPass: React.FC<DwPasswordProps> = ({
                 }}
                 size="small"
               />
-              {meta.touched && meta.error ? (
+              {meta.error ? (
                 <div style={{ color: "red" }}>{meta.error}</div>
               ) : null}
             </div>
@@ -65,33 +65,3 @@ const DwHideAndShowPass: React.FC<DwPasswordProps> = ({
 };
 
 export default DwHideAndShowPass;
-
-{
-  /* <FormControl variant="outlined" fullWidth>
-  <InputLabel htmlFor={field.name}>{label}</InputLabel>
-  <OutlinedInput
-    {...field}
-    id={field.name}
-    type={showPassword ? "text" : "password"}
-    endAdornment={
-      <InputAdornment position="end">
-        <IconButton
-          aria-label="toggle password visibility"
-          onClick={handleClickShowPassword}
-            onMouseDown={handleMouseDownPassword}
-          edge="end"
-        >
-          {showPassword ? <VisibilityOff /> : <Visibility />}
-        </IconButton>
-      </InputAdornment>
-    }
-    label={label}
-    error={Boolean(form.errors[field.name] && form.touched[field.name])}
-    helperText={
-      form.errors[field.name] && form.touched[field.name]
-        ? form.errors[field.name]
-        : null
-    }
-  />
-</FormControl>; */
-}
