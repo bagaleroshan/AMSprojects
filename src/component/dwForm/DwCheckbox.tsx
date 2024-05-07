@@ -5,6 +5,7 @@ interface IDwCheckboxProps {
   name: string;
   label: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  [key: string]: unknown;
 }
 const DwCheckbox: React.FC<IDwCheckboxProps> = ({
   name,
