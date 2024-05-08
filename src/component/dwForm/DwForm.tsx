@@ -6,6 +6,7 @@ import DwInput from "./DwInput";
 import DwRadio from "./DwRadio";
 import DwSelect from "./DwSelect";
 import DwHideAndShowPass from "./DwHideAndShowPass";
+import DwDate from "./DwDate";
 
 interface FormValues {
   fullName: string;
@@ -15,6 +16,8 @@ interface FormValues {
   isMarried: boolean;
   subject: string;
   gender: string;
+  dob: Date;
+  date: object | null;
 }
 
 const DwForm = () => {
@@ -26,6 +29,7 @@ const DwForm = () => {
     isMarried: false,
     subject: "",
     gender: "",
+    dob: new Date(),
   };
 
   const validationSchema = yup.object({
@@ -42,7 +46,7 @@ const DwForm = () => {
     isMarried: yup.boolean().required("Please verify your marital status"),
     subject: yup.string().required("Subject hasn't been selected yet"),
     gender: yup.string().required("Please select your gender"),
-    // dob: yup.date().required("Please select your date of birth")
+    dob: yup.date().required("Please select your date of birth"),
   });
 
   const genders = [
@@ -99,12 +103,20 @@ const DwForm = () => {
                 }}
               ></DwHideAndShowPass>
 
+              <DwDate
+                name="dob"
+                label="D.O.B"
+                onChange={(date) => {
+                  formik.setFieldValue("dob", date.$d);
+                }}
+              ></DwDate>
+
               <DwInput
                 name="description"
                 label="Description"
                 type="text"
                 multiline={true}
-                onChange={(e: onChangeEvent) => {
+                onChange={(e) => {
                   formik.setFieldValue("description", e.target.value);
                 }}
               ></DwInput>

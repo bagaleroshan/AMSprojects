@@ -1,32 +1,22 @@
-import React from "react";
-import { TextField } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Field } from "formik";
 
-interface DateAndTimeProps {
-  value: Date | null;
-  onChange: (date: Date | null) => void;
-  label?: string;
-  disabled?: boolean;
-  params?: object;
-}
-
-const DateAndTime: React.FC<DateAndTimeProps> = ({
-  value,
-  onChange,
-  label = "Date of Birth",
-  disabled = false,
-}) => {
+const DateAndTime = ({ name, label, onChange, ...props }) => {
+  // console.log("Date and Time ", value.$d);
   return (
-    <DatePicker
-      label={label}
-      value={value}
-      onChange={onChange}
-      renderInput={(params) => <TextField {...params} disabled={disabled} />}
-      disableFuture
-      openTo="year"
-      views={["year", "month", "day"]}
-      inputFormat="MM/dd/yyyy"
-    />
+    <div>
+      <Field name={name}>
+        {() => {
+          return (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker {...props} label={label} onChange={onChange} />
+            </LocalizationProvider>
+          );
+        }}
+      </Field>
+    </div>
   );
 };
 
