@@ -1,20 +1,20 @@
 import { Box, MenuItem, TextField } from "@mui/material";
 import { Field, FieldProps } from "formik";
 
-interface SelectLabels {
+interface ISelectLabels {
   label: string;
   value: string;
 }
 
-interface DwSelectProps {
+interface IDwSelectProps {
   name: string;
   label: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   [key: string]: unknown;
-  selectLabels: SelectLabels[];
+  selectLabels: ISelectLabels[];
 }
 
-const DwSelect: React.FC<DwSelectProps> = ({
+const DwSelect: React.FC<IDwSelectProps> = ({
   name,
   label,
   onChange,
@@ -39,7 +39,7 @@ const DwSelect: React.FC<DwSelectProps> = ({
                   fullWidth
                   size="small"
                   color="secondary"
-                  variant='standard'
+                  variant="standard"
                 >
                   {selectLabels.map((item, i) => {
                     return (
