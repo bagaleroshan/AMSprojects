@@ -6,9 +6,9 @@ import DateAndTimeDemo from "./component/Rough/DateAndTimeDemo";
 const App = () => {
   return (
     <>
-      <DwForm></DwForm>
+      {/* <DwForm></DwForm> */}
       {/* <DateAndTime></DateAndTime> */}
-      {/* <RoughForm></RoughForm> */}
+      <RoughForm></RoughForm>
       {/* <DateAndTimeDemo></DateAndTimeDemo> */}
     </>
   );

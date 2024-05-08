@@ -1,22 +1,25 @@
-import { Form, Formik } from "formik";
-import DateAndTime from "./DateAndTime";
-import * as yup from "yup";
 import { Button, ButtonGroup } from "@mui/material";
+import { Form, Formik } from "formik";
+import { useState } from "react";
+import * as yup from "yup";
+import RoughReactDropZone from "./RoughMuiDropzone";
 
 interface FormValues {
-  dob: Date;
+  fileLink: string;
 }
 const RoughForm = () => {
   const initialValues = {
-    dob: new Date(),
+    fileLink: "",
+    setFileLink: "",
   };
 
   const validationSchema = yup.object({
-    dob: yup.date().required("Please select your date of birth"),
+    fileLink: yup.string().required("Please drop a link"),
   });
+  const [fileLink, setFileLink] = useState("");
 
   const submitValue = (values: FormValues) => {
-    console.log("Date is", values);
+    console.log("Link is", values);
   };
 
   return (
@@ -26,26 +29,19 @@ const RoughForm = () => {
       validationSchema={validationSchema}
     >
       {(formik) => {
-        // console.log("Formik", formik);
         return (
           <Form>
-            <DateAndTime
-              name="dob"
-              label="D.O.B"
-              // value={formik.values.dob}
-              onChange={(date) => {
-                // console.log("Date is", date.$d);
-                formik.setFieldValue("dob", date.$d);
+            <RoughReactDropZone
+              name="Please add a file"
+              fileLink={fileLink}
+              onChange={(e) => {
+                formik.setFieldValue("File", e.target.value);
               }}
-            ></DateAndTime>
+              setFileLink={setFileLink}
+            ></RoughReactDropZone>
 
             <ButtonGroup>
-              <Button
-                type="submit"
-                variant="contained"
-                color="secondary"
-                // onClick={() => alert("Button Submitted")}
-              >
+              <Button type="submit" variant="contained" color="secondary">
                 Submit
               </Button>
             </ButtonGroup>

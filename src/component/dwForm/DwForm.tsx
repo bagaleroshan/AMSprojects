@@ -149,12 +149,7 @@ const DwForm = () => {
               ></DwRadio>
 
               <ButtonGroup>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                  // onClick={() => alert("Button Submitted")}
-                >
+                <Button type="submit" variant="contained" color="secondary">
                   Submit
                 </Button>
               </ButtonGroup>

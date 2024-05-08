@@ -13,6 +13,9 @@ dist-ssr
 *.local
 .env
 
+#folders
+src/component/Rough/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
