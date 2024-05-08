@@ -1,15 +1,14 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
-import { ChangeEvent } from "react";
 import * as yup from "yup";
 import DwCheckbox from "./DwCheckbox";
+import DwDate from "./DwDate";
+import DwHideAndShowPass from "./DwHideAndShowPass";
 import DwInput from "./DwInput";
 import DwRadio from "./DwRadio";
 import DwSelect from "./DwSelect";
-import DwHideAndShowPass from "./DwHideAndShowPass";
-import DwDate from "./DwDate";
 
-interface FormValues {
+interface IFormValues {
   fullName: string;
   email: string;
   password: string;
@@ -19,6 +18,7 @@ interface FormValues {
   gender: string;
   dob: Date;
   date: object | null;
+  multiline?: boolean;
 }
 
 const DwForm = () => {
@@ -31,6 +31,7 @@ const DwForm = () => {
     subject: "",
     gender: "",
     dob: new Date(),
+    date: Date,
   };
 
   const validationSchema = yup.object({
@@ -64,7 +65,7 @@ const DwForm = () => {
     { label: "Express.js", value: "Express.js" },
   ];
 
-  const submitValue = (values: FormValues) => {
+  const submitValue = (values: IFormValues) => {
     console.log("Value", values);
   };
 
@@ -108,7 +109,7 @@ const DwForm = () => {
                 name="dob"
                 label="D.O.B"
                 onChange={(date) => {
-                  formik.setFieldValue("dob", date.$d);
+                  formik.setFieldValue("dob", date);
                 }}
               ></DwDate>
 
@@ -116,7 +117,7 @@ const DwForm = () => {
                 name="description"
                 label="Description"
                 type="text"
-                multiline={true}
+                multiline={false}
                 onChange={(e) => {
                   formik.setFieldValue("description", e.target.value);
                 }}
