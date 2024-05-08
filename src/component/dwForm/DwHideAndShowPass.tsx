@@ -1,24 +1,31 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Field, FieldProps } from "formik";
-import React from "react";
+import React, { useState } from "react";
 
-interface DwPasswordProps {
+interface IDwPasswordProps {
   name: string;
   label: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const DwHideAndShowPass: React.FC<DwPasswordProps> = ({
+interface IEndAdornmentProps {
+  showPassword: boolean;
+  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DwHideAndShowPass: React.FC<IDwPasswordProps> = ({
   name,
   label,
   onChange,
   ...props
 }) => {
-  // const [showPassword, setShowPassword] = useState(false);
-  const [showPassword, setShowPassword] = React.useState<false | true>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const EndAdorment = ({ showPassword, setShowPassword }) => {
+  const EndAdorment: React.FC<IEndAdornmentProps> = ({
+    showPassword,
+    setShowPassword,
+  }) => {
     return (
       <InputAdornment position="end">
         <IconButton onClick={() => setShowPassword(!showPassword)}>
@@ -27,6 +34,7 @@ const DwHideAndShowPass: React.FC<DwPasswordProps> = ({
       </InputAdornment>
     );
   };
+
   return (
     <div>
       <Field name={name}>

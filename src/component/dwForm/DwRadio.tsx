@@ -8,19 +8,19 @@ import {
 } from "@mui/material";
 import { Field, FieldProps } from "formik";
 
-interface RadioLabels {
+interface IRadioLabels {
   label: string;
   value: string;
 }
-interface DwRadioProps {
+interface IDwRadioProps {
   name: string;
   label: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  radioLabels: IRadioLabels[];
   [key: string]: unknown;
-  radioLabels: RadioLabels[];
 }
 
-const DwRadio: React.FC<DwRadioProps> = ({
+const DwRadio: React.FC<IDwRadioProps> = ({
   name,
   label,
   onChange,

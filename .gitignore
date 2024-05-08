@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 .env
+#Rough (it is jus a normal folder where practice is node you cna remove Rough in .gitgnore)
+Rough
+.gitignore
 
 # Editor directories and files
 .vscode/*

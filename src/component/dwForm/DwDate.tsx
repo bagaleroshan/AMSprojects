@@ -5,14 +5,18 @@ import { Dayjs } from "dayjs";
 import { Field, FieldProps } from "formik";
 import React from "react";
 
-interface DwDateProps {
+interface IDwDateProps {
   name: string;
   label: string;
-  // value: Dayjs;
   onChange: (date: Dayjs | null) => void;
 }
 
-const DwDate: React.FC<DwDateProps> = ({ name, label, onChange, ...props }) => {
+const DwDate: React.FC<IDwDateProps> = ({
+  name,
+  label,
+  onChange,
+  ...props
+}) => {
   return (
     <Field name={name}>
       {({ meta }: FieldProps) => {
