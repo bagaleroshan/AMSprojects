@@ -4,28 +4,33 @@ import { ChangeEvent } from "react";
 import * as yup from "yup";
 import DwCheckbox from "./DwCheckbox";
 import DwInput from "./DwInput";
-interface IFormValues {
+import DwRadio from "./DwRadio";
+import DwSelect from "./DwSelect";
+import DwHideAndShowPass from "./DwHideAndShowPass";
+import DwDate from "./DwDate";
+
+interface FormValues {
   fullName: string;
   email: string;
   password: string;
   description: string;
   isMarried: boolean;
+  subject: string;
+  gender: string;
+  dob: Date;
+  date: object | null;
 }
 
 const DwForm = () => {
-  const initialValues: IFormValues = {
+  const initialValues = {
     fullName: "",
     email: "",
     password: "",
     description: "",
     isMarried: false,
-  };
-
-  const submitValue = (
-    values: IFormValues
-    // actions: FormikHelpers<FormValues>
-  ) => {
-    console.log("Values", values);
+    subject: "",
+    gender: "",
+    dob: new Date(),
   };
 
   const validationSchema = yup.object({
@@ -40,23 +45,28 @@ const DwForm = () => {
       .required("Password is required"),
     description: yup.string().required("Please fill in description"),
     isMarried: yup.boolean().required("Please verify your marital status"),
-    // dob: yup.date().required("Please select your date of birth")
+    subject: yup.string().required("Subject hasn't been selected yet"),
+    gender: yup.string().required("Please select your gender"),
+    dob: yup.date().required("Please select your date of birth"),
   });
 
-  // let genders = [
-  //   { label: "Male", value: "male" },
-  //   { label: "Female", value: "female" },
-  //   { label: "Others", value: "others" },
-  // ];
+  const genders = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+    { label: "Others", value: "others" },
+  ];
 
-  // let countries = [
-  //   { label: "Select Country", _id: " ", disabled: true },
-  //   { label: "Nepal", _id: "1" },
-  //   { label: "India", _id: "2" },
-  //   { label: "England", _id: "3" },
-  //   { label: "Australia", _id: "4" },
-  //   { label: "USA", _id: "5" },
-  // ];
+  const subjects = [
+    { label: "Math", value: "Math" },
+    { label: "Javascript", value: "Javascript" },
+    { label: "Physics", value: "Physics" },
+    { label: "Java", value: "Java" },
+    { label: "Express.js", value: "Express.js" },
+  ];
+
+  const submitValue = (values: FormValues) => {
+    console.log("Value", values);
+  };
 
   return (
     <div>
@@ -72,7 +82,7 @@ const DwForm = () => {
                 name="fullName"
                 label="Full Name"
                 type="text"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                onChange={(e) => {
                   formik.setFieldValue("fullName", e.target.value);
                 }}
               ></DwInput>
@@ -81,26 +91,33 @@ const DwForm = () => {
                 name="email"
                 label="Email"
                 type="email"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                onChange={(e) => {
                   formik.setFieldValue("email", e.target.value);
                 }}
               ></DwInput>
 
-              <DwInput
+              <DwHideAndShowPass
                 name="password"
                 label="Password"
-                type="password"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                onChange={(e) => {
                   formik.setFieldValue("password", e.target.value);
                 }}
-              ></DwInput>
+              ></DwHideAndShowPass>
+
+              <DwDate
+                name="dob"
+                label="D.O.B"
+                onChange={(date) => {
+                  formik.setFieldValue("dob", date.$d);
+                }}
+              ></DwDate>
 
               <DwInput
                 name="description"
                 label="Description"
                 type="text"
                 multiline={true}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                onChange={(e) => {
                   formik.setFieldValue("description", e.target.value);
                 }}
               ></DwInput>
@@ -108,13 +125,36 @@ const DwForm = () => {
               <DwCheckbox
                 name="isMarried"
                 label="Is Married ?"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                onChange={(e) => {
                   formik.setFieldValue("isMarried", e.target.checked);
                 }}
               ></DwCheckbox>
 
+              <DwSelect
+                name="subject"
+                label="Select Subject"
+                onChange={(e) => {
+                  formik.setFieldValue("subject", e.target.value);
+                }}
+                selectLabels={subjects}
+              ></DwSelect>
+
+              <DwRadio
+                name="gender"
+                label="Gender"
+                onChange={(e) => {
+                  formik.setFieldValue("gender", e.target.value);
+                }}
+                radioLabels={genders}
+              ></DwRadio>
+
               <ButtonGroup>
-                <Button type="submit" variant="contained" color="success">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="secondary"
+                  // onClick={() => alert("Button Submitted")}
+                >
                   Submit
                 </Button>
               </ButtonGroup>
