@@ -1,31 +1,71 @@
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
+import { Field, FieldProps } from "formik";
 
-const DwRadio = () => {
+interface RadioLabels {
+  label: string;
+  value: string;
+}
+interface DwRadioProps {
+  name: string;
+  label: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  [key: string]: unknown;
+  radioLabels: RadioLabels[];
+}
+
+const DwRadio: React.FC<DwRadioProps> = ({
+  name,
+  label,
+  onChange,
+  radioLabels,
+  ...props
+}) => {
   return (
     <div>
-      <RadioGroup
-        name="job-experience-group"
-        aria-labelledby="job-experience-group-label"
-        value={value}
-        onChange={handleChange}
-        row
-      >
-        <FormControlLabel
-          control={<Radio size="small" />}
-          label="0-2"
-          value="0-2"
-        />
-        <FormControlLabel
-          control={<Radio size="small" />}
-          label="2-4"
-          value="2-4"
-        />
-        <FormControlLabel
-          control={<Radio size="small" />}
-          label="4-6"
-          value="4-6"
-        />
-      </RadioGroup>
+      <Field name={name}>
+        {({ field, meta }: FieldProps) => {
+          return (
+            <div>
+              <Box>
+                <FormControl>
+                  <FormLabel id={label}>{label}</FormLabel>
+                  <RadioGroup
+                    {...field}
+                    {...props}
+                    name={name}
+                    value={meta.value}
+                    onChange={onChange ? onChange : field.onChange}
+                    aria-labelledby={label}
+                    row
+                  >
+                    {radioLabels.map((item, i) => {
+                      return (
+                        <FormControlLabel
+                          key={i}
+                          control={<Radio size="small" color="secondary" />}
+                          label={item.label}
+                          value={item.value}
+                          checked={meta.value === item.value}
+                        />
+                      );
+                    })}
+                  </RadioGroup>
+                  {meta.touched && meta.error ? (
+                    <div style={{ color: "red" }}>{meta.error}</div>
+                  ) : null}
+                </FormControl>
+              </Box>
+            </div>
+          );
+        }}
+      </Field>
     </div>
   );
 };

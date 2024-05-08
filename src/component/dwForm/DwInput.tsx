@@ -1,42 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { TextField } from "@mui/material";
 import { Field, FieldProps } from "formik";
-interface IDwInputProps {
+
+interface DwInputProps {
   name: string;
   label: string;
   type: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  multiline?: boolean;
-  [key: string]: unknown;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  multiline?: false;
 }
-const DwInput: React.FC<IDwInputProps> = ({
-  name,
-  label,
-  type,
-  onChange,
-  multiline = false,
-  ...props
-}) => {
+
+const DwInput = (props: DwInputProps) => {
   return (
     <div>
-      <Field name={name}>
+      <Field name={props.name}>
         {({ field, meta }: FieldProps) => {
-          console.log(meta);
           return (
             <div>
               <TextField
                 {...field}
                 {...props}
-                id={name}
-                name={name}
-                label={label}
-                type={type}
+                id={props.name}
+                name={props.name}
+                label={props.label}
+                type={props.type}
                 value={meta.value}
-                onChange={onChange ? onChange : field.onChange}
-                variant="standard"
-                multiline={multiline}
+                onChange={props.onChange ? props.onChange : field.onChange}
+                multiline={props.multiline}
                 rows={5}
-                maxRows={10}
+                color="secondary"
+                size="small"
               />
               {meta.touched && meta.error ? (
                 <div style={{ color: "red" }}>{meta.error}</div>
