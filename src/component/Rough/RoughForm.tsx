@@ -32,9 +32,10 @@ const RoughForm = () => {
         return (
           <Form>
             <RoughReactDropZone
-              name="Please add a file"
+              name="Drag 'n' drop some files here, or click to select files"
               fileLink={fileLink}
               onChange={(e) => {
+                console.log(e.target.value)
                 formik.setFieldValue("File", e.target.value);
               }}
               setFileLink={setFileLink}
