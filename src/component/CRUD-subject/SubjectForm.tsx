@@ -4,6 +4,7 @@ import { Button, ButtonGroup, Snackbar, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
 import DwInput from "../dwForm/DwInput";
+import { Ref } from "react-hook-form";
 
 interface Subject {
   subjectName: string;
@@ -14,6 +15,7 @@ interface Subject {
 interface IFormValues {
   buttonName: string;
   isLoading: boolean;
+  formikRef: (Ref<Subject<Subject>> | undefined) & object;
   onSubmit: (data: Subject) => void;
   subject?: Subject;
 }
@@ -21,6 +23,7 @@ interface IFormValues {
 const SubjectForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
+  formikRef = {},
   onSubmit = () => {},
   subject = {},
 }) => {
@@ -46,6 +49,7 @@ const SubjectForm: React.FC<IFormValues> = ({
     <div>
       <Formik
         initialValues={initialValues}
+        innerRef={formikRef}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         enableReinitialize={true}

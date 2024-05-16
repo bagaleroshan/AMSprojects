@@ -1,11 +1,9 @@
-import { useEffect } from "react";
-import { resetForm } from "../../features/subjectSlice";
+import { useEffect, useRef } from "react";
+// import { useNavigate } from "react-router-dom";
 import { useCreateSubjectMutation } from "../../services/api/SubjectService";
 import SubjectForm from "./SubjectForm";
-import { useDispatch } from "react-redux";
-import { FormikHelpers } from "formik";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Subject {
   subjectName: string;
@@ -13,6 +11,10 @@ interface Subject {
   numberOfClasses: number;
 }
 const CreateSubject = () => {
+  // const navigate = useNavigate();
+  const formikRef = useRef();
+  // console.log("FOrmik Ref ...", typeof formikRef);
+
   const [
     createSubject,
     {
@@ -23,31 +25,30 @@ const CreateSubject = () => {
     },
   ] = useCreateSubjectMutation();
 
-  const navigate = useNavigate();
   const submitValue = async (values: Subject) => {
     createSubject(values);
   };
 
   useEffect(() => {
     if (isSuccessCreateSubject) {
-      navigate("/subjects");
+      formikRef?.current?.resetForm();
+      toast("Subject created successfully");
+      // navigate("/subjects");
     }
   });
 
   useEffect(() => {
-    if (isErrorCreateSubject) console.log("***", errorCreateSubject.error);
-
-    // toast("Error:", errorCreateSubject);
+    if (isErrorCreateSubject) toast("Error:", errorCreateSubject);
   }, [isErrorCreateSubject, errorCreateSubject]);
 
   return (
     <>
-      <ToastContainer></ToastContainer>
       <div>
         {
           <SubjectForm
             buttonName="Create Subject"
             isLoading={isLoadingCreateSubject}
+            formikRef={formikRef}
             onSubmit={submitValue}
           ></SubjectForm>
         }
