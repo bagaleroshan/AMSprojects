@@ -8,7 +8,7 @@ import DwInput from "./DwInput";
 import DwRadio from "./DwRadio";
 import DwSelect from "./DwSelect";
 
-interface FormValues {
+interface IFormValues {
   fullName: string;
   email: string;
   password: string;
@@ -18,6 +18,7 @@ interface FormValues {
   gender: string;
   dob: Date;
   date: object | null;
+  multiline?: boolean;
 }
 
 const DwForm = () => {
@@ -30,6 +31,7 @@ const DwForm = () => {
     subject: "",
     gender: "",
     dob: new Date(),
+    date: Date,
   };
 
   const validationSchema = yup.object({
@@ -63,7 +65,7 @@ const DwForm = () => {
     { label: "Express.js", value: "Express.js" },
   ];
 
-  const submitValue = (values: FormValues) => {
+  const submitValue = (values: IFormValues) => {
     console.log("Value", values);
   };
 
@@ -148,12 +150,7 @@ const DwForm = () => {
               ></DwRadio>
 
               <ButtonGroup>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="secondary"
-                  // onClick={() => alert("Button Submitted")}
-                >
+                <Button type="submit" variant="contained" color="secondary">
                   Submit
                 </Button>
               </ButtonGroup>

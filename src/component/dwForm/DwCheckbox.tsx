@@ -40,5 +40,4 @@ const DwCheckbox: React.FC<IDwCheckboxProps> = ({
     </div>
   );
 };
-
 export default DwCheckbox;

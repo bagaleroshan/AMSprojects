@@ -6,7 +6,7 @@ interface ISelectLabels {
   value: string;
 }
 
-interface DwSelectProps {
+interface IDwSelectProps {
   name: string;
   label: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +14,7 @@ interface DwSelectProps {
   selectLabels: ISelectLabels[];
 }
 
-const DwSelect: React.FC<DwSelectProps> = ({
+const DwSelect: React.FC<IDwSelectProps> = ({
   name,
   label,
   onChange,

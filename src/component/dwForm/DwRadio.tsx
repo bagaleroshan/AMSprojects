@@ -16,8 +16,8 @@ interface IDwRadioProps {
   name: string;
   label: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  [key: string]: unknown;
   radioLabels: IRadioLabels[];
+  [key: string]: unknown;
 }
 
 const DwRadio: React.FC<IDwRadioProps> = ({
