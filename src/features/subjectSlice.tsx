@@ -3,21 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 interface SubjectState {
   subjectName: string;
   subjectCode: string;
-  noOfClasses: number;
+  numberOfClasses: number;
 }
 
-const initialStateValue: SubjectState = {
-  subjectName: "Say MERN",
-  subjectCode: "MRN-20",
-  noOfClasses: 0,
+const initialState: SubjectState = {
+  subjectName: "",
+  subjectCode: "",
+  numberOfClasses: 0,
 };
 
 export const subjectSlice = createSlice({
   name: "subject",
-  initialState: initialStateValue,
-  reducers: {},
+  initialState,
+  reducers: {
+    resetForm() {
+      return initialState;
+    },
+  },
 });
 
-// export const {} = subjectSlice.actions;
+export const { resetForm } = subjectSlice.actions;
 
 export default subjectSlice.reducer;

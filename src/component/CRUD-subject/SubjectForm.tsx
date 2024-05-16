@@ -1,4 +1,6 @@
-import { Button, ButtonGroup } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import { LoadingButton } from "@mui/lab";
+import { Button, ButtonGroup, Snackbar, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
 import DwInput from "../dwForm/DwInput";
@@ -6,18 +8,18 @@ import DwInput from "../dwForm/DwInput";
 interface Subject {
   subjectName: string;
   subjectCode: string;
-  noOfClasses: number;
+  numberOfClasses: number;
 }
 
 interface IFormValues {
   buttonName: string;
   isLoading: boolean;
-  onSubmit: (data: FormData) => void;
-  subject: Subject;
+  onSubmit: (data: Subject) => void;
+  subject?: Subject;
 }
 
 const SubjectForm: React.FC<IFormValues> = ({
-  buttonName = "Create Product",
+  buttonName = "Create",
   isLoading = false,
   onSubmit = () => {},
   subject = {},
@@ -25,16 +27,19 @@ const SubjectForm: React.FC<IFormValues> = ({
   const initialValues: Subject = {
     subjectName: subject.subjectName || "",
     subjectCode: subject.subjectCode || "",
-    noOfClasses: subject.noOfClasses || 0,
+    numberOfClasses: subject.numberOfClasses || 0,
   };
 
   const validationSchema = yup.object({
     subjectName: yup
       .string()
       .min(2, "Subject name should be of minimum 2 characters length")
-      .required("Full name is required"),
+      .required("Subject name is required"),
     subjectCode: yup.string().required("Subject Code is required"),
-    noOfClasses: yup.number().required("Please choose the number of classes"),
+    numberOfClasses: yup
+      .number()
+      .min(1, "You should atleast have 1 classes")
+      .required("Please choose the number of classes"),
   });
 
   return (
@@ -43,42 +48,73 @@ const SubjectForm: React.FC<IFormValues> = ({
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
+        enableReinitialize={true}
       >
         {(formik) => {
           return (
             <Form>
-              <DwInput
-                name="subjectName"
-                label="Subject Name"
-                type="text"
-                onChange={(e) => {
-                  formik.setFieldValue("subjectName", e.target.value);
-                }}
-              ></DwInput>
+              <Stack
+                spacing={2}
+                alignItems="center"
+                sx={{ marginTop: "10px", padding: "16px" }}
+              >
+                <DwInput
+                  name="subjectName"
+                  label="Subject Name"
+                  type="text"
+                  onChange={(e) => {
+                    formik.setFieldValue("subjectName", e.target.value);
+                  }}
+                  isLoading={isLoading}
+                ></DwInput>
 
-              <DwInput
-                name="subjectCode"
-                label="Subject Code"
-                type="text"
-                onChange={(e) => {
-                  formik.setFieldValue("subjectCode", e.target.value);
-                }}
-              ></DwInput>
+                <DwInput
+                  name="subjectCode"
+                  label="Subject Code"
+                  type="text"
+                  onChange={(e) => {
+                    formik.setFieldValue("subjectCode", e.target.value);
+                  }}
+                  isLoading={isLoading}
+                ></DwInput>
 
-              <DwInput
-                name="noOfClasses"
-                label="No.of Classes"
-                type="number"
-                onChange={(e) => {
-                  formik.setFieldValue("noOfClasses", e.target.value);
-                }}
-              ></DwInput>
+                <DwInput
+                  name="numberOfClasses"
+                  label="No.of Classes"
+                  type="number"
+                  onChange={(e) => {
+                    formik.setFieldValue("numberOfClasses", e.target.value);
+                  }}
+                  isLoading={isLoading}
+                ></DwInput>
 
-              <ButtonGroup>
-                <Button type="submit" variant="contained" color="secondary">
-                  {isLoading ? "...loading" : buttonName}
-                </Button>
-              </ButtonGroup>
+                {isLoading ? (
+                  <LoadingButton
+                    loading
+                    endIcon={<SendIcon />}
+                    loadingPosition="end"
+                    type="submit"
+                    sx={{
+                      backgroundColor: "secondary.main",
+                      // marginTop: "10px",
+                    }}
+                  >
+                    CREATING....
+                  </LoadingButton>
+                ) : (
+                  <ButtonGroup>
+                    {
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                      >
+                        {buttonName}
+                      </Button>
+                    }
+                  </ButtonGroup>
+                )}
+              </Stack>
             </Form>
           );
         }}

@@ -7,6 +7,7 @@ interface IDwInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   multiline?: false;
   [key: string]: unknown;
+  isLoading: boolean;
 }
 const DwInput: React.FC<IDwInputProps> = ({
   name,
@@ -14,6 +15,7 @@ const DwInput: React.FC<IDwInputProps> = ({
   type,
   onChange,
   multiline,
+  isLoading,
   ...props
 }) => {
   return (
@@ -35,6 +37,7 @@ const DwInput: React.FC<IDwInputProps> = ({
                 rows={5}
                 color="secondary"
                 size="small"
+                disabled={isLoading}
               />
               {meta.touched && meta.error ? (
                 <div style={{ color: "red" }}>{meta.error}</div>
