@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAsyncDebounce } from "react-table";
+interface IGlobalFilterProps {
+  filter: string;
+  setFilter: (value: string | undefined) => void;
+}
 
-const GlobalFilter = ({ filter, setFilter }) => {
+const GlobalFilter: React.FC<IGlobalFilterProps> = ({ filter, setFilter }) => {
   const [value, setValue] = useState(filter);
   const onChange = useAsyncDebounce((value) => {
     setFilter(value || undefined);

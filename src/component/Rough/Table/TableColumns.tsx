@@ -1,3 +1,4 @@
+
 export const TableColumns = [
   {
     Header: "Id",
@@ -12,14 +13,18 @@ export const TableColumns = [
     Header: "Code",
     accessor: "code",
   },
-  {
-    Header: "Action",
-    accessor: "action",
-    Cell: (
-      <div>
-        <button>edit</button>
-        <button>delete</button>
-      </div>
-    ),
-  },
+  // {
+  //   Header: "Action",
+  //   accessor: "action",
+  //   // Cell: (
+  //   //   <div>
+  //   //     <button>
+  //   //       <BsFillTrashFill />
+  //   //     </button>
+  //   //     <button>
+  //   //       <BsFillPencilFill />
+  //   //     </button>
+  //   //   </div>
+  //   // ),
+  // },
 ];
