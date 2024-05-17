@@ -9,7 +9,7 @@ interface ISelectLabels {
 interface IDwSelectProps {
   name: string;
   label: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   [key: string]: unknown;
   selectLabels: ISelectLabels[];
 }
