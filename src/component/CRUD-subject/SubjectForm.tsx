@@ -9,7 +9,7 @@ import { Ref } from "react-hook-form";
 interface Subject {
   subjectName: string;
   subjectCode: string;
-  numberOfClasses: number;
+  numberOfClasses: number | string;
 }
 
 interface IFormValues {
@@ -30,18 +30,24 @@ const SubjectForm: React.FC<IFormValues> = ({
   const initialValues: Subject = {
     subjectName: subject.subjectName || "",
     subjectCode: subject.subjectCode || "",
-    numberOfClasses: subject.numberOfClasses || 0,
+    numberOfClasses: subject.numberOfClasses || "",
   };
 
   const validationSchema = yup.object({
     subjectName: yup
       .string()
-      .min(2, "Subject name should be of minimum 2 characters length")
+      .min(3)
+      .max(100)
       .required("Subject name is required"),
-    subjectCode: yup.string().required("Subject Code is required"),
+    subjectCode: yup
+      .string()
+      .min(3)
+      .max(30)
+      .required("Subject Code is required"),
     numberOfClasses: yup
       .number()
-      .min(1, "You should atleast have 1 classes")
+      .min(10, "You should at least have 10 classes")
+      .max(500)
       .required("Please choose the number of classes"),
   });
 

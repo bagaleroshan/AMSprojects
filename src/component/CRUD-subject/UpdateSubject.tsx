@@ -22,14 +22,14 @@ const UpdateSubject = () => {
     },
   ] = useUpdateSubjectMutation();
 
-  //   const {
-  //     isError: isErrorReadSubjectById,
-  //     error: isErrorReadSubjectById,
-  //     data: dataReadById,
-  //   } = useReadSubjectByIdQuery(params.id);
+  const {
+    isError: isErrorReadSubjectById,
+    error: isErrorReadSubjectById,
+    data: dataReadById,
+  } = useReadSubjectByIdQuery(params.id);
 
-  //   let subject = dataReadById?.result || {};
-  // console.log(subject)
+  let subject = dataReadById?.result || {};
+  console.log(subject);
 
   const submitValue = async (values: Subject) => {
     updateSubject({ id: params.id, body: values });
@@ -44,9 +44,9 @@ const UpdateSubject = () => {
     if (isSuccessUpdateSubject) console.log("Subject Updated Successfully");
   }, [isSuccessUpdateSubject]);
 
-  //   useEffect(() => {
-  //     if (isErrorReadSubjectById) console.log(errorReadSubjectById.error);
-  //   }, [isErrorReadSubjectById, errorReadSubjectById]);
+  useEffect(() => {
+    if (isErrorReadSubjectById) console.log(errorReadSubjectById.error);
+  }, [isErrorReadSubjectById, errorReadSubjectById]);
 
   return (
     <div id="updateSubjects">
