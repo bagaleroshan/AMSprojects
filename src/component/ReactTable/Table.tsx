@@ -13,9 +13,10 @@ import {
   useTable,
 } from "react-table";
 import "./table.css";
-import { TableColumns } from "./TableColumns";
+import { TableColumns } from "./TableColumn";
 import { Checkbox } from "./Checkbox";
-import { useReadSubjectsQuery } from "../../../services/api/SubjectService";
+import { useReadSubjectsQuery } from "../../services/api/SubjectService";
+
 interface IData {
   id: number;
   name: string;
@@ -24,17 +25,8 @@ interface IData {
 type TableInstanceWithGlobalFilter<T extends object> = TableState<T> & {
   globalFilter: string;
 };
-type TableInstanceWithSelection<T extends object> = TableInstance<T> & {
-  toggleAllRowsSelected: (checked: boolean) => void;
-  getToggleAllRowsSelectedProps: () => {
-    onChange: () => void;
-    checked: boolean;
-    indeterminate: boolean;
-  };
-};
-
 type TableInstanceWithPaginationAndGlobalFilter<T extends object> =
-  TableInstanceWithSelection<T> & {
+  TableInstance<T> & {
     state: TableInstanceWithGlobalFilter<T> & UsePaginationState<T>;
     page: Row<T>[];
     nextPage: () => void;
@@ -49,6 +41,8 @@ type TableInstanceWithPaginationAndGlobalFilter<T extends object> =
     selectedFlatRows: Row<T>[];
   };
 const Tables: React.FC = () => {
+  const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
+
   const {
     isError: isErrorReadSubjects,
     isSuccess: isSuccessReadSubjects,
@@ -61,39 +55,12 @@ const Tables: React.FC = () => {
       console.log("****", errorReadSubjects?.error);
     }
   }, [isErrorReadSubjects, errorReadSubjects?.error]);
-  console.log(dataReadSubjects?.result, "***********111");
-
+  // console.log(dataReadSubjects?.result, "***********111");
   // let page=dataReadSubjects?.result
   const columns: Column<IData>[] = useMemo(
     () => TableColumns as Column<IData>[],
     []
   );
-  // const data: IData[] = useMemo(
-  //   () => [
-  //     {
-  //       id: 1,
-  //       name: "JAVASCRIPT",
-  //       code: "JS",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "JAVA",
-  //       code: "J",
-  //     },
-  //     {
-  //       id: 21,
-  //       name: "PYTHON",
-  //       code: "PY",
-  //     },
-  //     {
-  //       id: 22,
-  //       name: "C",
-  //       code: "c",
-  //     },
-  //   ],
-  //   []
-  // );
-
   const data: IData[] = useMemo(() => {
     if (dataReadSubjects?.result) {
       return dataReadSubjects?.result;
@@ -101,7 +68,12 @@ const Tables: React.FC = () => {
       return [];
     }
   }, [JSON.stringify(dataReadSubjects)]);
-  const [editButtonVisible, setEditButtonVisible] = useState(false);
+  const handleRowClick = (row: Row<IData>) => {
+    row.toggleRowSelected();
+    setSelectedRowId(
+      row.original.id === selectedRowId ? null : row.original.id
+    );
+  };
   const {
     getTableProps,
     getTableBodyProps,
@@ -127,8 +99,11 @@ const Tables: React.FC = () => {
         TableState<IData>
       >,
       stateReducer: (newState, action) => {
-        if (action.type === "toggleRowSelected") {
-          setEditButtonVisible(Object.keys(newState.selectedRowIds).length > 0);
+        if (
+          action.type === "toggleRowSelected" ||
+          action.type === "toggleAllRowsSelected"
+        ) {
+          // No need to manage a separate state for button visibility
         }
         return newState;
       },
@@ -150,6 +125,7 @@ const Tables: React.FC = () => {
     }
   ) as TableInstanceWithPaginationAndGlobalFilter<IData>;
   const { pageIndex, pageSize, globalFilter } = state;
+  const selectedRowsCount = selectedFlatRows.length;
   return (
     <>
       <input
@@ -157,9 +133,20 @@ const Tables: React.FC = () => {
         onChange={(e) => setGlobalFilter(e.target.value || undefined)}
         placeholder="Search..."
       />
-      {/* <button>add</button> */}
-      {editButtonVisible && (
-        <button onClick={() => console.log("edit button clicked")}>edit</button>
+      {selectedRowsCount === 1 && (
+        <>
+          <button onClick={() => console.log("edit button clicked")}>
+            <i className="fas fa-edit"></i> Edit
+          </button>
+          <button onClick={() => console.log("delete button clicked")}>
+            <i className="fas fa-trash-alt"></i> Delete
+          </button>
+        </>
+      )}
+      {selectedRowsCount > 1 && (
+        <button onClick={() => console.log("delete button clicked")}>
+          <i className="fas fa-trash-alt"></i> Delete
+        </button>
       )}
       <table {...getTableProps()}>
         <thead>
@@ -176,10 +163,19 @@ const Tables: React.FC = () => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row: Row<IData>, rowIndex) => {
+          {page.map((row: Row<IData>) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} key={rowIndex}>
+              <tr
+                {...row.getRowProps()}
+                key={row.id}
+                onClick={() => handleRowClick(row)}
+                style={{
+                  backgroundColor:
+                    selectedRowId === row.original.id ? "#F2F2F2" : "",
+                  cursor: "pointer",
+                }}
+              >
                 {row.cells.map((cell: Cell<IData>) => (
                   <td {...cell.getCellProps()} key={cell.column.id}>
                     {cell.render("Cell")}
@@ -234,18 +230,6 @@ const Tables: React.FC = () => {
           {">>"}
         </button>
       </div>
-
-      {/* <pre>
-        <code>
-          {JSON.stringify(
-            {
-              selectedFlatRows: selectedFlatRows.map((row) => row.original),
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre> */}
     </>
   );
 };

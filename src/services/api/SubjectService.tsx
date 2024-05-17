@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 /* interface Subject {
   subjectName: string;
   subjectCode: string;
@@ -14,6 +13,17 @@ export const SubjectApi = createApi({
   tagTypes: ["readSubjects", "readSubjectsById"],
 
   endpoints: (builder) => ({
+    readSubjects: builder.query({
+      query: () => {
+        return {
+          url: "/subjects",
+          method: "GET",
+        };
+      },
+      //tag2. provideTag
+      providesTags: ["readSubjects"],
+    }),
+
     createSubject: builder.mutation({
       query: (body) => {
         return {
@@ -34,16 +44,6 @@ export const SubjectApi = createApi({
       },
       invalidatesTags: ["readSubjects", "readSubjectsById"],
     }),
-
-    // readSubjects: builder.query({
-    //   query: () => {
-    //     return {
-    //       url: "/subjects",
-    //       method: "GET",
-    //     };
-    //   },
-    //   providesTags: ["readSubjects"],
-    // }),
 
     // readSubjectById: builder.query({
     //   query: (id) => {
@@ -73,5 +73,8 @@ export const SubjectApi = createApi({
 //   useReadSubjectByIdQuery,
 //   useDeleteSubjectMutation,
 // } = SubjectApi;
-export const { useCreateSubjectMutation, useUpdateSubjectMutation } =
-  SubjectApi;
+export const {
+  useCreateSubjectMutation,
+  useUpdateSubjectMutation,
+  useReadSubjectsQuery,
+} = SubjectApi;

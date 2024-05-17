@@ -1,17 +1,16 @@
-
 export const TableColumns = [
   {
     Header: "Id",
-    accessor: "id",
+    accessor: "_id",
   },
   {
-    Header: "Name",
-    accessor: "name",
+    Header: "Subject Name",
+    accessor: "subjectName",
   },
 
   {
-    Header: "Code",
-    accessor: "code",
+    Header: "Subject Code",
+    accessor: "subjectCode",
   },
   // {
   //   Header: "Action",
