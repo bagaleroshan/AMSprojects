@@ -12,8 +12,8 @@ interface Subject {
 }
 const CreateSubject = () => {
   // const navigate = useNavigate();
-  const formikRef = useRef();
-  // console.log("FOrmik Ref ...", typeof formikRef);
+  const formikRef = useRef<null>(null);
+  // console.log("FOrmik Ref ...", formikRef);
 
   const [
     createSubject,
@@ -38,7 +38,7 @@ const CreateSubject = () => {
   });
 
   useEffect(() => {
-    if (isErrorCreateSubject) toast("Error:", errorCreateSubject);
+    if (isErrorCreateSubject) toast.error(errorCreateSubject.data.message);
   }, [isErrorCreateSubject, errorCreateSubject]);
 
   return (
