@@ -1,3 +1,5 @@
+import Tables from "./Table/Tables";
+
 const App = () => {
   return (
     <>
@@ -5,7 +7,7 @@ const App = () => {
       {/* <DateAndTime></DateAndTime> */}
       {/* <RoughForm></RoughForm> */}
       {/* <DateAndTimeDemo></DateAndTimeDemo>*/}
-      {/* <Tables /> */}
+      <Tables />
     </>
   );
 };
