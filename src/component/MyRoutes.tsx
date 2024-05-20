@@ -1,6 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import MyNavBar from "./MyNavbar";
-import CreateSubject from "./CRUD-subject/CreateSubject";
+import CreateSubject from "./subject/CreateSubject";
 
 const MyRoutes = () => {
   return (
