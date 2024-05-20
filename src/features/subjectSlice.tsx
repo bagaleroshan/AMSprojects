@@ -15,13 +15,9 @@ const initialState: SubjectState = {
 export const subjectSlice = createSlice({
   name: "subject",
   initialState,
-  reducers: {
-    resetForm() {
-      return initialState;
-    },
-  },
+  reducers: {},
 });
 
-export const { resetForm } = subjectSlice.actions;
+// export const { resetForm } = subjectSlice.actions;
 
 export default subjectSlice.reducer;
