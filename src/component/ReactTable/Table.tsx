@@ -12,10 +12,10 @@ import {
   useRowSelect,
   useTable,
 } from "react-table";
-import "./table.css";
-import { TableColumns } from "./TableColumn";
-import { Checkbox } from "./Checkbox";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
+import { Checkbox } from "./Checkbox";
+import { TableColumns } from "./TableColumn";
+import "./table.css";
 
 interface IData {
   id: number;
@@ -63,7 +63,7 @@ const Tables: React.FC = () => {
   );
   const data: IData[] = useMemo(() => {
     if (dataReadSubjects?.result) {
-      return dataReadSubjects?.result;
+      return dataReadSubjects?.result.results;
     } else {
       return [];
     }

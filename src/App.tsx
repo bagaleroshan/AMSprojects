@@ -37,10 +37,10 @@ const App = () => {
             ></Route>
 
             <Route path="update" element={<Outlet></Outlet>}>
-              <Route
+              {/* <Route
                 path=":id"
                 element={<UpdateSubject></UpdateSubject>}
-              ></Route>
+              ></Route> */}
             </Route>
           </Route>
         </Route>
