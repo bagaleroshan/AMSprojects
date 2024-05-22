@@ -24,6 +24,7 @@ const MyNavBar = () => {
           <Button color="inherit" href="/subjects/create">
             Create Subjects
           </Button>
+
           <Button color="inherit" href="/subjects/update">
             Update Subjects
           </Button>
