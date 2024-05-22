@@ -36,12 +36,12 @@ const App = () => {
               element={<CreateSubject></CreateSubject>}
             ></Route>
 
-            <Route path="update" element={<Outlet></Outlet>}>
+            {/* <Route path="update" element={<Outlet></Outlet>}>
               <Route
                 path=":id"
                 element={<UpdateSubject></UpdateSubject>}
               ></Route>
-            </Route>
+            </Route> */}
           </Route>
         </Route>
       </Routes>

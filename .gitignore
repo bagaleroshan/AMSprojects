@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env
+.package-lock.json
 #Rough (it is jus a normal folder where practice is node you cna remove Rough in .gitgnore)
 # Rough
 .gitignore

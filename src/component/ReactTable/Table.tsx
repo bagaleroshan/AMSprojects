@@ -16,7 +16,7 @@ import "./table.css";
 import { TableColumns } from "./TableColumn";
 import { Checkbox } from "./Checkbox";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
-
+import ReactPaginate from "react-paginate";
 interface IData {
   id: number;
   name: string;
@@ -63,7 +63,7 @@ const Tables: React.FC = () => {
   );
   const data: IData[] = useMemo(() => {
     if (dataReadSubjects?.result) {
-      return dataReadSubjects?.result;
+      return dataReadSubjects?.result.results;
     } else {
       return [];
     }
@@ -98,6 +98,8 @@ const Tables: React.FC = () => {
       initialState: { pageIndex: 0, globalFilter: "" } as Partial<
         TableState<IData>
       >,
+      manualPagination: true,
+
       stateReducer: (newState, action) => {
         if (
           action.type === "toggleRowSelected" ||
@@ -187,6 +189,7 @@ const Tables: React.FC = () => {
         </tbody>
       </table>
       <div>
+        <ReactPaginate></ReactPaginate>
         <span>
           Page{" "}
           <strong>
