@@ -16,6 +16,7 @@ import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { Checkbox } from "./Checkbox";
 import { TableColumns } from "./TableColumn";
 import "./table.css";
+import { current } from "@reduxjs/toolkit";
 
 interface IData {
   id: number;
@@ -42,14 +43,18 @@ type TableInstanceWithPaginationAndGlobalFilter<T extends object> =
   };
 const Tables: React.FC = () => {
   const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
-
+  const [query, setQuery] = useState({
+    page: 1,
+    limit: 10,
+    findQuery: "",
+  });
   const {
     isError: isErrorReadSubjects,
-    isSuccess: isSuccessReadSubjects,
-    isLoading: isLoadingReadSubjects,
+    // isSuccess: isSuccessReadSubjects,
+    // isLoading: isLoadingReadSubjects,
     data: dataReadSubjects,
     error: errorReadSubjects,
-  } = useReadSubjectsQuery();
+  } = useReadSubjectsQuery(query);
   useEffect(() => {
     if (isErrorReadSubjects) {
       console.log("****", errorReadSubjects?.error);
@@ -68,6 +73,8 @@ const Tables: React.FC = () => {
       return [];
     }
   }, [JSON.stringify(dataReadSubjects)]);
+
+  console.log("*******", data);
   const handleRowClick = (row: Row<IData>) => {
     row.toggleRowSelected();
     setSelectedRowId(
@@ -79,9 +86,9 @@ const Tables: React.FC = () => {
     getTableBodyProps,
     headerGroups,
     page,
-    nextPage,
-    previousPage,
-    canNextPage,
+    // nextPage,
+    // previousPage,
+    // canNextPage,
     canPreviousPage,
     pageOptions,
     gotoPage,
@@ -98,6 +105,10 @@ const Tables: React.FC = () => {
       initialState: { pageIndex: 0, globalFilter: "" } as Partial<
         TableState<IData>
       >,
+      manualPagination: true,
+      manualSortBy: true,
+      manualFilters: true,
+      autoResetSortBy: false,
       stateReducer: (newState, action) => {
         if (
           action.type === "toggleRowSelected" ||
@@ -124,13 +135,21 @@ const Tables: React.FC = () => {
       ]);
     }
   ) as TableInstanceWithPaginationAndGlobalFilter<IData>;
-  const { pageIndex, pageSize, globalFilter } = state;
+
+  const { pageIndex } = state;
   const selectedRowsCount = selectedFlatRows.length;
+
+  console.log("page is ", page);
   return (
     <>
       <input
-        value={globalFilter || ""}
-        onChange={(e) => setGlobalFilter(e.target.value || undefined)}
+        value={query.findQuery || ""}
+        onChange={(e) => {
+          setQuery({
+            ...query,
+            findQuery: e.target.value,
+          });
+        }}
         placeholder="Search..."
       />
       {selectedRowsCount === 1 && (
@@ -193,7 +212,7 @@ const Tables: React.FC = () => {
             {pageIndex + 1} of {pageOptions.length}
           </strong>{" "}
         </span>
-        <span>
+        {/* <span>
           | Go to page:{" "}
           <input
             type="number"
@@ -206,29 +225,48 @@ const Tables: React.FC = () => {
             }}
             style={{ width: "50px" }}
           />
-        </span>
+        </span> */}
         <select
-          value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
+          value={query.limit}
+          onChange={(e) => {
+            setQuery((prevQuery) => ({
+              ...prevQuery,
+              limit: parseInt(e.target.value),
+            }));
+          }}
         >
-          {[10, 25, 50].map((size) => (
+          {[...new Set([10, 15, 50])].map((size) => (
             <option key={size} value={size}>
-              Show {size}
+              show {size}
             </option>
           ))}
         </select>
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {"<<"}
         </button>
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+        <button
+          onClick={() =>
+            setQuery((prevQuery) => ({
+              ...prevQuery,
+              page: prevQuery.page - 1,
+            }))
+          }
+        >
           Previous
         </button>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
+
+        <button
+          onClick={() =>
+            setQuery((prevQuery) => ({
+              ...prevQuery,
+              page: prevQuery.page + 1,
+            }))
+          }
+        >
           Next
         </button>
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {">>"}
-        </button>
+
+        <button onClick={() => gotoPage(pageCount - 1)}>{">>"}</button>
       </div>
     </>
   );
