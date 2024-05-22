@@ -18,6 +18,7 @@ const App = () => {
             </div>
           }
         >
+          {/* ********************************************* Subjects *********************************** */}
           <Route path="subjects" element={<Outlet></Outlet>}>
             {/* <Route index element={<ShowAllSubjects></ShowAllSubjects>}></Route> */}
             <Route

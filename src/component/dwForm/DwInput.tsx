@@ -7,7 +7,7 @@ interface IDwInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   multiline?: false;
   [key: string]: unknown;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 const DwInput: React.FC<IDwInputProps> = ({
   name,
