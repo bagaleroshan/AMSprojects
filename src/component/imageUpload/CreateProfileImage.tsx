@@ -1,20 +1,12 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
 import AddProfileImage from "./AddProfileImage";
-// import * as yup from "yup";
-
-interface IFormValues {
-  profileImage: string;
-}
+import { IFormValues } from "./IProfileImageInterface";
 
 const CreateProfileImage = () => {
   const initialValues = {
     profileImage: "",
   };
-
-  //   const validationSchema = yup.object({
-  //     files: yup.string(),
-  //   });
 
   const submitValue = (values: IFormValues) => {
     console.log("Value", values);
@@ -22,11 +14,7 @@ const CreateProfileImage = () => {
 
   return (
     <div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={submitValue}
-        // validationSchema={validationSchema}
-      >
+      <Formik initialValues={initialValues} onSubmit={submitValue}>
         {(formik) => {
           return (
             <Form>
