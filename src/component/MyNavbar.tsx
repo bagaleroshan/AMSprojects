@@ -21,6 +21,12 @@ const MyNavBar = () => {
         </Typography>
 
         <Stack direction="row" spacing={3}>
+          {/* ----------------- User -------------------------------- */}
+          <Button color="inherit" href="/users">
+            Register
+          </Button>
+
+          {/* ------------------ Subject ----------------------------- */}
           <Button color="inherit" href="/subjects/create">
             Create Subjects
           </Button>
@@ -28,7 +34,10 @@ const MyNavBar = () => {
             Update Subjects
           </Button>
           <Button color="inherit">Subjects</Button>
-          <Button color="inherit">Login</Button>
+
+          <Button color="inherit" href="/users/login">
+            Login
+          </Button>
         </Stack>
       </Toolbar>
     </AppBar>

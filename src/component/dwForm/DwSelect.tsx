@@ -39,7 +39,6 @@ const DwSelect: React.FC<IDwSelectProps> = ({
                   fullWidth
                   size="small"
                   color="secondary"
-                  variant="standard"
                 >
                   {selectLabels.map((item, i) => {
                     return (

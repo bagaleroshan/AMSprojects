@@ -6,7 +6,6 @@ import { IOnDropProps } from "./IProfileImageInterface";
 export function useOnDropFunction({ maxSize, name, formik }: IOnDropProps) {
   const onDrop = useCallback(
     async (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-      //accepting only one files/images
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
         if (file.size > maxSize) {
@@ -32,14 +31,12 @@ export function useOnDropFunction({ maxSize, name, formik }: IOnDropProps) {
               data: formData,
             });
             const link = resultImage.data.result;
-            // console.log(link.split("files").join(""));
             formik.setFieldValue(name, link.split("files").join(""));
           } catch (error) {
             console.log(error);
           }
         }
       }
-      // Handle any additional file rejections
       if (fileRejections.length > 0) {
         fileRejections.forEach(handleFileRejection);
       }
@@ -49,7 +46,6 @@ export function useOnDropFunction({ maxSize, name, formik }: IOnDropProps) {
         rejection.errors.forEach((error) => {
           console.error(`-${error.code}: ${error.message}`);
         });
-        // Optionally display an error message to the user
         displayFileRejectionMessage(rejection);
       }
     },
@@ -60,14 +56,13 @@ export function useOnDropFunction({ maxSize, name, formik }: IOnDropProps) {
     maxSize,
     accept: {
       "image/*": [".jpeg", ".jpg", ".png"],
-    }, // Adjust accepted file types here
+    },
   };
 
   const dropzoneProps = useDropzone(dropzoneOptions);
 
   return dropzoneProps;
 }
-// Function to display error messages to the user
 function displayFileRejectionMessage(rejection: FileRejection): void {
   let errorMessage = `File "${rejection.file.name}" was rejected due to the following errors:\n`;
   rejection.errors.forEach((error) => {

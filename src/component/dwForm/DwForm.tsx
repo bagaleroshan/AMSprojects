@@ -1,5 +1,6 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import * as yup from "yup";
 import DwCheckbox from "./DwCheckbox";
 import DwDate from "./DwDate";
@@ -7,8 +8,6 @@ import DwHideAndShowPass from "./DwHideAndShowPass";
 import DwInput from "./DwInput";
 import DwRadio from "./DwRadio";
 import DwSelect from "./DwSelect";
-import MuiDropzone from "./MuiDropzone";
-import { useState } from "react";
 
 interface IFormValues {
   fullName: string;
@@ -71,7 +70,7 @@ const DwForm = () => {
     console.log("Value", values);
   };
 
-  const [profileLink, setProfileLink] = useState("");
+  // const [profileLink, setProfileLink] = useState("");
 
   return (
     <div>

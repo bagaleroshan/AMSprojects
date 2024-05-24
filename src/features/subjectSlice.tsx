@@ -1,12 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ISubject } from "../component/subject/subjectInterface";
 
-interface SubjectState {
-  subjectName: string;
-  subjectCode: string;
-  numberOfClasses: number;
-}
-
-const initialState: SubjectState = {
+const initialState: ISubject = {
   subjectName: "",
   subjectCode: "",
   numberOfClasses: 0,

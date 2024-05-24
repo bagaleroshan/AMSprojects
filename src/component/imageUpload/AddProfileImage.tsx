@@ -10,7 +10,7 @@ const AddProfileImage: React.FC<IAddProfileImageProps> = ({ name, formik }) => {
   const { getRootProps, getInputProps } = useOnDropFunction({
     maxSize,
     name,
-    formik,
+    formik: formik as any,
   });
 
   const handleRemoveImage = () => {

@@ -4,13 +4,13 @@ import { FormikProps } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useCreateSubjectMutation } from "../../services/api/SubjectService";
-import SubjectForm from "./SubjectForm";
-import { ISubject } from "./subjectInterface";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import SubjectForm from "./SubjectForm";
+import { ISubject } from "./subjectInterface";
 
 const CreateSubject = () => {
   // const navigate = useNavigate();
@@ -54,7 +54,7 @@ const CreateSubject = () => {
         isLoading={isLoadingCreateSubject}
         formikRef={formikRef}
         onSubmit={submitValue}
-      ></SubjectForm>
+      />
     </>
   );
 };

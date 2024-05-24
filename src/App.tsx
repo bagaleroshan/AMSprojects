@@ -1,8 +1,9 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import MyNavBar from "./component/MyNavbar";
 import CreateSubject from "./component/subject/CreateSubject";
-import UpdateSubject from "./component/subject/UpdateSubject";
 import ReadSpecificSubject from "./component/subject/ReadSpecificSubject";
+import UpdateSubject from "./component/subject/UpdateSubject";
+import CreateUser from "./component/user/CreateUser";
 // import ShowAllSubjects from "./component/CRUD-subject/ShowAllSubjects";
 
 const App = () => {
@@ -18,6 +19,11 @@ const App = () => {
             </div>
           }
         >
+          {/* ************************************** User ******************************************** */}
+          <Route path="users" element={<Outlet></Outlet>}>
+            <Route index element={<CreateUser></CreateUser>}></Route>
+          </Route>
+
           {/* ********************************************* Subjects *********************************** */}
           <Route path="subjects" element={<Outlet></Outlet>}>
             {/* <Route index element={<ShowAllSubjects></ShowAllSubjects>}></Route> */}
