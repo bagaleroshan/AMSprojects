@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Cell,
   Column,
@@ -16,16 +16,18 @@ import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { Checkbox } from "./Checkbox";
 import { TableColumns } from "./TableColumn";
 import "./table.css";
-import { current } from "@reduxjs/toolkit";
+import ReactPaginate from "react-paginate";
 
 interface IData {
   id: number;
   name: string;
   code: string;
 }
+
 type TableInstanceWithGlobalFilter<T extends object> = TableState<T> & {
   globalFilter: string;
 };
+
 type TableInstanceWithPaginationAndGlobalFilter<T extends object> =
   TableInstance<T> & {
     state: TableInstanceWithGlobalFilter<T> & UsePaginationState<T>;
@@ -41,6 +43,7 @@ type TableInstanceWithPaginationAndGlobalFilter<T extends object> =
     setGlobalFilter: (filterValue: unknown) => void;
     selectedFlatRows: Row<T>[];
   };
+
 const Tables: React.FC = () => {
   const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
   const [query, setQuery] = useState({
@@ -48,24 +51,24 @@ const Tables: React.FC = () => {
     limit: 10,
     findQuery: "",
   });
+
   const {
     isError: isErrorReadSubjects,
-    // isSuccess: isSuccessReadSubjects,
-    // isLoading: isLoadingReadSubjects,
     data: dataReadSubjects,
     error: errorReadSubjects,
   } = useReadSubjectsQuery(query);
+
   useEffect(() => {
     if (isErrorReadSubjects) {
       console.log("****", errorReadSubjects?.error);
     }
   }, [isErrorReadSubjects, errorReadSubjects?.error]);
-  // console.log(dataReadSubjects?.result, "***********111");
-  // let page=dataReadSubjects?.result
+
   const columns: Column<IData>[] = useMemo(
     () => TableColumns as Column<IData>[],
     []
   );
+
   const data: IData[] = useMemo(() => {
     if (dataReadSubjects?.result) {
       return dataReadSubjects?.result.results;
@@ -74,21 +77,18 @@ const Tables: React.FC = () => {
     }
   }, [JSON.stringify(dataReadSubjects)]);
 
-  console.log("*******", data);
   const handleRowClick = (row: Row<IData>) => {
     row.toggleRowSelected();
     setSelectedRowId(
       row.original.id === selectedRowId ? null : row.original.id
     );
   };
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     page,
-    // nextPage,
-    // previousPage,
-    // canNextPage,
     canPreviousPage,
     pageOptions,
     gotoPage,
@@ -109,37 +109,52 @@ const Tables: React.FC = () => {
       manualSortBy: true,
       manualFilters: true,
       autoResetSortBy: false,
-      stateReducer: (newState, action) => {
-        if (
-          action.type === "toggleRowSelected" ||
-          action.type === "toggleAllRowsSelected"
-        ) {
-          // No need to manage a separate state for button visibility
-        }
-        return newState;
-      },
     },
     useGlobalFilter,
     usePagination,
-    useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        {
-          id: "selection",
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <Checkbox {...getToggleAllRowsSelectedProps()} />
-          ),
-          Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
-        },
-        ...columns,
-      ]);
-    }
+    useRowSelect
   ) as TableInstanceWithPaginationAndGlobalFilter<IData>;
 
   const { pageIndex } = state;
   const selectedRowsCount = selectedFlatRows.length;
 
-  console.log("page is ", page);
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    gotoPage(selected);
+  };
+
+  const next = () => {
+    return (
+      <button
+        onClick={() =>
+          setQuery((prevQuery) => ({
+            ...prevQuery,
+            page: prevQuery.page + 1,
+          }))
+        }
+        disabled={query.page === dataReadSubjects?.result.totalPages}
+      >
+        Next
+      </button>
+    );
+  };
+  const previous = () => {
+    return (
+      <button
+        onClick={() =>
+          setQuery((prevQuery) => ({
+            ...prevQuery,
+            page: prevQuery.page - 1,
+          }))
+        }
+        disabled={query.page === 1}
+      >
+        Previous
+      </button>
+    );
+  };
+  const CountPage: number = Math.ceil(
+    dataReadSubjects?.result.totalDataInWholePage / query.limit
+  );
   return (
     <>
       <input
@@ -206,26 +221,8 @@ const Tables: React.FC = () => {
         </tbody>
       </table>
       <div>
-        <span>
-          Page{" "}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{" "}
-        </span>
-        {/* <span>
-          | Go to page:{" "}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const pageNumber = e.target.value
-                ? Number(e.target.value) - 1
-                : 0;
-              gotoPage(pageNumber);
-            }}
-            style={{ width: "50px" }}
-          />
-        </span> */}
+        page:{query.page}
+        totalPage:{dataReadSubjects?.result.totalPages}
         <select
           value={query.limit}
           onChange={(e) => {
@@ -241,34 +238,22 @@ const Tables: React.FC = () => {
             </option>
           ))}
         </select>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {"<<"}
-        </button>
-        <button
-          onClick={() =>
-            setQuery((prevQuery) => ({
-              ...prevQuery,
-              page: prevQuery.page - 1,
-            }))
-          }
-        >
-          Previous
-        </button>
-
-        <button
-          onClick={() =>
-            setQuery((prevQuery) => ({
-              ...prevQuery,
-              page: prevQuery.page + 1,
-            }))
-          }
-        >
-          Next
-        </button>
-
-        <button onClick={() => gotoPage(pageCount - 1)}>{">>"}</button>
+        <ReactPaginate
+          className="pagination-buttons"
+          previousLabel={previous()}
+          nextLabel={next()}
+          breakLabel={"..."}
+          pageCount={CountPage}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          activeClassName={"active"}
+          forcePage={query.page - 1}
+        />
       </div>
     </>
   );
 };
+
 export default Tables;
