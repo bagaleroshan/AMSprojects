@@ -6,32 +6,36 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import MuiDrawer from "./MUI/MuiDrawer";
 
 const MyNavBar = () => {
   return (
-    <AppBar position="static" color="secondary">
-      <Toolbar>
-        {
+    <>
+      <AppBar position="relative" color="secondary">
+        <Toolbar>
+          <MuiDrawer></MuiDrawer>
+
           <IconButton size="small" edge="start" aria-label="logo">
             <img src="/deerwalkLogo.png" alt="Logo" />
           </IconButton>
-        }
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          AMS
-        </Typography>
 
-        <Stack direction="row" spacing={3}>
-          <Button color="inherit" href="/subjects/create">
-            Create Subjects
-          </Button>
-          <Button color="inherit" href="/subjects/update">
-            Update Subjects
-          </Button>
-          <Button color="inherit">Subjects</Button>
-          <Button color="inherit">Login</Button>
-        </Stack>
-      </Toolbar>
-    </AppBar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            AMS
+          </Typography>
+
+          <Stack direction="row" spacing={3}>
+            <Button color="inherit" href="/subjects/create">
+              Create Subjects
+            </Button>
+            <Button color="inherit" href="/subjects/update">
+              Update Subjects
+            </Button>
+            <Button color="inherit">Subjects</Button>
+            <Button color="inherit">Login</Button>
+          </Stack>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 

@@ -1,8 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import MyNavBar from "./component/MyNavbar";
 import CreateSubject from "./component/CRUD-subject/CreateSubject";
 import UpdateSubject from "./component/CRUD-subject/UpdateSubject";
-// import ShowAllSubjects from "./component/CRUD-subject/ShowAllSubjects";
+import MyNavBar from "./component/MyNavbar";
 
 const App = () => {
   return (
@@ -13,6 +12,7 @@ const App = () => {
           element={
             <div>
               <MyNavBar></MyNavBar>
+
               <Outlet></Outlet>
             </div>
           }

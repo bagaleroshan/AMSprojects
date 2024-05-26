@@ -1,5 +1,6 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import * as yup from "yup";
 import DwCheckbox from "./DwCheckbox";
 import DwDate from "./DwDate";
@@ -7,6 +8,7 @@ import DwHideAndShowPass from "./DwHideAndShowPass";
 import DwInput from "./DwInput";
 import DwRadio from "./DwRadio";
 import DwSelect from "./DwSelect";
+import ImageInput from "../Rough/ImageInput";
 
 interface IFormValues {
   fullName: string;
@@ -32,6 +34,7 @@ const DwForm = () => {
     gender: "",
     dob: new Date(),
     date: Date,
+    image: "",
   };
 
   const validationSchema = yup.object({
@@ -65,7 +68,7 @@ const DwForm = () => {
     { label: "Express.js", value: "Express.js" },
   ];
 
-  const submitValue = (values: IFormValues) => {
+  const submitValue = (values) => {
     console.log("Value", values);
   };
 
@@ -148,6 +151,13 @@ const DwForm = () => {
                 }}
                 radioLabels={genders}
               ></DwRadio>
+
+              <ImageInput
+                name="image"
+                // formik={formik}
+                value={formik.values.image}
+                formik={formik}
+              ></ImageInput>
 
               <ButtonGroup>
                 <Button type="submit" variant="contained" color="secondary">
