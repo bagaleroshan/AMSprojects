@@ -31,6 +31,9 @@ const MyNavBar = () => {
           <Button color="inherit" href="/subjects">
             Subjects
           </Button>
+          <Button color="inherit" href="/user">
+            User
+          </Button>
           <Button color="inherit">Login</Button>
         </Stack>
       </Toolbar>

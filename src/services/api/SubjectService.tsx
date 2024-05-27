@@ -14,9 +14,9 @@ export const SubjectApi = createApi({
 
   endpoints: (builder) => ({
     readSubjects: builder.query({
-      query: () => {
+      query: (query: { page: 1; limit: 10; findQuery: "" }) => {
         return {
-          url: "/subjects",
+          url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}`,
           method: "GET",
         };
       },
@@ -77,4 +77,5 @@ export const {
   useCreateSubjectMutation,
   useUpdateSubjectMutation,
   useReadSubjectsQuery,
+  usePaginateSubjectQuery,
 } = SubjectApi;

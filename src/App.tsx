@@ -8,6 +8,7 @@ import CreateSubject from "./component/CRUD-subject/CreateSubject";
 import UpdateSubject from "./component/CRUD-subject/UpdateSubject";
 import MyNavBar from "./component/MyNavbar";
 import Table from "./component/ReactTable/Table";
+import CreateRegister from "./component/CRUD-USER/CreateRegister";
 
 const App = () => {
   return (
@@ -36,13 +37,17 @@ const App = () => {
               element={<CreateSubject></CreateSubject>}
             ></Route>
 
-            {/* <Route path="update" element={<Outlet></Outlet>}>
-              <Route
+            <Route path="update" element={<Outlet></Outlet>}>
+              {/* <Route
                 path=":id"
                 element={<UpdateSubject></UpdateSubject>}
-              ></Route>
-            </Route> */}
+              ></Route> */}
+            </Route>
           </Route>
+          <Route
+            path="user"
+            element={<CreateRegister></CreateRegister>}
+          ></Route>
         </Route>
       </Routes>
     </>
