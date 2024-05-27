@@ -15,6 +15,7 @@ import { userValidation } from "../../validation/userValidation";
 import DwInput from "../dwForm/DwInput";
 import DwSelect from "../dwForm/DwSelect";
 import { IUserFormValues, roles, userInitialValues } from "./UserInterface";
+import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
 
 const UserRegisterForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN UP",
@@ -70,7 +71,7 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                           required
                           fullWidth
                           type="email"
-                          label="Email Address"
+                          label="Email"
                           name="email"
                           autoComplete="email"
                           onChange={(e) => {
@@ -79,7 +80,7 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <DwInput
+                        <DwHideAndShowPass
                           required
                           fullWidth
                           name="password"
@@ -113,34 +114,34 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                           selectLabels={roles}
                         />
                       </Grid>
-
-                      {isLoading ? (
-                        <LoadingButton
-                          loading
-                          endIcon={<SendIcon />}
-                          loadingPosition="end"
-                          type="submit"
-                          sx={{
-                            backgroundColor: "secondary.main",
-                            mt: 3,
-                            mb: 2,
-                          }}
-                          fullWidth
-                        >
-                          SIGNING UP....
-                        </LoadingButton>
-                      ) : (
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          color="secondary"
-                          sx={{ mt: 3, mb: 2 }}
-                        >
-                          {buttonName}
-                        </Button>
-                      )}
-
+                      <Grid item xs={12}>
+                        {isLoading ? (
+                          <LoadingButton
+                            loading
+                            endIcon={<SendIcon />}
+                            loadingPosition="end"
+                            type="submit"
+                            sx={{
+                              backgroundColor: "secondary.main",
+                              mt: 3,
+                              mb: 2,
+                            }}
+                            fullWidth
+                          >
+                            SIGNING UP....
+                          </LoadingButton>
+                        ) : (
+                          <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="secondary"
+                            sx={{ mt: 3, mb: 2 }}
+                          >
+                            {buttonName}
+                          </Button>
+                        )}
+                      </Grid>
                       <Grid container justifyContent="center">
                         <Grid item>
                           <Link href="/users/login" variant="body2">

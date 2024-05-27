@@ -12,11 +12,37 @@ export const UserApi = createApi({
         return {
           url: "/users",
           method: "POST",
-          body: body,
+          body,
+        };
+      },
+    }),
+    userLogin: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/users/login",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    updatePassword: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/users/update-password",
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         };
       },
     }),
   }),
 });
 
-export const { useCreateUserMutation } = UserApi;
+export const {
+  useCreateUserMutation,
+  useUserLoginMutation,
+  useUpdatePasswordMutation,
+} = UserApi;

@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { Field, FieldProps } from "formik";
 interface IDwInputProps {
   name: string;
@@ -23,7 +23,13 @@ const DwInput: React.FC<IDwInputProps> = ({
       <Field name={name}>
         {({ field, meta }: FieldProps) => {
           return (
-            <div>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <TextField
                 {...field}
                 {...props}
@@ -40,9 +46,14 @@ const DwInput: React.FC<IDwInputProps> = ({
                 disabled={isLoading}
               />
               {meta.touched && meta.error ? (
-                <div style={{ color: "red" }}>{meta.error}</div>
+                <Typography
+                  // variant="body2"
+                  style={{ fontSize: "0.8rem", color: "red" }}
+                >
+                  {meta.error}
+                </Typography>
               ) : null}
-            </div>
+            </Box>
           );
         }}
       </Field>

@@ -1,6 +1,7 @@
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { IErrorResponse } from "../component/subject/subjectInterface";
+import { IErrorResponse } from "./utilsInterface";
+// import { IErrorResponse } from "./utilsInterface";
 
 
 export function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
@@ -11,12 +12,12 @@ export function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryEr
     return typeof error === 'object' && error !== null && 'message' in error;
   }
 
-  export function getErrorMessage(error: FetchBaseQueryError | SerializedError): string {
+  export function getErrorMessage(error: FetchBaseQueryError | SerializedError): object | number | string  {
     if (isFetchBaseQueryError(error)){
-      const data = error.data as IErrorResponse
-      return data?.message || "An unknown error has occurred !"
+      console.log("Fetch base data", error)
+      return  error?.data.message || "An unknown fetch based query error has occurred !"
     } else if (isSerializedError(error)){
-      return error?.message || "An unknown error has occurred !"
+      return error?.message || "An unknown serialized error has occurred !"
     } else{
       return "An unknown error has occurred !"
     }

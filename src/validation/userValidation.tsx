@@ -16,3 +16,26 @@ export const userValidation = yup.object({
     .required("Phone number is required"),
   role: yup.string().required("State the role"),
 });
+
+export const userLoginValidation = yup.object({
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
+});
+
+export const userUpdatePassValidation = yup.object({
+  oldPassword: yup.string().required("Old password is required"),
+  newPassword: yup
+    .string()
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Please write your new password"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("newPassword")], "Passwords must match")
+    .required("Confirm password is required"),
+});

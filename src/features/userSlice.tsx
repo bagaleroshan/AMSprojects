@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../component/user/UserInterface";
 
 const initialState: IUser = {
@@ -7,11 +7,26 @@ const initialState: IUser = {
   password: "",
   phoneNumber: "",
   role: "",
+  token: "",
 };
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setToken: (state, action: PayloadAction<string>) => {
+      // state.token = localStorage.getItem("token");
+      state.token = action.payload;
+    },
+    clearToken: (state) => {
+      state.token = null;
+    },
+    // logout: (state) => {
+    //   state.token = null;
+    //   localStorage.clear();
+    // },
+  },
 });
+
+export const { setToken, clearToken } = userSlice.actions;
 
 export default userSlice.reducer;

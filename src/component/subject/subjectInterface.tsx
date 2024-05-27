@@ -13,7 +13,3 @@ export interface IFormValues {
   onSubmit: (values: ISubject) => void;
   subject?: ISubject;
 }
-export interface IErrorResponse {
-  // data: object;
-  message: string;
-}

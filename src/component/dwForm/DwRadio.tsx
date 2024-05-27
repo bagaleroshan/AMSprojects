@@ -5,6 +5,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Typography,
 } from "@mui/material";
 import { Field, FieldProps } from "formik";
 
@@ -58,7 +59,12 @@ const DwRadio: React.FC<IDwRadioProps> = ({
                     })}
                   </RadioGroup>
                   {meta.touched && meta.error ? (
-                    <div style={{ color: "red" }}>{meta.error}</div>
+                    <Typography
+                      variant="body2"
+                      style={{ fontSize: "0.8rem", color: "red" }}
+                    >
+                      {meta.error}
+                    </Typography>
                   ) : null}
                 </FormControl>
               </Box>
