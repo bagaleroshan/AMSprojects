@@ -1,55 +1,23 @@
 import SendIcon from "@mui/icons-material/Send";
 import { LoadingButton } from "@mui/lab";
-import { Button, ButtonGroup, Snackbar, Stack } from "@mui/material";
+import { Button, ButtonGroup, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
-import * as yup from "yup";
+import { validationSchema } from "../../validation/subjectValidation";
 import DwInput from "../dwForm/DwInput";
-import { Ref } from "react-hook-form";
-
-interface Subject {
-  subjectName: string;
-  subjectCode: string;
-  numberOfClasses: number | string;
-}
-
-interface IFormValues {
-  buttonName: string;
-  isLoading: boolean;
-  formikRef: (Ref<Subject<Subject>> | undefined) & object;
-  onSubmit: (data: Subject) => void;
-  subject?: Subject;
-}
+import { IFormValues, ISubject } from "./subjectInterface";
 
 const SubjectForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  formikRef = {},
-  onSubmit = () => {},
   subject = {},
+  formikRef = undefined,
+  onSubmit = () => {},
 }) => {
-  const initialValues: Subject = {
-    subjectName: subject.subjectName || "",
-    subjectCode: subject.subjectCode || "",
-    numberOfClasses: subject.numberOfClasses || "",
+  const initialValues: ISubject = {
+    subjectName: subject?.subjectName || "",
+    subjectCode: subject?.subjectCode || "",
+    numberOfClasses: subject?.numberOfClasses || "",
   };
-
-  const validationSchema = yup.object({
-    subjectName: yup
-      .string()
-      .min(3)
-      .max(100)
-      .required("Subject name is required"),
-    subjectCode: yup
-      .string()
-      .min(3)
-      .max(30)
-      .required("Subject Code is required"),
-    numberOfClasses: yup
-      .number()
-      .min(10, "You should at least have 10 classes")
-      .max(500)
-      .required("Please choose the number of classes"),
-  });
 
   return (
     <div>

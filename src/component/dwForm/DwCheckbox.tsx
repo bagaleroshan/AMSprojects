@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
+import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { Field, FieldProps } from "formik";
 
 interface IDwCheckboxProps {
@@ -33,6 +33,14 @@ const DwCheckbox: React.FC<IDwCheckboxProps> = ({
                   />
                 }
               ></FormControlLabel>
+              {meta.touched && meta.error ? (
+                <Typography
+                  variant="body2"
+                  style={{ fontSize: "0.8rem", color: "red" }}
+                >
+                  {meta.error}
+                </Typography>
+              ) : null}
             </div>
           );
         }}

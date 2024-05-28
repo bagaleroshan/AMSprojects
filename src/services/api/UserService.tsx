@@ -4,15 +4,6 @@ export const UserApi = createApi({
   reducerPath: "UserApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
-    prepareHeaders: (headers) => {
-      const loginInfo = getUserInfo();
-      const token = loginInfo?.token;
-
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
   }),
 
   endpoints: (builder) => ({
@@ -47,19 +38,6 @@ export const UserApi = createApi({
         };
       },
     }),
-
-    resetPassword: builder.mutation({
-      query: (body,token) => {
-        return {
-          url: `/users/reset-password`,
-          method: "PATCH",
-          body,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-      },
-    }),
   }),
 });
 
@@ -67,5 +45,4 @@ export const {
   useCreateUserMutation,
   useUserLoginMutation,
   useUpdatePasswordMutation,
-  useResetPasswordMutation,
 } = UserApi;

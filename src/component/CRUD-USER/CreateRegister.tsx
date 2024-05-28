@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 // import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useCreateUserMutation } from "../../services/api/userService";
 import UserForm from "./UserForm";
+import { useCreateUserMutation } from "../../services/api/UserService";
 
 interface Subject {
   subjectName: string;

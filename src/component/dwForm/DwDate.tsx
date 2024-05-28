@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -31,7 +32,12 @@ const DwDate: React.FC<IDwDateProps> = ({
               />
             </LocalizationProvider>
             {meta.touched && meta.error ? (
-              <div style={{ color: "red" }}>{meta.error}</div>
+              <Typography
+                variant="body2"
+                style={{ fontSize: "0.8rem", color: "red" }}
+              >
+                {meta.error}
+              </Typography>
             ) : null}
           </div>
         );
