@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   useReadSubjectByIdQuery,
   useUpdateSubjectMutation,
 } from "../../services/api/SubjectService";
-import SubjectForm from "./SubjectForm";
-import { toast } from "react-toastify";
-import { ISubject } from "./subjectInterface";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import SubjectForm from "./SubjectForm";
+import { ISubject } from "./subjectInterface";
 
 const UpdateSubject = () => {
   const params = useParams();

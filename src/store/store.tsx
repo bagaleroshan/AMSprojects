@@ -3,6 +3,8 @@ import subjectSlice from "../features/subjectSlice";
 import userSlice from "../features/userSlice";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
+import studentSlice from "../features/studentSlice";
+import { StudentApi } from "../services/api/StudentApi";
 
 export const store = configureStore({
   reducer: {
@@ -13,9 +15,17 @@ export const store = configureStore({
     /*-------------------------- Subject -----------------------------------*/
     subject: subjectSlice,
     [SubjectApi.reducerPath]: SubjectApi.reducer,
+    /*-------------------------- Student -----------------------------------*/
+
+    student: studentSlice,
+    [StudentApi.reducerPath]: StudentApi.reducer,
 
     /* ------------------------------ Profile Image ----------------------------------*/
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(SubjectApi.middleware, UserApi.middleware),
+    getDefaultMiddleware().concat(
+      SubjectApi.middleware,
+      UserApi.middleware,
+      StudentApi.middleware
+    ),
 });

@@ -10,6 +10,7 @@ import UserLogin from "./component/User/UserLogin";
 import UpdatePassword from "./component/User/UpdatePassword";
 import CreateRegister from "./component/CRUD-USER/CreateRegister";
 import ResetPassword from "./component/User/ResetPassword";
+import CreateStudent from "./component/Student/CreateStudent";
 
 const App = () => {
   return (
@@ -68,6 +69,11 @@ const App = () => {
           <Route
             path="user"
             element={<CreateRegister></CreateRegister>}
+          ></Route>
+
+          <Route
+            path="students"
+            element={<CreateStudent></CreateStudent>}
           ></Route>
         </Route>
       </Routes>
