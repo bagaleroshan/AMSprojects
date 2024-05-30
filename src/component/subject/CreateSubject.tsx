@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
 import { FormikProps } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +12,6 @@ import SubjectForm from "./SubjectForm";
 import { ISubject } from "./subjectInterface";
 
 const CreateSubject = () => {
-  // const navigate = useNavigate();
   const formikRef = useRef<FormikProps<ISubject> | null>(null);
 
   const [
@@ -34,7 +32,6 @@ const CreateSubject = () => {
     if (isSuccessCreateSubject) {
       formikRef.current?.resetForm();
       toast.success("Subject created successfully");
-      // navigate("/subjects");
     }
   });
 

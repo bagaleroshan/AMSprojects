@@ -16,6 +16,7 @@ export const UserApi = createApi({
         };
       },
     }),
+
     userLogin: builder.mutation({
       query: (body) => {
         return {
@@ -38,6 +39,54 @@ export const UserApi = createApi({
         };
       },
     }),
+
+    forgotPassword: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/users/forgot-password",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    resetPassword: builder.mutation({
+      query: (body) => {
+        return {
+          url: `/users/reset-password`,
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        };
+      },
+    }),
+
+    myProfile: builder.query({
+      query: () => {
+        return {
+          url: `/users/my-profile`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        };
+      },
+    }),
+
+    updateProfile: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/users/update-profile",
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -45,4 +94,8 @@ export const {
   useCreateUserMutation,
   useUserLoginMutation,
   useUpdatePasswordMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+  useMyProfileQuery,
+  useUpdateProfileMutation,
 } = UserApi;

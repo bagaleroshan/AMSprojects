@@ -22,9 +22,8 @@ export const roles = [
 export const userInitialValues: IUser = {
   fullName: "",
   email: "",
-  password: "",
   phoneNumber: "",
-  role: "",
+  role: "teacher",
 };
 
 export interface IUserFormValues {
@@ -33,6 +32,7 @@ export interface IUserFormValues {
   formikRef?: React.Ref<FormikProps<IUser>>;
   onSubmit: (values: IUser) => void;
   user?: IUser;
+  autofocus?: boolean;
 }
 
 /* ------------------------------ User Login --------------------------------- */
@@ -46,6 +46,19 @@ export const userLoginInitialValues: IUser = {
 
 export const updatePassInitialValue: IUser = {
   oldPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+};
+
+/* ---------------------------- Forgot Password ---------------------------------------- */
+
+export const forgotPassInitialValue: IUser = {
+  email: "",
+};
+
+/* ---------------------------- Reset Password ---------------------------------------- */
+
+export const resetPassInitialValue: IUser = {
   newPassword: "",
   confirmPassword: "",
 };

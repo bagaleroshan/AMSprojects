@@ -10,13 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import { userLoginValidation } from "../../validation/userValidation";
-import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
+import { userForgotPassValidation } from "../../validation/userValidation";
 import DwInput from "../dwForm/DwInput";
-import { IUserFormValues, userLoginInitialValues } from "./UserInterface";
+import { IUserFormValues, forgotPassInitialValue } from "./UserInterface";
 
-const UserLoginForm: React.FC<IUserFormValues> = ({
-  buttonName = "SIGN IN",
+const ForgotPasswordForm: React.FC<IUserFormValues> = ({
+  buttonName = "Forgot Password",
   isLoading = false,
   formikRef = undefined,
   onSubmit = () => {},
@@ -24,10 +23,10 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
   return (
     <>
       <Formik
-        initialValues={userLoginInitialValues}
+        initialValues={forgotPassInitialValue}
         onSubmit={onSubmit}
         innerRef={formikRef}
-        validationSchema={userLoginValidation}
+        validationSchema={userForgotPassValidation}
         enableReinitialize={true}
       >
         {(formik) => {
@@ -45,10 +44,10 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                   <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                     <LockOutlinedIcon />
                   </Avatar>
-                  <Typography component="h1" variant="h5">
-                    Sign in
+                  <Typography component="h2" variant="h5">
+                    Enter your valid email:
                   </Typography>
-                  <Box sx={{ mt: 1 }}>
+                  <Box sx={{ mt: 1, width: "300px" }}>
                     <DwInput
                       margin="normal"
                       fullWidth
@@ -61,18 +60,6 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                         formik.setFieldValue("email", e.target.value);
                       }}
                       autofocus={true}
-                    />
-                    <DwHideAndShowPass
-                      margin="normal"
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      onChange={(e) => {
-                        formik.setFieldValue("password", e.target.value);
-                      }}
-                      autoComplete="current-password"
                     />
                     <Grid item xs={12}>
                       {isLoading ? (
@@ -88,7 +75,7 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                           }}
                           fullWidth
                         >
-                          SIGNING IN....
+                          SENDING EMAIL....
                         </LoadingButton>
                       ) : (
                         <Button
@@ -102,38 +89,6 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                         </Button>
                       )}
                     </Grid>
-                    <Grid container spacing={3} direction="row">
-                      <Grid item xs>
-                        <Button
-                          color="inherit"
-                          href="/forgot-password"
-                          sx={{
-                            fontSize: "0.7rem",
-                            "&:hover": {
-                              color: "blue",
-                              background: "white",
-                            },
-                          }}
-                        >
-                          Forgot password?
-                        </Button>
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          color="inherit"
-                          href="/users"
-                          sx={{
-                            fontSize: "0.7rem",
-                            "&:hover": {
-                              color: "blue",
-                              background: "white",
-                            },
-                          }}
-                        >
-                          {"Don't have an account? Sign Up"}
-                        </Button>
-                      </Grid>
-                    </Grid>
                   </Box>
                 </Box>
               </Container>
@@ -145,4 +100,4 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
   );
 };
 
-export default UserLoginForm;
+export default ForgotPasswordForm;

@@ -10,15 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
 import { userValidation } from "../../validation/userValidation";
 import DwInput from "../dwForm/DwInput";
 import DwSelect from "../dwForm/DwSelect";
 import { IUserFormValues, roles, userInitialValues } from "./UserInterface";
-import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
 
-const UserRegisterForm: React.FC<IUserFormValues> = ({
-  buttonName = "SIGN UP",
+const CreateUserForm: React.FC<IUserFormValues> = ({
+  buttonName = "CREATE",
   isLoading = false,
   formikRef = undefined,
   onSubmit = () => {},
@@ -44,11 +42,12 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                     alignItems: "center",
                   }}
                 >
-                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                     <LockOutlinedIcon />
                   </Avatar>
-                  <Typography component="h1" variant="h5">
-                    Sign up
+
+                  <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+                    {buttonName}
                   </Typography>
                   <Box sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
@@ -57,18 +56,17 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                           name="fullName"
                           label="Full Name"
                           type="text"
-                          required
                           fullWidth
                           id="firstName"
                           onChange={(e) => {
                             formik.setFieldValue("fullName", e.target.value);
                           }}
-                          autoFocus
+                          autofocus={true}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <DwInput
-                          required
                           fullWidth
                           type="email"
                           label="Email"
@@ -77,24 +75,11 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                           onChange={(e) => {
                             formik.setFieldValue("email", e.target.value);
                           }}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <DwHideAndShowPass
-                          required
-                          fullWidth
-                          name="password"
-                          label="Password"
-                          type="password"
-                          onChange={(e) => {
-                            formik.setFieldValue("password", e.target.value);
-                          }}
-                          autoComplete="new-password"
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <DwInput
-                          required
                           fullWidth
                           name="phoneNumber"
                           label="Phone Number"
@@ -102,6 +87,7 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                           onChange={(e) => {
                             formik.setFieldValue("phoneNumber", e.target.value);
                           }}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -112,6 +98,7 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                             formik.setFieldValue("role", e.target.value);
                           }}
                           selectLabels={roles}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -122,7 +109,7 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                             loadingPosition="end"
                             type="submit"
                             sx={{
-                              backgroundColor: "secondary.main",
+                              backgroundColor: "primary.main",
                               mt: 3,
                               mb: 2,
                             }}
@@ -135,18 +122,28 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="secondary"
+                            color="primary"
                             sx={{ mt: 3, mb: 2 }}
                           >
                             {buttonName}
                           </Button>
                         )}
                       </Grid>
+
                       <Grid container justifyContent="center">
                         <Grid item>
-                          <Link href="/users/login" variant="body2">
+                          <Button
+                            color="inherit"
+                            href="/login"
+                            sx={{
+                              "&:hover": {
+                                color: "blue",
+                                background: "white",
+                              },
+                            }}
+                          >
                             Already have an account? Sign in
-                          </Link>
+                          </Button>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -161,4 +158,4 @@ const UserRegisterForm: React.FC<IUserFormValues> = ({
   );
 };
 
-export default UserRegisterForm;
+export default CreateUserForm;

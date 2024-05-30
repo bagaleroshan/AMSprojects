@@ -3,25 +3,14 @@ import {
   Box,
   IconButton,
   InputAdornment,
+  Snackbar,
+  SnackbarContent,
   TextField,
   Typography,
 } from "@mui/material";
 import { Field, FieldProps } from "formik";
 import React, { useState } from "react";
-
-interface IDwPasswordProps {
-  name: string;
-  label: string;
-  type?: string; // Type is optional because it will be controlled internally
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  [key: string]: unknown;
-  isLoading?: boolean;
-}
-
-interface IEndAdornmentProps {
-  showPassword: boolean;
-  togglePasswordVisibility: () => void;
-}
+import { IDwPasswordProps, IEndAdornmentProps } from "./DwInterface";
 
 const EndAdornment: React.FC<IEndAdornmentProps> = ({
   showPassword,
@@ -30,7 +19,7 @@ const EndAdornment: React.FC<IEndAdornmentProps> = ({
   <InputAdornment position="end">
     <IconButton
       onClick={togglePasswordVisibility}
-      sx={{ "&:hover": { color: "purple" } }}
+      sx={{ "&:hover": { color: "blue" } }}
     >
       {showPassword ? <Visibility /> : <VisibilityOff />}
     </IconButton>
@@ -42,12 +31,26 @@ const DwHideAndShowPass: React.FC<IDwPasswordProps> = ({
   label,
   onChange,
   isLoading,
+  autofocus,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  /* copy paste attempt */
+  const [showMessage, setShowMessage] = useState(false);
+
+  const handleCopyPasteAttempt = (
+    event: React.ClipboardEvent<HTMLDivElement>
+  ) => {
+    event.preventDefault();
+    setShowMessage(true);
+  };
+  const handleCloseMessage = () => {
+    setShowMessage(false);
   };
 
   return (
@@ -67,8 +70,7 @@ const DwHideAndShowPass: React.FC<IDwPasswordProps> = ({
             label={label}
             value={field.value}
             onChange={onChange ? onChange : field.onChange}
-            required
-            color="secondary"
+            color="primary"
             disabled={isLoading}
             type={showPassword ? "text" : "password"}
             InputProps={{
@@ -80,7 +82,22 @@ const DwHideAndShowPass: React.FC<IDwPasswordProps> = ({
               ),
             }}
             size="small"
+            autoFocus={autofocus}
+            onCopy={handleCopyPasteAttempt}
+            onCut={(event) => event.preventDefault()}
+            onPaste={handleCopyPasteAttempt}
           />
+          <Snackbar
+            open={showMessage}
+            autoHideDuration={5000}
+            onClose={handleCloseMessage}
+          >
+            <SnackbarContent
+              style={{ backgroundColor: "#1863D6" }}
+              message="Copy-paste operation is not allowed!"
+            />
+          </Snackbar>
+
           {meta.touched && meta.error ? (
             <Typography style={{ fontSize: "0.8rem", color: "red" }}>
               {meta.error}

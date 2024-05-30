@@ -8,8 +8,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import CreateUserForm from "./CreateUserForm";
 import { IUser } from "./UserInterface";
-import UserRegisterForm from "./UserRegisterForm";
 
 const CreateUser = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
@@ -25,30 +25,31 @@ const CreateUser = () => {
   ] = useCreateUserMutation();
 
   const submitValue = async (values: IUser) => {
+    console.log(values);
     createUser(values);
   };
 
   useEffect(() => {
     if (isSuccessCreateUser) {
+      toast.success("Please check your email for login verification", {
+        autoClose: 3000,
+      });
       formikRef.current?.resetForm();
-      toast.success(
-        "User created successfully! Please check your email for email verification"
-      );
     }
   });
 
   useEffect(() => {
     isErrorCreateUser &&
       (isFetchBaseQueryError(errorCreateUser)
-        ? toast.error(getErrorMessage(errorCreateUser))
+        ? toast.error(getErrorMessage(errorCreateUser), { autoClose: 5000 })
         : isSerializedError(errorCreateUser)
-        ? toast.error(errorCreateUser?.message)
+        ? toast.error(errorCreateUser?.message, { autoClose: 5000 })
         : "Unknown Error");
   }, [isErrorCreateUser, errorCreateUser]);
 
   return (
     <>
-      <UserRegisterForm
+      <CreateUserForm
         buttonName="SIGN UP"
         isLoading={isLoadingCreateUser}
         formikRef={formikRef}

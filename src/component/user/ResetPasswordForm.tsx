@@ -10,13 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import { userLoginValidation } from "../../validation/userValidation";
+import { userResetPassValidation } from "../../validation/userValidation";
 import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
-import DwInput from "../dwForm/DwInput";
-import { IUserFormValues, userLoginInitialValues } from "./UserInterface";
+import { IUserFormValues, resetPassInitialValue } from "./UserInterface";
 
-const UserLoginForm: React.FC<IUserFormValues> = ({
-  buttonName = "SIGN IN",
+const ResetPasswordForm: React.FC<IUserFormValues> = ({
+  buttonName = "SIGN UP",
   isLoading = false,
   formikRef = undefined,
   onSubmit = () => {},
@@ -24,10 +23,10 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
   return (
     <>
       <Formik
-        initialValues={userLoginInitialValues}
+        initialValues={resetPassInitialValue}
         onSubmit={onSubmit}
         innerRef={formikRef}
-        validationSchema={userLoginValidation}
+        validationSchema={userResetPassValidation}
         enableReinitialize={true}
       >
         {(formik) => {
@@ -46,33 +45,30 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                     <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                    Sign in
+                    {buttonName}
                   </Typography>
+
                   <Box sx={{ mt: 1 }}>
-                    <DwInput
+                    <DwHideAndShowPass
                       margin="normal"
                       fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      name="newPassword"
+                      label="New Password"
                       onChange={(e) => {
-                        formik.setFieldValue("email", e.target.value);
+                        formik.setFieldValue("newPassword", e.target.value);
                       }}
+                      autoComplete="newPassword"
                       autofocus={true}
                     />
                     <DwHideAndShowPass
                       margin="normal"
                       fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
+                      name="confirmPassword"
+                      label="Confirm Password"
                       onChange={(e) => {
-                        formik.setFieldValue("password", e.target.value);
+                        formik.setFieldValue("confirmPassword", e.target.value);
                       }}
-                      autoComplete="current-password"
+                      autoComplete="confirmPassword"
                     />
                     <Grid item xs={12}>
                       {isLoading ? (
@@ -88,7 +84,7 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                           }}
                           fullWidth
                         >
-                          SIGNING IN....
+                          UPDATING....
                         </LoadingButton>
                       ) : (
                         <Button
@@ -102,38 +98,6 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                         </Button>
                       )}
                     </Grid>
-                    <Grid container spacing={3} direction="row">
-                      <Grid item xs>
-                        <Button
-                          color="inherit"
-                          href="/forgot-password"
-                          sx={{
-                            fontSize: "0.7rem",
-                            "&:hover": {
-                              color: "blue",
-                              background: "white",
-                            },
-                          }}
-                        >
-                          Forgot password?
-                        </Button>
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          color="inherit"
-                          href="/users"
-                          sx={{
-                            fontSize: "0.7rem",
-                            "&:hover": {
-                              color: "blue",
-                              background: "white",
-                            },
-                          }}
-                        >
-                          {"Don't have an account? Sign Up"}
-                        </Button>
-                      </Grid>
-                    </Grid>
                   </Box>
                 </Box>
               </Container>
@@ -145,4 +109,4 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
   );
 };
 
-export default UserLoginForm;
+export default ResetPasswordForm;

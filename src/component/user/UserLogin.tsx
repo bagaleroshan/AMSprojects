@@ -38,22 +38,36 @@ const UserLogin = () => {
   useEffect(() => {
     isErrorUserLogin &&
       (isFetchBaseQueryError(errorUserLogin)
-        ? toast.error(getErrorMessage(errorUserLogin))
+        ? toast.error(getErrorMessage(errorUserLogin), { autoClose: 5000 })
         : isSerializedError(errorUserLogin)
-        ? toast.error(errorUserLogin?.message)
+        ? toast.error(errorUserLogin?.message, { autoClose: 5000 })
         : "Unknown Error");
   }, [isErrorUserLogin, errorUserLogin]);
 
   useEffect(() => {
     if (isSuccessUserLogin) {
-      // console.log(userLoginData);
+      console.log(userLoginData);
+
       localStorage.setItem("token", userLoginData.token);
       dispatch(setToken(userLoginData.token));
-
+      toast.success(userLoginData.message, { autoClose: 2000 });
       navigate("/users/update-password");
 
-      // console.log("Data", userLoginData);
-      toast.success("User logged in successfully!");
+      // console.log(
+      //   "userLoginData.isPasswordChanged status: ",
+      //   userLoginData.isPasswordChanged
+      // );
+
+      // if (userLoginData.isPasswordChanged === false) {
+      //   navigate("/users/update-password");
+      //   toast.success("Let's set our own password!!");
+      //   // } else {
+      //   localStorage.setItem("token", userLoginData.token);
+      //   dispatch(setToken(userLoginData.token));
+      //   toast.success("Welcome Aboard!!");
+      //   navigate("/users/dashboard");
+      //   toast.success(userLoginData.message);
+      // }
     }
   });
 

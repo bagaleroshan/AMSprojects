@@ -26,7 +26,7 @@ const DwCheckbox: React.FC<IDwCheckboxProps> = ({
                     id={name}
                     checked={meta.value}
                     onChange={onChange ? onChange : field.onChange}
-                    color="secondary"
+                    color="primary"
                   />
                 }
               ></FormControlLabel>

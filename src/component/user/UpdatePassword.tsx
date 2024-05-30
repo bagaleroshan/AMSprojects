@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUpdatePasswordMutation } from "../../services/api/UserService";
 import {
@@ -9,9 +9,12 @@ import {
 } from "../../utils/utils";
 import UpdatePasswordForm from "./UpdatePasswordForm";
 import { IUser } from "./UserInterface";
+import { useDispatch } from "react-redux";
+import { clearToken } from "../../features/userSlice";
 
 const UpdatePassword = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [
     updatePassword,
@@ -24,22 +27,29 @@ const UpdatePassword = () => {
   ] = useUpdatePasswordMutation();
 
   const submitValue = async (values: IUser) => {
-    updatePassword(values);
-    navigate(`/users/profile`);
+    updatePassword({
+      oldPassword: values.oldPassword,
+      newPassword: values.newPassword,
+    }).unwrap();
   };
 
   useEffect(() => {
     isErrorUpdatePassword &&
       (isFetchBaseQueryError(errorUpdatePassword)
-        ? toast.error(getErrorMessage(errorUpdatePassword))
+        ? toast.error(getErrorMessage(errorUpdatePassword), { autoClose: 5000 })
         : isSerializedError(errorUpdatePassword)
-        ? toast.error(errorUpdatePassword?.message)
+        ? toast.error(errorUpdatePassword?.message, { autoClose: 5000 })
         : "Unknown Error");
   }, [isErrorUpdatePassword, errorUpdatePassword]);
 
   useEffect(() => {
-    if (isSuccessUpdatePassword) toast.success("Subject Updated Successfully");
-  }, [isSuccessUpdatePassword]);
+    if (isSuccessUpdatePassword) {
+      toast.success("Password Updated Successfully", { autoClose: 2000 });
+      localStorage.removeItem("token");
+      dispatch(clearToken());
+      navigate("/login");
+    }
+  });
 
   return (
     <div>
