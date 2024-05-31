@@ -1,14 +1,7 @@
-import { TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { Field, FieldProps } from "formik";
-interface IDwInputProps {
-  name: string;
-  label: string;
-  type: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  multiline?: false;
-  [key: string]: unknown;
-  isLoading: boolean;
-}
+import { IDwInputProps } from "./DwInterface";
+
 const DwInput: React.FC<IDwInputProps> = ({
   name,
   label,
@@ -16,14 +9,23 @@ const DwInput: React.FC<IDwInputProps> = ({
   onChange,
   multiline,
   isLoading,
+  autofocus,
   ...props
 }) => {
+  // const handleKeyDown =
+  // };
   return (
     <div>
       <Field name={name}>
         {({ field, meta }: FieldProps) => {
           return (
-            <div>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <TextField
                 {...field}
                 {...props}
@@ -35,14 +37,26 @@ const DwInput: React.FC<IDwInputProps> = ({
                 onChange={onChange ? onChange : field.onChange}
                 multiline={multiline}
                 rows={5}
-                color="secondary"
+                color="primary"
                 size="small"
+                autoFocus={autofocus}
                 disabled={isLoading}
+                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                  type === "number"
+                    ? meta.value.length >= 10 &&
+                      event.key !== "Backspace" &&
+                      event.key !== "Tab"
+                      ? event.preventDefault()
+                      : null
+                    : null;
+                }}
               />
               {meta.touched && meta.error ? (
-                <div style={{ color: "red" }}>{meta.error}</div>
+                <Typography style={{ fontSize: "0.8rem", color: "red" }}>
+                  {meta.error}
+                </Typography>
               ) : null}
-            </div>
+            </Box>
           );
         }}
       </Field>

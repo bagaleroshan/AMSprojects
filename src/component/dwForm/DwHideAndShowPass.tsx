@@ -1,74 +1,111 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  Snackbar,
+  SnackbarContent,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Field, FieldProps } from "formik";
 import React, { useState } from "react";
+import { IDwPasswordProps, IEndAdornmentProps } from "./DwInterface";
 
-interface IDwPasswordProps {
-  name: string;
-  label: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-interface IEndAdornmentProps {
-  showPassword: boolean;
-  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const EndAdornment: React.FC<IEndAdornmentProps> = ({
+  showPassword,
+  togglePasswordVisibility,
+}) => (
+  <InputAdornment position="end">
+    <IconButton
+      onClick={togglePasswordVisibility}
+      sx={{ "&:hover": { color: "blue" } }}
+    >
+      {showPassword ? <Visibility /> : <VisibilityOff />}
+    </IconButton>
+  </InputAdornment>
+);
 
 const DwHideAndShowPass: React.FC<IDwPasswordProps> = ({
   name,
   label,
   onChange,
+  isLoading,
+  autofocus,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const EndAdorment: React.FC<IEndAdornmentProps> = ({
-    showPassword,
-    setShowPassword,
-  }) => {
-    return (
-      <InputAdornment position="end">
-        <IconButton onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? <Visibility /> : <VisibilityOff />}
-        </IconButton>
-      </InputAdornment>
-    );
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  /* copy paste attempt */
+  const [showMessage, setShowMessage] = useState(false);
+
+  const handleCopyPasteAttempt = (
+    event: React.ClipboardEvent<HTMLDivElement>
+  ) => {
+    event.preventDefault();
+    setShowMessage(true);
+  };
+  const handleCloseMessage = () => {
+    setShowMessage(false);
   };
 
   return (
-    <div>
-      <Field name={name}>
-        {({ field, meta }: FieldProps) => {
-          return (
-            <div>
-              <TextField
-                {...field}
-                {...props}
-                name={name}
-                label={label}
-                value={meta.value}
-                onChange={onChange ? onChange : field.onChange}
-                required
-                color="secondary"
-                type={showPassword ? "text" : "password"}
-                InputProps={{
-                  endAdornment: (
-                    <EndAdorment
-                      showPassword={showPassword}
-                      setShowPassword={setShowPassword}
-                    />
-                  ),
-                }}
-                size="small"
-              />
-              {meta.error ? (
-                <div style={{ color: "red" }}>{meta.error}</div>
-              ) : null}
-            </div>
-          );
-        }}
-      </Field>
-    </div>
+    <Field name={name}>
+      {({ field, meta }: FieldProps) => (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <TextField
+            {...field}
+            {...props}
+            name={name}
+            label={label}
+            value={field.value}
+            onChange={onChange ? onChange : field.onChange}
+            color="primary"
+            disabled={isLoading}
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <EndAdornment
+                  showPassword={showPassword}
+                  togglePasswordVisibility={togglePasswordVisibility}
+                />
+              ),
+            }}
+            size="small"
+            autoFocus={autofocus}
+            onCopy={handleCopyPasteAttempt}
+            onCut={(event) => event.preventDefault()}
+            onPaste={handleCopyPasteAttempt}
+          />
+          <Snackbar
+            open={showMessage}
+            autoHideDuration={5000}
+            onClose={handleCloseMessage}
+          >
+            <SnackbarContent
+              style={{ backgroundColor: "#1863D6" }}
+              message="Copy-paste operation is not allowed!"
+            />
+          </Snackbar>
+
+          {meta.touched && meta.error ? (
+            <Typography style={{ fontSize: "0.8rem", color: "red" }}>
+              {meta.error}
+            </Typography>
+          ) : null}
+        </Box>
+      )}
+    </Field>
   );
 };
 
