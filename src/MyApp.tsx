@@ -1,31 +1,44 @@
-
-import { ThemeProvider, createTheme } from '@mui/material';
-import Dashboard from './component/MUI/Dashboard';
-import SideBar from './component/MUI/SideBar';
-import MyDropezone from './component/Rough/MyDropezone';
-import ReactDropZone from './component/Rough/ReactDropZone';
-import DwForm from './component/dwForm/DwForm';
+import { ThemeProvider, createTheme } from "@mui/material";
+import ASideBar from "./component/MyComponents/Admin/ASideBar";
+import TRoutes from "./component/MyComponents/Teacher/TRoutes";
+import ARoutes from "./component/MyComponents/Admin/ARoutes";
 
 const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#fff",
-      },
+  palette: {
+    primary: {
+      main: "#fff",
     },
-  });
+    secondary: {
+      main: "#2196f3",
+    },
+    success: {
+      main: "#43a047",
+    },
+    warning: {
+      main: "#ffeb3b",
+    },
+    error: {
+      main: "#e53935",
+    },
+  },
+  typography: {
+    // fontFamily:'"Open Sans", "Helvetica", "Arial", sans-serif'
+  },
+});
 const MyApp = () => {
   return (
     <div>
-        <ThemeProvider theme={theme}>
-      {/* <Dashboard></Dashboard> */}
-      {/* <SideBar></SideBar> */}
-      {/* <MuiDrawer></MuiDrawer> */}
+      <ThemeProvider theme={theme}>
+        <TRoutes></TRoutes>
+        {/* <ASideBar></ASideBar> */}
+        {/* <ARoutes></ARoutes> */}
       </ThemeProvider>
       {/* <ReactDropZone/> */}
-      <DwForm></DwForm>
-
+      {/* <DwForm></DwForm> */}
+      {/* <Table></Table> */}
+      {/* <ShowAllSubjects /> */}
     </div>
-  )
-}
+  );
+};
 
-export default MyApp
+export default MyApp;

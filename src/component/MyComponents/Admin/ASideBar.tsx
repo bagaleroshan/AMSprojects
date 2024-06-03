@@ -22,13 +22,14 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import { useState } from "react";
-import Attendance from "../MyComponents/Attendance";
-import ChangePassword from "../MyComponents/ChangePassword";
-import Dashboard from "../MyComponents/Dashboard";
-import Forms from "../MyComponents/Forms";
-import Logout from "../MyComponents/Logout";
-import Messages from "../MyComponents/Messages";
-import Report from "../MyComponents/Report";
+import AAttendance from "./AAttendance";
+import ADashboard from "./ADashboard";
+import AForms from "./AForms";
+import AMessages from "./AMessages";
+import AReport from "./AReport";
+import AChangePassword from "./AChangePassword";
+import ALogout from "./ALogout";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -101,10 +102,10 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function SideBar() {
+export default function ASideBar() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [menudata, setMenudata] = useState("Dashboard");
+  // const [menudata, setMenudata] = useState("Dashboard");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -113,6 +114,8 @@ export default function SideBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const navigate=useNavigate("");
 
   return (
     <>
@@ -128,7 +131,7 @@ export default function SideBar() {
               sx={{
                 marginRight: 5,
                 ...(open && { display: "none" }),
-                "&:hover" :{ color: "#0195CF"}
+                "&:hover": { color: "#0195CF" },
               }}
             >
               <MenuIcon />
@@ -138,9 +141,12 @@ export default function SideBar() {
           </Typography> */}
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open} >
-          <DrawerHeader sx={{ "&:hover" :{ color: "#0195CF"}}}>
-            <IconButton onClick={handleDrawerClose}  sx={{ "&:hover" :{ color: "#0195CF"}}}>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader sx={{ "&:hover": { color: "#0195CF" } }}>
+            <IconButton
+              onClick={handleDrawerClose}
+              sx={{ "&:hover": { color: "#0195CF" } }}
+            >
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
@@ -153,7 +159,9 @@ export default function SideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenudata("Dashboard")}
+              // onClick={() => setMenudata("Dashboard")}
+              onClick={() => navigate("/Dashboard")}
+
             >
               <ListItemButton
                 sx={{
@@ -167,16 +175,17 @@ export default function SideBar() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    "&:hover" :{ color: "#0195CF"}
-                    
+                    "&:hover": { color: "#0195CF" },
                   }}
                 >
-                  
                   <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Dashboard"
-                  sx={{ opacity: open ? 1 : 0 , "&:hover" :{ color: "#0195CF"}}}
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    "&:hover": { color: "#0195CF" },
+                  }}
                 />
               </ListItemButton>
             </ListItem>
@@ -184,7 +193,9 @@ export default function SideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenudata("Attendance")}
+              // onClick={() => setMenudata("Attendance")}
+              onClick={() => navigate("/Dashboard/Attendance")}
+
             >
               <ListItemButton
                 sx={{
@@ -198,19 +209,26 @@ export default function SideBar() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    "&:hover" :{ color: "#0195CF"}
+                    "&:hover": { color: "#0195CF" },
                   }}
                 >
                   <SpeakerNotesIcon />
                 </ListItemIcon>
-                <ListItemText primary="Attendance"  sx={{ opacity: open ? 1 : 0 , "&:hover" :{ color: "#0195CF"}}}/>
+                <ListItemText
+                  primary="Attendance"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    "&:hover": { color: "#0195CF" },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
 
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenudata("Forms")}
+            //  onClick={() => setMenudata("Forms")}
+            onClick={() => navigate("/Dashboard/Forms")}
             >
               <ListItemButton
                 sx={{
@@ -224,19 +242,26 @@ export default function SideBar() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    "&:hover" :{ color: "#0195CF"}
+                    "&:hover": { color: "#0195CF" },
                   }}
                 >
                   <FeedIcon />
                 </ListItemIcon>
-                <ListItemText primary="Forms"  sx={{ opacity: open ? 1 : 0 , "&:hover" :{ color: "#0195CF"}}}/>
+                <ListItemText
+                  primary="Forms"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    "&:hover": { color: "#0195CF" },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
 
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenudata("Messages")}
+             // onClick={() => setMenudata("Messages")}
+             onClick={() => navigate("/Dashboard/Message")}
             >
               <ListItemButton
                 sx={{
@@ -250,19 +275,26 @@ export default function SideBar() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    "&:hover" :{ color: "#0195CF"}
+                    "&:hover": { color: "#0195CF" },
                   }}
                 >
                   <EmailIcon />
                 </ListItemIcon>
-                <ListItemText primary="Message"  sx={{ opacity: open ? 1 : 0,"&:hover" :{ color: "#0195CF"} }}/>
+                <ListItemText
+                  primary="Message"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    "&:hover": { color: "#0195CF" },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
 
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenudata("Report")}
+             // onClick={() => setMenudata("Report")}
+             onClick={() => navigate("/Dashboard/Report")}
             >
               <ListItemButton
                 sx={{
@@ -276,19 +308,26 @@ export default function SideBar() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    "&:hover" :{ color: "#0195CF"}
+                    "&:hover": { color: "#0195CF" },
                   }}
                 >
                   <ReportIcon />
                 </ListItemIcon>
-                <ListItemText primary="Report" sx={{ opacity: open ? 1 : 0,"&:hover" :{ color: "#0195CF"} }}/>
+                <ListItemText
+                  primary="Report"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    "&:hover": { color: "#0195CF" },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
 
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenudata("Change Password")}
+             // onClick={() => setMenudata("Change Password")}
+             onClick={() => navigate("/Dashboard/ChangePassword")}
             >
               <ListItemButton
                 sx={{
@@ -302,19 +341,26 @@ export default function SideBar() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    "&:hover" :{ color: "#0195CF"}
+                    "&:hover": { color: "#0195CF" },
                   }}
                 >
                   <PasswordIcon />
                 </ListItemIcon>
-                <ListItemText primary="Change Password" sx={{ opacity: open ? 1 : 0 , "&:hover" :{ color: "#0195CF"}}}/>
+                <ListItemText
+                  primary="Change Password"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    "&:hover": { color: "#0195CF" },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
 
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenudata("Logout")}
+             // onClick={() => setMenudata("Logout")}
+             onClick={() => navigate("/Dashboard/Logout")}
             >
               <ListItemButton
                 sx={{
@@ -328,27 +374,33 @@ export default function SideBar() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
-                    "&:hover" :{ color: "#0195CF"}
+                    "&:hover": { color: "#0195CF" },
                   }}
                 >
                   {/* <SlLogout /> */}
                   <LogoutIcon />
                 </ListItemIcon>
-                <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 , "&:hover" :{ color: "#0195CF"}}}/>
+                <ListItemText
+                  primary="Logout"
+                  sx={{
+                    opacity: open ? 1 : 0,
+                    "&:hover": { color: "#0195CF" },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
           </List>
           <Divider />
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {menudata == "Dashboard" && <Dashboard></Dashboard>}
-          {menudata == "Attendance" && <Attendance></Attendance>}
-          {menudata == "Forms" && <Forms></Forms>}
-          {menudata == "Messages" && <Messages></Messages>}
-          {menudata == "Report" && <Report></Report>}
-          {menudata == "Change Password" && <ChangePassword></ChangePassword>}
-          {menudata == "Logout" && <Logout></Logout>}
-        </Box>
+        {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          {menudata == "Dashboard" && <ADashboard></ADashboard>}
+          {menudata == "Attendance" && <AAttendance></AAttendance>}
+          {menudata == "Forms" && <AForms></AForms>}
+          {menudata == "Messages" && <AMessages></AMessages>}
+          {menudata == "Report" && <AReport></AReport>}
+          {menudata == "Change Password" && <AChangePassword></AChangePassword>}
+          {menudata == "Logout" && <ALogout></ALogout>}
+        </Box> */}
       </Box>
     </>
   );
