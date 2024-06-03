@@ -1,16 +1,16 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { clearToken } from "../../features/userSlice";
 import { useUpdatePasswordMutation } from "../../services/api/UserService";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { IUser } from "../interfaces/UserInterface";
 import UpdatePasswordForm from "./UpdatePasswordForm";
-import { IUser } from "./UserInterface";
-import { useDispatch } from "react-redux";
-import { clearToken } from "../../features/userSlice";
 
 const UpdatePassword = () => {
   const navigate = useNavigate();

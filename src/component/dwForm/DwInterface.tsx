@@ -20,6 +20,7 @@ export interface IDwInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   multiline?: false;
   [key: string]: unknown;
+  isPhoneNumber?: boolean;
   isLoading?: boolean;
   autofocus?: boolean;
 }

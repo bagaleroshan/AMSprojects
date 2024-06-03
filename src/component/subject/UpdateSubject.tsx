@@ -6,7 +6,7 @@ import {
 } from "../../services/api/SubjectService";
 import SubjectForm from "./SubjectForm";
 import { toast } from "react-toastify";
-import { ISubject } from "./subjectInterface";
+import { ISubject } from "../interfaces/SubjectInterface";
 import {
   getErrorMessage,
   isFetchBaseQueryError,

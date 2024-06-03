@@ -1,23 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearToken } from "../../features/userSlice";
-import UserLogin from "./UserLogin";
+import { logout } from "../../features/userSlice";
 
 const UserLogout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("token");
-    dispatch(clearToken());
-    navigate("/users/login");
-  });
-  return (
-    <>
-      <UserLogin />
-    </>
-  );
+    dispatch(logout());
+    navigate("/login");
+  }, [dispatch, navigate]);
+  return null;
 };
 
 export default UserLogout;

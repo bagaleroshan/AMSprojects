@@ -1,23 +1,22 @@
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { setToken } from "../../features/userSlice";
+import { setRole, setToken } from "../../features/userSlice";
 import { useUserLoginMutation } from "../../services/api/UserService";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { IUser } from "./UserInterface";
+import { IUser } from "../interfaces/UserInterface";
 import UserLoginForm from "./UserLoginForm";
-import { useNavigate } from "react-router-dom";
 
 const UserLogin = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const [
@@ -36,40 +35,28 @@ const UserLogin = () => {
   };
 
   useEffect(() => {
-    isErrorUserLogin &&
-      (isFetchBaseQueryError(errorUserLogin)
-        ? toast.error(getErrorMessage(errorUserLogin), { autoClose: 5000 })
-        : isSerializedError(errorUserLogin)
-        ? toast.error(errorUserLogin?.message, { autoClose: 5000 })
-        : "Unknown Error");
+    if (isErrorUserLogin) {
+      if (isFetchBaseQueryError(errorUserLogin)) {
+        const errorMessage = getErrorMessage(errorUserLogin);
+        toast.error(errorMessage, { autoClose: 5000 });
+      } else if (isSerializedError(errorUserLogin)) {
+        toast.error(errorUserLogin?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
   }, [isErrorUserLogin, errorUserLogin]);
 
   useEffect(() => {
     if (isSuccessUserLogin) {
-      console.log(userLoginData);
-
-      localStorage.setItem("token", userLoginData.token);
-      dispatch(setToken(userLoginData.token));
       toast.success(userLoginData.message, { autoClose: 2000 });
-      navigate("/users/update-password");
-
-      // console.log(
-      //   "userLoginData.isPasswordChanged status: ",
-      //   userLoginData.isPasswordChanged
-      // );
-
-      // if (userLoginData.isPasswordChanged === false) {
-      //   navigate("/users/update-password");
-      //   toast.success("Let's set our own password!!");
-      //   // } else {
-      //   localStorage.setItem("token", userLoginData.token);
-      //   dispatch(setToken(userLoginData.token));
-      //   toast.success("Welcome Aboard!!");
-      //   navigate("/users/dashboard");
-      //   toast.success(userLoginData.message);
-      // }
+      dispatch(setToken(userLoginData.token));
+      dispatch(setRole(userLoginData.result.role));
+      userLoginData.result.role === "admin"
+        ? navigate("/admin/update-password")
+        : navigate("/teachers/update-password");
     }
-  });
+  }, [isSuccessUserLogin, userLoginData, dispatch, navigate]);
 
   return (
     <>

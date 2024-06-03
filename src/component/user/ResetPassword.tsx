@@ -7,8 +7,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { IUser } from "../interfaces/UserInterface";
 import ResetPasswordForm from "./ResetPasswordForm";
-import { IUser } from "./UserInterface";
 
 const ResetPassword = () => {
   const navigate = useNavigate();

@@ -1,6 +1,4 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import { LoadingButton } from "@mui/lab";
 import {
   Avatar,
   Box,
@@ -13,7 +11,12 @@ import { Form, Formik } from "formik";
 import { userValidation } from "../../validation/userValidation";
 import DwInput from "../dwForm/DwInput";
 import DwSelect from "../dwForm/DwSelect";
-import { IUserFormValues, roles, userInitialValues } from "./UserInterface";
+import {
+  IUserFormValues,
+  roles,
+  userInitialValues,
+} from "../interfaces/UserInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const CreateUserForm: React.FC<IUserFormValues> = ({
   buttonName = "CREATE",
@@ -87,6 +90,7 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                           onChange={(e) => {
                             formik.setFieldValue("phoneNumber", e.target.value);
                           }}
+                          isPhoneNumber={true}
                           isLoading={isLoading}
                         />
                       </Grid>
@@ -102,32 +106,10 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        {isLoading ? (
-                          <LoadingButton
-                            loading
-                            endIcon={<SendIcon />}
-                            loadingPosition="end"
-                            type="submit"
-                            sx={{
-                              backgroundColor: "primary.main",
-                              mt: 3,
-                              mb: 2,
-                            }}
-                            fullWidth
-                          >
-                            SIGNING UP....
-                          </LoadingButton>
-                        ) : (
-                          <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            sx={{ mt: 3, mb: 2 }}
-                          >
-                            {buttonName}
-                          </Button>
-                        )}
+                        <MuiLoadingButtonTheme
+                          buttonName={buttonName}
+                          isLoading={isLoading}
+                        />
                       </Grid>
 
                       <Grid container justifyContent="center">

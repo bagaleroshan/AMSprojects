@@ -1,10 +1,17 @@
-import SendIcon from "@mui/icons-material/Send";
-import { LoadingButton } from "@mui/lab";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { Form, Formik } from "formik";
 import { myProfileUpdateValidation } from "../../validation/userValidation";
 import DwInput from "../dwForm/DwInput";
-import { IUser, IUserFormValues } from "./UserInterface";
+import { IUser, IUserFormValues } from "../interfaces/UserInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const UpdateProfileForm: React.FC<IUserFormValues> = ({
   buttonName = "Update Profile",
@@ -17,6 +24,10 @@ const UpdateProfileForm: React.FC<IUserFormValues> = ({
     fullName: user.fullName || "",
     phoneNumber: user.phoneNumber || "",
   };
+
+  const href =
+    user.role === "admin" ? "/admin/my-profile" : "/teachers/my-profile";
+
   return (
     <>
       <Formik
@@ -38,11 +49,9 @@ const UpdateProfileForm: React.FC<IUserFormValues> = ({
                     alignItems: "center",
                   }}
                 >
-                  {/* {token ? null : (
-                    <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                      <LockOutlinedIcon />
-                    </Avatar>
-                  )} */}
+                  <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+                    <AccountBoxIcon />
+                  </Avatar>
 
                   <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
                     {buttonName}
@@ -60,6 +69,7 @@ const UpdateProfileForm: React.FC<IUserFormValues> = ({
                             formik.setFieldValue("fullName", e.target.value);
                           }}
                           autofocus={true}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -71,42 +81,22 @@ const UpdateProfileForm: React.FC<IUserFormValues> = ({
                           onChange={(e) => {
                             formik.setFieldValue("phoneNumber", e.target.value);
                           }}
+                          isPhoneNumber={true}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        {isLoading ? (
-                          <LoadingButton
-                            loading
-                            endIcon={<SendIcon />}
-                            loadingPosition="end"
-                            type="submit"
-                            sx={{
-                              backgroundColor: "primary.main",
-                              mt: 3,
-                              mb: 2,
-                            }}
-                            fullWidth
-                          >
-                            SIGNING UP....
-                          </LoadingButton>
-                        ) : (
-                          <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            sx={{ mt: 3, mb: 2 }}
-                          >
-                            {buttonName}
-                          </Button>
-                        )}
+                        <MuiLoadingButtonTheme
+                          buttonName={buttonName}
+                          isLoading={isLoading}
+                        />
                       </Grid>
 
                       <Grid container justifyContent="center">
                         <Grid item>
                           <Button
                             color="inherit"
-                            href="/users/my-profile"
+                            href={href}
                             sx={{
                               "&:hover": {
                                 color: "blue",

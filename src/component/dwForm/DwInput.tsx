@@ -8,12 +8,11 @@ const DwInput: React.FC<IDwInputProps> = ({
   type,
   onChange,
   multiline,
+  isPhoneNumber,
   isLoading,
   autofocus,
   ...props
 }) => {
-  // const handleKeyDown =
-  // };
   return (
     <div>
       <Field name={name}>
@@ -42,7 +41,7 @@ const DwInput: React.FC<IDwInputProps> = ({
                 autoFocus={autofocus}
                 disabled={isLoading}
                 onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                  type === "number"
+                  isPhoneNumber
                     ? meta.value.length >= 10 &&
                       event.key !== "Backspace" &&
                       event.key !== "Tab"

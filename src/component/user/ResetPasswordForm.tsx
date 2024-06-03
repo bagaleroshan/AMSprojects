@@ -1,18 +1,13 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import { LoadingButton } from "@mui/lab";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import { userResetPassValidation } from "../../validation/userValidation";
 import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
-import { IUserFormValues, resetPassInitialValue } from "./UserInterface";
+import {
+  IUserFormValues,
+  resetPassInitialValue,
+} from "../interfaces/UserInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const ResetPasswordForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN UP",
@@ -71,32 +66,10 @@ const ResetPasswordForm: React.FC<IUserFormValues> = ({
                       autoComplete="confirmPassword"
                     />
                     <Grid item xs={12}>
-                      {isLoading ? (
-                        <LoadingButton
-                          loading
-                          endIcon={<SendIcon />}
-                          loadingPosition="end"
-                          type="submit"
-                          sx={{
-                            backgroundColor: "primary.main",
-                            mt: 3,
-                            mb: 2,
-                          }}
-                          fullWidth
-                        >
-                          UPDATING....
-                        </LoadingButton>
-                      ) : (
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          sx={{ mt: 3, mb: 2 }}
-                        >
-                          {buttonName}
-                        </Button>
-                      )}
+                      <MuiLoadingButtonTheme
+                        buttonName={buttonName}
+                        isLoading={isLoading}
+                      />
                     </Grid>
                   </Box>
                 </Box>

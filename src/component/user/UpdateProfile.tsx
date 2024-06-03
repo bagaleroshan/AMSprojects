@@ -1,5 +1,6 @@
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,17 +8,19 @@ import {
   useMyProfileQuery,
   useUpdateProfileMutation,
 } from "../../services/api/UserService";
+import { RootState } from "../../store/store";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { IUser } from "../interfaces/UserInterface";
 import UpdateProfileForm from "./UpdateProfileForm";
-import { IUser } from "./UserInterface";
 
 const UpdateProfile = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const navigate = useNavigate();
+  const userRole = useSelector((store: RootState) => store.user.role);
 
   /* Reading MyProfile to Populate the form */
   const {
@@ -49,25 +52,28 @@ const UpdateProfile = () => {
   ] = useUpdateProfileMutation();
 
   const submitValue = async (values: IUser) => {
-    // console.log("Update Profile Values:", values);
     updateProfile(values);
   };
 
   useEffect(() => {
     if (isSuccessUpdateProfile) {
       toast.success("Profile Updated successfully", { autoClose: 3000 });
-      navigate("/users/my-profile");
+      userRole === "admin"
+        ? navigate("/admin/my-profile")
+        : navigate("/teachers/my-profile");
     }
-  });
+  }, [isSuccessUpdateProfile, userRole, navigate]);
 
   useEffect(() => {
-    isErrorUpdateProfile &&
-      (isFetchBaseQueryError(errorUpdateProfile)
-        ? toast.error(getErrorMessage(errorUpdateProfile), { autoClose: 5000 })
-        : isSerializedError(errorUpdateProfile)
-        ? toast.error(errorUpdateProfile?.message)
-        : "Unknown Error",
-      { autoClose: 5000 });
+    if (isErrorUpdateProfile) {
+      if (isFetchBaseQueryError(errorUpdateProfile)) {
+        toast.error(getErrorMessage(errorUpdateProfile), { autoClose: 5000 });
+      } else if (isSerializedError(errorUpdateProfile)) {
+        toast.error(errorUpdateProfile?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
   }, [isErrorUpdateProfile, errorUpdateProfile]);
 
   return (

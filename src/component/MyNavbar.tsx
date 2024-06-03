@@ -8,10 +8,11 @@ import {
 } from "@mui/material";
 
 interface MyNavBarProps {
-  token: string;
+  token: string | undefined | null;
+  role: string | undefined;
 }
 
-const MyNavBar: React.FC<MyNavBarProps> = ({ token }) => {
+const MyNavBar: React.FC<MyNavBarProps> = ({ token, role }) => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
@@ -27,16 +28,51 @@ const MyNavBar: React.FC<MyNavBarProps> = ({ token }) => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           AMS
         </Typography>
+        {role === "admin" ? (
+          token ? (
+            <>
+              {/* ----------------- User -------------------------------- */}
 
-        {/* ----------------- User -------------------------------- */}
-
-        {token ? (
+              <Stack direction="row" spacing={3}>
+                <Button color="inherit" href="/admin">
+                  My Dashboard
+                </Button>
+                <Button color="inherit" href="/admin/my-profile">
+                  My Profile
+                </Button>
+                <Button color="inherit" href="/admin/update-password">
+                  Update Password
+                </Button>
+                <Button color="inherit" href="/logout">
+                  Logout
+                </Button>
+              </Stack>
+            </>
+          ) : (
+            <>
+              <Stack direction="row" spacing={3}>
+                <Button color="inherit" href="/register">
+                  Register
+                </Button>
+                <Button color="inherit" href="/login">
+                  Login
+                </Button>
+              </Stack>
+            </>
+          )
+        ) : token ? (
           <>
             <Stack direction="row" spacing={3}>
-              <Button color="inherit" href="/users/my-profile">
+              <Button color="inherit" href="/teachers">
+                My Dashboard
+              </Button>
+              <Button color="inherit" href="/teachers/my-profile">
                 My Profile
               </Button>
-              <Button color="inherit" href="/users/logout">
+              <Button color="inherit" href="/teachers/update-password">
+                Update Password
+              </Button>
+              <Button color="inherit" href="/logout">
                 Logout
               </Button>
             </Stack>
@@ -53,27 +89,26 @@ const MyNavBar: React.FC<MyNavBarProps> = ({ token }) => {
             </Stack>
           </>
         )}
-
-        {/* ------------------ Subject ----------------------------- */}
-
-        {/* <Stack direction="row" spacing={3}>
-          <Button color="inherit" href="/subjects/create">
-            Create Subjects
-          </Button>
-          <Button color="inherit" href="/subjects/update/${id}">
-            Update Subjects
-          </Button>
-          <Button color="inherit" href="/subjects">
-            Subjects
-          </Button>
-
-          <Button color="inherit" href="/login">
-            Login
-          </Button>
-        </Stack> */}
       </Toolbar>
     </AppBar>
   );
 };
 
 export default MyNavBar;
+
+/* ------------------ Subject ----------------------------- */
+/* <Stack direction="row" spacing={3}>
+    <Button color="inherit" href="/subjects/create">
+      Create Subjects
+    </Button>
+    <Button color="inherit" href="/subjects/update/${id}">
+      Update Subjects
+    </Button>
+    <Button color="inherit" href="/subjects">
+      Subjects
+    </Button>
+
+    <Button color="inherit" href="/login">
+      Login
+    </Button>
+  </Stack> */

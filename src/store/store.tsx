@@ -10,7 +10,7 @@ import { UserApi } from "../services/api/UserService";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"], // only persist the user reducer
+  whitelist: ["user", "subject"], // only persist the user reducer
 };
 
 // Combine all reducers

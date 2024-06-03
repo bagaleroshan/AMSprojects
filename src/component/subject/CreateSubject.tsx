@@ -9,7 +9,7 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import SubjectForm from "./SubjectForm";
-import { ISubject } from "./subjectInterface";
+import { ISubject } from "../interfaces/SubjectInterface";
 
 const CreateSubject = () => {
   const formikRef = useRef<FormikProps<ISubject> | null>(null);
