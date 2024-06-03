@@ -12,6 +12,8 @@ import { myProfileUpdateValidation } from "../../validation/userValidation";
 import DwInput from "../dwForm/DwInput";
 import { IUser, IUserFormValues } from "../interfaces/UserInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const UpdateProfileForm: React.FC<IUserFormValues> = ({
   buttonName = "Update Profile",
@@ -24,9 +26,9 @@ const UpdateProfileForm: React.FC<IUserFormValues> = ({
     fullName: user.fullName || "",
     phoneNumber: user.phoneNumber || "",
   };
+  const adminToken = useSelector((store: RootState) => store.user.adminToken);
 
-  const href =
-    user.role === "admin" ? "/admin/my-profile" : "/teachers/my-profile";
+  const href = adminToken ? "/admin/my-profile" : "/teachers/my-profile";
 
   return (
     <>

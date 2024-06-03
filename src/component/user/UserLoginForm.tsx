@@ -11,11 +11,11 @@ import { Form, Formik } from "formik";
 import { userLoginValidation } from "../../validation/userValidation";
 import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
 import DwInput from "../dwForm/DwInput";
-import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 import {
   IUserFormValues,
   userLoginInitialValues,
 } from "../interfaces/UserInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const UserLoginForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN IN",
@@ -101,7 +101,7 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                       <Grid item>
                         <Button
                           color="inherit"
-                          href="/users"
+                          href="/register"
                           sx={{
                             fontSize: "0.7rem",
                             "&:hover": {

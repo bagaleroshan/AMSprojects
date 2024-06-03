@@ -20,7 +20,7 @@ import UpdateProfileForm from "./UpdateProfileForm";
 const UpdateProfile = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const navigate = useNavigate();
-  const userRole = useSelector((store: RootState) => store.user.role);
+  const adminToken = useSelector((store: RootState) => store.user.adminToken);
 
   /* Reading MyProfile to Populate the form */
   const {
@@ -58,11 +58,11 @@ const UpdateProfile = () => {
   useEffect(() => {
     if (isSuccessUpdateProfile) {
       toast.success("Profile Updated successfully", { autoClose: 3000 });
-      userRole === "admin"
+      adminToken
         ? navigate("/admin/my-profile")
         : navigate("/teachers/my-profile");
     }
-  }, [isSuccessUpdateProfile, userRole, navigate]);
+  }, [isSuccessUpdateProfile, adminToken, navigate]);
 
   useEffect(() => {
     if (isErrorUpdateProfile) {

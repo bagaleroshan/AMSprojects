@@ -13,7 +13,6 @@ import ResetPasswordForm from "./ResetPasswordForm";
 const ResetPassword = () => {
   const navigate = useNavigate();
 
-  // const { token } = useParams<{ token: string }>();
   const [params] = useSearchParams();
   const token = params.get("token");
   if (token !== null) {
@@ -31,7 +30,6 @@ const ResetPassword = () => {
   ] = useResetPasswordMutation();
 
   const submitValue = async (values: IUser) => {
-    console.log("Values confirmpassword", values.confirmPassword);
     resetPassword({
       password: values.confirmPassword,
     }).unwrap();

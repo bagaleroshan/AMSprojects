@@ -15,22 +15,32 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setRole: (state, action: PayloadAction<string>) => {
+      state.role = action.payload;
+    },
+
     setToken: (state, action: PayloadAction<string>) => {
+      if (state.role === "admin") {
+        state.adminToken = action.payload;
+      } else {
+        state.teachersToken = action.payload;
+      }
       state.token = action.payload;
       localStorage.setItem("token", action.payload);
     },
 
     clearToken: (state) => {
-      state.token = null;
-    },
-
-    setRole: (state, action: PayloadAction<string>) => {
-      state.role = action.payload;
+      state.token = "";
+      state.adminToken = "";
+      state.teachersToken = "";
+      localStorage.removeItem("token");
     },
 
     logout: (state) => {
-      state.token = null;
+      state.token = "";
       state.role = "";
+      state.adminToken = "";
+      state.teachersToken = "";
       localStorage.clear();
     },
   },
