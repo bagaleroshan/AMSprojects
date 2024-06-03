@@ -29,9 +29,9 @@ const MyApp = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <TRoutes></TRoutes>
+        {/* <TRoutes></TRoutes> */}
         {/* <ASideBar></ASideBar> */}
-        {/* <ARoutes></ARoutes> */}
+        <ARoutes></ARoutes>
       </ThemeProvider>
       {/* <ReactDropZone/> */}
       {/* <DwForm></DwForm> */}
