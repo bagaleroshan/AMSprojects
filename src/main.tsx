@@ -6,7 +6,6 @@ import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
 import { persistor, store } from "./store/store.tsx";
-// import CreateProfileImage from "./component/imageUpload/CreateProfileImage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -14,8 +13,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <PersistGate loading={null} persistor={persistor}>
         <CssBaseline />
         <ToastContainer></ToastContainer>
+        <App />
       </PersistGate>
-      <App />
     </Provider>
   </BrowserRouter>
 );

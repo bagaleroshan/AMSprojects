@@ -1,6 +1,4 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import { LoadingButton } from "@mui/lab";
 import {
   Avatar,
   Box,
@@ -12,7 +10,11 @@ import {
 import { Form, Formik } from "formik";
 import { userUpdatePassValidation } from "../../validation/userValidation";
 import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
-import { IUserFormValues, updatePassInitialValue } from "./UserInterface";
+import {
+  IUserFormValues,
+  updatePassInitialValue,
+} from "../interfaces/UserInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const UpdatePasswordForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN UP",
@@ -39,7 +41,6 @@ const UpdatePasswordForm: React.FC<IUserFormValues> = ({
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    // width: "1000px",
                   }}
                 >
                   <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
@@ -81,32 +82,10 @@ const UpdatePasswordForm: React.FC<IUserFormValues> = ({
                       autoComplete="confirmPassword"
                     />
                     <Grid item xs={12}>
-                      {isLoading ? (
-                        <LoadingButton
-                          loading
-                          endIcon={<SendIcon />}
-                          loadingPosition="end"
-                          type="submit"
-                          sx={{
-                            backgroundColor: "primary.main",
-                            mt: 3,
-                            mb: 2,
-                          }}
-                          fullWidth
-                        >
-                          UPDATING....
-                        </LoadingButton>
-                      ) : (
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          sx={{ mt: 3, mb: 2 }}
-                        >
-                          {buttonName}
-                        </Button>
-                      )}
+                      <MuiLoadingButtonTheme
+                        buttonName={buttonName}
+                        isLoading={isLoading}
+                      />
                     </Grid>
                     <Grid container spacing={6} direction="row">
                       <Grid item>

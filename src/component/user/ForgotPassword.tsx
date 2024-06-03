@@ -8,8 +8,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { IUser } from "../interfaces/UserInterface";
 import ForgotPasswordForm from "./ForgotPasswordForm";
-import { IUser } from "./UserInterface";
 
 const ForgotPassword = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);

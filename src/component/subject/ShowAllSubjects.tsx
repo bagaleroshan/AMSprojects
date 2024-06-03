@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const ShowAllSubjects = () => {
   // const { isError, isSuccess, isLoading, data, error } = useReadSubjectsQuery();
-  console.log(subjectInfo);
+  // console.log(subjectInfo);
   //   console.log(data);
 
   const subjects = [];

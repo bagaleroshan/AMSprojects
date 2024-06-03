@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { validationSchema } from "../../validation/subjectValidation";
 import DwInput from "../dwForm/DwInput";
-import { IFormValues, ISubject } from "./subjectInterface";
+import { IFormValues, ISubject } from "../interfaces/SubjectInterface";
 
 const SubjectForm: React.FC<IFormValues> = ({
   buttonName = "Create",
@@ -73,7 +73,7 @@ const SubjectForm: React.FC<IFormValues> = ({
                     loadingPosition="end"
                     type="submit"
                     sx={{
-                      backgroundColor: "secondary.main",
+                      backgroundColor: "primary.main",
                       // marginTop: "10px",
                     }}
                   >

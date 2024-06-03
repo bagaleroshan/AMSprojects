@@ -21,18 +21,25 @@ const MyProfile = () => {
     isError: isErrorMyProfile,
     data: dataMyProfile,
     error: errorMyProfile,
-    // refetch,
   } = useMyProfileQuery({});
 
   const profileData = dataMyProfile?.result || {};
-  // refetch();
+
+  const href =
+    dataMyProfile?.result?.role === "admin"
+      ? "/admin/update-profile"
+      : "/teachers/update-profile";
+
   useEffect(() => {
-    isErrorMyProfile &&
-      (isFetchBaseQueryError(errorMyProfile)
-        ? toast.error(getErrorMessage(errorMyProfile), { autoClose: 5000 })
-        : isSerializedError(errorMyProfile)
-        ? toast.error(errorMyProfile?.message, { autoClose: 5000 })
-        : "Unknown Error");
+    if (isErrorMyProfile) {
+      if (isFetchBaseQueryError(errorMyProfile)) {
+        toast.error(getErrorMessage(errorMyProfile), { autoClose: 5000 });
+      } else if (isSerializedError(errorMyProfile)) {
+        toast.error(errorMyProfile?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
   }, [isErrorMyProfile, errorMyProfile]);
 
   return (
@@ -57,7 +64,7 @@ const MyProfile = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button color="primary" variant="contained" href="/users/update-profile">
+      <Button color="primary" variant="contained" href={href}>
         Edit Profile
       </Button>
     </>

@@ -7,16 +7,18 @@ export interface IUser {
   password?: string;
   phoneNumber?: string | number;
   role?: string;
-  token?: string | null;
+  token?: string | null | undefined;
   oldPassword?: string;
   newPassword?: string;
   confirmPassword?: string;
+  adminToken?: string;
+  teachersToken?: string;
 }
 
 export const roles = [
   { label: "Teacher", value: "teacher" },
   { label: "Admin", value: "admin" },
-  { label: "Super Admin", value: "superAdmin" },
+  // { label: "Super Admin", value: "superAdmin" },
 ];
 
 export const userInitialValues: IUser = {
@@ -34,6 +36,10 @@ export interface IUserFormValues {
   user?: IUser;
   autofocus?: boolean;
 }
+
+// export interface TokenProps {
+//   token: string | undefined | null;
+// }
 
 /* ------------------------------ User Login --------------------------------- */
 

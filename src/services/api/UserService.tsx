@@ -65,11 +65,15 @@ export const UserApi = createApi({
 
     myProfile: builder.query({
       query: () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/users/my-profile`,
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         };
       },
@@ -77,12 +81,16 @@ export const UserApi = createApi({
 
     updateProfile: builder.mutation({
       query: (body) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: "/users/update-profile",
           method: "PATCH",
           body,
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         };
       },

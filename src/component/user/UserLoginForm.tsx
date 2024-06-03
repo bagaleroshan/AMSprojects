@@ -1,6 +1,4 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import SendIcon from "@mui/icons-material/Send";
-import { LoadingButton } from "@mui/lab";
 import {
   Avatar,
   Box,
@@ -13,7 +11,11 @@ import { Form, Formik } from "formik";
 import { userLoginValidation } from "../../validation/userValidation";
 import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
 import DwInput from "../dwForm/DwInput";
-import { IUserFormValues, userLoginInitialValues } from "./UserInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import {
+  IUserFormValues,
+  userLoginInitialValues,
+} from "../interfaces/UserInterface";
 
 const UserLoginForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN IN",
@@ -75,32 +77,10 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                       autoComplete="current-password"
                     />
                     <Grid item xs={12}>
-                      {isLoading ? (
-                        <LoadingButton
-                          loading
-                          endIcon={<SendIcon />}
-                          loadingPosition="end"
-                          type="submit"
-                          sx={{
-                            backgroundColor: "primary.main",
-                            mt: 3,
-                            mb: 2,
-                          }}
-                          fullWidth
-                        >
-                          SIGNING IN....
-                        </LoadingButton>
-                      ) : (
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          sx={{ mt: 3, mb: 2 }}
-                        >
-                          {buttonName}
-                        </Button>
-                      )}
+                      <MuiLoadingButtonTheme
+                        buttonName={buttonName}
+                        isLoading={isLoading}
+                      />
                     </Grid>
                     <Grid container spacing={3} direction="row">
                       <Grid item xs>

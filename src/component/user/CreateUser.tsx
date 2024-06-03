@@ -8,8 +8,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { IUser } from "../interfaces/UserInterface";
 import CreateUserForm from "./CreateUserForm";
-import { IUser } from "./UserInterface";
 
 const CreateUser = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
@@ -25,7 +25,6 @@ const CreateUser = () => {
   ] = useCreateUserMutation();
 
   const submitValue = async (values: IUser) => {
-    console.log(values);
     createUser(values);
   };
 
@@ -36,15 +35,18 @@ const CreateUser = () => {
       });
       formikRef.current?.resetForm();
     }
-  });
+  }, [isSuccessCreateUser]);
 
   useEffect(() => {
-    isErrorCreateUser &&
-      (isFetchBaseQueryError(errorCreateUser)
-        ? toast.error(getErrorMessage(errorCreateUser), { autoClose: 5000 })
-        : isSerializedError(errorCreateUser)
-        ? toast.error(errorCreateUser?.message, { autoClose: 5000 })
-        : "Unknown Error");
+    if (isErrorCreateUser) {
+      if (isFetchBaseQueryError(errorCreateUser)) {
+        toast.error(getErrorMessage(errorCreateUser), { autoClose: 5000 });
+      } else if (isSerializedError(errorCreateUser)) {
+        toast.error(errorCreateUser?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
   }, [isErrorCreateUser, errorCreateUser]);
 
   return (

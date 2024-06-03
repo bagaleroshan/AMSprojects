@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ISubject } from "../component/subject/subjectInterface";
+import { ISubject } from "../component/interfaces/SubjectInterface";
 
 const initialState: ISubject = {
   subjectName: "",
