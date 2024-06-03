@@ -45,7 +45,6 @@ const UpdatePassword = () => {
   useEffect(() => {
     if (isSuccessUpdatePassword) {
       toast.success("Password Updated Successfully", { autoClose: 2000 });
-      localStorage.removeItem("token");
       dispatch(clearToken());
       navigate("/login");
     }

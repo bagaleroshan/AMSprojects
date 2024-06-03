@@ -12,7 +12,10 @@ import { RootState } from "./store/store";
 
 const App = () => {
   const token = useSelector((store: RootState) => store.user.token);
-  const role = useSelector((store: RootState) => store.user.role);
+  const adminToken = useSelector((store: RootState) => store.user.adminToken);
+  const teachersToken = useSelector(
+    (store: RootState) => store.user.teachersToken
+  );
 
   return (
     <Routes>
@@ -20,7 +23,11 @@ const App = () => {
         path="/"
         element={
           <div>
-            <MyNavBar token={token} role={role}></MyNavBar>
+            <MyNavBar
+              token={token}
+              adminToken={adminToken}
+              teachersToken={teachersToken}
+            ></MyNavBar>
             <Outlet />
           </div>
         }
@@ -29,7 +36,7 @@ const App = () => {
         <Route path="login" element={<UserLogin />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<div>404</div>} />
-        {role === "admin" ? (
+        {adminToken ? (
           <Route path="admin/*" element={<AdminRoute />} />
         ) : (
           <Route path="teachers/*" element={<TeacherRoute />} />

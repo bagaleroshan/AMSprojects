@@ -15,6 +15,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const MyProfile = () => {
   const {
@@ -24,11 +26,11 @@ const MyProfile = () => {
   } = useMyProfileQuery({});
 
   const profileData = dataMyProfile?.result || {};
+  const adminToken = useSelector((store: RootState) => store.user.adminToken);
 
   const href =
-    dataMyProfile?.result?.role === "admin"
-      ? "/admin/update-profile"
-      : "/teachers/update-profile";
+    // dataMyProfile?.token === adminToken
+    adminToken ? "/admin/update-profile" : "/teachers/update-profile";
 
   useEffect(() => {
     if (isErrorMyProfile) {

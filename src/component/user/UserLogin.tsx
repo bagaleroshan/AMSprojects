@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,11 +13,13 @@ import {
 } from "../../utils/utils";
 import { IUser } from "../interfaces/UserInterface";
 import UserLoginForm from "./UserLoginForm";
+import { RootState } from "../../store/store";
 
 const UserLogin = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const adminToken = useSelector((store: RootState) => store.user.adminToken);
 
   const [
     userLogin,
@@ -50,13 +52,15 @@ const UserLogin = () => {
   useEffect(() => {
     if (isSuccessUserLogin) {
       toast.success(userLoginData.message, { autoClose: 2000 });
-      dispatch(setToken(userLoginData.token));
       dispatch(setRole(userLoginData.result.role));
-      userLoginData.result.role === "admin"
-        ? navigate("/admin/update-password")
-        : navigate("/teachers/update-password");
+      dispatch(setToken(userLoginData.token));
+
+      adminToken ? navigate("/admin") : navigate("/teachers");
+      // adminToken
+      //   ? navigate("/admin/update-password")
+      //   : navigate("/teachers/update-password");
     }
-  }, [isSuccessUserLogin, userLoginData, dispatch, navigate]);
+  }, [isSuccessUserLogin, adminToken, dispatch, navigate, userLoginData]);
 
   return (
     <>
