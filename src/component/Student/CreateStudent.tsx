@@ -10,7 +10,7 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import StudentForm from "./StudentForm";
-import { IStudent } from "./studentInterface";
+import { IStudent } from "../interfaces/StudentInterface";
 
 const CreateStudent = () => {
   // const navigate = useNavigate();

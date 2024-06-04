@@ -2,20 +2,26 @@ import { useEffect } from "react";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 
 const ShowAllSubjects = () => {
-  const {
-    isError: isErrorReadSubjects,
-    isSuccess: isSuccessReadSubjects,
-    isLoading: isLoadingReadSubjects,
-    data: dataReadSubjects,
-    error: errorReadSubjects,
-  } = useReadSubjectsQuery();
-  useEffect(() => {
-    if (isErrorReadSubjects) {
-      console.log("****", errorReadSubjects?.error);
+  // const { isError, isSuccess, isLoading, data, error } = useReadSubjectsQuery();
+  // console.log(subjectInfo);
+  //   console.log(data);
+
+  const subjects = [];
+  const navigate = useNavigate();
+
+  let deleteSubject = async (id) => {
+    try {
+      await axios({
+        url: `http://localhost:8000/products/${id}`,
+        method: "delete",
+      });
+
+      // getSubjects();
+    } catch (error) {
+      console.log(error.message);
     }
-  }, [isErrorReadSubjects, errorReadSubjects?.error]);
-  console.log(dataReadSubjects, "***********111");
-  const subjects = dataReadSubjects;
+  };
+
   return (
     <div>
       {subjects?.map((item: any, i: any) => {

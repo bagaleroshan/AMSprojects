@@ -1,76 +1,53 @@
-import CreateSubject from "./component/subject/CreateSubject";
-import ReadSpecificSubject from "./component/subject/ReadSpecificSubject";
-// import CreateUser from "./component/user/CreateUser";
-// import UpdatePassword from "./component/user/UpdatePassword";
-// import UserLogin from "./component/user/UserLogin";
+import { useSelector } from "react-redux";
 import { Outlet, Route, Routes } from "react-router-dom";
 import MyNavBar from "./component/MyNavbar";
-import CreateStudent from "./component/Student/CreateStudent";
-import ReadSpecificStudent from "./component/Student/ReadSpecificStudent";
-import UpdateStudent from "./component/Student/UpdateStudent";
-import UpdateSubject from "./component/subject/UpdateSubject";
+import AdminRoute from "./component/routes/AdminRoute";
+import TeacherRoute from "./component/routes/TeacherRoute";
+
+import CreateUser from "./component/user/CreateUser";
+import ForgotPassword from "./component/user/ForgotPassword";
+import UserLogin from "./component/user/UserLogin";
+import UserLogout from "./component/user/UserLogout";
+import { RootState } from "./store/store";
+import StudentForm from "./component/Student/StudentForm";
 
 const App = () => {
+  const token = useSelector((store: RootState) => store.user.token);
+  const adminToken = useSelector((store: RootState) => store.user.adminToken);
+  const teachersToken = useSelector(
+    (store: RootState) => store.user.teachersToken
+  );
+
   return (
-    <>
-      {/* <DwForm></DwForm> */}
-      {/* <DateAndTime></DateAndTime> */}
-      {/* <RoughForm></RoughForm> */}
-      {/* <DateAndTimeDemo></DateAndTimeDemo> */}
-      {/* <Table></Table> */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <MyNavBar></MyNavBar>
-              <Outlet></Outlet>
-            </div>
-          }
-        >
-          {/* ********************************************* Subjects *********************************** */}
-          <Route path="subjects" element={<Outlet></Outlet>}>
-            {/* <Route index element={<ShowAllSubjects></ShowAllSubjects>}></Route> */}
-            {/* <Route index element={<Table></Table>}></Route> */}
-
-            <Route
-              path=":id"
-              element={<ReadSpecificSubject></ReadSpecificSubject>}
-            ></Route>
-            <Route
-              path="create"
-              element={<CreateSubject></CreateSubject>}
-            ></Route>
-
-            <Route path="update" element={<Outlet></Outlet>}>
-              <Route
-                path=":id"
-                element={<UpdateSubject></UpdateSubject>}
-              ></Route>
-            </Route>
-          </Route>
-
-         
-
-          <Route path="students" element={<Outlet></Outlet>}>
-            <Route
-              path="create-student"
-              element={<CreateStudent></CreateStudent>}
-            ></Route>
-            <Route
-              path=":id"
-              element={<ReadSpecificStudent></ReadSpecificStudent>}
-            ></Route>
-            <Route path="update-student" element={<Outlet></Outlet>}>
-              <Route
-                path=":id"
-                element={<UpdateStudent></UpdateStudent>}
-              ></Route>
-            </Route>
-          </Route>
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      {/* <Route
+        path="/"
+        element={
+          <div>
+            <MyNavBar
+              token={token}
+              adminToken={adminToken}
+              teachersToken={teachersToken}
+            ></MyNavBar>
+            <Outlet />
+          </div>
+        }
+      >
+        <Route path="register" element={<CreateUser />} />
+        <Route path="login" element={<UserLogin />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="*" element={<div>404</div>} />
+        {adminToken ? (
+          <Route path="admin/*" element={<AdminRoute />} />
+        ) : (
+          <Route path="teachers/*" element={<TeacherRoute />} />
+        )}
+        <Route path="logout" element={<UserLogout />} />
+      </Route> */}
+      <Route path="/" element={<Outlet></Outlet>}>
+        <Route path="create-student" element={<StudentForm></StudentForm>}></Route>
+      </Route>
+    </Routes>
   );
 };
 

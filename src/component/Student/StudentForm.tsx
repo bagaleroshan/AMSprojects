@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { studentValidationSchema } from "../../validation/studentValidation";
 import DwInput from "../dwForm/DwInput";
-import { IFormValues, IStudent } from "./studentInterface";
+import { IFormValues, IStudent } from "../interfaces/StudentInterface";
 
 const StudentForm: React.FC<IFormValues> = ({
   buttonName = "Create",
@@ -14,10 +14,8 @@ const StudentForm: React.FC<IFormValues> = ({
   onSubmit = () => {},
 }) => {
   const initialValues: IStudent = {
-    // id: student?.id || 1,
     fullName: student?.fullName || "",
     email: student?.email || "",
-    // address: student?.address || "",
     phoneNumber: student?.phoneNumber || "",
   };
 
@@ -38,15 +36,6 @@ const StudentForm: React.FC<IFormValues> = ({
                 alignItems="center"
                 sx={{ marginTop: "10px", padding: "16px", width: "60" }}
               >
-                {/* <DwInput
-                  name="id"
-                  label="ID"
-                  type="number"
-                  onChange={(e) => {
-                    formik.setFieldValue("id", e.target.value);
-                  }}
-                  isLoading={isLoading}
-                ></DwInput> */}
                 <DwInput
                   name="fullName"
                   label="Full Name"
@@ -66,15 +55,6 @@ const StudentForm: React.FC<IFormValues> = ({
                   }}
                   isLoading={isLoading}
                 ></DwInput>
-                {/* <DwInput
-                  name="address"
-                  label="Address"
-                  type="text"
-                  onChange={(e) => {
-                    formik.setFieldValue("address", e.target.value);
-                  }}
-                  isLoading={isLoading}
-                ></DwInput> */}
 
                 <DwInput
                   name="phoneNumber"

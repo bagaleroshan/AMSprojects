@@ -1,4 +1,4 @@
-import { ISubject } from "./subject/subjectInterface";
+import { ISubject } from "./interfaces/SubjectInterface";
 const subject: ISubject = {
   subjectName: "",
   subjectCode: "",

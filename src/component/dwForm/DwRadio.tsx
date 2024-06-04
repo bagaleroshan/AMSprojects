@@ -50,7 +50,7 @@ const DwRadio: React.FC<IDwRadioProps> = ({
                       return (
                         <FormControlLabel
                           key={i}
-                          control={<Radio size="small" color="secondary" />}
+                          control={<Radio size="small" color="primary" />}
                           label={item.label}
                           value={item.value}
                           checked={meta.value === item.value}
