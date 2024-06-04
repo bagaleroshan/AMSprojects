@@ -21,11 +21,6 @@ const MyNavBar = () => {
         </Typography>
 
         <Stack direction="row" spacing={3}>
-          {/* ----------------- User -------------------------------- */}
-          <Button color="inherit" href="/users">
-            Register
-          </Button>
-
           {/* ------------------ Subject ----------------------------- */}
           <Button color="inherit" href="/subjects/create">
             Create Subjects
@@ -41,10 +36,6 @@ const MyNavBar = () => {
           </Button>
           <Button color="inherit" href="/students/update-student/${id}">
             Update Student
-          </Button>
-
-          <Button color="inherit" href="/users/login">
-            Login
           </Button>
         </Stack>
       </Toolbar>

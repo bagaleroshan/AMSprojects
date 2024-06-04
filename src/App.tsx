@@ -5,15 +5,10 @@ import ReadSpecificSubject from "./component/subject/ReadSpecificSubject";
 // import UserLogin from "./component/user/UserLogin";
 import { Outlet, Route, Routes } from "react-router-dom";
 import MyNavBar from "./component/MyNavbar";
-import CreateUser from "./component/User/CreateUser";
-import UserLogin from "./component/User/UserLogin";
-import UpdatePassword from "./component/User/UpdatePassword";
-import CreateRegister from "./component/CRUD-USER/CreateRegister";
-import ResetPassword from "./component/User/ResetPassword";
 import CreateStudent from "./component/Student/CreateStudent";
+import ReadSpecificStudent from "./component/Student/ReadSpecificStudent";
 import UpdateStudent from "./component/Student/UpdateStudent";
 import UpdateSubject from "./component/subject/UpdateSubject";
-import ReadSpecificStudent from "./component/Student/ReadSpecificStudent";
 
 const App = () => {
   return (
@@ -33,21 +28,6 @@ const App = () => {
             </div>
           }
         >
-          {/* ************************************** User ******************************************** */}
-          <Route path="users" element={<Outlet></Outlet>}>
-            <Route index element={<CreateUser></CreateUser>}></Route>
-            <Route path="login" element={<UserLogin></UserLogin>}></Route>
-            <Route
-              path="update-password"
-              element={<UpdatePassword></UpdatePassword>}
-            ></Route>
-            <Route path="profile" element={<div>Dashboard</div>}></Route>
-            <Route
-              path="reset-password"
-              element={<ResetPassword></ResetPassword>}
-            ></Route>
-          </Route>
-
           {/* ********************************************* Subjects *********************************** */}
           <Route path="subjects" element={<Outlet></Outlet>}>
             {/* <Route index element={<ShowAllSubjects></ShowAllSubjects>}></Route> */}
@@ -70,10 +50,7 @@ const App = () => {
             </Route>
           </Route>
 
-          <Route
-            path="user"
-            element={<CreateRegister></CreateRegister>}
-          ></Route>
+         
 
           <Route path="students" element={<Outlet></Outlet>}>
             <Route
