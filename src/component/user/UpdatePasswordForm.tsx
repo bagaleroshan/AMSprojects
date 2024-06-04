@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { userUpdatePassValidation } from "../../validation/userValidation";
-import DwHideAndShowPass from "../dwForm/DwHideAndShowPass";
+import DwHideAndShowPass from "../dwComponents/DwHideAndShowPass";
 import {
   IUserFormValues,
   updatePassInitialValue,

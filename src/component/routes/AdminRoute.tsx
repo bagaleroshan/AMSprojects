@@ -1,21 +1,35 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import UpdatePassword from "../user/UpdatePassword";
-import ResetPassword from "../user/ResetPassword";
-import MyProfile from "../user/MyProfile";
-import UpdateProfile from "../user/UpdateProfile";
-import ReadSpecificSubject from "../subject/ReadSpecificSubject";
+import AAttendance from "../MyComponents/Admin/AAttendance";
+import AForms from "../MyComponents/Admin/AForms";
+import AMessages from "../MyComponents/Admin/AMessages";
+import AReport from "../MyComponents/Admin/AReport";
+import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import CreateSubject from "../subject/CreateSubject";
+import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
+import MyProfile from "../user/MyProfile";
+import UpdatePassword from "../user/UpdatePassword";
+import UpdateProfile from "../user/UpdateProfile";
 
 const AdminRoute = () => {
   return (
     <Routes>
-      <Route path="/" element={<Outlet />}>
-        <Route index element={<div>Admin Dashboard</div>} />
+      <Route
+        path="/"
+        element={
+          <>
+            <Outlet />
+          </>
+        }
+      >
+        <Route index element={<AdminDashboard />} />
         <Route path="update-password" element={<UpdatePassword />} />
-        <Route path="reset-password" element={<ResetPassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
+        <Route path="attendance" element={<AAttendance />} />
+        <Route path="forms" element={<AForms />} />
+        <Route path="messages" element={<AMessages />} />
+        <Route path="report" element={<AReport />} />
         {/*------------------ Subject --------------------------*/}
         <Route path="subjects" element={<Outlet />}>
           <Route path=":id" element={<ReadSpecificSubject />} />
