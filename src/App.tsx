@@ -11,6 +11,9 @@ import UpdatePassword from "./component/User/UpdatePassword";
 import CreateRegister from "./component/CRUD-USER/CreateRegister";
 import ResetPassword from "./component/User/ResetPassword";
 import CreateStudent from "./component/Student/CreateStudent";
+import UpdateStudent from "./component/Student/UpdateStudent";
+import UpdateSubject from "./component/subject/UpdateSubject";
+import ReadSpecificStudent from "./component/Student/ReadSpecificStudent";
 
 const App = () => {
   return (
@@ -60,21 +63,34 @@ const App = () => {
             ></Route>
 
             <Route path="update" element={<Outlet></Outlet>}>
-              {/* <Route
+              <Route
                 path=":id"
                 element={<UpdateSubject></UpdateSubject>}
-              ></Route> */}
+              ></Route>
             </Route>
           </Route>
+
           <Route
             path="user"
             element={<CreateRegister></CreateRegister>}
           ></Route>
 
-          <Route
-            path="students"
-            element={<CreateStudent></CreateStudent>}
-          ></Route>
+          <Route path="students" element={<Outlet></Outlet>}>
+            <Route
+              path="create-student"
+              element={<CreateStudent></CreateStudent>}
+            ></Route>
+            <Route
+              path=":id"
+              element={<ReadSpecificStudent></ReadSpecificStudent>}
+            ></Route>
+            <Route path="update-student" element={<Outlet></Outlet>}>
+              <Route
+                path=":id"
+                element={<UpdateStudent></UpdateStudent>}
+              ></Route>
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </>

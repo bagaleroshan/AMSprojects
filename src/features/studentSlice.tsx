@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IStudent } from "../component/studentInterface";
 
 const initialState: IStudent = {
+  id: 1,
   fullName: "",
   email: "",
-  course: "",
+  address: "",
   phoneNumber: "",
 };
 

@@ -4,7 +4,7 @@ export const StudentApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
   }),
-  tagTypes: ["readSubjects", "readSubjectsById"],
+  tagTypes: ["readStudents", "readStudentsById"],
 
   endpoints: (builder) => ({
     createStudent: builder.mutation({
@@ -15,7 +15,7 @@ export const StudentApi = createApi({
           body: body,
         };
       },
-      invalidatesTags: ["readSubjects"],
+      invalidatesTags: ["readStudents"],
     }),
     UpdateStudent: builder.mutation({
       query: (data) => {
@@ -39,18 +39,19 @@ export const StudentApi = createApi({
       providesTags: ["readStudents"],
     }),
 
-    // deleteSubject: builder.mutation({
-    //   query: (id) => {
-    //     return {
-    //       url: `/subjects/${id}`,
-    //       method: "DELETE",
-    //     };
-    //   },
-    //   invalidatesTags: ["readSubjects"],
-    // }),
+    deleteSubject: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/subjects/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["readStudents"],
+    }),
   }),
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const {
   useCreateStudentMutation,
   useUpdateStudentMutation,

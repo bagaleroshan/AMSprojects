@@ -36,8 +36,11 @@ const MyNavBar = () => {
 
           <Button color="inherit">Subjects</Button>
 
-          <Button color="inherit" href="/students">
-            Create Students
+          <Button color="inherit" href="/students/create-student">
+            Create Student
+          </Button>
+          <Button color="inherit" href="/students/update-student/${id}">
+            Update Student
           </Button>
 
           <Button color="inherit" href="/users/login">

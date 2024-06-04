@@ -1,18 +1,16 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-// import {
-//     useReadStudentByIdQuery,
-//     useUpdateStudentMutation,
-// } from "../../services/api/StudentService";
 import {
-    getErrorMessage,
-    isFetchBaseQueryError,
-    isSerializedError,
+  useReadStudentByIdQuery,
+  useUpdateStudentMutation,
+} from "../../services/api/StudentApi";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
 } from "../../utils/utils";
 import StudentForm from "./StudentForm";
-// import { IStudent } from "./subjectInterface";
-import { useReadStudentByIdQuery, useUpdateStudentMutation } from "../../services/api/StudentApi";
 import { IStudent } from "./studentInterface";
 
 const UpdateStudent = () => {

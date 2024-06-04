@@ -1,6 +1,5 @@
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { IErrorResponse } from "./utilsInterface";
 // import { IErrorResponse } from "./utilsInterface";
 
 

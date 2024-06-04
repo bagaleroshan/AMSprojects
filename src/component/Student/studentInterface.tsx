@@ -1,9 +1,10 @@
 import { FormikProps } from "formik";
 
 export interface IStudent {
+  // id: number;
   fullName: string;
   email: string;
-  course: string;
+  // address: string;
   phoneNumber: string;
 }
 

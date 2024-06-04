@@ -1,11 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import studentSlice from "../features/studentSlice";
 import subjectSlice from "../features/subjectSlice";
 import userSlice from "../features/userSlice";
+import { StudentApi } from "../services/api/StudentApi";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
-import studentSlice from "../features/studentSlice";
-import { StudentApi } from "../services/api/StudentApi";
-
 export const store = configureStore({
   reducer: {
     /*------------ User -------------*/
@@ -16,10 +15,8 @@ export const store = configureStore({
     subject: subjectSlice,
     [SubjectApi.reducerPath]: SubjectApi.reducer,
     /*-------------------------- Student -----------------------------------*/
-
     student: studentSlice,
     [StudentApi.reducerPath]: StudentApi.reducer,
-
     /* ------------------------------ Profile Image ----------------------------------*/
   },
   middleware: (getDefaultMiddleware) =>
