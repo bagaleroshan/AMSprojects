@@ -1,5 +1,5 @@
 import { ThemeProvider, createTheme } from "@mui/material";
-import ASideBar from "./component/MyComponents/Admin/ASideBar";
+import ASideBar from "./component/MyComponents/Admin/AdminSidebar";
 import TRoutes from "./component/MyComponents/Teacher/TRoutes";
 import ARoutes from "./component/MyComponents/Admin/ARoutes";
 

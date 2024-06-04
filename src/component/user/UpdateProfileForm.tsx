@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { myProfileUpdateValidation } from "../../validation/userValidation";
-import DwInput from "../dwForm/DwInput";
+import DwInput from "../dwComponents/DwInput";
 import { IUser, IUserFormValues } from "../interfaces/UserInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 import { useSelector } from "react-redux";

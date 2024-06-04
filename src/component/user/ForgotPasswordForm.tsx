@@ -2,7 +2,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import { userForgotPassValidation } from "../../validation/userValidation";
-import DwInput from "../dwForm/DwInput";
+import DwInput from "../dwComponents/DwInput";
 import {
   IUserFormValues,
   forgotPassInitialValue,
