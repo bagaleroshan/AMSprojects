@@ -12,11 +12,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Provider store={store}>
       <ToastContainer></ToastContainer>
-      {/* <MyApp></MyApp> */}
+      <MyApp></MyApp>
       <PersistGate loading={null} persistor={persistor}>
         <CssBaseline />
         <ToastContainer></ToastContainer>
-        <App />
+        {/* <App /> */}
       </PersistGate>
     </Provider>
   </BrowserRouter>
