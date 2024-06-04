@@ -1,11 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface IQuery {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort:string
-}
 export const SubjectApi = createApi({
   reducerPath: "SubjectApi",
   baseQuery: fetchBaseQuery({
@@ -15,9 +8,9 @@ export const SubjectApi = createApi({
 
   endpoints: (builder) => ({
     readSubjects: builder.query({
-      query: (query: IQuery) => {
+      query: (query: { page: 1; limit: 10; findQuery: "" }) => {
         return {
-          url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
+          url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}`,
           method: "GET",
         };
       },
@@ -45,39 +38,34 @@ export const SubjectApi = createApi({
       },
       invalidatesTags: ["readSubjects", "readSubjectsById"],
     }),
+
+    readSubjectById: builder.query({
+      query: (id) => {
+        return {
+          url: `/subjects/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["readSubjects"],
+    }),
+
+
+    deleteSubject: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/subjects/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["readSubjects"],
+    }),
   }),
 });
 
 export const {
   useCreateSubjectMutation,
   useUpdateSubjectMutation,
+  useReadSubjectByIdQuery,
   useReadSubjectsQuery,
+  useDeleteSubjectMutation,
 } = SubjectApi;
-
-
-    // readSubjectById: builder.query({
-    //   query: (id) => {
-    //     return {
-    //       url: `/subjects/${id}`,
-    //       method: "GET",
-    //     };
-    //   },
-    //   providesTags: ["readSubjects"],
-    // }),
-
-    // deleteSubject: builder.mutation({
-    //   query: (id) => {
-    //     return {
-    //       url: `/subjects/${id}`,
-    //       method: "DELETE",
-    //     };
-    //   },
-    //   invalidatesTags: ["readSubjects"],
-    // }),
-
-// export const {
-//   useCreateSubjectMutation,
-//   useReadSubjectsQuery,
-//   useReadSubjectByIdQuery,
-//   useDeleteSubjectMutation,
-// } = SubjectApi;

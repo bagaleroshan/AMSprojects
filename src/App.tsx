@@ -1,56 +1,56 @@
-// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-// import RoughForm from "./component/Rough/RoughForm";
-// import DwForm from "./component/dwForm/DwForm";
-// import DateAndTimeDemo from "./component/Rough/DateAndTimeDemo";
-// import BasicTable from "./component/BasicTable";
+import { useSelector } from "react-redux";
 import { Outlet, Route, Routes } from "react-router-dom";
-import CreateSubject from "./component/CRUD-subject/CreateSubject";
-import Table from "./component/ReactTable/Table";
-import MyNavBar from "./component/MyNavBar";
-import StudentTable from "./component/Rough/Table/StudentTable";
+import AdminRoute from "./component/routes/AdminRoute";
+import TeacherRoute from "./component/routes/TeacherRoute";
+import AmsLayout from "./component/theme/AmsLayout";
+import CreateUser from "./component/user/CreateUser";
+import ForgotPassword from "./component/user/ForgotPassword";
+import ResetPassword from "./component/user/ResetPassword";
+import UserLogin from "./component/user/UserLogin";
+import UserLogout from "./component/user/UserLogout";
+import { RootState } from "./store/store";
 import SubjectTable from "./component/Rough/Table/SubjectTable";
+import ViewRow from "./component/Rough/Table/ViewRowProps";
+import UpdateSubject from "./component/Rough/Table/UpdateSubject";
 
 const App = () => {
+  const adminToken = useSelector((store: RootState) => store.user.adminToken);
+
   return (
-    <>
-      {/* <DwForm></DwForm> */}
-      {/* <DateAndTime></DateAndTime> */}
-      {/* <RoughForm></RoughForm> */}
-      {/* <DateAndTimeDemo></DateAndTimeDemo> */}
-      {/* <Table></Table> */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <MyNavBar></MyNavBar>
-              <Outlet></Outlet>
-            </div>
-          }
-        >
-          <Route path="subjects" element={<Outlet></Outlet>}>
-            {/* <Route index element={<ShowAllSubjects></ShowAllSubjects>}></Route> */}
-            <Route index element={<SubjectTable></SubjectTable>}></Route>
+    <Routes>
+      <Route path="/" element={<Outlet />}>
+        <Route path="register" element={<CreateUser />} />
+        <Route path="login" element={<UserLogin/>} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="subjects" element={<SubjectTable/>} />
+        <Route path="subjects/View" element={<ViewRow />} />
+        <Route path="subjects/update" element={<UpdateSubject/>} />
+        
 
-            <Route
-              path="create"
-              element={<CreateSubject></CreateSubject>}
-            ></Route>
-
-            <Route path="update" element={<Outlet></Outlet>}>
-              {/* <Route
-                path=":id"
-                element={<UpdateSubject></UpdateSubject>}
-              ></Route> */}
-            </Route>
-          </Route>
+        {adminToken ? (
           <Route
-            path="students"
-            element={<StudentTable></StudentTable>}
-          ></Route>
-        </Route>
-      </Routes>
-    </>
+            path="admin/*"
+            element={
+              <AmsLayout>
+                <AdminRoute />
+              </AmsLayout>
+            }
+          />
+        ) : (
+          <Route
+            path="teachers/*"
+            element={
+              <AmsLayout>
+                <TeacherRoute />
+              </AmsLayout>
+            }
+          />
+        )}
+        <Route path="logout" element={<UserLogout />} />
+        <Route path="*" element={<div>404</div>} />
+      </Route>
+    </Routes>
   );
 };
 
