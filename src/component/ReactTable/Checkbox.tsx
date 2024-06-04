@@ -1,9 +1,11 @@
 import React from "react";
 interface ICheckboxProps {
   indeterminate: boolean;
+  checked: boolean;
+  onChange: () => void;
 }
 export const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
-  ({ indeterminate, ...rest }, ref) => {
+  ({checked,onChange, indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef<HTMLInputElement>(null);
     const resolvedRef = ref || defaultRef;
     React.useEffect(() => {
@@ -13,7 +15,13 @@ export const Checkbox = React.forwardRef<HTMLInputElement, ICheckboxProps>(
     }, [resolvedRef, indeterminate]);
     return (
       <>
-        <input type="checkbox" ref={resolvedRef} {...rest}></input>
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          ref={resolvedRef}
+          {...rest}
+        ></input>
       </>
     );
   }

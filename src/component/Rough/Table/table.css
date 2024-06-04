@@ -21,3 +21,32 @@ table {
     background-color: #04AA6D;
     color: white;
   }
+
+  .pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination li a {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.pagination li.active a {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.pagination li.disabled a {
+  color: #ccc;
+  cursor: not-allowed;
+}

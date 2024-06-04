@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-/* interface Subject {
-  subjectName: string;
-  subjectCode: string;
-  numberOfClasses: number;
-  <Subject, Partial<Subject>>
-} */
+
+interface IQuery {
+  page: number;
+  limit: number;
+  findQuery: string;
+  sort:string
+}
 export const SubjectApi = createApi({
   reducerPath: "SubjectApi",
   baseQuery: fetchBaseQuery({
@@ -14,9 +15,9 @@ export const SubjectApi = createApi({
 
   endpoints: (builder) => ({
     readSubjects: builder.query({
-      query: (query:{page:1,limit:10,findQuery:""}) => {
+      query: (query: IQuery) => {
         return {
-          url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}`,
+          url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
           method: "GET",
         };
       },
@@ -44,6 +45,15 @@ export const SubjectApi = createApi({
       },
       invalidatesTags: ["readSubjects", "readSubjectsById"],
     }),
+  }),
+});
+
+export const {
+  useCreateSubjectMutation,
+  useUpdateSubjectMutation,
+  useReadSubjectsQuery,
+} = SubjectApi;
+
 
     // readSubjectById: builder.query({
     //   query: (id) => {
@@ -64,8 +74,6 @@ export const SubjectApi = createApi({
     //   },
     //   invalidatesTags: ["readSubjects"],
     // }),
-  }),
-});
 
 // export const {
 //   useCreateSubjectMutation,
@@ -73,9 +81,3 @@ export const SubjectApi = createApi({
 //   useReadSubjectByIdQuery,
 //   useDeleteSubjectMutation,
 // } = SubjectApi;
-export const {
-  useCreateSubjectMutation,
-  useUpdateSubjectMutation,
-  useReadSubjectsQuery,
-  usePaginateSubjectQuery,
-} = SubjectApi;

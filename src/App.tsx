@@ -5,9 +5,10 @@
 // import BasicTable from "./component/BasicTable";
 import { Outlet, Route, Routes } from "react-router-dom";
 import CreateSubject from "./component/CRUD-subject/CreateSubject";
-import UpdateSubject from "./component/CRUD-subject/UpdateSubject";
-import MyNavBar from "./component/MyNavbar";
 import Table from "./component/ReactTable/Table";
+import MyNavBar from "./component/MyNavBar";
+import StudentTable from "./component/Rough/Table/StudentTable";
+import SubjectTable from "./component/Rough/Table/SubjectTable";
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const App = () => {
         >
           <Route path="subjects" element={<Outlet></Outlet>}>
             {/* <Route index element={<ShowAllSubjects></ShowAllSubjects>}></Route> */}
-            <Route index element={<Table></Table>}></Route>
+            <Route index element={<SubjectTable></SubjectTable>}></Route>
 
             <Route
               path="create"
@@ -43,6 +44,10 @@ const App = () => {
               ></Route> */}
             </Route>
           </Route>
+          <Route
+            path="students"
+            element={<StudentTable></StudentTable>}
+          ></Route>
         </Route>
       </Routes>
     </>

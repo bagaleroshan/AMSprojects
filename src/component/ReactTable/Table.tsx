@@ -1,274 +1,96 @@
-import { useEffect, useMemo, useState } from "react";
-import {
-  Cell,
-  Column,
-  HeaderGroup,
-  Row,
-  TableInstance,
-  TableState,
-  UsePaginationState,
-  useGlobalFilter,
-  usePagination,
-  useRowSelect,
-  useTable,
-} from "react-table";
+import React, { useState, useCallback, useEffect } from "react";
+import TableComponent from "../Rough/Table/TableComponent";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
-import { Checkbox } from "./Checkbox";
-import { TableColumns } from "./TableColumn";
-import "./table.css";
-import { current } from "@reduxjs/toolkit";
 
-interface IData {
-  id: number;
-  name: string;
-  code: string;
+interface Query {
+  page: number;
+  limit: number;
+  findQuery: string;
+  sort: string;
 }
-type TableInstanceWithGlobalFilter<T extends object> = TableState<T> & {
-  globalFilter: string;
-};
-type TableInstanceWithPaginationAndGlobalFilter<T extends object> =
-  TableInstance<T> & {
-    state: TableInstanceWithGlobalFilter<T> & UsePaginationState<T>;
-    page: Row<T>[];
-    nextPage: () => void;
-    previousPage: () => void;
-    canNextPage: boolean;
-    canPreviousPage: boolean;
-    pageOptions: number[];
-    gotoPage: (pageIndex: number) => void;
-    pageCount: number;
-    setPageSize: (pageSize: number) => void;
-    setGlobalFilter: (filterValue: unknown) => void;
-    selectedFlatRows: Row<T>[];
-  };
-const Tables: React.FC = () => {
-  const [selectedRowId, setSelectedRowId] = useState<number | null>(null);
-  const [query, setQuery] = useState({
+
+const SubjectTable: React.FC = () => {
+  const columns = [
+    { header: "Subject Name", accessor: "subjectName" },
+    { header: "Teacher", accessor: "teacher" },
+    { header: "Credits", accessor: "credits" },
+  ];
+
+  const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
+    sort: "asc",
   });
-  const {
-    isError: isErrorReadSubjects,
-    // isSuccess: isSuccessReadSubjects,
-    // isLoading: isLoadingReadSubjects,
-    data: dataReadSubjects,
-    error: errorReadSubjects,
-  } = useReadSubjectsQuery(query);
-  useEffect(() => {
-    if (isErrorReadSubjects) {
-      console.log("****", errorReadSubjects?.error);
-    }
-  }, [isErrorReadSubjects, errorReadSubjects?.error]);
-  // console.log(dataReadSubjects?.result, "***********111");
-  // let page=dataReadSubjects?.result
-  const columns: Column<IData>[] = useMemo(
-    () => TableColumns as Column<IData>[],
+
+  const { data, isLoading, isError, refetch } = useReadSubjectsQuery(query);
+
+  const [searchTerm, setSearchTerm] = useState(query.findQuery);
+
+  const debouncedSetQuery = useCallback(
+    debounce((newQuery: Partial<Query>) => {
+      setQuery((prevQuery) => ({ ...prevQuery, ...newQuery }));
+    }, 500),
     []
   );
-  const data: IData[] = useMemo(() => {
-    if (dataReadSubjects?.result) {
-      return dataReadSubjects?.result.results;
-    } else {
-      return [];
-    }
-  }, [JSON.stringify(dataReadSubjects)]);
 
-  console.log("*******", data);
-  const handleRowClick = (row: Row<IData>) => {
-    row.toggleRowSelected();
-    setSelectedRowId(
-      row.original.id === selectedRowId ? null : row.original.id
-    );
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSearchTerm(value);
+    debouncedSetQuery({ findQuery: value });
   };
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    // nextPage,
-    // previousPage,
-    // canNextPage,
-    canPreviousPage,
-    pageOptions,
-    gotoPage,
-    pageCount,
-    setPageSize,
-    state,
-    setGlobalFilter,
-    selectedFlatRows,
-    prepareRow,
-  } = useTable<IData>(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0, globalFilter: "" } as Partial<
-        TableState<IData>
-      >,
-      manualPagination: true,
-      manualSortBy: true,
-      manualFilters: true,
-      autoResetSortBy: false,
-      stateReducer: (newState, action) => {
-        if (
-          action.type === "toggleRowSelected" ||
-          action.type === "toggleAllRowsSelected"
-        ) {
-          // No need to manage a separate state for button visibility
-        }
-        return newState;
-      },
-    },
-    useGlobalFilter,
-    usePagination,
-    useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        {
-          id: "selection",
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <Checkbox {...getToggleAllRowsSelectedProps()} />
-          ),
-          Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
-        },
-        ...columns,
-      ]);
-    }
-  ) as TableInstanceWithPaginationAndGlobalFilter<IData>;
 
-  const { pageIndex } = state;
-  const selectedRowsCount = selectedFlatRows.length;
+  const handleQueryChange = (newQuery: Partial<Query>) => {
+    setQuery((prevQuery) => ({ ...prevQuery, ...newQuery }));
+  };
 
-  console.log("page is ", page);
+  useEffect(() => {
+    refetch();
+  }, [query, refetch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError || !data || !data.result) {
+    return <div>Error loading data.</div>;
+  }
+
   return (
-    <>
-      <input
-        value={query.findQuery || ""}
-        onChange={(e) => {
-          setQuery({
-            ...query,
-            findQuery: e.target.value,
-          });
-        }}
-        placeholder="Search..."
-      />
-      {selectedRowsCount === 1 && (
-        <>
-          <button onClick={() => console.log("edit button clicked")}>
-            <i className="fas fa-edit"></i> Edit
-          </button>
-          <button onClick={() => console.log("delete button clicked")}>
-            <i className="fas fa-trash-alt"></i> Delete
-          </button>
-        </>
-      )}
-      {selectedRowsCount > 1 && (
-        <button onClick={() => console.log("delete button clicked")}>
-          <i className="fas fa-trash-alt"></i> Delete
-        </button>
-      )}
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup: HeaderGroup<IData>) => (
-            <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
-              {headerGroup.headers.map(
-                (column: HeaderGroup<IData>["headers"][number]) => (
-                  <th {...column.getHeaderProps()} key={column.id}>
-                    {column.render("Header")}
-                  </th>
-                )
-              )}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row: Row<IData>) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                key={row.id}
-                onClick={() => handleRowClick(row)}
-                style={{
-                  backgroundColor:
-                    selectedRowId === row.original.id ? "#F2F2F2" : "",
-                  cursor: "pointer",
-                }}
-              >
-                {row.cells.map((cell: Cell<IData>) => (
-                  <td {...cell.getCellProps()} key={cell.column.id}>
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div>
       <div>
-        <span>
-          Page{" "}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{" "}
-        </span>
-        {/* <span>
-          | Go to page:{" "}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const pageNumber = e.target.value
-                ? Number(e.target.value) - 1
-                : 0;
-              gotoPage(pageNumber);
-            }}
-            style={{ width: "50px" }}
-          />
-        </span> */}
-        <select
-          value={query.limit}
-          onChange={(e) => {
-            setQuery((prevQuery) => ({
-              ...prevQuery,
-              limit: parseInt(e.target.value),
-            }));
-          }}
-        >
-          {[...new Set([10, 15, 50])].map((size) => (
-            <option key={size} value={size}>
-              show {size}
-            </option>
-          ))}
-        </select>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {"<<"}
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        <button onClick={() => handleQueryChange({ page: query.page + 1 })}>
+          Next Page
         </button>
-        <button
-          onClick={() =>
-            setQuery((prevQuery) => ({
-              ...prevQuery,
-              page: prevQuery.page - 1,
-            }))
-          }
-        >
-          Previous
+        <button onClick={() => handleQueryChange({ limit: 20 })}>
+          Set Limit to 20
         </button>
-
-        <button
-          onClick={() =>
-            setQuery((prevQuery) => ({
-              ...prevQuery,
-              page: prevQuery.page + 1,
-            }))
-          }
-        >
-          Next
+        <button onClick={() => handleQueryChange({ sort: "desc" })}>
+          Sort Descending
         </button>
-
-        <button onClick={() => gotoPage(pageCount - 1)}>{">>"}</button>
       </div>
-    </>
+      <TableComponent columns={columns} data={data.result.results} />
+      <div>
+        <h2>Query State:</h2>
+        <pre>{JSON.stringify(query, null, 2)}</pre>
+      </div>
+    </div>
   );
 };
-export default Tables;
+
+// Debounce function to limit the rate of API calls
+function debounce(func: (...args: any[]) => void, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return function (...args: any[]) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+export default SubjectTable;
