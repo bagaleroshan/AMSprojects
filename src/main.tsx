@@ -8,7 +8,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
 import { persistor, store } from "./store/store.tsx";
 // import "../Style.css/TLogout.css";
-import "./component/mycomponents/style/global.css";
+import "./component/MyComponents/style/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

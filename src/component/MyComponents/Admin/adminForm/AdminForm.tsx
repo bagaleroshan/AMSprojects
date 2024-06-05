@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import AdminTabs from "./AdminTabs";
+import StudentTable from "../../../TableComponent/StudentTable";
 
 const AdminForm = () => {
   const [activeTab, setActiveTab] = useState("User");

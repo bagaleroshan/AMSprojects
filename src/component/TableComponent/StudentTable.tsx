@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
-import { useReadStudentsQuery } from "../../../services/api/StudentService";
-import {   useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useReadStudentsQuery } from "../../services/api/StudentService";
 interface Query {
   page: number;
   limit: number;
@@ -29,7 +29,7 @@ const StudentTable: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
- 
+
   useEffect(() => {
     refetch();
   }, [query, refetch]);
@@ -43,7 +43,9 @@ const StudentTable: React.FC = () => {
   }
   const useHandleEditClick = (selectedRowData: IData[]) => {
     const navigate = useNavigate();
-    return navigate(`students/update/${selectedRowData[0].id}`, { replace: true });
+    return navigate(`students/update/${selectedRowData[0].id}`, {
+      replace: true,
+    });
   };
   return (
     <div>
@@ -56,7 +58,6 @@ const StudentTable: React.FC = () => {
         currentSort={query.sort}
         totalData={data.result.totalDataInWholePage}
         onEditClick={useHandleEditClick}
-
       />
     </div>
   );

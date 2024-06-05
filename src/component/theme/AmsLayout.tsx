@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import TeacherSideBar from "../mycomponents/teacher/TeacherSideBar";
-import AdminSidebar from "../mycomponents/admin/AdminSidebar";
+import AdminSidebar from "../MyComponents/Admin/AdminSidebar";
+import TeacherSideBar from "../MyComponents/Teacher/TeacherSideBar";
 
 const AmsLayout = ({ children }) => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);

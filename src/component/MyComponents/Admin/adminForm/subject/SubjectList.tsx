@@ -1,22 +1,28 @@
-import { Box, Button, Typography } from '@mui/material'
 import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, Typography } from "@mui/material";
 
-import React from 'react'
+import SubjectTable from "../../../../TableComponent/SubjectTable";
 
-const SubjectList = ({onChangeSubjectPage}) => {
+const SubjectList = ({ onChangeSubjectPage }) => {
   return (
     <>
-       <div style={{ width: "100%", textAlign: "center" }}>
+      <div style={{ width: "100%", textAlign: "center" }}>
         <Typography variant="h5">Subject List</Typography>
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
-        <Button variant="contained" startIcon={<AddIcon />} color="primary" onClick={()=>onChangeSubjectPage('createSubject')}>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          color="primary"
+          onClick={() => onChangeSubjectPage("createSubject")}
+        >
           Add
         </Button>
       </div>
+      <SubjectTable></SubjectTable>
     </>
-  )
-}
+  );
+};
 
-export default SubjectList
+export default SubjectList;
