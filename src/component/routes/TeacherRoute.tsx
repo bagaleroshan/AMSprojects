@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 import MyProfile from "../user/MyProfile";
 // import ResetPassword from "../user/ResetPassword";
@@ -19,6 +19,8 @@ const TeacherRoute = () => {
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="messages" element={<TMessages />} />
         <Route path="report" element={<TReport />} />
+
+        <Route path="*" element={<Navigate to="/teachers" replace />} />
       </Route>
     </Routes>
   );

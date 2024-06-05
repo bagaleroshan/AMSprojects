@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Groups from "./group/Group";
 import Students from "./student/Student";
 import Subject from "./subject/Subject";
@@ -97,6 +98,7 @@ export default function AdminTabs({ onTabChange }) {
     onTabChange(tabTypes[newValue]);
     console.log(newValue);
   };
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -108,18 +110,25 @@ export default function AdminTabs({ onTabChange }) {
         >
           <StyledTab label="Users" {...a11yProps(0)} />
           <StyledTab label="Students" {...a11yProps(1)} />
-          <StyledTab label="Subjects" {...a11yProps(2)} />
+          <Tab
+            label="Subjects"
+            {...a11yProps(2)}
+            onClick={() => {
+              navigate("/admin/forms/subjects");
+            }}
+          />
           <StyledTab label="Groups" {...a11yProps(3)} />
         </StyledTabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <User/>
+        <User />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Students />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <Subject />
+        {/* <ShowAllSubjects /> */}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         <Groups />

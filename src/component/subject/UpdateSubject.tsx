@@ -15,7 +15,6 @@ import {
 
 const UpdateSubject = () => {
   const params = useParams();
-  console.log("Subject Updated");
   const navigate = useNavigate();
 
   const [
@@ -52,7 +51,7 @@ const UpdateSubject = () => {
   useEffect(() => {
     if (isSuccessUpdateSubject) {
       toast.success("Subject Updated Successfully");
-      navigate(`/subjects/${params.id}`);
+      navigate(`/admin/forms/subjects`);
     }
   });
 

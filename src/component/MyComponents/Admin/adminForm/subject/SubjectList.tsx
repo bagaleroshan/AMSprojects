@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Typography } from "@mui/material";
-
-import SubjectTable from "../../../../TableComponent/SubjectTable";
+import ShowAllSubjects from "../../../../subject/ShowAllSubjects";
+// import SubjectTable from "../../../../ReactTable/Table";
 
 const SubjectList = ({ onChangeSubjectPage }) => {
   return (
@@ -20,7 +20,8 @@ const SubjectList = ({ onChangeSubjectPage }) => {
           Add
         </Button>
       </div>
-      <SubjectTable></SubjectTable>
+      {/* <SubjectTable></SubjectTable> */}
+      <ShowAllSubjects />
     </>
   );
 };
