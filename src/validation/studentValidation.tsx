@@ -1,20 +1,37 @@
 import * as yup from "yup";
 
 export const studentValidationSchema = yup.object({
-  // fullName: yup.string().min(3).max(100).required("Student name is required"),
   fullName: yup
     .string()
-    .min(3)
-    .max(100)
-    .matches(/^[a-zA-Z\s]*$/, "Full Name can only contain letters and spaces.")
-    .required("Full Name is required."),
+    .test(
+      "is-valid-full-name",
+      "Full name must contain only letters and spaces.",
+      (value) => /^[a-zA-Z ]+$/.test(value || "")
+    )
+    .test(
+      "is-correct-length",
+      "Full name must be between 3 and 30 characters long.",
+      (value) => (value && value.length >= 3 && value.length <= 30) || false
+    )
+    .required("Full name is required."),
   email: yup
     .string()
-    .email("Enter a valid email.")
+    .test("is-valid-email", "Invalid Email!!", (value): boolean => {
+      if (value === undefined || value === null) {
+        return true; // Return true here so required check can handle empty values
+      }
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    })
     .required("Email is required."),
-  // address: yup.string().min(3).max(30).required("Address is Required."),
   phoneNumber: yup
     .string()
-    .matches(/^\d{10}$/, "Phone number must be exactly 10 digits.")
-    .required("Phone Number is required."),
+    .matches(/^[0-9]{10}$/, "Phone number must have 10 digits")
+    .test("is-valid-phone-number", "Invalid phone number", (value): boolean => {
+      if (value === undefined || value === null) {
+        return true;
+      }
+      return /^(?:\+977[-\s]?)?(?:98\d{8}|97\d{8}|0[1-9]\d{8})$/.test(value);
+    })
+    .required("Phone number is required."),
+
 });

@@ -9,7 +9,6 @@ import ForgotPassword from "./component/user/ForgotPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
-import StudentForm from "./component/Student/StudentForm";
 
 const App = () => {
   const token = useSelector((store: RootState) => store.user.token);
@@ -20,7 +19,7 @@ const App = () => {
 
   return (
     <Routes>
-      {/* <Route
+      <Route
         path="/"
         element={
           <div>
@@ -43,9 +42,6 @@ const App = () => {
           <Route path="teachers/*" element={<TeacherRoute />} />
         )}
         <Route path="logout" element={<UserLogout />} />
-      </Route> */}
-      <Route path="/" element={<Outlet></Outlet>}>
-        <Route path="create-student" element={<StudentForm></StudentForm>}></Route>
       </Route>
     </Routes>
   );
