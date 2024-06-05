@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { userValidation } from "../../validation/userValidation";
-import DwInput from "../dwForm/DwInput";
-import DwSelect from "../dwForm/DwSelect";
+import DwInput from "../dwComponents/DwInput";
+import DwSelect from "../dwComponents/DwSelect";
 import {
   IUserFormValues,
   roles,

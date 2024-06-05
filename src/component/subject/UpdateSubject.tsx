@@ -16,7 +16,7 @@ import {
 const UpdateSubject = () => {
   const params = useParams();
   console.log("Subject Updated");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [
     updateSubject,
@@ -38,7 +38,6 @@ const UpdateSubject = () => {
 
   const submitValue = async (values: ISubject) => {
     updateSubject({ id: params.id, body: values });
-    // navigate(`/subjects/${params.id}`);
   };
 
   useEffect(() => {
@@ -51,8 +50,11 @@ const UpdateSubject = () => {
   }, [isErrorUpdateSubject, errorUpdateSubject]);
 
   useEffect(() => {
-    if (isSuccessUpdateSubject) toast.success("Subject Updated Successfully");
-  }, [isSuccessUpdateSubject]);
+    if (isSuccessUpdateSubject) {
+      toast.success("Subject Updated Successfully");
+      navigate(`/subjects/${params.id}`);
+    }
+  });
 
   useEffect(() => {
     isErrorViewSpecific &&
