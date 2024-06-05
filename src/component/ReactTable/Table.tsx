@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import TableComponent from "../Rough/Table/TableComponent";
+import TableComponent from "../TableComponent/TableComponent";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 
 interface Query {

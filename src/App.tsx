@@ -9,9 +9,9 @@ import ResetPassword from "./component/user/ResetPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
-import SubjectTable from "./component/Rough/Table/SubjectTable";
-import ViewRow from "./component/Rough/Table/ViewRowProps";
-import UpdateSubject from "./component/Rough/Table/UpdateSubject";
+import SubjectTable from "./component/TableComponent/SubjectTable";
+import ViewRow from "./component/TableComponent/ViewRowProps";
+import UpdateSubject from "./component/TableComponent/UpdateSubject";
 
 const App = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
