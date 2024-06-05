@@ -12,7 +12,7 @@ import { StudentsApi } from "../services/api/StudentService";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "subject"], // only persist the user reducer
+  whitelist: ["user", "subject","student"], // only persist the user reducer
 };
 
 // Combine all reducers
@@ -36,7 +36,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(SubjectApi.middleware, UserApi.middleware),
+    }).concat(SubjectApi.middleware, UserApi.middleware,StudentsApi.middleware),
 });
 
 // Create the persistor

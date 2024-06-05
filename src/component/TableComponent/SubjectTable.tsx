@@ -47,14 +47,14 @@ const SubjectTable: React.FC = () => {
 
   const handleEditClick = (selectedRowData: IData[]) => {
     navigate(`update`, {
-      state: { updateData: selectedRowData[0] },
+      state: { updateSubjectData: selectedRowData[0] },
       replace: true,
     });
     console.log(selectedRowData);
   };
   const handleViewClick = (selectedRowData: IData[]) => {
     navigate(`View`, {
-      state: { viewData: selectedRowData[0] },
+      state: { viewSubjectData: selectedRowData[0] },
       replace: true,
     });
     console.log(selectedRowData);
@@ -72,7 +72,7 @@ const SubjectTable: React.FC = () => {
 
   return (
     <div>
-      <h1>Subjects Table</h1>
+      
       <TableComponent
         columns={columns}
         data={data.result.results}

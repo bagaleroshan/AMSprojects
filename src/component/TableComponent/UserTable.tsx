@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDeleteStudentsMutation, useReadStudentsQuery } from "../../services/api/StudentService";
+import { useDeleteUsersByIdMutation, useReadUsersQuery } from "../../services/api/UserService";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
 
@@ -11,14 +11,14 @@ interface Query {
   sort: string[];
 }
 
-const StudentTable: React.FC = () => {
+const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
     { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
-    { Header: "Course", accessor: "course" },
     { Header: "Contact", accessor: "phoneNumber" },
+    { Header: "Role", accessor: "role" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -28,11 +28,11 @@ const StudentTable: React.FC = () => {
     sort: [],
   });
 
-  const { data, isLoading, isError, refetch } = useReadStudentsQuery({
+  const { data, isLoading, isError, refetch } = useReadUsersQuery({
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteStudents] = useDeleteStudentsMutation();
+  const [deleteUsers] = useDeleteUsersByIdMutation();
 
   useEffect(() => {
     refetch();
@@ -48,14 +48,14 @@ const StudentTable: React.FC = () => {
 
   const handleEditClick = (selectedRowData: IData[]) => {
     navigate(`update`, {
-      state: { updateStudentData: selectedRowData[0] },
+      state: { updateUserData: selectedRowData[0] },
       replace: true,
     });
     console.log(selectedRowData);
   };
   const handleViewClick = (selectedRowData: IData[]) => {
     navigate(`View`, {
-      state: { viewStudentData: selectedRowData[0] },
+      state: { viewUserData: selectedRowData[0] },
       replace: true,
     });
     console.log(selectedRowData);
@@ -66,14 +66,13 @@ const StudentTable: React.FC = () => {
   const handleDeleteClick= (selectedRowData: IData[])=>{
     console.log("Delete action triggered", selectedRowData);
       selectedRowData.forEach((value: IData) => {
-      deleteStudents(value._id);
+      deleteUsers(value._id);
       console.log(value._id);
     });
   }
 
   return (
     <div>
-
       <TableComponent
         columns={columns}
         data={data.result.results}
@@ -89,4 +88,4 @@ const StudentTable: React.FC = () => {
   );
 };
 
-export default StudentTable;
+export default UserTable;
