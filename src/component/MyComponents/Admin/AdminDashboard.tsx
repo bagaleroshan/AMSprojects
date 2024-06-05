@@ -8,21 +8,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import LineChart from "../Chart/LineChart";
-import DwMuiSelect from "../Styling/DwMuiSelect";
-import ASideBar from "./ASideBar";
-import '../AdminStyle.css/ADashboard.css'
+import LineChart from "../chart/LineChart";
+import DwMuiSelect from "../styling/DwMuiSelect";
 
-const ADashboard = () => {
+const AdminDashboard = () => {
   return (
     <>
-    <div className="admindashboard">
-    <Box sx={{ display: "flex" }}>
-      <ASideBar></ASideBar>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-
-      <Box height={60} />
-      <Typography variant="h4">Dashboard</Typography>
+      <Typography variant="h4"> Admin Dashboard</Typography>
       <Box height={30} />
       <Typography variant="h6">Overview</Typography>
       <Divider variant="inset" />
@@ -60,11 +52,8 @@ const ADashboard = () => {
 
       <Box height={50} />
       <Typography variant="h4">Recent Login</Typography>
-     </Box>
-      </Box>
-      </div>
     </>
   );
 };
 
-export default ADashboard;
+export default AdminDashboard;

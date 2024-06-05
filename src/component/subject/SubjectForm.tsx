@@ -3,7 +3,7 @@ import { LoadingButton } from "@mui/lab";
 import { Button, ButtonGroup, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import { validationSchema } from "../../validation/subjectValidation";
-import DwInput from "../dwForm/DwInput";
+import DwInput from "../dwComponents/DwInput";
 import { IFormValues, ISubject } from "../interfaces/SubjectInterface";
 
 const SubjectForm: React.FC<IFormValues> = ({

@@ -2,10 +2,12 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import EmailIcon from "@mui/icons-material/Email";
+import FeedIcon from "@mui/icons-material/Feed";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import PasswordIcon from "@mui/icons-material/Password";
 import ReportIcon from "@mui/icons-material/Report";
+import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -26,7 +28,7 @@ import {
   LightTooltip,
 } from "../../theme/MuiSidebarTheme";
 
-export default function TeacherSideBar() {
+export default function AdminSidebar() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -67,6 +69,8 @@ export default function TeacherSideBar() {
             </Typography>
           </Toolbar>
         </AppBar>
+
+        {/* Drawer */}
         <Drawer variant="permanent" open={open}>
           <DrawerHeader sx={{ "&:hover": { color: "#0195CF" } }}>
             <IconButton
@@ -82,11 +86,11 @@ export default function TeacherSideBar() {
           </DrawerHeader>
           <Divider />
           <List>
-            {/* Dashboard */}
+            {/* -----Dashboard----- */}
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate("/teachers")}
+              onClick={() => navigate("/admin")}
             >
               <LightTooltip title="Dashboard" placement="right">
                 <ListItemButton
@@ -116,11 +120,79 @@ export default function TeacherSideBar() {
                 </ListItemButton>
               </LightTooltip>
             </ListItem>
-            {/* Messages */}
+            {/* ----Attendance----- */}
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate("/teachers/messages")}
+              onClick={() => navigate("/admin/attendance")}
+            >
+              <LightTooltip title="Attendance" placement="right">
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                      "&:hover": { color: "#0195CF" },
+                    }}
+                  >
+                    <SpeakerNotesIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Attendance"
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      "&:hover": { color: "#0195CF" },
+                    }}
+                  />
+                </ListItemButton>
+              </LightTooltip>
+            </ListItem>
+            {/* ----Forms---- */}
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => navigate("/admin/forms")}
+            >
+              <LightTooltip title="Forms" placement="right">
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                      "&:hover": { color: "#0195CF" },
+                    }}
+                  >
+                    <FeedIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Forms"
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      "&:hover": { color: "#0195CF" },
+                    }}
+                  />
+                </ListItemButton>
+              </LightTooltip>
+            </ListItem>
+            {/* ---Messages--- */}
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => navigate("/admin/messages")}
             >
               <LightTooltip title="Message" placement="right">
                 <ListItemButton
@@ -150,11 +222,11 @@ export default function TeacherSideBar() {
                 </ListItemButton>
               </LightTooltip>
             </ListItem>
-            {/* Report */}
+            {/* ----Report---- */}
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate("/teachers/report")}
+              onClick={() => navigate("/admin/report")}
             >
               <LightTooltip title="Report" placement="right">
                 <ListItemButton
@@ -188,7 +260,7 @@ export default function TeacherSideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate("/teachers/update-password")}
+              onClick={() => navigate("/admin/update-password")}
             >
               <LightTooltip title="Change Password" placement="right">
                 <ListItemButton

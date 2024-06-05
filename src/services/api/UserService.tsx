@@ -64,8 +64,7 @@ export const UserApi = createApi({
     }),
 
     myProfile: builder.query({
-      query: () => {
-        const token = localStorage.getItem("token");
+      query: (token) => {
         if (!token) {
           throw new Error("No token available");
         }

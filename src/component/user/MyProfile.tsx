@@ -8,29 +8,31 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useMyProfileQuery } from "../../services/api/UserService";
+import { RootState } from "../../store/store";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 
 const MyProfile = () => {
+  const token = useSelector((store: RootState) => store.user.token);
+
   const {
     isError: isErrorMyProfile,
     data: dataMyProfile,
     error: errorMyProfile,
-  } = useMyProfileQuery({});
+  } = useMyProfileQuery(token);
 
   const profileData = dataMyProfile?.result || {};
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
 
-  const href =
-    // dataMyProfile?.token === adminToken
-    adminToken ? "/admin/update-profile" : "/teachers/update-profile";
+  const href = adminToken
+    ? "/admin/update-profile"
+    : "/teachers/update-profile";
 
   useEffect(() => {
     if (isErrorMyProfile) {

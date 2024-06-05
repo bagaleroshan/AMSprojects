@@ -21,13 +21,14 @@ const UpdateProfile = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const navigate = useNavigate();
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
+  const token = useSelector((store: RootState) => store.user.token);
 
   /* Reading MyProfile to Populate the form */
   const {
     isError: isErrorMyProfile,
     error: errorMyProfile,
     data: dataMyProfile,
-  } = useMyProfileQuery({});
+  } = useMyProfileQuery(token);
 
   const profileData = dataMyProfile?.result || {};
 

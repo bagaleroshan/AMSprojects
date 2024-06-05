@@ -39,16 +39,6 @@ export const SubjectApi = createApi({
       invalidatesTags: ["readSubjects", "readSubjectsById"],
     }),
 
-    // readSubjects: builder.query({
-    //   query: () => {
-    //     return {
-    //       url: "/subjects",
-    //       method: "GET",
-    //     };
-    //   },
-    //   providesTags: ["readSubjects"],
-    // }),
-
     readSubjectById: builder.query({
       query: (id) => {
         return {

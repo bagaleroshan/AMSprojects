@@ -1,12 +1,12 @@
-import React from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
-import ADashboard from "./ADashboard";
-import AAttendance from "./AAttendance";
-import AForms from "./AForms/AForms";
-import AMessages from "./AMessages";
-import AReport from "./AReport";
-import AChangePassword from "./AChangePassword";
-import ALogout from "./ALogout";
+import React from 'react'
+import { Outlet, Route, Routes } from 'react-router-dom'
+import ADashboard from './ADashboard'
+import AAttendance from './AAttendance'
+import AForms from './AForms'
+import AMessages from './AMessages'
+import AReport from './AReport'
+import AChangePassword from './AChangePassword'
+import ALogout from './ALogout'
 
 const ARoutes = () => {
   return (

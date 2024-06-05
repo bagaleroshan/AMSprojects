@@ -51,16 +51,17 @@ const UserLogin = () => {
 
   useEffect(() => {
     if (isSuccessUserLogin) {
-      toast.success(userLoginData.message, { autoClose: 2000 });
       dispatch(setRole(userLoginData.result.role));
       dispatch(setToken(userLoginData.token));
-
       adminToken ? navigate("/admin") : navigate("/teachers");
-      // adminToken
+      // toast.success(userLoginData.message, { autoClose: 1000 });
+    }
+  }, [isSuccessUserLogin, userLoginData, adminToken, dispatch, navigate]);
+
+  /*  // adminToken
       //   ? navigate("/admin/update-password")
       //   : navigate("/teachers/update-password");
-    }
-  }, [isSuccessUserLogin, adminToken, dispatch, navigate, userLoginData]);
+   */
 
   return (
     <>
