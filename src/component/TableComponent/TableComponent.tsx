@@ -3,8 +3,6 @@ import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
-import { useNavigate } from "react-router-dom";
-import { useDeleteSubjectMutation } from "../../services/api/SubjectService";
 
 export interface IData<T = any> {
   [key: string]: T;
@@ -19,6 +17,7 @@ interface TableComponentProps {
   totalData: number;
   onEditClick: (selectedRowData: IData[]) => void;
   onViewClick: (selectedRowData: IData[]) => void;
+  onDeleteClick: (selectedRowData: IData[]) => void;
 }
 
 interface Query {
@@ -37,8 +36,8 @@ const TableComponent: React.FC<TableComponentProps> = ({
   totalData,
   onEditClick,
   onViewClick,
+  onDeleteClick,
 }) => {
-  console.log(onEditClick);
   const [searchTerm, setSearchTerm] = useState(query.findQuery);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
   const [selectedRowData, setSelectedRowData] = useState<IData[]>([]);
@@ -92,15 +91,15 @@ const TableComponent: React.FC<TableComponentProps> = ({
     console.log("Edit action triggered", selectedRowData);
   };
 
-  const [deleteSubject] = useDeleteSubjectMutation();
-
   const handleDeleteClick = () => {
+    onDeleteClick(selectedRowData);
     console.log("Delete action triggered", selectedRowData);
-    selectedRowData.forEach((value: IData) => {
-      deleteSubject(value._id);
-      console.log(value._id);
-    });
+
+    // Clear selected rows state
+    setSelectedRows(new Set());
+    setSelectedRowData([]);
   };
+
   const handleViewClick = () => {
     onViewClick(selectedRowData);
     console.log("View action triggered", selectedRowData);
@@ -172,7 +171,30 @@ const TableComponent: React.FC<TableComponentProps> = ({
           value={searchTerm}
           onChange={handleSearchChange}
         />
+        {selectedRows.size > 0 && (
+        <div>
+          <button
+            onClick={handleEditClick}
+            disabled={selectedRowData.length === 0 || selectedRowData.length > 1}
+          >
+            Edit
+          </button>
+          <button
+            onClick={handleDeleteClick}
+            disabled={selectedRowData.length === 0}
+          >
+            Delete
+          </button>
+          <button
+            onClick={handleViewClick}
+            disabled={selectedRowData.length === 0 || selectedRowData.length > 1}
+          >
+            View
+          </button>
+        </div>
+      )}
       </div>
+
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -210,26 +232,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </tbody>
       </table>
       <div>
-        <button
-          onClick={handleEditClick}
-          disabled={selectedRowData.length === 0 || selectedRowData.length > 1}
-        >
-          Edit
-        </button>
-        <button
-          onClick={handleDeleteClick}
-          disabled={selectedRowData.length === 0}
-        >
-          Delete
-        </button>
-        <button
-          onClick={handleViewClick}
-          disabled={selectedRowData.length === 0 || selectedRowData.length > 1}
-        >
-          View
-        </button>
-      </div>
-      <div>
         <select
           value={query.limit}
           onChange={(e) => handleQueryChange({ limit: Number(e.target.value) })}
@@ -250,10 +252,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
           containerClassName={"pagination"}
           activeClassName={"active"}
         />
-      </div>
-      <div>
-        <h2>Query State:</h2>
-        <pre>{JSON.stringify(query, null, 2)}</pre>
       </div>
     </div>
   );

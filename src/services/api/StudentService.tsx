@@ -6,7 +6,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
   <Subject, Partial<Subject>>
 } */
 
-interface IQuery {
+export interface IQuery {
   page: number;
   limit: number;
   findQuery: string;

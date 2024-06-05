@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
-import { useReadSubjectsQuery } from "../../services/api/SubjectService";
+import { useDeleteSubjectMutation, useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useNavigate } from "react-router-dom";
 
 interface Query {
@@ -31,6 +31,7 @@ const SubjectTable: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
+  const [deleteSubject] = useDeleteSubjectMutation();
 
   useEffect(() => {
     refetch();
@@ -59,6 +60,16 @@ const SubjectTable: React.FC = () => {
     console.log(selectedRowData);
   };
 
+
+ 
+  const handleDeleteClick= (selectedRowData: IData[])=>{
+    console.log("Delete action triggered", selectedRowData);
+      selectedRowData.forEach((value: IData) => {
+      deleteSubject(value._id);
+      console.log(value._id);
+    });
+  }
+
   return (
     <div>
       <h1>Subjects Table</h1>
@@ -71,6 +82,7 @@ const SubjectTable: React.FC = () => {
         totalData={data.result.totalDataInWholePage}
         onEditClick={handleEditClick}
         onViewClick={handleViewClick}
+        onDeleteClick={handleDeleteClick}
       />
     </div>
   );
