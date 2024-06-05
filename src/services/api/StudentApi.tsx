@@ -39,15 +39,15 @@ export const StudentApi = createApi({
       providesTags: ["readStudents"],
     }),
 
-    deleteSubject: builder.mutation({
-      query: (id) => {
-        return {
-          url: `/subjects/${id}`,
-          method: "DELETE",
-        };
-      },
-      invalidatesTags: ["readStudents"],
-    }),
+    // deleteStudent: builder.mutation({
+    //   query: (id) => {
+    //     return {
+    //       url: `/students/${id}`,
+    //       method: "DELETE",
+    //     };
+    //   },
+    //   invalidatesTags: ["readStudents"],
+    // }),
   }),
 });
 
@@ -56,4 +56,5 @@ export const {
   useCreateStudentMutation,
   useUpdateStudentMutation,
   useReadStudentByIdQuery,
+  // useDeleteStudentMutation
 } = StudentApi;
