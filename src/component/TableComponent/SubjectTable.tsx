@@ -12,9 +12,9 @@ interface Query {
 }
 
 const SubjectTable: React.FC = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const columns = [
-    { Header: "Id", accessor: "id" },
+    { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "subjectName" },
     { Header: "Code", accessor: "subjectCode" },
     { Header: "Classes", accessor: "numberOfClasses" },
@@ -43,16 +43,20 @@ const SubjectTable: React.FC = () => {
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
-  
+
   const handleEditClick = (selectedRowData: IData[]) => {
-    
-    navigate(`update`,{ state: { updateData: selectedRowData[0] },  replace: true });
-    console.log(selectedRowData)
+    navigate(`update`, {
+      state: { updateData: selectedRowData[0] },
+      replace: true,
+    });
+    console.log(selectedRowData);
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    
-    navigate(`View`, { state: { viewData: selectedRowData[0] }, replace: true });
-    console.log(selectedRowData)
+    navigate(`View`, {
+      state: { viewData: selectedRowData[0] },
+      replace: true,
+    });
+    console.log(selectedRowData);
   };
 
   return (

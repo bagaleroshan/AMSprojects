@@ -18,7 +18,7 @@ interface TableComponentProps {
   currentSort: string[];
   totalData: number;
   onEditClick: (selectedRowData: IData[]) => void;
-  onViewClick:(selectedRowData: IData[]) => void;
+  onViewClick: (selectedRowData: IData[]) => void;
 }
 
 interface Query {
@@ -38,19 +38,16 @@ const TableComponent: React.FC<TableComponentProps> = ({
   onEditClick,
   onViewClick,
 }) => {
-  console.log(onEditClick)
+  console.log(onEditClick);
   const [searchTerm, setSearchTerm] = useState(query.findQuery);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
   const [selectedRowData, setSelectedRowData] = useState<IData[]>([]);
- 
 
   const debouncedSetQuery = debounce((newQuery: Partial<Query>) => {
     setQuery((prevQuery) => ({ ...prevQuery, ...newQuery }));
   }, 900);
 
-  const handleSearchChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchTerm(value);
     debouncedSetQuery({ findQuery: value });
@@ -97,14 +94,12 @@ const TableComponent: React.FC<TableComponentProps> = ({
 
   const [deleteSubject] = useDeleteSubjectMutation();
 
-  
   const handleDeleteClick = () => {
     console.log("Delete action triggered", selectedRowData);
-    selectedRowData.forEach((value:IData) => {
-      deleteSubject(value.id);
+    selectedRowData.forEach((value: IData) => {
+      deleteSubject(value._id);
+      console.log(value._id);
     });
-
-   
   };
   const handleViewClick = () => {
     onViewClick(selectedRowData);
@@ -168,8 +163,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
     usePagination
   );
 
-  
-
   return (
     <div>
       <div>
@@ -201,10 +194,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
           {page.map((row, index) => {
             prepareRow(row);
             return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => handleRowClick(index)}
-              >
+              <tr {...row.getRowProps()} onClick={() => handleRowClick(index)}>
                 <td>
                   <Checkbox
                     checked={selectedRows.has(index)}
@@ -220,20 +210,29 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </tbody>
       </table>
       <div>
-        <button onClick={handleEditClick} disabled={selectedRowData.length === 0 ||selectedRowData.length>1}>
+        <button
+          onClick={handleEditClick}
+          disabled={selectedRowData.length === 0 || selectedRowData.length > 1}
+        >
           Edit
         </button>
-        <button onClick={handleDeleteClick} disabled={selectedRowData.length === 0}>
+        <button
+          onClick={handleDeleteClick}
+          disabled={selectedRowData.length === 0}
+        >
           Delete
         </button>
-        <button onClick={handleViewClick} disabled={selectedRowData.length === 0 ||selectedRowData.length>1}>View</button>
+        <button
+          onClick={handleViewClick}
+          disabled={selectedRowData.length === 0 || selectedRowData.length > 1}
+        >
+          View
+        </button>
       </div>
       <div>
         <select
           value={query.limit}
-          onChange={(e) =>
-            handleQueryChange({ limit: Number(e.target.value) })
-          }
+          onChange={(e) => handleQueryChange({ limit: Number(e.target.value) })}
         >
           <option value={10}>Limit 10</option>
           <option value={20}>Limit 20</option>
