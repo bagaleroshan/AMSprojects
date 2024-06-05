@@ -5,6 +5,8 @@ import subjectSlice from "../features/subjectSlice";
 import userSlice from "../features/userSlice";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
+import studentSlice from "../features/studentSlice";
+import { StudentsApi } from "../services/api/StudentService";
 
 // Configuration object for Redux Persist
 const persistConfig = {
@@ -17,8 +19,10 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userSlice,
   subject: subjectSlice,
+  student: studentSlice,
   [UserApi.reducerPath]: UserApi.reducer,
   [SubjectApi.reducerPath]: SubjectApi.reducer,
+  [StudentsApi.reducerPath]: StudentsApi.reducer,
 });
 
 // Create a persisted reducer

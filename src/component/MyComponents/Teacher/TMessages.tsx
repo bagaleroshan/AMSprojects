@@ -7,13 +7,10 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
-import TeacherSideBar from "./TeacherSideBar";
-import "../Style.css/TMessages.css";
 
 const TMessages = () => {
   const [age, setAge] = React.useState("");
@@ -25,7 +22,6 @@ const TMessages = () => {
     <>
       <div className="teacherMessages">
         <Box sx={{ display: "flex" }}>
-          <TeacherSideBar></TeacherSideBar>
           <Box component="main" sx={{ flexGrow: 1, p: 5 }}>
             <Box height={60} />
             <Typography variant="h5" sx={{ fontWeight: "bold" }}>
@@ -33,13 +29,24 @@ const TMessages = () => {
             </Typography>
             <Box height={60} />
             {/* <Stack display="flex" direction="row" > */}
-            <Card >
-              <CardContent sx={{width:'1100px', margin:'auto'}}>
-                <Box height={40}/>
+            <Card>
+              <CardContent sx={{ width: "1100px", margin: "auto" }}>
+                <Box height={40} />
                 <div className="fieldRow">
-                  <Typography variant="body2">Group<span className="TMastrick">*</span></Typography>
-                  <FormControl sx={{ m: 1, width: "300px" }} size="small"  required>
-                    <Select value={age} onChange={handleChange} displayEmpty required>
+                  <Typography variant="body2">
+                    Group<span className="TMastrick">*</span>
+                  </Typography>
+                  <FormControl
+                    sx={{ m: 1, width: "300px" }}
+                    size="small"
+                    required
+                  >
+                    <Select
+                      value={age}
+                      onChange={handleChange}
+                      displayEmpty
+                      required
+                    >
                       <MenuItem value="">
                         <em>--Choose Group</em>
                       </MenuItem>
@@ -50,7 +57,9 @@ const TMessages = () => {
                     </Select>
                   </FormControl>
 
-                  <Typography variant="body2">Student Name <span className="TMastrick">*</span></Typography>
+                  <Typography variant="body2">
+                    Student Name <span className="TMastrick">*</span>
+                  </Typography>
                   <TextField
                     hiddenLabel
                     id="filled-hidden-label-small"

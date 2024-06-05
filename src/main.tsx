@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
 import { persistor, store } from "./store/store.tsx";
+// import "../Style.css/TLogout.css";
+import "./component/MyComponents/style/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

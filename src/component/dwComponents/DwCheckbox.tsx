@@ -1,9 +1,12 @@
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { Field, FieldProps } from "formik";
+
 interface IDwCheckboxProps {
   name: string;
   label: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) =>void;
+  // multiline?: false;
+
 }
 const DwCheckbox: React.FC<IDwCheckboxProps> = ({
   name,

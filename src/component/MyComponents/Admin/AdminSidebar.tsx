@@ -63,8 +63,8 @@ export default function AdminSidebar() {
                 alt="Logo"
                 style={{ width: "40px", height: "40px" }}
               />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            </IconButton> */}
+            {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               AMS
             </Typography> */}
           </Toolbar>

@@ -1,15 +1,15 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import AAttendance from "../MyComponents/Admin/AAttendance";
-import AForms from "../MyComponents/Admin/AForms";
-import AMessages from "../MyComponents/Admin/AMessages";
-import AReport from "../MyComponents/Admin/AReport";
-import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import CreateSubject from "../subject/CreateSubject";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import AMessages from "../MyComponents/Admin/AMessages";
+import AReport from "../MyComponents/Admin/AReport";
+import AAttendance from "../MyComponents/Admin/AdminAttendance";
 
 const AdminRoute = () => {
   return (
@@ -27,9 +27,10 @@ const AdminRoute = () => {
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="attendance" element={<AAttendance />} />
+        <Route path="forms" element={<AdminForm />} />
         <Route path="messages" element={<AMessages />} />
         <Route path="report" element={<AReport />} />
-        <Route path="forms" element={<AForms />}>
+        <Route path="forms" element={<AdminForm />}>
           {/*------------------ Subject --------------------------*/}
           <Route path="subjects" element={<Outlet />}>
             <Route path=":id" element={<ReadSpecificSubject />} />

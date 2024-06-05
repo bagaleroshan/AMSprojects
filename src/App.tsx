@@ -10,6 +10,9 @@ import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
 import WelcomePage from "./component/WelcomePage";
+import SubjectTable from "./component/TableComponent/SubjectTable";
+import ViewRow from "./component/TableComponent/ViewRowProps";
+import UpdateSubject from "./component/TableComponent/UpdateSubject";
 
 const App = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
@@ -26,9 +29,13 @@ const App = () => {
       >
         <Route index element={<WelcomePage />} />
         <Route path="register" element={<CreateUser />} />
-        <Route path="login" element={<UserLogin />} />
+        <Route path="login" element={<UserLogin/>} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="subjects" element={<SubjectTable/>} />
+        <Route path="subjects/View" element={<ViewRow />} />
+        <Route path="subjects/update" element={<UpdateSubject/>} />
+        
 
         {adminToken ? (
           <Route

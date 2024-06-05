@@ -1,7 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material";
-import ASideBar from "./component/MyComponents/Admin/AdminSidebar";
-import TRoutes from "./component/MyComponents/Teacher/TRoutes";
-import ARoutes from "./component/MyComponents/Admin/ARoutes";
+import ARoutes from "./component/mycomponents/admin/ARoutes";
+import TRoutes from "./component/mycomponents/teacher/TRoutes";
 
 const theme = createTheme({
   palette: {
@@ -29,9 +28,9 @@ const MyApp = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {/* <TRoutes></TRoutes> */}
+        <TRoutes></TRoutes>
         {/* <ASideBar></ASideBar> */}
-        <ARoutes></ARoutes>
+        {/* <ARoutes></ARoutes> */}
       </ThemeProvider>
       {/* <ReactDropZone/> */}
       {/* <DwForm></DwForm> */}
