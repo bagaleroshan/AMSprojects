@@ -2,7 +2,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
 import "../Style.css/TLogout.css";
-import AdminSidebar from "./AdminSidebar";
+// import AdminSidebar from "./AdminSidebar";
 
 const AForms = () => {
   const [value, setValue] = useState("1");
@@ -13,7 +13,7 @@ const AForms = () => {
     <>
       <div className="TLogout">
         <Box sx={{ display: "flex" }}>
-          <AdminSidebar />
+          {/* <AdminSidebar /> */}
           <Box component="main" sx={{ FlexGrow: 1, p: 3 }}>
             <Box height={70} />
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>

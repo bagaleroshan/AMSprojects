@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TeacherSideBar from "./TeacherSideBar";
+// import TeacherSideBar from "./TeacherSideBar";
 import { Box, Button, Grid, Paper, Tab, Typography } from "@mui/material";
 import "../Style.css/TDashboard.css";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
@@ -14,7 +14,6 @@ const TDashboard = () => {
     <>
       <div className="teacherDashboard">
         <Box sx={{ display: "flex" }}>
-          <TeacherSideBar></TeacherSideBar>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Box height={60} />
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
@@ -34,15 +33,17 @@ const TDashboard = () => {
                 </TabList>
               </Box>
               <TabPanel value="1">
-                <Paper elevation={2} sx={{borderRadius:'10px'}}>
-                  <Box sx={{ p: 2,  }}>
+                <Paper elevation={2} sx={{ borderRadius: "10px" }}>
+                  <Box sx={{ p: 2 }}>
                     <div className="TDashboardOngoingCourses">
-                      <LocalLibraryOutlinedIcon  color="success" fontSize="large"/>
+                      <LocalLibraryOutlinedIcon
+                        color="success"
+                        fontSize="large"
+                      />
                       <div className="TDashboardOngoingSubject">
                         <Typography
                           gutterBottom
                           variant="h6"
-                         
                           sx={{ familyWeight: "bold" }}
                         >
                           MERN-Full Stack MERN
@@ -50,7 +51,6 @@ const TDashboard = () => {
                         <Box height={15} />
                         <Typography
                           variant="body2"
-                          
                           sx={{ familyWeight: "bold" }}
                         >
                           Group Name:
@@ -58,7 +58,6 @@ const TDashboard = () => {
                         <Typography
                           variant="body1"
                           sx={{ familyWeight: "bold" }}
-                          
                         >
                           Nitan.T_MERN_May_24_3_5_A1
                         </Typography>
@@ -67,11 +66,17 @@ const TDashboard = () => {
                       <Button variant="contained" color="secondary">
                         Take Attendance
                       </Button>
-                      <Typography variant="body1" sx={{ familyWeight: "bold", color:"#43a047" }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ familyWeight: "bold", color: "#43a047" }}
+                      >
                         Present:0
                       </Typography>
 
-                      <Typography variant="body1" sx={{ familyWeight: "bold" ,color:"#e53935" }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ familyWeight: "bold", color: "#e53935" }}
+                      >
                         Absent:0
                       </Typography>
                       <Button variant="contained" color="error">
@@ -82,16 +87,18 @@ const TDashboard = () => {
                 </Paper>
 
                 <Box height={10} />
-                <Paper elevation={2} sx={{borderRadius:'10px'}}>
+                <Paper elevation={2} sx={{ borderRadius: "10px" }}>
                   <Box sx={{ p: 2 }}>
-                  <div className="TDashboardOngoingCourses">
-                      <LocalLibraryOutlinedIcon color="success" fontSize="large"/>
+                    <div className="TDashboardOngoingCourses">
+                      <LocalLibraryOutlinedIcon
+                        color="success"
+                        fontSize="large"
+                      />
                       <div className="TDashboardOngoingSubject">
                         <Typography
                           gutterBottom
                           variant="h6"
                           sx={{ familyWeight: "bold" }}
-                          
                         >
                           MERN-Full Stack MERN
                         </Typography>
@@ -99,14 +106,12 @@ const TDashboard = () => {
                         <Typography
                           variant="body2"
                           sx={{ familyWeight: "bold" }}
-                          
                         >
                           Group Name:
                         </Typography>
                         <Typography
                           variant="body1"
                           sx={{ familyWeight: "bold" }}
-                          
                         >
                           Nitan.T_MERN_May_24_3_5_A1
                         </Typography>
@@ -115,11 +120,17 @@ const TDashboard = () => {
                       <Button variant="contained" color="secondary">
                         Take Attendance
                       </Button>
-                      <Typography variant="body2" sx={{ familyWeight: "bold",color:"#43a047" }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ familyWeight: "bold", color: "#43a047" }}
+                      >
                         Present:0
                       </Typography>
 
-                      <Typography variant="body2" sx={{ familyWeight: "bold", color:"#e53935"  }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ familyWeight: "bold", color: "#e53935" }}
+                      >
                         Absent:0
                       </Typography>
                       <Button variant="contained" color="error">

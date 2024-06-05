@@ -27,15 +27,16 @@ const AdminRoute = () => {
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="attendance" element={<AAttendance />} />
-        <Route path="forms" element={<AForms />} />
         <Route path="messages" element={<AMessages />} />
         <Route path="report" element={<AReport />} />
-        {/*------------------ Subject --------------------------*/}
-        <Route path="subjects" element={<Outlet />}>
-          <Route path=":id" element={<ReadSpecificSubject />} />
-          <Route path="create" element={<CreateSubject />} />
-          <Route path="update" element={<Outlet />}>
-            <Route path=":id" element={<UpdateSubject />} />
+        <Route path="forms" element={<AForms />}>
+          {/*------------------ Subject --------------------------*/}
+          <Route path="subjects" element={<Outlet />}>
+            <Route path=":id" element={<ReadSpecificSubject />} />
+            <Route path="create" element={<CreateSubject />} />
+            <Route path="update" element={<Outlet />}>
+              <Route path=":id" element={<UpdateSubject />} />
+            </Route>
           </Route>
         </Route>
 
