@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import "../Style.css/TLogout.css";
 
 const AAttendance = () => {
   return (

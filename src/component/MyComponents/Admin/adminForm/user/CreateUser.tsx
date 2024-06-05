@@ -20,7 +20,7 @@ const CreateUser = ({ onChangeUserPage }) => {
       <div className="SubjectAddButton">
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={() => onChangeUserPage("userList")}
         >
           User List
@@ -100,7 +100,7 @@ const CreateUser = ({ onChangeUserPage }) => {
           <Button variant="contained" color="success">
             Add More
           </Button>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="primary">
             Submit
           </Button>
         </Stack>

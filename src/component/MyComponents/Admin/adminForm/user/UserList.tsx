@@ -11,7 +11,7 @@ const UserList = ({onChangeUserPage}) => {
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
-        <Button variant="contained" startIcon={<AddIcon />} color="secondary" onClick={()=>onChangeUserPage('createUser')}>
+        <Button variant="contained" startIcon={<AddIcon />} color="primary" onClick={()=>onChangeUserPage('createUser')}>
           Add
         </Button>
       </div>

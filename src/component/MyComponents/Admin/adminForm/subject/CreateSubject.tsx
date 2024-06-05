@@ -1,12 +1,6 @@
-import {
-    Box,
-    Button,
-    Stack,
-    TextField,
-    Typography
-} from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 
-const ACreateSubject = ({onChangeSubjectPage}) => {
+const CreateSubject = ({ onChangeSubjectPage }) => {
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
@@ -16,7 +10,7 @@ const ACreateSubject = ({onChangeSubjectPage}) => {
       <div className="SubjectAddButton">
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={() => onChangeSubjectPage("subjectList")}
         >
           Subject List
@@ -75,7 +69,7 @@ const ACreateSubject = ({onChangeSubjectPage}) => {
         }}
       >
         <Stack display="flex" direction="row" spacing={2}>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="primary">
             Submit
           </Button>
         </Stack>
@@ -84,4 +78,4 @@ const ACreateSubject = ({onChangeSubjectPage}) => {
   );
 };
 
-export default ACreateSubject;
+export default CreateSubject;

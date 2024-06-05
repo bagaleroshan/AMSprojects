@@ -4,10 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
-import Groups from "./AFormsGroups/Groups";
-import Students from "./AFormsStudents/Students";
-import Subject from "./AFormsSubjects/Subject";
-import User from "./AFormsUsers/User";
+import Groups from "./group/Group";
+import Students from "./student/Student";
+import Subject from "./subject/Subject";
+import User from "./user/User";
 
 interface StyledTabsProps {
   children?: React.ReactNode;

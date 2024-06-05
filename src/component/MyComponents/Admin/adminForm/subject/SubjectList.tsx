@@ -11,7 +11,7 @@ const SubjectList = ({onChangeSubjectPage}) => {
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
-        <Button variant="contained" startIcon={<AddIcon />} color="secondary" onClick={()=>onChangeSubjectPage('createSubject')}>
+        <Button variant="contained" startIcon={<AddIcon />} color="primary" onClick={()=>onChangeSubjectPage('createSubject')}>
           Add
         </Button>
       </div>
