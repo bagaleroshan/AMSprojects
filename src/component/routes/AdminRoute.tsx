@@ -1,15 +1,15 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import AMessages from "../mycomponents/admin/AMessages";
-import AReport from "../mycomponents/admin/AReport";
-import AAttendance from "../mycomponents/admin/AdminAttendance";
-import AdminDashboard from "../mycomponents/admin/AdminDashboard";
-import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
 import CreateSubject from "../subject/CreateSubject";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import AMessages from "../MyComponents/Admin/AMessages";
+import AReport from "../MyComponents/Admin/AReport";
+import AAttendance from "../mycomponents/admin/AdminAttendance";
 
 const AdminRoute = () => {
   return (
