@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import TableComponent from "../TableComponent/TableComponent";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
+import { Checkbox } from "./Checkbox";
+import { TableColumns } from "./TableColumn";
+import "./table.css";
 
 interface Query {
   page: number;
@@ -59,6 +62,7 @@ const SubjectTable: React.FC = () => {
   return (
     <div>
       <div>
+<<<<<<< HEAD
         <input
           type="text"
           placeholder="Search..."
@@ -67,6 +71,45 @@ const SubjectTable: React.FC = () => {
         />
         <button onClick={() => handleQueryChange({ page: query.page + 1 })}>
           Next Page
+=======
+        {/* <span>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </span> */}
+        {/* <span>
+          | Go to page:{" "}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const pageNumber = e.target.value
+                ? Number(e.target.value) - 1
+                : 0;
+              gotoPage(pageNumber);
+            }}
+            style={{ width: "50px" }}
+          />
+        </span> */}
+        <select
+          value={query.limit}
+          onChange={(e) => {
+            setQuery((prevQuery) => ({
+              ...prevQuery,
+              limit: parseInt(e.target.value),
+            }));
+          }}
+        >
+          {[...new Set([10, 15, 50])].map((size) => (
+            <option key={size} value={size}>
+              show {size}
+            </option>
+          ))}
+        </select>
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {"<<"}
+>>>>>>> 2b7468c444301c7c05353413d24737f14c9789ed
         </button>
         <button onClick={() => handleQueryChange({ limit: 20 })}>
           Set Limit to 20

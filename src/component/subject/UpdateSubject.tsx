@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   useReadSubjectByIdQuery,
   useUpdateSubjectMutation,
 } from "../../services/api/SubjectService";
 import SubjectForm from "./SubjectForm";
-import { toast } from "react-toastify";
 import { ISubject } from "../interfaces/SubjectInterface";
 import {
   getErrorMessage,

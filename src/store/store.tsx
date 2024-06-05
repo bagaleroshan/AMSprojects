@@ -2,11 +2,15 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import subjectSlice from "../features/subjectSlice";
-import userSlice from "../features/userSlice";
+import { StudentApi } from "../services/api/StudentApi";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
 import studentSlice from "../features/studentSlice";
+<<<<<<< HEAD
 import { StudentsApi } from "../services/api/StudentService";
+=======
+import userSlice from "../features/userSlice";
+>>>>>>> 2b7468c444301c7c05353413d24737f14c9789ed
 
 // Configuration object for Redux Persist
 const persistConfig = {
@@ -36,7 +40,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(SubjectApi.middleware, UserApi.middleware),
+    }).concat(SubjectApi.middleware, UserApi.middleware, StudentApi.middleware),
 });
 
 // Create the persistor
