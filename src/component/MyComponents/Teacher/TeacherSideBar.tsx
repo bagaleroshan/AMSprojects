@@ -120,7 +120,7 @@ export default function TeacherSideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate("/teachers/messages")}
+              onClick={() => navigate("/Teachers/messages")}
             >
               <LightTooltip title="Message" placement="right">
                 <ListItemButton

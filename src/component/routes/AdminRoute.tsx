@@ -1,9 +1,9 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import AAttendance from "../MyComponents/Admin/AAttendance";
-import AForms from "../MyComponents/Admin/AForms";
-import AMessages from "../MyComponents/Admin/AMessages";
-import AReport from "../MyComponents/Admin/AReport";
-import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AMessages from "../mycomponents/admin/AMessages";
+import AReport from "../mycomponents/admin/AReport";
+import AAttendance from "../mycomponents/admin/AdminAttendance";
+import AdminDashboard from "../mycomponents/admin/AdminDashboard";
+import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
 import CreateSubject from "../subject/CreateSubject";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
@@ -27,7 +27,7 @@ const AdminRoute = () => {
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="attendance" element={<AAttendance />} />
-        <Route path="forms" element={<AForms />} />
+        <Route path="forms" element={<AdminForm />} />
         <Route path="messages" element={<AMessages />} />
         <Route path="report" element={<AReport />} />
         {/*------------------ Subject --------------------------*/}

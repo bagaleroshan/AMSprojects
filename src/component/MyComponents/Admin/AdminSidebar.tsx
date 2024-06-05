@@ -57,16 +57,16 @@ export default function AdminSidebar() {
             >
               <MenuIcon />
             </IconButton>
-            <IconButton size="small" edge="start" aria-label="logo">
+            {/* <IconButton size="small" edge="start" aria-label="logo">
               <img
                 src="/deerwalk.png"
                 alt="Logo"
                 style={{ width: "40px", height: "40px" }}
               />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            </IconButton> */}
+            {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               AMS
-            </Typography>
+            </Typography> */}
           </Toolbar>
         </AppBar>
 

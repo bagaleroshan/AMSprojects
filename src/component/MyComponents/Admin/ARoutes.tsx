@@ -1,12 +1,14 @@
 import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
-import ADashboard from "./AdminDashboard";
-import AAttendance from "./AAttendance";
-import AForms from "./AForms";
+import AAttendance from "./AdminAttendance";
+import AForms from "./adminForm";
 import AMessages from "./AMessages";
 import AReport from "./AReport";
 import AChangePassword from "./AChangePassword";
 import ALogout from "./ALogout";
+import AdminDashboard from "./AdminDashboard";
+import AdminLogout from "./AdminLogout";
+import AdminLayout from "./AdminLayout";
 
 const ARoutes = () => {
   return (
@@ -24,7 +26,7 @@ const ARoutes = () => {
             index
             element={
               <div>
-                <ADashboard></ADashboard>
+                <AdminLayout></AdminLayout>
               </div>
             }
           ></Route>
@@ -40,7 +42,7 @@ const ARoutes = () => {
               index
               element={
                 <div>
-                  <ADashboard></ADashboard>
+                  <AdminDashboard></AdminDashboard>
                 </div>
               }
             ></Route>
@@ -88,7 +90,7 @@ const ARoutes = () => {
               path="Logout"
               element={
                 <div>
-                  <ALogout></ALogout>
+                  <AdminLogout></AdminLogout>
                 </div>
               }
             ></Route>
