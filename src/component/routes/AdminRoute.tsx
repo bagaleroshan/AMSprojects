@@ -9,7 +9,7 @@ import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import AMessages from "../MyComponents/Admin/AMessages";
 import AReport from "../MyComponents/Admin/AReport";
-import AAttendance from "../mycomponents/admin/AdminAttendance";
+import AAttendance from "../MyComponents/Admin/AdminAttendance";
 
 const AdminRoute = () => {
   return (
