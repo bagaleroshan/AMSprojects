@@ -1,13 +1,13 @@
 import { Box, Button, Typography, styled } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import "./Subject.css";
+import ".././AFormsSubjects/Subject.css";
 
-const Subject = () => {
+const Groups = () => {
   return (
     <>
       <Box height={10} />
       <div style={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5">Subject List</Typography>
+        <Typography variant="h5">Group List</Typography>
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
@@ -19,4 +19,4 @@ const Subject = () => {
   );
 };
 
-export default Subject;
+export default Groups;

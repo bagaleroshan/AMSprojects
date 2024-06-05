@@ -24,7 +24,7 @@ import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import AAttendance from "./AAttendance";
 import ADashboard from "./ADashboard";
-import AForms from "./AForms";
+import AForms from "./AForms/AForms";
 import AMessages from "./AMessages";
 import AReport from "./AReport";
 import AChangePassword from "./AChangePassword";
@@ -115,7 +115,7 @@ export default function ASideBar() {
     setOpen(false);
   };
 
-  const navigate=useNavigate("");
+  const navigate = useNavigate("");
 
   return (
     <>
@@ -142,7 +142,10 @@ export default function ASideBar() {
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
-          <DrawerHeader sx={{ "&:hover": { color: "#0195CF" } }}>
+          <DrawerHeader
+            sx={{ "&:hover": { color: "#0195CF" } }}
+            color="secondary"
+          >
             <IconButton
               onClick={handleDrawerClose}
               sx={{ "&:hover": { color: "#0195CF" } }}
@@ -161,7 +164,6 @@ export default function ASideBar() {
               sx={{ display: "block" }}
               // onClick={() => setMenudata("Dashboard")}
               onClick={() => navigate("/Dashboard")}
-
             >
               <ListItemButton
                 sx={{
@@ -195,7 +197,6 @@ export default function ASideBar() {
               sx={{ display: "block" }}
               // onClick={() => setMenudata("Attendance")}
               onClick={() => navigate("/Dashboard/Attendance")}
-
             >
               <ListItemButton
                 sx={{
@@ -227,8 +228,8 @@ export default function ASideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-            //  onClick={() => setMenudata("Forms")}
-            onClick={() => navigate("/Dashboard/Forms")}
+              //  onClick={() => setMenudata("Forms")}
+              onClick={() => navigate("/Dashboard/Forms")}
             >
               <ListItemButton
                 sx={{
@@ -260,8 +261,8 @@ export default function ASideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-             // onClick={() => setMenudata("Messages")}
-             onClick={() => navigate("/Dashboard/Message")}
+              // onClick={() => setMenudata("Messages")}
+              onClick={() => navigate("/Dashboard/Message")}
             >
               <ListItemButton
                 sx={{
@@ -293,8 +294,8 @@ export default function ASideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-             // onClick={() => setMenudata("Report")}
-             onClick={() => navigate("/Dashboard/Report")}
+              // onClick={() => setMenudata("Report")}
+              onClick={() => navigate("/Dashboard/Report")}
             >
               <ListItemButton
                 sx={{
@@ -326,8 +327,8 @@ export default function ASideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-             // onClick={() => setMenudata("Change Password")}
-             onClick={() => navigate("/Dashboard/ChangePassword")}
+              // onClick={() => setMenudata("Change Password")}
+              onClick={() => navigate("/Dashboard/ChangePassword")}
             >
               <ListItemButton
                 sx={{
@@ -359,8 +360,8 @@ export default function ASideBar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-             // onClick={() => setMenudata("Logout")}
-             onClick={() => navigate("/Dashboard/Logout")}
+              // onClick={() => setMenudata("Logout")}
+              onClick={() => navigate("/Dashboard/Logout")}
             >
               <ListItemButton
                 sx={{

@@ -1,10 +1,13 @@
-import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import Subject from "./Subject";
+import * as React from "react";
+import Groups from "./AFormsGroups/Groups";
+import Students from "./AFormsStudents/Students";
+import Subject from "./AFormsSubjects/Subject";
+import User from "./AFormsUsers/User";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -84,11 +87,15 @@ function a11yProps(index: number) {
   };
 }
 
-export default function AdminTabs() {
+const tabTypes = ["User", "Students", "Subjects", "Groups"];
+
+export default function AdminTabs({ onTabChange }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    onTabChange(tabTypes[newValue]);
+    console.log(newValue);
   };
 
   return (
@@ -106,18 +113,16 @@ export default function AdminTabs() {
         </StyledTabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Box sx={{ display: "flex", textAlign: "center" }}>
-          Users
-        </Box>
+        <User/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Students
+        <Students />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <Subject/>
+        <Subject />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        Groups
+        <Groups />
       </CustomTabPanel>
     </Box>
   );
