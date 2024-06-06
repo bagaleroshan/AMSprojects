@@ -34,27 +34,30 @@ const App = () => {
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
 
-        {adminToken ? (
-          <Route
-            path="admin/*"
-            element={
-              <AmsLayout>
-                <AdminRoute />
-              </AmsLayout>
-            }
-          />
-        ) : teachersToken ? (
-          <Route
-            path="teachers/*"
-            element={
-              <AmsLayout>
-                <TeacherRoute />
-              </AmsLayout>
-            }
-          />
-        ) : (
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        )}
+        {
+          adminToken ? (
+            <Route
+              path="admin/*"
+              element={
+                <AmsLayout>
+                  <AdminRoute />
+                </AmsLayout>
+              }
+            />
+          ) : (
+            <Route
+              path="teachers/*"
+              element={
+                <AmsLayout>
+                  <TeacherRoute />
+                </AmsLayout>
+              }
+            />
+          )
+          // : (
+          //   <Route path="*" element={<Navigate to="/login" replace />} />
+          // )
+        }
         <Route path="logout" element={<UserLogout />} />
       </Route>
     </Routes>
