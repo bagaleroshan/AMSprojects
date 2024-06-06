@@ -3,7 +3,6 @@ import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
-import { useNavigate } from "react-router-dom";
 
 export interface IData<T = any> {
   [key: string]: T;
@@ -86,14 +85,8 @@ const TableComponent: React.FC<TableComponentProps> = ({
     const selectedPage = selectedItem.selected + 1;
     handleQueryChange({ page: selectedPage });
   };
-  const navigate = useNavigate();
   const handleEditClick = () => {
-    navigate(`/admin/forms/students/update/${selectedRowData[0]._id}`, {
-      state: { updateData: selectedRowData[0] },
-      replace: true,
-    });
-    // onEditClick(selectedRowData);
-    console.log("Edit action triggered", selectedRowData);
+    onEditClick(selectedRowData);
   };
 
   const handleDeleteClick = () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
 import { useNavigate } from "react-router-dom";
-import { useReadStudentsQuery } from "../../services/api/StudentService";
+import { useReadStudentsQuery } from "../../services/api/StudentApi";
 interface Query {
   page: number;
   limit: number;

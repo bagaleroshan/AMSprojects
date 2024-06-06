@@ -15,6 +15,7 @@ interface Query {
 }
 
 const ShowAllSubjects: React.FC = () => {
+  console.log("jenis");
   const navigate = useNavigate();
   const columns = [
     { Header: "Id", accessor: "_id" },
@@ -50,7 +51,7 @@ const ShowAllSubjects: React.FC = () => {
 
   const handleEditClick = (selectedRowData: IData[]) => {
     navigate(`/admin/forms/subjects/update/${selectedRowData[0]._id}`, {
-      state: { updateData: selectedRowData[0] },
+      // state: { updateData: selectedRowData[0] },
       replace: true,
     });
   };
@@ -59,14 +60,13 @@ const ShowAllSubjects: React.FC = () => {
       state: { viewData: selectedRowData[0] },
       replace: true,
     });
-    console.log(selectedRowData);
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
       deleteSubject(value._id);
-      console.log(value._id);
+      // console.log(value._id);
     });
   };
 
