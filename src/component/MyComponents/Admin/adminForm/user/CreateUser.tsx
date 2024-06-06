@@ -7,10 +7,10 @@ import {
   RadioGroup,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 
-const CreateUser = ({ onChangeUserPage }) => {
+const CreateUser = ({ onChangePage }) => {
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
@@ -21,7 +21,7 @@ const CreateUser = ({ onChangeUserPage }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onChangeUserPage("userList")}
+          onClick={() => onChangePage("list")}
         >
           User List
         </Button>

@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import "../Style.css/TLogout.css";
 import AdminSidebar from "./AdminSidebar";
 
-const AChangePassword = () => {
+const AdminChangePassword = () => {
   return (
     <>
       <div className="TLogout">
@@ -17,4 +17,4 @@ const AChangePassword = () => {
   );
 };
 
-export default AChangePassword;
+export default AdminChangePassword;

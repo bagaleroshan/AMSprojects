@@ -1,18 +1,24 @@
-import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useState } from "react";
+import ACreateSubject from "./CreateSubjects";
 import "./Subject.css";
 import SubjectList from "./SubjectList";
-import ACreateSubject from "./CreateSubject";
+import { useNavigate } from "react-router-dom";
+import CreateSubject from "./CreateSubjects";
 
-const Subject = () => {
-  const [activeSubjectPage, setActiveSubjectPage] = useState("subjectList");
+const Subject = ({ secondTab }) => {
+  // const [activeSubjectPage, setActiveSubjectPage] = useState("subjectList");
+  const navigate = useNavigate();
+  const onChangePage = (page) => {
+    navigate("/admin/subjects/" + page);
+  };
+
   return (
     <>
       <Box height={10} />
-      {(activeSubjectPage === "subjectList" && (
-        <SubjectList onChangeSubjectPage={(page) => setActiveSubjectPage(page)} />
-      )) || <ACreateSubject onChangeSubjectPage={(page) => setActiveSubjectPage(page)} />}
+      {(secondTab === "subjectList" && (
+        <SubjectList onChangePage={(page) => onChangePage(page)} />
+      )) || <CreateSubject onChangePage={(page) => onChangePage(page)} />}
     </>
   );
 };

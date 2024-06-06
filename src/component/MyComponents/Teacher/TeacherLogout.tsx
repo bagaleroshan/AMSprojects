@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const TLogout = () => {
+const TeacherLogout = () => {
   return (
     <>
       <Box height={100} />
@@ -9,4 +9,4 @@ const TLogout = () => {
   );
 };
 
-export default TLogout;
+export default TeacherLogout;

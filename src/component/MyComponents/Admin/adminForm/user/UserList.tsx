@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
-import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 
-const UserList = ({onChangeUserPage}) => {
-    
+import React from "react";
+
+const UserList = ({ onChangePage }) => {
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
@@ -11,7 +11,12 @@ const UserList = ({onChangeUserPage}) => {
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
-        <Button variant="contained" startIcon={<AddIcon />} color="primary" onClick={()=>onChangeUserPage('createUser')}>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          color="primary"
+          onClick={() => onChangePage("create")}
+        >
           Add
         </Button>
       </div>

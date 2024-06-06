@@ -1,12 +1,12 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import TDashboard from "../mycomponents/teacher/TDashboard";
-import TMessages from "../mycomponents/teacher/TMessages";
-import TReport from "../mycomponents/teacher/TReport";
+import TDashboard from "../mycomponents/teacher/TeacherDashboard";
+import TMessages from "../mycomponents/teacher/TeacherMessages";
+import TReport from "../mycomponents/teacher/TeacherReport";
 import MyProfile from "../user/MyProfile";
 // import ResetPassword from "../user/ResetPassword";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import TRoutes from "../mycomponents/teacher/TRoutes";
+import TRoutes from "../mycomponents/teacher/TeacherRoutes";
 
 const TeacherRoute = () => {
   return (
