@@ -1,6 +1,8 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CreateSubject = ({ onChangeSubjectPage }) => {
+  const navigate = useNavigate();
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
@@ -11,7 +13,7 @@ const CreateSubject = ({ onChangeSubjectPage }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onChangeSubjectPage("subjectList")}
+          // onClick={() => navigate("/")}
         >
           Subject List
         </Button>

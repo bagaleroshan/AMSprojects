@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDeleteStudentsMutation, useReadStudentsQuery } from "../../services/api/StudentService";
+import {
+  useDeleteStudentsMutation,
+  useReadStudentsQuery,
+} from "../../services/api/StudentService";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
 
@@ -45,13 +48,22 @@ const StudentTable: React.FC = () => {
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
-
-  const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`update`, {
-      state: { updateStudentData: selectedRowData[0] },
+  const handleStudentEditClick = (selectedRowData: IData[]) => {
+    navigate(`/admin/forms/students/update/${selectedRowData[0]._id}`, {
+      // state: { updateData: selectedRowData[0] },
       replace: true,
     });
-    console.log(selectedRowData);
+    // return navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
+    //   replace: true,
+    // });
+  };
+
+  const handleDeleteClick = (selectedRowData: IData[]) => {
+    console.log("Delete action triggered", selectedRowData);
+    selectedRowData.forEach((value: IData) => {
+      deleteStudents(value._id);
+      console.log(value._id);
+    });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
     navigate(`View`, {
@@ -61,19 +73,8 @@ const StudentTable: React.FC = () => {
     console.log(selectedRowData);
   };
 
-
- 
-  const handleDeleteClick= (selectedRowData: IData[])=>{
-    console.log("Delete action triggered", selectedRowData);
-      selectedRowData.forEach((value: IData) => {
-      deleteStudents(value._id);
-      console.log(value._id);
-    });
-  }
-
   return (
     <div>
-
       <TableComponent
         columns={columns}
         data={data.result.results}
@@ -81,7 +82,7 @@ const StudentTable: React.FC = () => {
         setQuery={setQuery}
         currentSort={query.sort}
         totalData={data.result.totalDataInWholePage}
-        onEditClick={handleEditClick}
+        onEditClick={handleStudentEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />

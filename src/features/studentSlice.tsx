@@ -1,30 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IStudent } from "../component/interfaces/StudentInterface";
 
-interface StudentState {
-  fullName: string;
-  Email: string;
-  course: string;
-  phoneNumber: string;
-}
-
-const initialState: StudentState = {
+const initialState: IStudent = {
+  id: 1,
   fullName: "",
-  Email: "",
-  course: "",
+  email: "",
+  address: "",
   phoneNumber: "",
-}
-;
+};
 
 export const studentSlice = createSlice({
-  name: "student",
+  name: "subject",
   initialState,
-  reducers: {
-    resetForm() {
-      return initialState;
-    },
-  },
+  reducers: {},
 });
-
-export const { resetForm } = studentSlice.actions;
 
 export default studentSlice.reducer;

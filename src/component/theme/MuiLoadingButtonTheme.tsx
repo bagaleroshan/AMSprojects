@@ -29,6 +29,7 @@ const MuiLoadingButtonTheme: React.FC<{
           type="submit"
           sx={{
             backgroundColor: "primary.main",
+            color: "white",
             mt: 3,
             mb: 2,
             "& .MuiButton-label": {

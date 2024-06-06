@@ -19,7 +19,6 @@ export const SubjectApi = createApi({
       providesTags: ["readSubjects"],
     }),
 
-
     createSubject: builder.mutation({
       query: (body) => {
         return {
@@ -30,6 +29,7 @@ export const SubjectApi = createApi({
       },
       invalidatesTags: ["readSubjects"],
     }),
+
     updateSubject: builder.mutation({
       query: (data) => {
         return {
@@ -50,7 +50,6 @@ export const SubjectApi = createApi({
       },
       providesTags: ["readSubjects"],
     }),
-
 
     deleteSubject: builder.mutation({
       query: (id) => {

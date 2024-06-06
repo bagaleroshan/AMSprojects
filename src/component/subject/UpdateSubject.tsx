@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   useReadSubjectByIdQuery,
   useUpdateSubjectMutation,
 } from "../../services/api/SubjectService";
 import SubjectForm from "./SubjectForm";
-import { toast } from "react-toastify";
 import { ISubject } from "../interfaces/SubjectInterface";
 import {
   getErrorMessage,
@@ -15,9 +15,9 @@ import {
 
 const UpdateSubject = () => {
   const params = useParams();
-  console.log("Subject Updated");
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const data = location.state.viewSubjectData;
   const [
     updateSubject,
     {
@@ -52,7 +52,7 @@ const UpdateSubject = () => {
   useEffect(() => {
     if (isSuccessUpdateSubject) {
       toast.success("Subject Updated Successfully");
-      navigate(`/subjects/${params.id}`);
+      navigate(`/admin/forms/subjects`);
     }
   });
 

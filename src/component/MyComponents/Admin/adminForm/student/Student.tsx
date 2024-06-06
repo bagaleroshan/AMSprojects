@@ -15,7 +15,7 @@ const Student = () => {
           Add
         </Button>
       </div>
-      <StudentTable></StudentTable>
+      <StudentTable />
     </>
   );
 };

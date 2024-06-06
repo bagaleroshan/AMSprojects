@@ -1,4 +1,4 @@
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import "./Subject.css";
@@ -11,8 +11,14 @@ const Subject = () => {
     <>
       <Box height={10} />
       {(activeSubjectPage === "subjectList" && (
-        <SubjectList onChangeSubjectPage={(page) => setActiveSubjectPage(page)} />
-      )) || <ACreateSubject onChangeSubjectPage={(page) => setActiveSubjectPage(page)} />}
+        <SubjectList
+          onChangeSubjectPage={(page) => setActiveSubjectPage(page)}
+        />
+      )) || (
+        <ACreateSubject
+          onChangeSubjectPage={(page) => setActiveSubjectPage(page)}
+        />
+      )}
     </>
   );
 };

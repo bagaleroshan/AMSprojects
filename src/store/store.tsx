@@ -2,17 +2,18 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import subjectSlice from "../features/subjectSlice";
-import userSlice from "../features/userSlice";
+import { StudentApi } from "../services/api/StudentApi";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
 import studentSlice from "../features/studentSlice";
 import { StudentsApi } from "../services/api/StudentService";
+import userSlice from "../features/userSlice";
 
 // Configuration object for Redux Persist
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "subject","student"], // only persist the user reducer
+  whitelist: ["user", "subject", "student"], // only persist the user reducer
 };
 
 // Combine all reducers
@@ -22,7 +23,7 @@ const rootReducer = combineReducers({
   student: studentSlice,
   [UserApi.reducerPath]: UserApi.reducer,
   [SubjectApi.reducerPath]: SubjectApi.reducer,
-  [StudentsApi.reducerPath]: StudentsApi.reducer,
+  [StudentApi.reducerPath]: StudentApi.reducer,
 });
 
 // Create a persisted reducer
@@ -36,7 +37,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(SubjectApi.middleware, UserApi.middleware,StudentsApi.middleware),
+    }).concat(SubjectApi.middleware, UserApi.middleware, StudentApi.middleware),
 });
 
 // Create the persistor
