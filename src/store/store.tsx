@@ -6,8 +6,8 @@ import { StudentApi } from "../services/api/StudentApi";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
 import studentSlice from "../features/studentSlice";
-import { StudentsApi } from "../services/api/StudentService";
 import userSlice from "../features/userSlice";
+import { StudentsApi } from "../services/api/StudentService";
 
 // Configuration object for Redux Persist
 const persistConfig = {

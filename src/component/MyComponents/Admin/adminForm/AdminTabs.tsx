@@ -91,19 +91,15 @@ function a11yProps(index: number) {
 const tabTypes = ["Users", "Students", "Subjects", "Groups"];
 
 export default function AdminTabs({ onTabChange, firstTab, secondTab }) {
-  // const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    // setValue(newValue);
-    // onTabChange(tabTypes[newValue]);
-    // console.log(newValue);
-    navigate(`/admin/${tabTypes[newValue]}/list`);
+    
+    navigate(`/admin/forms/${tabTypes[newValue]}/list`);
   };
   
 
   console.log("--------", firstTab, secondTab);
 
-  // const navigate=useNavigate("")
   const value = tabTypes.indexOf(firstTab);
   return (
     <Box sx={{ width: "100%" }}>

@@ -51,8 +51,7 @@ const UserTable: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`users/update/${selectedRowData[0]._id}`, {
-      state: { updateUserData: selectedRowData[0] },
+    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`, {
       replace: true,
     });
     console.log(selectedRowData);

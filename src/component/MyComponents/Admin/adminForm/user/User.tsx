@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import UserList from "./UserList";
-import { useState } from "react";
 import CreateUser from "./CreateUsers";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +7,7 @@ const User = ({ secondTab }) => {
   // const [activeUserPage, setActiveUserPage] = useState("userList");
   const navigate = useNavigate();
   const onChangePage = (page) => {
-    navigate("/admin/users/" + page);
+    navigate("/admin/forms/users/" + page);
   };
 
   return (

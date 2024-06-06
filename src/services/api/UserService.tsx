@@ -93,6 +93,23 @@ export const UserApi = createApi({
         };
       },
     }),
+    readUserById: builder.query({
+      query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/users/${id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      providesTags: ["readUsers"],
+    }),
+
     readUsers: builder.query({
       query: (query: IQuery) => {
         return {
@@ -130,8 +147,6 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useReadUserByIdQuery,
-  useReadAllUsersQuery,
-  useDeleteUserByIdMutation,
   useMyProfileQuery,
   useUpdateProfileMutation,
   useReadUsersQuery,

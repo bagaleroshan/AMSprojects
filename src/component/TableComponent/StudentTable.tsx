@@ -49,7 +49,7 @@ const StudentTable: React.FC = () => {
     return <div>Error loading data.</div>;
   }
   const handleStudentEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/update/${selectedRowData[0]._id}`, {
+    navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
       // state: { updateData: selectedRowData[0] },
       replace: true,
     });

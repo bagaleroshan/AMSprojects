@@ -49,7 +49,7 @@ const ShowAllSubjects: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/subjects/update/${selectedRowData[0]._id}`, {
+    navigate(`/admin/forms/subjects/update/${selectedRowData[0].id}`, {
       state: { updateData: selectedRowData[0] },
       replace: true,
     });

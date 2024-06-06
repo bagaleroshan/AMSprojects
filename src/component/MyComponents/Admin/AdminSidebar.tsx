@@ -157,7 +157,7 @@ export default function AdminSidebar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate("/admin/users/list")}
+              onClick={() => navigate("/admin/forms/users")}
             >
               <LightTooltip title="Forms" placement="right">
                 <ListItemButton

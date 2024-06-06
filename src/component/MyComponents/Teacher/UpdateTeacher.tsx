@@ -1,13 +1,14 @@
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { RootState } from "../../../store/store";
 import {
   useMyProfileQuery,
+  useReadUserByIdQuery,
   useUpdateProfileMutation,
 } from "../../../services/api/UserService";
 import {
@@ -24,12 +25,14 @@ const UpdateTeacher = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
   const token = useSelector((store: RootState) => store.user.token);
 
+  const params = useParams();
+
   /* Reading MyProfile to Populate the form */
   const {
     isError: isErrorMyProfile,
     error: errorMyProfile,
     data: dataMyProfile,
-  } = useMyProfileQuery(token);
+  } = useReadUserByIdQuery(params.id);
 
   const profileData = dataMyProfile?.result || {};
 

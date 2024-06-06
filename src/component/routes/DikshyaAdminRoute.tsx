@@ -12,7 +12,7 @@ import AdminReport from "../mycomponents/admin/AdminReport";
 import AdminAttendance from "../mycomponents/admin/AdminAttendance";
 // import ViewRow from "../TableComponent/ViewRowProps";
 
-const AdminRoute = () => {
+const DikshyaAdminRoute = () => {
   return (
     <Routes>
       <Route
@@ -28,7 +28,7 @@ const AdminRoute = () => {
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="attendance" element={<AdminAttendance />} />
-       {/* <Route path="forms" element={<AdminForm />} /> */}
+
         <Route path="messages" element={<AMessages />} />
         <Route path="report" element={<AdminReport />} />
         {/*------------------ Subject --------------------------*/}
@@ -89,4 +89,4 @@ const AdminRoute = () => {
   );
 };
 
-export default AdminRoute;
+export default DikshyaAdminRoute;
