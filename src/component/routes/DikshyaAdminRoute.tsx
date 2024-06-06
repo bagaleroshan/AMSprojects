@@ -31,9 +31,11 @@ const DikshyaAdminRoute = () => {
 
         <Route path="messages" element={<AMessages />} />
         <Route path="report" element={<AdminReport />} />
-        {/*------------------ Subject --------------------------*/}
+        {/*------------------ form --------------------------*/}
         {/* <Route path="forms" element={<AdminForm />} > */}
         <Route path="forms" element={<Outlet />}>
+        {/* ****************Users**************************** */}
+        
           <Route path="subjects" element={<Outlet />}>
             <Route
               path="create"
@@ -53,12 +55,12 @@ const DikshyaAdminRoute = () => {
 
           <Route path="users" element={<Outlet />}>
             <Route
-              index
-              element={<AdminForm firstTab="Users" secondTab="userList" />}
-            />
-            <Route
               path="create"
               element={<AdminForm firstTab="Users" secondTab="create" />}
+            />
+            <Route
+              path="list"
+              element={<AdminForm firstTab="Users" secondTab="userList" />}
             />
 
             <Route path="update" element={<Outlet></Outlet>}>

@@ -6,7 +6,7 @@ const SubjectList = ({ onChangePage }) => {
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
         {/* <Typography variant="h4" sx={{fontWeight:'1200px'}}>Subject List</Typography> */}
-        <h2>SubjectList</h2>
+        <h2>Subject List</h2>
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
