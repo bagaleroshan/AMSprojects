@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import TableComponent, { IData } from "./TableComponent";
+import "./table.css";
+import { useDeleteSubjectMutation, useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useNavigate } from "react-router-dom";
-import {
-  useDeleteSubjectMutation,
-  useReadSubjectsQuery,
-} from "../../services/api/SubjectService";
-import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -13,7 +11,7 @@ interface Query {
   sort: string[];
 }
 
-const ShowAllSubjects: React.FC = () => {
+const SubjectTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
     { Header: "Id", accessor: "_id" },
@@ -48,29 +46,33 @@ const ShowAllSubjects: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/subjects/update/${selectedRowData[0].id}`, {
-      state: { updateData: selectedRowData[0] },
+    navigate(`update`, {
+      state: { updateSubjectData: selectedRowData[0] },
       replace: true,
     });
+    console.log(selectedRowData);
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/subjects/${selectedRowData[0]._id}`, {
-      // state: { viewData: selectedRowData[0] },
+    navigate(`View`, {
+      state: { viewSubjectData: selectedRowData[0] },
       replace: true,
     });
+    console.log(selectedRowData);
   };
 
-  const handleDeleteClick = (selectedRowData: IData[]) => {
+
+ 
+  const handleDeleteClick= (selectedRowData: IData[])=>{
     console.log("Delete action triggered", selectedRowData);
-    selectedRowData.forEach((value: IData) => {
+      selectedRowData.forEach((value: IData) => {
       deleteSubject(value._id);
+      console.log(value._id);
     });
-  };
+  }
 
   return (
     <div>
-      {/* <AdminTabs onTabChange={(tab) => setActiveTab(tab)} /> */}
-      {/* <h1>Subjects List</h1> */}
+      
       <TableComponent
         columns={columns}
         data={data.result.results}
@@ -86,4 +88,4 @@ const ShowAllSubjects: React.FC = () => {
   );
 };
 
-export default ShowAllSubjects;
+export default SubjectTable;

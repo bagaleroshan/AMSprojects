@@ -7,10 +7,11 @@ import {
   RadioGroup,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
+import CreateUser from "../../../../user/CreateUser";
 
-const CreateUser = ({ onChangeUserPage }) => {
+const CreateUsers = ({ onChangePage }) => {
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
@@ -21,13 +22,13 @@ const CreateUser = ({ onChangeUserPage }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onChangeUserPage("userList")}
+          onClick={() => onChangePage("list")}
         >
           User List
         </Button>
       </div>
       <Box height={30} />
-      <Stack
+      {/* <Stack
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -104,9 +105,10 @@ const CreateUser = ({ onChangeUserPage }) => {
             Submit
           </Button>
         </Stack>
-      </Stack>
+      </Stack> */}
+      <CreateUser />
     </>
   );
 };
 
-export default CreateUser;
+export default CreateUsers;

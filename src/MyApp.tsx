@@ -1,6 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import ARoutes from "./component/mycomponents/admin/ARoutes";
-import TRoutes from "./component/mycomponents/teacher/TRoutes";
+import TRoutes from "./component/mycomponents/teacher/TeacherRoutes";
 
 const theme = createTheme({
   palette: {

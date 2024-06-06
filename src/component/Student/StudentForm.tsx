@@ -82,11 +82,7 @@ const StudentForm: React.FC<IFormValues> = ({
                 ) : (
                   <ButtonGroup>
                     {
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="secondary"
-                      >
+                      <Button type="submit" variant="contained">
                         {buttonName}
                       </Button>
                     }

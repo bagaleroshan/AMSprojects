@@ -9,7 +9,6 @@ import Groups from "./group/Group";
 import Students from "./student/Student";
 import Subject from "./subject/Subject";
 import User from "./user/User";
-import StudentTable from "../../../TableComponent/StudentTable";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -89,48 +88,42 @@ function a11yProps(index: number) {
   };
 }
 
-const tabTypes = ["User", "Students", "Subjects", "Groups"];
+const tabTypes = ["Users", "Students", "Subjects", "Groups"];
 
-export default function AdminTabs({ onTabChange }) {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-    onTabChange(tabTypes[newValue]);
-    console.log(newValue);
-  };
+export default function AdminTabs({ onTabChange, firstTab, secondTab }) {
   const navigate = useNavigate();
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    
+    navigate(`/admin/forms/${tabTypes[newValue]}/list`);
+  };
+  
 
+  console.log("--------", firstTab, secondTab);
+
+  const value = tabTypes.indexOf(firstTab);
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <StyledTabs
-          value={value}
+          value={tabTypes.indexOf(firstTab)}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
           <StyledTab label="Users" {...a11yProps(0)} />
+
           <StyledTab label="Students" {...a11yProps(1)} />
-          <Tab
-            label="Subjects"
-            {...a11yProps(2)}
-            onClick={() => {
-              navigate("/admin/forms/subjects");
-            }}
-          />
+          <StyledTab label="Subjects" {...a11yProps(2)} />
           <StyledTab label="Groups" {...a11yProps(3)} />
         </StyledTabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <User />
+        <User secondTab={secondTab} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Students />
-        {/* <StudentTable /> */}
+        <Students secondTab={secondTab}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <Subject />
-        {/* <ShowAllSubjects /> */}
+        <Subject secondTab={secondTab} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         <Groups />

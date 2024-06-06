@@ -1,16 +1,21 @@
 import { Box } from "@mui/material";
 import UserList from "./UserList";
-import { useState } from "react";
-import CreateUser from "./CreateUser";
+import CreateUser from "./CreateUsers";
+import { useNavigate } from "react-router-dom";
 
-const User = () => {
-  const [activeUserPage, setActiveUserPage] = useState("userList");
+const User = ({ secondTab }) => {
+  // const [activeUserPage, setActiveUserPage] = useState("userList");
+  const navigate = useNavigate();
+  const onChangePage = (page) => {
+    navigate("/admin/forms/users/" + page);
+  };
+
   return (
     <>
       <Box height={10} />
-      {(activeUserPage === "userList" && (
-        <UserList onChangeUserPage={(page) => setActiveUserPage(page)} />
-      )) || <CreateUser onChangeUserPage={(page) => setActiveUserPage(page)} />}
+      {(secondTab === "userList" && (
+        <UserList onChangePage={(page) => onChangePage(page)} />
+      )) || <CreateUser onChangePage={(page) => onChangePage(page)} />}
     </>
   );
 };

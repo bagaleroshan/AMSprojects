@@ -35,17 +35,6 @@ export const StudentApi = createApi({
       },
       invalidatesTags: ["readStudents", "readStudentsById"],
     }),
-
-    readStudentById: builder.query({
-      query: (id) => {
-        return {
-          url: `/students/${id}`,
-          method: "GET",
-        };
-        0;
-      },
-      providesTags: ["readStudents"],
-    }),
     readStudents: builder.query({
       query: (query: IQuery) => {
         const { page, limit, findQuery, sort } = query;
@@ -56,6 +45,16 @@ export const StudentApi = createApi({
           )}&sort=${sort}`,
           method: "GET",
         };
+      },
+      providesTags: ["readStudents"],
+    }),
+    readStudentById: builder.query({
+      query: (id) => {
+        return {
+          url: `/students/${id}`,
+          method: "GET",
+        };
+        0;
       },
       providesTags: ["readStudents"],
     }),
@@ -76,7 +75,7 @@ export const StudentApi = createApi({
 export const {
   useCreateStudentMutation,
   useUpdateStudentMutation,
-  useReadStudentByIdQuery,
   useReadStudentsQuery,
+  useReadStudentByIdQuery,
   useDeleteStudentMutation,
 } = StudentApi;
