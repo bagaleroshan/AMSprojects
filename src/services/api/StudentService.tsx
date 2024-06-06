@@ -6,7 +6,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
   <Subject, Partial<Subject>>
 } */
 
-interface IQuery {
+export interface IQuery {
   page: number;
   limit: number;
   findQuery: string;
@@ -33,7 +33,17 @@ export const StudentsApi = createApi({
       },
       providesTags: ["readStudents"],
     }),
+
+    deleteStudents: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/students/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["readStudents"],
+    }),
   }),
 });
 
-export const { useReadStudentsQuery } = StudentsApi;
+export const { useReadStudentsQuery, useDeleteStudentsMutation } = StudentsApi;

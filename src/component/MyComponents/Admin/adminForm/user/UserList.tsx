@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
-import React from "react";
 import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, Typography } from "@mui/material";
+import UserTable from "../../../../TableComponent/UserTable";
 
 const UserList = ({onChangeUserPage}) => {
     
@@ -15,6 +15,7 @@ const UserList = ({onChangeUserPage}) => {
           Add
         </Button>
       </div>
+      <UserTable></UserTable>
     </>
   );
 };

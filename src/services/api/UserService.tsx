@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IQuery } from "./StudentService";
 
 export const UserApi = createApi({
   reducerPath: "UserApi",
@@ -13,6 +14,21 @@ export const UserApi = createApi({
           url: "/users",
           method: "POST",
           body,
+        };
+      },
+    }),
+    deleteUsersById: builder.mutation({
+      query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/users/${id}`,
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
     }),
@@ -49,30 +65,6 @@ export const UserApi = createApi({
         };
       },
     }),
-    readUserById: builder.query({
-      query: (id) => {
-        return {
-          url: `/users/${id}`,
-          method: "GET",
-        };
-      },
-    }),
-    readAllUsers: builder.query({
-      query: () => {
-        return {
-          url: "/users",
-          method: "GET",
-        };
-      },
-    }),
-    deleteUserById: builder.mutation({
-      query: (id) => {
-        return {
-          url: `/users/${id}`,
-          method: "DELETE",
-        };
-      },
-    }),
 
     resetPassword: builder.mutation({
       query: (body) => {
@@ -100,6 +92,16 @@ export const UserApi = createApi({
           },
         };
       },
+    }),
+    readUsers: builder.query({
+      query: (query: IQuery) => {
+        return {
+          url: `/users?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
+          method: "GET",
+        };
+      },
+
+      providesTags: ["readUsers"],
     }),
 
     updateProfile: builder.mutation({
@@ -132,4 +134,6 @@ export const {
   useDeleteUserByIdMutation,
   useMyProfileQuery,
   useUpdateProfileMutation,
+  useReadUsersQuery,
+  useDeleteUsersByIdMutation,
 } = UserApi;

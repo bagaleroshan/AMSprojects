@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IQuery } from "./StudentService";
 export const SubjectApi = createApi({
   reducerPath: "SubjectApi",
   baseQuery: fetchBaseQuery({
@@ -8,15 +9,16 @@ export const SubjectApi = createApi({
 
   endpoints: (builder) => ({
     readSubjects: builder.query({
-      query: (query: { page: 1; limit: 10; findQuery: "" }) => {
+      query: (query: IQuery) => {
         return {
-          url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}`,
+          url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
           method: "GET",
         };
       },
       //tag2. provideTag
       providesTags: ["readSubjects"],
     }),
+
 
     createSubject: builder.mutation({
       query: (body) => {
