@@ -57,6 +57,14 @@ export const UserApi = createApi({
         };
       },
     }),
+    readAllUsers: builder.query({
+      query: () => {
+        return {
+          url: "/users",
+          method: "GET",
+        };
+      },
+    }),
     deleteUserById: builder.mutation({
       query: (id) => {
         return {
@@ -120,6 +128,7 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useReadUserByIdQuery,
+  useReadAllUsersQuery,
   useDeleteUserByIdMutation,
   useMyProfileQuery,
   useUpdateProfileMutation,
