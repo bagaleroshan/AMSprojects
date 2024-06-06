@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   useReadSubjectByIdQuery,
@@ -16,7 +16,8 @@ import {
 const UpdateSubject = () => {
   const params = useParams();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const data = location.state.viewSubjectData;
   const [
     updateSubject,
     {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  useDeleteStudentsMutation,
-  useReadStudentsQuery,
-} from "../../services/api/StudentService";
+  useDeleteUsersByIdMutation,
+  useReadUsersQuery,
+} from "../../services/api/UserService";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
 
@@ -14,14 +14,14 @@ interface Query {
   sort: string[];
 }
 
-const StudentTable: React.FC = () => {
+const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
     { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
-    { Header: "Course", accessor: "course" },
     { Header: "Contact", accessor: "phoneNumber" },
+    { Header: "Role", accessor: "role" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -31,11 +31,12 @@ const StudentTable: React.FC = () => {
     sort: [],
   });
 
-  const { data, isLoading, isError, refetch } = useReadStudentsQuery({
+  const { data, isLoading, isError, refetch } = useReadUsersQuery({
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteStudents] = useDeleteStudentsMutation();
+
+  const [deleteUsers] = useDeleteUsersByIdMutation();
 
   useEffect(() => {
     refetch();
@@ -48,29 +49,30 @@ const StudentTable: React.FC = () => {
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
-  const handleStudentEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/update/${selectedRowData[0]._id}`, {
-      // state: { updateData: selectedRowData[0] },
-      replace: true,
-    });
-    // return navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
-    //   replace: true,
-    // });
-  };
 
-  const handleDeleteClick = (selectedRowData: IData[]) => {
-    console.log("Delete action triggered", selectedRowData);
-    selectedRowData.forEach((value: IData) => {
-      deleteStudents(value._id);
-      console.log(value._id);
-    });
-  };
-  const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewStudentData: selectedRowData[0] },
+  const handleEditClick = (selectedRowData: IData[]) => {
+    navigate(`users/update/${selectedRowData[0]._id}`, {
+      state: { updateUserData: selectedRowData[0] },
       replace: true,
     });
     console.log(selectedRowData);
+  };
+
+  const handleViewClick = (selectedRowData: IData[]) => {
+    navigate(`View`, {
+      state: { viewUserData: selectedRowData[0] },
+      replace: true,
+    });
+    console.log(selectedRowData);
+  };
+
+  const handleDeleteClick = async (selectedRowData: IData[]) => {
+    console.log("Delete action triggered", selectedRowData);
+    for (const value of selectedRowData) {
+      await deleteUsers(value._id).unwrap();
+      console.log(value._id);
+    }
+    refetch();
   };
 
   return (
@@ -82,7 +84,7 @@ const StudentTable: React.FC = () => {
         setQuery={setQuery}
         currentSort={query.sort}
         totalData={data.result.totalDataInWholePage}
-        onEditClick={handleStudentEditClick}
+        onEditClick={handleEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
@@ -90,4 +92,4 @@ const StudentTable: React.FC = () => {
   );
 };
 
-export default StudentTable;
+export default UserTable;

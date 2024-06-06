@@ -13,7 +13,7 @@ import userSlice from "../features/userSlice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "subject"], // only persist the user reducer
+  whitelist: ["user", "subject", "student"], // only persist the user reducer
 };
 
 // Combine all reducers
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   student: studentSlice,
   [UserApi.reducerPath]: UserApi.reducer,
   [SubjectApi.reducerPath]: SubjectApi.reducer,
-  [StudentApi.reducerPath]: StudentApi.reducer,
+  [StudentsApi.reducerPath]: StudentsApi.reducer,
 });
 
 // Create a persisted reducer
@@ -37,7 +37,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(SubjectApi.middleware, UserApi.middleware, StudentApi.middleware),
+    }).concat(SubjectApi.middleware, UserApi.middleware, StudentsApi.middleware),
 });
 
 // Create the persistor

@@ -33,7 +33,17 @@ export const StudentsApi = createApi({
       },
       providesTags: ["readStudents"],
     }),
+
+    deleteStudents: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/students/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["readStudents"],
+    }),
   }),
 });
 
-export const { useReadStudentsQuery } = StudentsApi;
+export const { useReadStudentsQuery, useDeleteStudentsMutation } = StudentsApi;

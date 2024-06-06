@@ -237,11 +237,14 @@ const TableComponent: React.FC<TableComponentProps> = ({
       <div>
         <select
           value={query.limit}
-          onChange={(e) => handleQueryChange({ limit: Number(e.target.value) })}
+          onChange={(e) =>
+            handleQueryChange({ limit: Number(e.target.value), page: 1 })
+          }
         >
           <option value={10}>Limit 10</option>
           <option value={20}>Limit 20</option>
           <option value={40}>Limit 40</option>
+          <option value={1000}>Show All</option>
         </select>
         <ReactPaginate
           previousLabel={"previous"}
