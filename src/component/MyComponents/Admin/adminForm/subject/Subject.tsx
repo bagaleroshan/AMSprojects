@@ -3,7 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import "./Subject.css";
 import SubjectList from "./SubjectList";
-import ACreateSubject from "./CreateSubject";
+import CreateSubject from "./CreateSubject";
 
 const Subject = () => {
   const [activeSubjectPage, setActiveSubjectPage] = useState("subjectList");
@@ -15,7 +15,7 @@ const Subject = () => {
           onChangeSubjectPage={(page) => setActiveSubjectPage(page)}
         />
       )) || (
-        <ACreateSubject
+        <CreateSubject
           onChangeSubjectPage={(page) => setActiveSubjectPage(page)}
         />
       )}

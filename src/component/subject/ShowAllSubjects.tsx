@@ -56,8 +56,8 @@ const ShowAllSubjects: React.FC = () => {
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewData: selectedRowData[0] },
+    navigate(`/admin/forms/subjects/${selectedRowData[0]._id}`, {
+      // state: { viewData: selectedRowData[0] },
       replace: true,
     });
   };
@@ -66,7 +66,6 @@ const ShowAllSubjects: React.FC = () => {
     console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
       deleteSubject(value._id);
-      // console.log(value._id);
     });
   };
 
