@@ -15,7 +15,7 @@ import AdminAttendance from "../mycomponents/admin/AdminAttendance";
 const AdminRoute = () => {
   return (
     <Routes>
-      <Route
+      <
         path="/"
         element={
           <>
@@ -28,7 +28,7 @@ const AdminRoute = () => {
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="attendance" element={<AdminAttendance />} />
-       {/* <Route path="forms" element={<AdminForm />} /> */}
+        {/* <Route path="forms" element={<AdminForm />} > */}
         <Route path="messages" element={<AMessages />} />
         <Route path="report" element={<AdminReport />} />
         {/*------------------ Subject --------------------------*/}

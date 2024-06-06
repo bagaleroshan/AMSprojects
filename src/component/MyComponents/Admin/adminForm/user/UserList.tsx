@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import UserTable from "../../../../TableComponent/UserTable";
 
-
 const UserList = ({ onChangePage }) => {
   return (
     <>
@@ -15,7 +14,7 @@ const UserList = ({ onChangePage }) => {
           variant="contained"
           startIcon={<AddIcon />}
           color="primary"
-          onClick={() => onChangePage("create")}
+          onClick={() => onChangePage("/create")}
         >
           Add
         </Button>
