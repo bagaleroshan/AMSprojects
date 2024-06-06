@@ -5,7 +5,6 @@ import {
   useReadSubjectsQuery,
 } from "../../services/api/SubjectService";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
-// import AdminTabs from "../MyComponents/Admin/adminForm/AdminTabs";
 
 interface Query {
   page: number;
@@ -15,7 +14,6 @@ interface Query {
 }
 
 const ShowAllSubjects: React.FC = () => {
-  console.log("jenis");
   const navigate = useNavigate();
   const columns = [
     { Header: "Id", accessor: "_id" },
@@ -71,7 +69,6 @@ const ShowAllSubjects: React.FC = () => {
 
   return (
     <div>
-      {/* <AdminTabs onTabChange={(tab) => setActiveTab(tab)} /> */}
       <h1>Subjects List</h1>
       <TableComponent
         columns={columns}
