@@ -52,7 +52,7 @@ const AdminRoute = () => {
           {/* ----------------- User-------------------------------- */}
           <Route path="users" element={<div>Hello All Users!!!</div>} />
 
-          {/* ---------------- Student------------------------------ */}
+          {/* ---------------- Students------------------------------ */}
           <Route path="students" element={<Outlet />}>
             <Route index element={<StudentTable />} />
             <Route path=":id" element={<ReadSpecificStudent />} />

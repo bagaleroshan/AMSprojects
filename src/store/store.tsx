@@ -37,7 +37,11 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(SubjectApi.middleware, UserApi.middleware, StudentApi.middleware),
+    }).concat(
+      SubjectApi.middleware,
+      UserApi.middleware,
+      StudentsApi.middleware
+    ),
 });
 
 // Create the persistor
