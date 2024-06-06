@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import UserList from "./UserList";
 import { useState } from "react";
-import CreateUser from "./CreateUser";
+import CreateUser from "./CreateUsers";
 import { useNavigate } from "react-router-dom";
 
 const User = ({ secondTab }) => {

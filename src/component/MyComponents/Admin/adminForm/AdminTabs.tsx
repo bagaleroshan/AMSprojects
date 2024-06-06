@@ -4,12 +4,11 @@ import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Groups from "./group/Group";
 import Students from "./student/Student";
 import Subject from "./subject/Subject";
 import User from "./user/User";
-import { useNavigate } from "react-router-dom";
-import { ListItem } from "@mui/material";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -94,13 +93,13 @@ const tabTypes = ["Users", "Students", "Subjects", "Groups"];
 export default function AdminTabs({ onTabChange, firstTab, secondTab }) {
   // const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     // setValue(newValue);
     // onTabChange(tabTypes[newValue]);
     // console.log(newValue);
     navigate(`/admin/${tabTypes[newValue]}/list`);
   };
+  
 
   console.log("--------", firstTab, secondTab);
 
@@ -117,7 +116,7 @@ export default function AdminTabs({ onTabChange, firstTab, secondTab }) {
           <StyledTab label="Users" {...a11yProps(0)} />
 
           <StyledTab label="Students" {...a11yProps(1)} />
-          <Tab label="Subjects" {...a11yProps(2)} />
+          <StyledTab label="Subjects" {...a11yProps(2)} />
           <StyledTab label="Groups" {...a11yProps(3)} />
         </StyledTabs>
       </Box>
@@ -125,7 +124,7 @@ export default function AdminTabs({ onTabChange, firstTab, secondTab }) {
         <User secondTab={secondTab} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Students />
+        <Students secondTab={secondTab}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <Subject secondTab={secondTab} />

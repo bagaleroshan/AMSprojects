@@ -1,13 +1,13 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import CreateSubject from "../../../../subject/CreateSubject";
 
 const CreateSubjects = ({ onChangePage }) => {
   return (
     <>
-      <div style={{ width: "100%", textAlign: "center" }}>
+      {/* <div style={{ width: "100%", textAlign: "center" }}>
         <Typography variant="h5">Create Subject</Typography>
-      </div>
-      <Box height={30} />
+      </div> */}
+      <Box height={10} />
       <div className="SubjectAddButton">
         <Button
           variant="contained"
@@ -17,7 +17,7 @@ const CreateSubjects = ({ onChangePage }) => {
           Subject List
         </Button>
       </div>
-      <Box height={10} />
+      {/* <Box height={10} /> */}
       {/* <Stack
         sx={{
           display: "flex",

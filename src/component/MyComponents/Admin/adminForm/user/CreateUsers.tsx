@@ -9,8 +9,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import CreateUser from "../../../../user/CreateUser";
 
-const CreateUser = ({ onChangePage }) => {
+const CreateUsers = ({ onChangePage }) => {
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
@@ -27,7 +28,7 @@ const CreateUser = ({ onChangePage }) => {
         </Button>
       </div>
       <Box height={30} />
-      <Stack
+      {/* <Stack
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -104,9 +105,10 @@ const CreateUser = ({ onChangePage }) => {
             Submit
           </Button>
         </Stack>
-      </Stack>
+      </Stack> */}
+      <CreateUser />
     </>
   );
 };
 
-export default CreateUser;
+export default CreateUsers;

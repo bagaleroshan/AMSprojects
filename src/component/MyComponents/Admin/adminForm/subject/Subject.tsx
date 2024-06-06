@@ -1,10 +1,7 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
-import ACreateSubject from "./CreateSubjects";
-import "./Subject.css";
-import SubjectList from "./SubjectList";
 import { useNavigate } from "react-router-dom";
 import CreateSubject from "./CreateSubjects";
+import SubjectList from "./SubjectList";
 
 const Subject = ({ secondTab }) => {
   // const [activeSubjectPage, setActiveSubjectPage] = useState("subjectList");

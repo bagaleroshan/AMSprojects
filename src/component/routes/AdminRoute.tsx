@@ -1,15 +1,13 @@
-import { Outlet, Route, Routes } from "react-router-dom";
-import AMessages from "../mycomponents/admin/AdminMessages";
-import AReport from "../mycomponents/admin/AdminReport";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import AAttendance from "../mycomponents/admin/AdminAttendance";
 import AdminDashboard from "../mycomponents/admin/AdminDashboard";
+import AMessages from "../mycomponents/admin/AdminMessages";
+import AReport from "../mycomponents/admin/AdminReport";
 import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
-import CreateSubject from "../subject/CreateSubject";
-import ReadSpecificSubject from "../subject/ReadSpecificSubject";
-import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+// import ViewRow from "../TableComponent/ViewRowProps";
 
 const AdminRoute = () => {
   return (
@@ -40,10 +38,9 @@ const AdminRoute = () => {
             path="list"
             element={<AdminForm firstTab="Subjects" secondTab="subjectList" />}
           />
-          {/* <Route path="update" element={<Outlet />}>
-            <Route path=":id" element={<UpdateSubject />} />
-          </Route> */}
         </Route>
+                {/* *---------Forms user--------* */}
+
         <Route path="users" element={<Outlet />}>
           <Route
             path="create"
@@ -55,7 +52,19 @@ const AdminRoute = () => {
           />
         </Route>
 
-        <Route path="*" element={<div>404</div>} />
+        {/* *---------Student---------* */}
+        <Route path="students" element={<Outlet />}>
+          <Route
+            path="create"
+            element={<AdminForm firstTab="Students" secondTab="create" />}
+          />
+          <Route
+            path="list"
+            element={<AdminForm firstTab="Students" secondTab="studentList" />}
+          />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>
   );
