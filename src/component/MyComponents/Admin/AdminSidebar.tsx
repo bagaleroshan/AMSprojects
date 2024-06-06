@@ -8,7 +8,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PasswordIcon from "@mui/icons-material/Password";
 import ReportIcon from "@mui/icons-material/Report";
 import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
-import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -57,16 +56,16 @@ export default function AdminSidebar() {
             >
               <MenuIcon />
             </IconButton>
-            <IconButton size="small" edge="start" aria-label="logo">
+            {/* <IconButton size="small" edge="start" aria-label="logo">
               <img
                 src="/deerwalk.png"
                 alt="Logo"
                 style={{ width: "40px", height: "40px" }}
               />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            </IconButton> */}
+            {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               AMS
-            </Typography>
+            </Typography> */}
           </Toolbar>
         </AppBar>
 
@@ -158,7 +157,7 @@ export default function AdminSidebar() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate("/admin/forms")}
+              onClick={() => navigate("/admin/forms/users/list")}
             >
               <LightTooltip title="Forms" placement="right">
                 <ListItemButton

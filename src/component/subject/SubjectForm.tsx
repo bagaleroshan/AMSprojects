@@ -1,10 +1,17 @@
-import SendIcon from "@mui/icons-material/Send";
-import { LoadingButton } from "@mui/lab";
-import { Button, ButtonGroup, Stack } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { Form, Formik } from "formik";
 import { validationSchema } from "../../validation/subjectValidation";
 import DwInput from "../dwComponents/DwInput";
 import { IFormValues, ISubject } from "../interfaces/SubjectInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const SubjectForm: React.FC<IFormValues> = ({
   buttonName = "Create",
@@ -31,6 +38,107 @@ const SubjectForm: React.FC<IFormValues> = ({
         {(formik) => {
           return (
             <Form>
+              <Container component="main" maxWidth="xs">
+                <Box
+                  sx={{
+                    marginTop: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+                    <LockOutlinedIcon />
+                  </Avatar>
+
+                  <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+                    {buttonName}
+                  </Typography>
+                  <Box sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <DwInput
+                          name="subjectName"
+                          label="Subject Name"
+                          type="text"
+                          fullWidth
+                          id="subjectName"
+                          onChange={(e) => {
+                            formik.setFieldValue("subjectName", e.target.value);
+                          }}
+                          autofocus={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="subjectCode"
+                          label="Subject Code"
+                          type="text"
+                          onChange={(e) => {
+                            formik.setFieldValue("subjectCode", e.target.value);
+                          }}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="numberOfClasses"
+                          label="No.of Classes"
+                          type="number"
+                          onChange={(e) => {
+                            formik.setFieldValue(
+                              "numberOfClasses",
+                              e.target.value
+                            );
+                          }}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <MuiLoadingButtonTheme
+                          buttonName={buttonName}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid container justifyContent="center">
+                        <Grid item>
+                          <Button
+                            color="inherit"
+                            href="/admin/forms/subjects"
+                            sx={{
+                              "&:hover": {
+                                color: "blue",
+                                // background: "white",
+                              },
+                            }}
+                          >
+                            Go back?
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Box>
+              </Container>
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
+  );
+};
+
+export default SubjectForm;
+
+/* 
+<Form>
+              <Typography variant="h5" sx={{ textAlign: "center" }}>
+                Update Subject
+              </Typography>
               <Stack
                 spacing={2}
                 alignItems="center"
@@ -66,39 +174,12 @@ const SubjectForm: React.FC<IFormValues> = ({
                   isLoading={isLoading}
                 ></DwInput>
 
-                {isLoading ? (
-                  <LoadingButton
-                    loading
-                    endIcon={<SendIcon />}
-                    loadingPosition="end"
-                    type="submit"
-                    sx={{
-                      backgroundColor: "primary.main",
-                      // marginTop: "10px",
-                    }}
-                  >
-                    CREATING....
-                  </LoadingButton>
-                ) : (
-                  <ButtonGroup>
-                    {
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="secondary"
-                      >
-                        {buttonName}
-                      </Button>
-                    }
-                  </ButtonGroup>
-                )}
+                <Grid item xs={12}>
+                  <MuiLoadingButtonTheme
+                    buttonName={buttonName}
+                    isLoading={isLoading}
+                  />
+                </Grid>
               </Stack>
             </Form>
-          );
-        }}
-      </Formik>
-    </div>
-  );
-};
-
-export default SubjectForm;
+*/

@@ -8,9 +8,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import "../AdminStyle.css/ADashboard.css";
 import LineChart from "../Chart/LineChart";
-import DwMuiSelect from "../Styling/DwMuiSelect";
+import DwMuiSelect from "../muiComponent/DwMuiSelect";
 
 const AdminDashboard = () => {
   return (

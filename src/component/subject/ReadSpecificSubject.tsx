@@ -15,7 +15,6 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-// import { isFetchBaseQueryError, isSerializedError } from "../../utils/utils";/
 
 const ReadSpecificSubject = () => {
   const params = useParams();
