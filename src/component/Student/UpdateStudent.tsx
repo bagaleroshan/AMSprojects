@@ -11,7 +11,7 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import StudentForm from "./StudentForm";
-import { IStudent } from "./studentInterface";
+import { IStudent } from "../interfaces/StudentInterface";
 
 const UpdateStudent = () => {
   const params = useParams();

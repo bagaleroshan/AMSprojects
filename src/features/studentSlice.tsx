@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IStudent } from "../component/studentInterface";
+import { IStudent } from "../component/interfaces/StudentInterface";
 
 const initialState: IStudent = {
   id: 1,

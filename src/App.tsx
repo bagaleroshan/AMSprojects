@@ -12,6 +12,7 @@ import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
 
 const App = () => {
+  // const token = useSelector((store: RootState) => store.user.adminToken);
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
   const teachersToken = useSelector(
     (store: RootState) => store.user.teachersToken

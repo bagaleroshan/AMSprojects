@@ -12,6 +12,9 @@ import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import StudentTable from "../TableComponent/StudentTable";
+import UpdateStudent from "../Student/UpdateStudent";
+import CreateStudent from "../Student/CreateStudent";
+import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 // import ViewRow from "../TableComponent/ViewRowProps";
 
 const AdminRoute = () => {
@@ -50,14 +53,14 @@ const AdminRoute = () => {
           <Route path="users" element={<div>Hello All Users!!!</div>} />
 
           {/* ---------------- Student------------------------------ */}
-          {/* <Route path="students" element={<Outlet />}>
+          <Route path="students" element={<Outlet />}>
             <Route index element={<StudentTable />} />
-            <Route path=":id" element={<div>Read Particular STudent</div>>} />
-            <Route path="create" element={<div>Creating Student</div>} />
+            <Route path=":id" element={<ReadSpecificStudent />} />
+            <Route path="create" element={<CreateStudent />} />
             <Route path="update" element={<Outlet />}>
               <Route path=":id" element={<UpdateStudent />} />
             </Route>
-          </Route> */}
+          </Route>
         </Route>
 
         <Route path="*" element={<Navigate to="/admin" replace />} />

@@ -1,5 +1,6 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Typography } from "@mui/material";
+import StudentTable from "../../../../TableComponent/StudentTable";
 
 const Student = () => {
   return (
@@ -14,6 +15,7 @@ const Student = () => {
           Add
         </Button>
       </div>
+      <StudentTable />
     </>
   );
 };

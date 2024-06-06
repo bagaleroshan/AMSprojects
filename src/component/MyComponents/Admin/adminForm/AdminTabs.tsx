@@ -9,6 +9,7 @@ import Groups from "./group/Group";
 import Students from "./student/Student";
 import Subject from "./subject/Subject";
 import User from "./user/User";
+import StudentTable from "../../../TableComponent/StudentTable";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -125,6 +126,7 @@ export default function AdminTabs({ onTabChange }) {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Students />
+        {/* <StudentTable /> */}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <Subject />
