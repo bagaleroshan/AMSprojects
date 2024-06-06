@@ -4,30 +4,24 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { RootState } from "../../../store/store";
+import { IUser } from "../interfaces/UserInterface";
+import { RootState } from "../../store/store";
 import {
-  useMyProfileQuery,
   useReadUserByIdQuery,
   useUpdateProfileMutation,
-} from "../../../services/api/UserService";
+} from "../../services/api/UserService";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
-} from "../../../utils/utils";
-import { IUser } from "../../interfaces/UserInterface";
+} from "../../utils/utils";
 import UpdateTeacherForm from "./UpdateTeacherForm";
 
 const UpdateTeacher = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const navigate = useNavigate();
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
-  const token = useSelector((store: RootState) => store.user.token);
-
   const params = useParams();
-
-  /* Reading MyProfile to Populate the form */
   const {
     isError: isErrorMyProfile,
     error: errorMyProfile,
@@ -47,7 +41,7 @@ const UpdateTeacher = () => {
 
   /* Update Profile Stuff */
   const [
-    UpdateTeacher,
+    updateTeacher,
     {
       isError: isErrorUpdateTeacher,
       isSuccess: isSuccessUpdateTeacher,
@@ -57,17 +51,15 @@ const UpdateTeacher = () => {
   ] = useUpdateProfileMutation();
 
   const submitValue = async (values: IUser) => {
-    UpdateTeacher(values);
+    updateTeacher(values);
   };
 
   useEffect(() => {
     if (isSuccessUpdateTeacher) {
-      toast.success("Profile Updated successfully", { autoClose: 3000 });
-      adminToken
-        ? navigate("/admin/my-profile")
-        : navigate("/teachers/my-profile");
+      toast.success("User Updated successfully", { autoClose: 3000 });
+      navigate("/admin/forms/users");
     }
-  }, [isSuccessUpdateTeacher, adminToken, navigate]);
+  }, [isSuccessUpdateTeacher, navigate]);
 
   useEffect(() => {
     if (isErrorUpdateTeacher) {
@@ -84,7 +76,7 @@ const UpdateTeacher = () => {
   return (
     <>
       <UpdateTeacherForm
-        buttonName="Update Profile"
+        buttonName="Update User"
         isLoading={isLoadingUpdateTeacher}
         formikRef={formikRef}
         onSubmit={submitValue}

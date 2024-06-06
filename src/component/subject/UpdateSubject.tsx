@@ -71,7 +71,7 @@ const UpdateSubject = () => {
         isLoading={isLoadingUpdateSubject}
         onSubmit={submitValue}
         subject={subject}
-      ></SubjectForm>
+      />
     </div>
   );
 };

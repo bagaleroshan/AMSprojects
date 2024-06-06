@@ -61,7 +61,7 @@ const ShowAllSubjects: React.FC = () => {
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
-    console.log("Delete action triggered", selectedRowData);
+    // console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
       deleteSubject(value._id);
     });
@@ -69,8 +69,7 @@ const ShowAllSubjects: React.FC = () => {
 
   return (
     <div>
-      {/* <AdminTabs onTabChange={(tab) => setActiveTab(tab)} /> */}
-      {/* <h1>Subjects List</h1> */}
+      <h1>Subjects List</h1>
       <TableComponent
         columns={columns}
         data={data.result.results}

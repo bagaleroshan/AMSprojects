@@ -51,10 +51,7 @@ const UserTable: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`, {
-      replace: true,
-    });
-    console.log(selectedRowData);
+    navigate(`/admin/forms/users/update/${selectedRowData[0]._id}`);
   };
 
   const handleViewClick = (selectedRowData: IData[]) => {
