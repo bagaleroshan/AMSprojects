@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  useDeleteStudentsMutation,
+  useDeleteStudentMutation,
   useReadStudentsQuery,
-} from "../../services/api/StudentService";
+} from "../../services/api/StudentApi";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
-
 interface Query {
   page: number;
   limit: number;
@@ -17,10 +16,8 @@ interface Query {
 const StudentTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
-    { Header: "Course", accessor: "course" },
     { Header: "Contact", accessor: "phoneNumber" },
   ];
 
@@ -35,7 +32,7 @@ const StudentTable: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteStudents] = useDeleteStudentsMutation();
+  const [deleteStudents] = useDeleteStudentMutation();
 
   useEffect(() => {
     refetch();
@@ -48,26 +45,22 @@ const StudentTable: React.FC = () => {
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
+
   const handleStudentEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/update/${selectedRowData[0]._id}`, {
-      // state: { updateData: selectedRowData[0] },
+    navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
       replace: true,
     });
-    // return navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
-    //   replace: true,
-    // });
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
-      deleteStudents(value._id);
-      console.log(value._id);
+      deleteStudents(value.id);
+      // console.log(value.id);
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewStudentData: selectedRowData[0] },
+    navigate(`/admin/forms/students/${selectedRowData[0].id}`, {
       replace: true,
     });
     console.log(selectedRowData);

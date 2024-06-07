@@ -26,6 +26,7 @@ const ReadSpecificUser = () => {
     error: errorViewSpecific,
   } = useReadUserByIdQuery(params.id);
   const user = dataViewSpecific?.result || {};
+  console.log(user);
 
   useEffect(() => {
     isErrorViewSpecific &&
@@ -49,9 +50,9 @@ const ReadSpecificUser = () => {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell>{user.Name}</TableCell>
-              <TableCell>{user.Email}</TableCell>
-              <TableCell>{user.Contact} </TableCell>
+              <TableCell>{user.fullName}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.phoneNumber} </TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import "../Style.css/TChangePassword.css";
 import TeacherSideBar from "./TeacherSideBar";
 
-const TChangePassword = () => {
+const TeacherChangePassword = () => {
   return (
     <>
       <div className="tChangePassword">
@@ -18,4 +18,4 @@ const TChangePassword = () => {
   );
 };
 
-export default TChangePassword;
+export default TeacherChangePassword;

@@ -5,8 +5,8 @@ import subjectSlice from "../features/subjectSlice";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
 import studentSlice from "../features/studentSlice";
-import { StudentsApi } from "../services/api/StudentService";
 import userSlice from "../features/userSlice";
+import { StudentApi } from "../services/api/StudentApi";
 
 // Configuration object for Redux Persist
 const persistConfig = {
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   student: studentSlice,
   [UserApi.reducerPath]: UserApi.reducer,
   [SubjectApi.reducerPath]: SubjectApi.reducer,
-  [StudentsApi.reducerPath]: StudentsApi.reducer,
+  [StudentApi.reducerPath]: StudentApi.reducer,
 });
 
 // Create a persisted reducer
@@ -36,11 +36,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(
-      SubjectApi.middleware,
-      UserApi.middleware,
-      StudentsApi.middleware
-    ),
+    }).concat(SubjectApi.middleware, UserApi.middleware, StudentApi.middleware),
 });
 
 // Create the persistor

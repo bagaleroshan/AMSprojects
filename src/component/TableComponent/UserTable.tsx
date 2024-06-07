@@ -17,7 +17,6 @@ interface Query {
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
     { Header: "Contact", accessor: "phoneNumber" },
@@ -51,26 +50,19 @@ const UserTable: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`users/update/${selectedRowData[0]._id}`, {
-      state: { updateUserData: selectedRowData[0] },
-      replace: true,
-    });
-    console.log(selectedRowData);
+    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`);
   };
 
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewUserData: selectedRowData[0] },
+    navigate(`/admin/forms/users/${selectedRowData[0].id}`, {
       replace: true,
     });
-    console.log(selectedRowData);
   };
 
   const handleDeleteClick = async (selectedRowData: IData[]) => {
-    console.log("Delete action triggered", selectedRowData);
+    // console.log("Delete action triggered", selectedRowData.role);
     for (const value of selectedRowData) {
-      await deleteUsers(value._id).unwrap();
-      console.log(value._id);
+      await deleteUsers(value.id).unwrap();
     }
     refetch();
   };

@@ -1,23 +1,19 @@
-import React from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
-import AAttendance from "./AdminAttendance";
-import AForms from "./adminForm";
-import AMessages from "./AdminMessages";
-import AReport from "./AdminReport";
-import AChangePassword from "./AdminChangePassword";
-import ALogout from "./ALogout";
-import AdminDashboard from "./AdminDashboard";
-import AdminLogout from "./AdminLogout";
-import AdminLayout from "./AdminLayout";
+import TChangePassword from "./TeacherChangePassword";
+import TDashboard from "./TeacherDashboard";
+import TLogout from "./TeacherLogout";
+import TMessages from "./TeacherMessages";
+import TReport from "./TeacherReport";
 
-const ARoutes = () => {
+const TeacherRoutes = () => {
   return (
-    <>
+    <div>
       <Routes>
         <Route
           path="/"
           element={
             <div>
+              {" "}
               <Outlet></Outlet>
             </div>
           }
@@ -26,12 +22,12 @@ const ARoutes = () => {
             index
             element={
               <div>
-                <AdminLayout></AdminLayout>
+                <TDashboard></TDashboard>
               </div>
             }
           ></Route>
           <Route
-            path="/admin"
+            path="Teacher"
             element={
               <div>
                 <Outlet></Outlet>
@@ -39,34 +35,18 @@ const ARoutes = () => {
             }
           >
             <Route
-              index
+              path="Dashboard"
               element={
                 <div>
-                  <AdminDashboard></AdminDashboard>
+                  <TDashboard></TDashboard>
                 </div>
               }
             ></Route>
             <Route
-              path="Attendance"
+              path="Messages"
               element={
                 <div>
-                  <AAttendance></AAttendance>
-                </div>
-              }
-            ></Route>
-            <Route
-              path="Forms"
-              element={
-                <div>
-                  <AForms></AForms>
-                </div>
-              }
-            ></Route>
-            <Route
-              path="Message"
-              element={
-                <div>
-                  <AMessages></AMessages>
+                  <TMessages></TMessages>
                 </div>
               }
             ></Route>
@@ -74,7 +54,7 @@ const ARoutes = () => {
               path="Report"
               element={
                 <div>
-                  <AReport></AReport>
+                  <TReport></TReport>
                 </div>
               }
             ></Route>
@@ -82,7 +62,7 @@ const ARoutes = () => {
               path="ChangePassword"
               element={
                 <div>
-                  <AChangePassword></AChangePassword>
+                  <TChangePassword></TChangePassword>
                 </div>
               }
             ></Route>
@@ -90,15 +70,15 @@ const ARoutes = () => {
               path="Logout"
               element={
                 <div>
-                  <AdminLogout></AdminLogout>
+                  <TLogout></TLogout>
                 </div>
               }
             ></Route>
           </Route>
         </Route>
       </Routes>
-    </>
+    </div>
   );
 };
 
-export default ARoutes;
+export default TeacherRoutes;

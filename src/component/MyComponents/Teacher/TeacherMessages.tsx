@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const TMessages = () => {
+const TeacherMessages = () => {
   const [age, setAge] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -85,4 +85,4 @@ const TMessages = () => {
   );
 };
 
-export default TMessages;
+export default TeacherMessages;

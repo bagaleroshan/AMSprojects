@@ -2,17 +2,17 @@ import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { setRole } from "../../features/userSlice";
-import { useCreateUserMutation } from "../../services/api/UserService";
+import { useCreateUserMutation } from "../../../services/api/UserService";
+import { IUser } from "../../interfaces/UserInterface";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
-} from "../../utils/utils";
-import { IUser } from "../interfaces/UserInterface";
-import CreateUserForm from "./CreateUserForm";
+} from "../../../utils/utils";
+import CreateTeacherForm from "./CreateTeacherForm";
+// import { setRole } from "../../features/userSlice";
 
-const CreateUser = () => {
+const CreateTeacher = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
 
   const [
@@ -52,8 +52,8 @@ const CreateUser = () => {
 
   return (
     <>
-      <CreateUserForm
-        buttonName="CREATE USER"
+      <CreateTeacherForm
+        buttonName="CREATE TEACHER"
         isLoading={isLoadingCreateUser}
         formikRef={formikRef}
         onSubmit={submitValue}
@@ -62,4 +62,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default CreateTeacher;

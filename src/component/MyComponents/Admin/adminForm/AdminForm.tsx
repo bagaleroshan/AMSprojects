@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
 import AdminTabs from "./AdminTabs";
 // import StudentTable from "../../../TableComponent/StudentTable";
 
-const AdminForm = () => {
-  const [activeTab, setActiveTab] = useState("User");
+const AdminForm = ({ firstTab, secondTab, header }) => {
+  // const [activeTab, setActiveTab] = useState("User");
   return (
     <>
       <div className="TLogout">
@@ -14,10 +13,11 @@ const AdminForm = () => {
               variant="h4"
               sx={{ paddingLeft: "3rem", fontWeight: "550" }}
             >
-              {activeTab}
+              {header}
             </Typography>
             <Box height={30} />
-            <AdminTabs onTabChange={(tab) => setActiveTab(tab)} />
+            <AdminTabs firstTab={firstTab} secondTab={secondTab} />
+            {/* ********modify********* */}
           </Box>
         </Box>
       </div>

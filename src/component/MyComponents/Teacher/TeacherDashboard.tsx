@@ -3,7 +3,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Button, Paper, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-const TDashboard = () => {
+const TeacherDashboard = () => {
   const [value, setValue] = useState("1");
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -147,4 +147,4 @@ const TDashboard = () => {
   );
 };
 
-export default TDashboard;
+export default TeacherDashboard;

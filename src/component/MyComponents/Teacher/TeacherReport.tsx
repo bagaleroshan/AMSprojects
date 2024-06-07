@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const TReport = () => {
+const TeacherReport = () => {
   const [age, setAge] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -80,4 +80,4 @@ const TReport = () => {
     </>
   );
 };
-export default TReport;
+export default TeacherReport;

@@ -73,7 +73,7 @@ const StudentForm: React.FC<IFormValues> = ({
                     loadingPosition="end"
                     type="submit"
                     sx={{
-                      backgroundColor: "secondary.main",
+                      backgroundColor: "primary.main",
                       // marginTop: "10px",
                     }}
                   >
@@ -82,11 +82,7 @@ const StudentForm: React.FC<IFormValues> = ({
                 ) : (
                   <ButtonGroup>
                     {
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="secondary"
-                      >
+                      <Button type="submit" variant="contained">
                         {buttonName}
                       </Button>
                     }

@@ -1,13 +1,13 @@
 import { Box, Typography } from "@mui/material";
 
-const AReport = () => {
+const AdminMessages = () => {
   return (
     <>
       <div className="TLogout">
         <Box sx={{ display: "flex" }}>
           <Box component="main" sx={{ FlexGrow: 1, p: 3 }}>
             <Box height={60} />
-            <Typography variant="h2">Admin Report</Typography>
+            <Typography variant="h2">Admin Messages</Typography>
           </Box>
         </Box>
       </div>
@@ -15,4 +15,4 @@ const AReport = () => {
   );
 };
 
-export default AReport;
+export default AdminMessages;

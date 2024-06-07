@@ -1,12 +1,11 @@
-import { Box, Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import ShowAllSubjects from "../../../../subject/ShowAllSubjects";
-const SubjectList = ({ onChangePage }) => {
+import { Box, Button } from "@mui/material";
+import StudentTable from "../../../../TableComponent/StudentTable";
+const StudentList = ({ onChangePage }) => {
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
-        {/* <Typography variant="h4" sx={{fontWeight:'1200px'}}>Subject List</Typography> */}
-        <h2>Subject List</h2>
+        <h2>Student List</h2>
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
@@ -19,9 +18,9 @@ const SubjectList = ({ onChangePage }) => {
           Add
         </Button>
       </div>
-      <ShowAllSubjects/>
+      <StudentTable />
     </>
   );
 };
 
-export default SubjectList;
+export default StudentList;
