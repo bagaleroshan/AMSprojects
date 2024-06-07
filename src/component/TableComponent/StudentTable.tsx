@@ -16,10 +16,8 @@ interface Query {
 const StudentTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
-    { Header: "Course", accessor: "course" },
     { Header: "Contact", accessor: "phoneNumber" },
   ];
 
@@ -57,12 +55,12 @@ const StudentTable: React.FC = () => {
   const handleDeleteClick = (selectedRowData: IData[]) => {
     console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
-      deleteStudents(value._id);
-      console.log(value._id);
+      deleteStudents(value.id);
+      // console.log(value.id);
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/${selectedRowData[0]._id}`, {
+    navigate(`/admin/forms/students/${selectedRowData[0].id}`, {
       replace: true,
     });
     console.log(selectedRowData);

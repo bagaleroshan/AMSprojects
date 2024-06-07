@@ -9,20 +9,22 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { studentValidationSchema } from "../../validation/studentValidation";
-import {
-  IFormValues,
-  studentInitialValues,
-} from "../interfaces/StudentInterface";
-import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 import DwInput from "../dwComponents/DwInput";
+import { IFormValues, IStudent } from "../interfaces/StudentInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const StudentForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  // student = {},
+  student = {},
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
+  const studentInitialValues: IStudent = {
+    fullName: student?.fullName || "",
+    email: student?.email || "",
+    phoneNumber: student?.phoneNumber || "",
+  };
   return (
     <div>
       <Formik

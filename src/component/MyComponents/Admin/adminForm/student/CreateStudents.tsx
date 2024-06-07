@@ -10,7 +10,7 @@ const CreateStudents = ({ onChangePage }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onChangePage("list")}
+          onClick={() => onChangePage("")}
         >
           Student List
         </Button>

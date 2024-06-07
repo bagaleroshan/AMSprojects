@@ -7,7 +7,7 @@ const User = ({ secondTab }) => {
   // const [activeUserPage, setActiveUserPage] = useState("userList");
   const navigate = useNavigate();
   const onChangePage = (page) => {
-    navigate("/admin/forms/users/" + page);
+    navigate("/admin/forms/users" + page);
   };
 
   return (

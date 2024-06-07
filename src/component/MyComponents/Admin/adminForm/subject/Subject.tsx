@@ -7,7 +7,7 @@ const Subject = ({ secondTab }) => {
   // const [activeSubjectPage, setActiveSubjectPage] = useState("subjectList");
   const navigate = useNavigate();
   const onChangePage = (page) => {
-    navigate("/admin/forms/subjects/" + page);
+    navigate("/admin/forms/subjects" + page);
   };
 
   return (

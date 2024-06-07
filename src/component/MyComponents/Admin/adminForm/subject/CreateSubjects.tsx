@@ -12,7 +12,7 @@ const CreateSubjects = ({ onChangePage }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onChangePage("list")}
+          onClick={() => onChangePage("")}
         >
           Subject List
         </Button>

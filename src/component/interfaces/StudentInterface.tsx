@@ -5,11 +5,6 @@ export interface IStudent {
   email: string;
   phoneNumber: string;
 }
-export const studentInitialValues: IStudent = {
-  fullName: "",
-  email: "",
-  phoneNumber: "",
-};
 
 export interface IFormValues {
   buttonName: string;
