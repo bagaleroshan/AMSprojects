@@ -1,14 +1,13 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
+import { userValidation } from "../../../validation/userValidation";
+import DwInput from "../../dwComponents/DwInput";
+import DwSelect from "../../dwComponents/DwSelect";
 import {
   IUserFormValues,
   roles,
   userInitialValues,
 } from "../../interfaces/UserInterface";
-import { userValidation } from "../../../validation/userValidation";
-import DwInput from "../../dwComponents/DwInput";
-import DwSelect from "../../dwComponents/DwSelect";
 import MuiLoadingButtonTheme from "../../theme/MuiLoadingButtonTheme";
 
 const CreateTeacherForm: React.FC<IUserFormValues> = ({
