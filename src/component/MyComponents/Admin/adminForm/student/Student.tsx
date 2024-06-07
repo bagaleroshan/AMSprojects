@@ -1,21 +1,21 @@
-import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Typography } from "@mui/material";
-import StudentTable from "../../../../TableComponent/StudentTable";
+import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import CreateStudents from "./CreateStudents";
+import StudentList from "./StudentList";
 
-const Student = () => {
+const Student = ({ secondTab }) => {
+  // const [activeSubjectPage, setActiveSubjectPage] = useState("subjectList");
+  const navigate = useNavigate();
+  const onChangePage = (page) => {
+    navigate("/admin/forms/students/" + page);
+  };
+
   return (
     <>
       <Box height={10} />
-      <div style={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5">Student List</Typography>
-      </div>
-      <Box height={30} />
-      <div className="SubjectAddButton">
-        <Button variant="contained" startIcon={<AddIcon />} color="secondary">
-          Add
-        </Button>
-      </div>
-      <StudentTable />
+      {(secondTab === "studentList" && (
+        <StudentList onChangePage={(page) => onChangePage(page)} />
+      )) || <CreateStudents onChangePage={(page) => onChangePage(page)} />}
     </>
   );
 };

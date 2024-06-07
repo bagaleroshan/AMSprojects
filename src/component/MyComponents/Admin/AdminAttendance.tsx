@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const AAttendance = () => {
+const AdminAttendance = () => {
   return (
     <>
       <div className="TLogout">
@@ -15,4 +15,4 @@ const AAttendance = () => {
   );
 };
 
-export default AAttendance;
+export default AdminAttendance;

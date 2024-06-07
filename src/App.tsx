@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import WelcomePage from "./component/WelcomePage";
 import AdminRoute from "./component/routes/AdminRoute";
 import TeacherRoute from "./component/routes/TeacherRoute";
@@ -14,9 +14,9 @@ import { RootState } from "./store/store";
 const App = () => {
   // const token = useSelector((store: RootState) => store.user.adminToken);
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
-  const teachersToken = useSelector(
-    (store: RootState) => store.user.teachersToken
-  );
+  // const teachersToken = useSelector(
+  //   (store: RootState) => store.user.teachersToken
+  // );
 
   return (
     <Routes>

@@ -3,7 +3,6 @@ import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
-import { useNavigate } from "react-router-dom";
 
 export interface IData<T = any> {
   [key: string]: T;

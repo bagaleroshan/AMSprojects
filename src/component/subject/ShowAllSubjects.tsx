@@ -5,8 +5,6 @@ import {
   useReadSubjectsQuery,
 } from "../../services/api/SubjectService";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
-import ExportCSV from "../ExportCSV/ExportCSV";
-// import AdminTabs from "../MyComponents/Admin/adminForm/AdminTabs";
 
 interface Query {
   page: number;
@@ -50,30 +48,27 @@ const ShowAllSubjects: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/subjects/update/${selectedRowData[0]._id}`, {
+    navigate(`/admin/forms/subjects/update/${selectedRowData[0].id}`, {
       state: { updateData: selectedRowData[0] },
       replace: true,
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewData: selectedRowData[0] },
+    navigate(`/admin/forms/subjects/${selectedRowData[0]._id}`, {
+      // state: { viewData: selectedRowData[0] },
       replace: true,
     });
-    console.log(selectedRowData);
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
-    console.log("Delete action triggered", selectedRowData);
+    // console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
       deleteSubject(value._id);
-      console.log(value._id);
     });
   };
 
   return (
     <div>
-      {/* <AdminTabs onTabChange={(tab) => setActiveTab(tab)} /> */}
       <h1>Subjects List</h1>
       <ExportCSV data={data} fileName="SampleData"></ExportCSV>
       <TableComponent

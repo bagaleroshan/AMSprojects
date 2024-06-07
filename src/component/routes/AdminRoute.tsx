@@ -1,23 +1,22 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AMessages from "../MyComponents/Admin/AMessages";
-import AReport from "../MyComponents/Admin/AReport";
-import AAttendance from "../MyComponents/Admin/AdminAttendance";
+import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
 import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
-import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
-import UpdateTeacher from "../MyComponents/Teacher/UpdateTeacher";
+import AdminMessages from "../MyComponents/Admin/AdminMessages";
+import AdminReport from "../MyComponents/Admin/AdminReport";
 import CreateStudent from "../Student/CreateStudent";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import StudentTable from "../TableComponent/StudentTable";
-import CreateSubject from "../subject/CreateSubject";
-import ReadSpecificSubject from "../subject/ReadSpecificSubject";
-import ShowAllSubjects from "../subject/ShowAllSubjects";
-import UpdateSubject from "../subject/UpdateSubject";
+import UpdateTeacher from "../TableComponent/UpdateTeacher";
+import UserTable from "../TableComponent/UserTable";
+import CreateUser from "../user/CreateUser";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import UserTable from "../TableComponent/UserTable";
-// import ViewRow from "../TableComponent/ViewRowProps";
+import ShowAllSubjects from "../subject/ShowAllSubjects";
+import ReadSpecificSubject from "../subject/ReadSpecificSubject";
+import CreateSubject from "../subject/CreateSubject";
+import UpdateSubject from "../subject/UpdateSubject";
 
 const AdminRoute = () => {
   return (
@@ -34,38 +33,38 @@ const AdminRoute = () => {
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
-        <Route path="attendance" element={<AAttendance />} />
-        <Route path="forms" element={<AdminForm />} />
-        <Route path="messages" element={<AMessages />} />
-        <Route path="report" element={<AReport />} />
-
+        <Route path="attendance" element={<AdminAttendance />} />
+        <Route path="messages" element={<AdminMessages />} />
+        <Route path="report" element={<AdminReport />} />
         <Route path="forms" element={<Outlet />}>
-          <Route index element={<AdminForm />} />
-          {/*------------------ Subject --------------------------*/}
-          <Route path="subjects" element={<Outlet />}>
-            <Route index element={<ShowAllSubjects />} />
-            <Route path=":id" element={<ReadSpecificSubject />} />
-            <Route path="create" element={<CreateSubject />} />
-            <Route path="update" element={<Outlet />}>
-              <Route path=":id" element={<UpdateSubject />} />
-            </Route>
-            {/* <Route path="subjects/View" element={<ViewRow />} /> */}
-          </Route>
-          {/* ----------------- User-------------------------------- */}
+          {/* ------------------- Users -------------------------------- */}
+          <Route index element={<div>Forms</div>} />
           <Route path="users" element={<Outlet />}>
             <Route index element={<UserTable />} />
+            {/* <Route path=":id" element={<MyProfile />} /> */}
+            <Route path="create" element={<CreateUser />} />
             <Route path="update" element={<Outlet />}>
               <Route path=":id" element={<UpdateTeacher />} />
             </Route>
           </Route>
 
-          {/* ---------------- Student------------------------------ */}
+          {/* ---------------- Students------------------------------ */}
           <Route path="students" element={<Outlet />}>
             <Route index element={<StudentTable />} />
             <Route path=":id" element={<ReadSpecificStudent />} />
             <Route path="create" element={<CreateStudent />} />
             <Route path="update" element={<Outlet />}>
               <Route path=":id" element={<UpdateStudent />} />
+            </Route>
+          </Route>
+
+          {/* --------------- Subjects------------------------------------ */}
+          <Route path="subjects" element={<Outlet />}>
+            <Route index element={<ShowAllSubjects />} />
+            <Route path=":id" element={<ReadSpecificSubject />} />
+            <Route path="create" element={<CreateSubject />} />
+            <Route path="update" element={<Outlet />}>
+              <Route path=":id" element={<UpdateSubject />} />
             </Route>
           </Route>
         </Route>

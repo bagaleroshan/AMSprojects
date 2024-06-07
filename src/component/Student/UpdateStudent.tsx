@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   useReadStudentByIdQuery,
@@ -10,13 +10,12 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import StudentForm from "./StudentForm";
 import { IStudent } from "../interfaces/StudentInterface";
+import StudentForm from "./StudentForm";
 
 const UpdateStudent = () => {
   const params = useParams();
-  console.log("Student Updated");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [
     updateStudent,
@@ -38,7 +37,6 @@ const UpdateStudent = () => {
 
   const submitValue = async (values: IStudent) => {
     updateStudent({ id: params.id, body: values });
-    // navigate(`/subjects/${params.id}`);
   };
 
   useEffect(() => {
@@ -51,8 +49,11 @@ const UpdateStudent = () => {
   }, [isErrorUpdateStudent, errorUpdateStudent]);
 
   useEffect(() => {
-    if (isSuccessUpdateStudent) toast.success("Student Updated Successfully");
-  }, [isSuccessUpdateStudent]);
+    if (isSuccessUpdateStudent) {
+      toast.success("Student Updated Successfully");
+      navigate("/admin/forms/students");
+    }
+  }, [isSuccessUpdateStudent, navigate]);
 
   useEffect(() => {
     isErrorViewSpecific &&

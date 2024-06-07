@@ -1,13 +1,12 @@
-import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import ShowAllSubjects from "../../../../subject/ShowAllSubjects";
-// import SubjectTable from "../../../../ReactTable/Table";
-
-const SubjectList = ({ onChangeSubjectPage }) => {
+const SubjectList = ({ onChangePage }) => {
   return (
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5">Subject List</Typography>
+        {/* <Typography variant="h4" sx={{fontWeight:'1200px'}}>Subject List</Typography> */}
+        <h2>Subject List</h2>
       </div>
       <Box height={30} />
       <div className="SubjectAddButton">
@@ -15,13 +14,12 @@ const SubjectList = ({ onChangeSubjectPage }) => {
           variant="contained"
           startIcon={<AddIcon />}
           color="primary"
-          onClick={() => onChangeSubjectPage("createSubject")}
+          onClick={() => onChangePage("create")}
         >
           Add
         </Button>
       </div>
-      {/* <SubjectTable></SubjectTable> */}
-      <ShowAllSubjects />
+      <ShowAllSubjects/>
     </>
   );
 };
