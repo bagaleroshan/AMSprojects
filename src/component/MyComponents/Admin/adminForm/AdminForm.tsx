@@ -16,10 +16,7 @@ const AdminForm = ({ firstTab, secondTab, header }) => {
               {header}
             </Typography>
             <Box height={30} />
-            <AdminTabs
-              firstTab={firstTab}
-              secondTab={secondTab}
-            />
+            <AdminTabs firstTab={firstTab} secondTab={secondTab} />
             {/* ********modify********* */}
           </Box>
         </Box>

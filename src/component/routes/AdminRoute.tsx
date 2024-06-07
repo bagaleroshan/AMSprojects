@@ -1,23 +1,15 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import UpdateStudent from "../Student/UpdateStudent";
+import UpdateTeacher from "../TableComponent/UpdateTeacher";
 import AdminAttendance from "../mycomponents/admin/AdminAttendance";
 import AdminDashboard from "../mycomponents/admin/AdminDashboard";
 import AdminMessages from "../mycomponents/admin/AdminMessages";
 import AdminReport from "../mycomponents/admin/AdminReport";
-import CreateStudent from "../Student/CreateStudent";
-import ReadSpecificStudent from "../Student/ReadSpecificStudent";
-import UpdateStudent from "../Student/UpdateStudent";
-import StudentTable from "../TableComponent/StudentTable";
-import UpdateTeacher from "../TableComponent/UpdateTeacher";
-import UserTable from "../TableComponent/UserTable";
-import CreateUser from "../user/CreateUser";
+import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
+import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import ShowAllSubjects from "../subject/ShowAllSubjects";
-import ReadSpecificSubject from "../subject/ReadSpecificSubject";
-import CreateSubject from "../subject/CreateSubject";
-import UpdateSubject from "../subject/UpdateSubject";
-import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
 
 const AdminRoute = () => {
   return (
@@ -38,7 +30,6 @@ const AdminRoute = () => {
         <Route path="messages" element={<AdminMessages />} />
         <Route path="report" element={<AdminReport />} />
         <Route path="forms" element={<Outlet />}>
-        
           {/* ------------------- Users -------------------------------- */}
 
           <Route path="users" element={<Outlet />}>
@@ -76,7 +67,7 @@ const AdminRoute = () => {
 
           {/* ---------------- Students------------------------------ */}
 
-           <Route path="students" element={<Outlet />}>
+          <Route path="students" element={<Outlet />}>
             <Route
               index
               element={
