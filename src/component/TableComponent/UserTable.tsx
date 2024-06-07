@@ -17,7 +17,6 @@ interface Query {
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
     { Header: "Contact", accessor: "phoneNumber" },
@@ -59,14 +58,13 @@ const UserTable: React.FC = () => {
       state: { viewUserData: selectedRowData[0] },
       replace: true,
     });
-    console.log(selectedRowData);
+    // console.log(selectedRowData);
   };
 
   const handleDeleteClick = async (selectedRowData: IData[]) => {
-    console.log("Delete action triggered", selectedRowData);
+    // console.log("Delete action triggered", selectedRowData.role);
     for (const value of selectedRowData) {
-      await deleteUsers(value._id).unwrap();
-      console.log(value._id);
+      await deleteUsers(value.id).unwrap();
     }
     refetch();
   };
