@@ -10,6 +10,7 @@ import ResetPassword from "./component/user/ResetPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
+import DikshyaAdminRoute from "./component/routes/DikshyaAdminRoute";
 
 const App = () => {
   // const token = useSelector((store: RootState) => store.user.adminToken);
@@ -41,6 +42,7 @@ const App = () => {
               element={
                 <AmsLayout>
                   <AdminRoute />
+                  {/* <DikshyaAdminRoute/> */}
                 </AmsLayout>
               }
             />

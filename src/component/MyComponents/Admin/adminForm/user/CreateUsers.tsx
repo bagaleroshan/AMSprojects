@@ -22,7 +22,7 @@ const CreateUsers = ({ onChangePage }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onChangePage("list")}
+          onClick={() => onChangePage("")}
         >
           User List
         </Button>

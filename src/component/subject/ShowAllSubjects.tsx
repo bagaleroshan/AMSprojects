@@ -16,7 +16,6 @@ interface Query {
 const ShowAllSubjects: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Id", accessor: "_id" },
     { Header: "Name", accessor: "subjectName" },
     { Header: "Code", accessor: "subjectCode" },
     { Header: "Classes", accessor: "numberOfClasses" },
@@ -48,7 +47,7 @@ const ShowAllSubjects: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/subjects/update/${selectedRowData[0].id}`, {
+    navigate(`/admin/forms/subjects/update/${selectedRowData[0]._id}`, {
       state: { updateData: selectedRowData[0] },
       replace: true,
     });
@@ -63,13 +62,12 @@ const ShowAllSubjects: React.FC = () => {
   const handleDeleteClick = (selectedRowData: IData[]) => {
     // console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
-      deleteSubject(value._id);
+      deleteSubject(value.id);
     });
   };
 
   return (
     <div>
-      <h1>Subjects List</h1>
       <TableComponent
         columns={columns}
         data={data.result.results}

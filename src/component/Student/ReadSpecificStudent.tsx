@@ -23,6 +23,7 @@ const ReadSpecificStudent = () => {
     data: dataViewSpecific,
     error: errorViewSpecific,
   } = useReadStudentByIdQuery(params.id);
+  console.log(dataViewSpecific);
   const student = dataViewSpecific?.result || {};
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const ReadSpecificStudent = () => {
             <TableRow>
               <TableCell>Full Name</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Course </TableCell>
+              {/* <TableCell>Course </TableCell> */}
               <TableCell>Phone Number </TableCell>
             </TableRow>
           </TableHead>
@@ -50,7 +51,7 @@ const ReadSpecificStudent = () => {
             <TableRow>
               <TableCell>{student.fullName}</TableCell>
               <TableCell>{student.email}</TableCell>
-              <TableCell>{student.course} </TableCell>
+              {/* <TableCell>{student.course} </TableCell> */}
               <TableCell>{student.phoneNumber} </TableCell>
             </TableRow>
           </TableBody>
