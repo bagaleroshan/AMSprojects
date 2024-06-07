@@ -5,6 +5,7 @@ import {
   useReadSubjectsQuery,
 } from "../../services/api/SubjectService";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+import ExportCSV from "../ExportCSV/ExportCSV";
 // import AdminTabs from "../MyComponents/Admin/adminForm/AdminTabs";
 
 interface Query {
@@ -74,6 +75,7 @@ const ShowAllSubjects: React.FC = () => {
     <div>
       {/* <AdminTabs onTabChange={(tab) => setActiveTab(tab)} /> */}
       <h1>Subjects List</h1>
+      <ExportCSV data={data} fileName="SampleData"></ExportCSV>
       <TableComponent
         columns={columns}
         data={data.result.results}
