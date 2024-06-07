@@ -50,7 +50,7 @@ const UserTable: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/users/update/${selectedRowData[0]._id}`);
+    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`);
   };
 
   const handleViewClick = (selectedRowData: IData[]) => {
