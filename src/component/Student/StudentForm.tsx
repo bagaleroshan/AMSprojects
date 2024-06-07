@@ -1,28 +1,32 @@
-import SendIcon from "@mui/icons-material/Send";
-import { LoadingButton } from "@mui/lab";
-import { Button, ButtonGroup, Stack } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { Form, Formik } from "formik";
 import { studentValidationSchema } from "../../validation/studentValidation";
-import DwInput from "../dwForm/DwInput";
-import { IFormValues, IStudent } from "../interfaces/StudentInterface";
+import {
+  IFormValues,
+  studentInitialValues,
+} from "../interfaces/StudentInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import DwInput from "../dwComponents/DwInput";
 
 const StudentForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  student = {},
+  // student = {},
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  const initialValues: IStudent = {
-    fullName: student?.fullName || "",
-    email: student?.email || "",
-    phoneNumber: student?.phoneNumber || "",
-  };
-
   return (
     <div>
       <Formik
-        initialValues={initialValues}
+        initialValues={studentInitialValues}
         innerRef={formikRef}
         onSubmit={onSubmit}
         validationSchema={studentValidationSchema}
@@ -31,64 +35,91 @@ const StudentForm: React.FC<IFormValues> = ({
         {(formik) => {
           return (
             <Form>
-              <Stack
-                spacing={2}
-                alignItems="center"
-                sx={{ marginTop: "10px", padding: "16px", width: "60" }}
-              >
-                <DwInput
-                  name="fullName"
-                  label="Full Name"
-                  type="text"
-                  onChange={(e) => {
-                    formik.setFieldValue("fullName", e.target.value);
+              <Container component="main" maxWidth="xs">
+                <Box
+                  sx={{
+                    marginTop: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                   }}
-                  isLoading={isLoading}
-                ></DwInput>
+                >
+                  <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+                    <LockOutlinedIcon />
+                  </Avatar>
 
-                <DwInput
-                  name="email"
-                  label="Email"
-                  type="email"
-                  onChange={(e) => {
-                    formik.setFieldValue("email", e.target.value);
-                  }}
-                  isLoading={isLoading}
-                ></DwInput>
+                  <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+                    {buttonName}
+                  </Typography>
+                  <Box sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <DwInput
+                          name="fullName"
+                          label="Full Name"
+                          type="text"
+                          fullWidth
+                          id="fullName"
+                          onChange={(e) => {
+                            formik.setFieldValue("fullName", e.target.value);
+                          }}
+                          autofocus={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="email"
+                          label="Email"
+                          type="email"
+                          onChange={(e) => {
+                            formik.setFieldValue("email", e.target.value);
+                          }}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
 
-                <DwInput
-                  name="phoneNumber"
-                  label="Phone Number"
-                  type="number"
-                  onChange={(e) => {
-                    formik.setFieldValue("phoneNumber", e.target.value);
-                  }}
-                  isLoading={isLoading}
-                ></DwInput>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="phoneNumber"
+                          label="Phone Number"
+                          type="number"
+                          onChange={(e) => {
+                            formik.setFieldValue("phoneNumber", e.target.value);
+                          }}
+                          isPhoneNumber={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <MuiLoadingButtonTheme
+                          buttonName={buttonName}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
 
-                {isLoading ? (
-                  <LoadingButton
-                    loading
-                    endIcon={<SendIcon />}
-                    loadingPosition="end"
-                    type="submit"
-                    sx={{
-                      backgroundColor: "primary.main",
-                      // marginTop: "10px",
-                    }}
-                  >
-                    CREATING....
-                  </LoadingButton>
-                ) : (
-                  <ButtonGroup>
-                    {
-                      <Button type="submit" variant="contained">
-                        {buttonName}
-                      </Button>
-                    }
-                  </ButtonGroup>
-                )}
-              </Stack>
+                      <Grid container justifyContent="center">
+                        <Grid item>
+                          <Button
+                            color="inherit"
+                            href="/admin/forms/students"
+                            sx={{
+                              "&:hover": {
+                                color: "blue",
+                                // background: "white",
+                              },
+                            }}
+                          >
+                            Go back?
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Box>
+              </Container>
             </Form>
           );
         }}

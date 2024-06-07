@@ -5,6 +5,11 @@ export interface IStudent {
   email: string;
   phoneNumber: string;
 }
+export const studentInitialValues: IStudent = {
+  fullName: "",
+  email: "",
+  phoneNumber: "",
+};
 
 export interface IFormValues {
   buttonName: string;
@@ -12,4 +17,5 @@ export interface IFormValues {
   formikRef?: React.Ref<FormikProps<IStudent>>;
   onSubmit: (values: IStudent) => void;
   student?: IStudent;
+  autofocus?: boolean;
 }

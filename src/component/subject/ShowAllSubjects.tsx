@@ -5,6 +5,7 @@ import {
   useReadSubjectsQuery,
 } from "../../services/api/SubjectService";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+// import ExportCSV from "../ExportCSV/ExportCSV";
 
 interface Query {
   page: number;
@@ -70,7 +71,7 @@ const ShowAllSubjects: React.FC = () => {
   return (
     <div>
       <h1>Subjects List</h1>
-      <ExportCSV data={data} fileName="SampleData"></ExportCSV>
+      {/* <ExportCSV data={data} fileName="SampleData"></ExportCSV> */}
       <TableComponent
         columns={columns}
         data={data.result.results}
