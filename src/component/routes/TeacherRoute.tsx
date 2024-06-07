@@ -2,9 +2,9 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import TeacherDashboard from "../MyComponents/Teacher/TeacherDashboard";
-import TeacherMessages from "../MyComponents/Teacher/TeacherMessages";
-import TeacherReport from "../MyComponents/Teacher/TeacherReport";
+import TeacherDashboard from "../mycomponents/teacher/TeacherDashboard";
+import TeacherMessages from "../mycomponents/teacher/TeacherMessages";
+import TeacherReport from "../mycomponents/teacher/TeacherReport";
 
 const TeacherRoute = () => {
   return (

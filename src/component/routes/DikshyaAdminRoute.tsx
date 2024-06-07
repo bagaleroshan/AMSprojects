@@ -7,9 +7,9 @@ import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import UpdateSubject from "../subject/UpdateSubject";
 import UpdateStudent from "../Student/UpdateStudent";
-import UpdateTeacher from "../mycomponents/teacher/UpdateTeacher";
 import AdminReport from "../mycomponents/admin/AdminReport";
 import AdminAttendance from "../mycomponents/admin/AdminAttendance";
+import UpdateTeacher from "../TableComponent/UpdateTeacher";
 // import ViewRow from "../TableComponent/ViewRowProps";
 
 const DikshyaAdminRoute = () => {
@@ -32,7 +32,7 @@ const DikshyaAdminRoute = () => {
         <Route path="messages" element={<AMessages />} />
         <Route path="report" element={<AdminReport />} />
 
-        {/*------------------ form --------------------------*/}
+        {/*------------------ FORM --------------------------*/}
         <Route path="forms" element={<Outlet />}>
           {/* ****************Subjects**************************** */}
 

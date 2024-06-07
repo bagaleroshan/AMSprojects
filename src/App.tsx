@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import WelcomePage from "./component/WelcomePage";
 import AdminRoute from "./component/routes/AdminRoute";
 import TeacherRoute from "./component/routes/TeacherRoute";
@@ -15,9 +15,9 @@ import DikshyaAdminRoute from "./component/routes/DikshyaAdminRoute";
 const App = () => {
   // const token = useSelector((store: RootState) => store.user.adminToken);
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
-  const teachersToken = useSelector(
-    (store: RootState) => store.user.teachersToken
-  );
+  // const teachersToken = useSelector(
+  //   (store: RootState) => store.user.teachersToken
+  // );
 
   return (
     <Routes>
@@ -41,8 +41,8 @@ const App = () => {
               path="admin/*"
               element={
                 <AmsLayout>
-                  {/* <AdminRoute /> */}
-                  <DikshyaAdminRoute/>
+                  <AdminRoute />
+                  {/* <DikshyaAdminRoute/> */}
                 </AmsLayout>
               }
             />
