@@ -104,6 +104,15 @@ export const UserApi = createApi({
       providesTags: ["readUsers"],
     }),
 
+    readUserById: builder.query({
+      query: (id) => {
+        return {
+          url: `/users/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["readUser"],
+    }),
     updateProfile: builder.mutation({
       query: (body) => {
         const token = localStorage.getItem("token");

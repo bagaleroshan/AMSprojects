@@ -17,6 +17,7 @@ import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import UserTable from "../TableComponent/UserTable";
+import ReadSpecificUser from "../user/ReadSpecificUser";
 // import ViewRow from "../TableComponent/ViewRowProps";
 
 const AdminRoute = () => {
@@ -54,6 +55,7 @@ const AdminRoute = () => {
           {/* ----------------- User-------------------------------- */}
           <Route path="users" element={<Outlet />}>
             <Route index element={<UserTable />} />
+            <Route path=":id" element={<ReadSpecificUser />} />
             <Route path="update" element={<Outlet />}>
               <Route path=":id" element={<UpdateTeacher />} />
             </Route>
