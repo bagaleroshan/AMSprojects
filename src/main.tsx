@@ -8,7 +8,6 @@ import App from "./App.tsx";
 import "./component/TableComponent/table.css";
 import { persistor, store } from "./store/store.tsx";
 import './global.css'
-// import "../table.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

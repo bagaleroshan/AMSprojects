@@ -13,13 +13,12 @@ const StudentList = ({ onChangePage }) => {
           variant="contained"
           startIcon={<AddIcon />}
           color="primary"
-          onClick={() => onChangePage("create")}
+          onClick={() => onChangePage("/create")}
         >
           Add
         </Button>
       </div>
-      <StudentTable/>
-     
+      <StudentTable />
     </>
   );
 };
