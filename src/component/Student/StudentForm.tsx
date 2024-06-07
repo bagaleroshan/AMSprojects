@@ -73,7 +73,7 @@ const StudentForm: React.FC<IFormValues> = ({
                     loadingPosition="end"
                     type="submit"
                     sx={{
-                      backgroundColor: "secondary.main",
+                      backgroundColor: "primary.main",
                       // marginTop: "10px",
                     }}
                   >

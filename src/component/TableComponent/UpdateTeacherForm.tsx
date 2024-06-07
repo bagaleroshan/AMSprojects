@@ -8,12 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import { useLocation } from "react-router-dom";
-import { myProfileUpdateValidation } from "../../../validation/userValidation";
-import DwInput from "../../dwComponents/DwInput";
-import { IUser, IUserFormValues } from "../../interfaces/UserInterface";
-import MuiLoadingButtonTheme from "../../theme/MuiLoadingButtonTheme";
-// import { RootState } from "../../store/store";
+import { myProfileUpdateValidation } from "../../validation/userValidation";
+import DwInput from "../dwComponents/DwInput";
+import { IUser, IUserFormValues } from "../interfaces/UserInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const UpdateTeacherForm: React.FC<IUserFormValues> = ({
   buttonName = "Update Profile",
@@ -26,8 +24,6 @@ const UpdateTeacherForm: React.FC<IUserFormValues> = ({
     fullName: user.fullName || "",
     phoneNumber: user.phoneNumber || "",
   };
-
-  const href = "/admin/users/";
 
   return (
     <>
@@ -97,7 +93,7 @@ const UpdateTeacherForm: React.FC<IUserFormValues> = ({
                         <Grid item>
                           <Button
                             color="inherit"
-                            href={href}
+                            href="/admin/forms/users"
                             sx={{
                               "&:hover": {
                                 color: "blue",

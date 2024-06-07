@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  useDeleteStudentsMutation,
+  useDeleteStudentMutation,
   useReadStudentsQuery,
-} from "../../services/api/StudentService";
+} from "../../services/api/StudentApi";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
-
 interface Query {
   page: number;
   limit: number;
@@ -35,7 +34,7 @@ const StudentTable: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteStudents] = useDeleteStudentsMutation();
+  const [deleteStudents] = useDeleteStudentMutation();
 
   useEffect(() => {
     refetch();
@@ -48,14 +47,11 @@ const StudentTable: React.FC = () => {
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
+
   const handleStudentEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
-      // state: { updateData: selectedRowData[0] },
+    navigate(`/admin/forms/students/update/${selectedRowData[0]._id}`, {
       replace: true,
     });
-    // return navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
-    //   replace: true,
-    // });
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
@@ -66,8 +62,7 @@ const StudentTable: React.FC = () => {
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewStudentData: selectedRowData[0] },
+    navigate(`/admin/forms/students/${selectedRowData[0]._id}`, {
       replace: true,
     });
     console.log(selectedRowData);

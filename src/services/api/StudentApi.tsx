@@ -1,4 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+export interface IQuery {
+  page: number;
+  limit: number;
+  findQuery: string;
+  sort: string;
+}
+
 export const StudentApi = createApi({
   reducerPath: "StudentApi",
   baseQuery: fetchBaseQuery({
@@ -17,6 +25,7 @@ export const StudentApi = createApi({
       },
       invalidatesTags: ["readStudents"],
     }),
+
     UpdateStudent: builder.mutation({
       query: (data) => {
         return {
@@ -27,6 +36,7 @@ export const StudentApi = createApi({
       },
       invalidatesTags: ["readStudents", "readStudentsById"],
     }),
+
     readStudents: builder.query({
       query: (query: IQuery) => {
         const { page, limit, findQuery, sort } = query;
@@ -40,13 +50,13 @@ export const StudentApi = createApi({
       },
       providesTags: ["readStudents"],
     }),
+
     readStudentById: builder.query({
       query: (id) => {
         return {
           url: `/students/${id}`,
           method: "GET",
         };
-        0;
       },
       providesTags: ["readStudents"],
     }),
@@ -69,5 +79,5 @@ export const {
   useUpdateStudentMutation,
   useReadStudentsQuery,
   useReadStudentByIdQuery,
-  useDeleteStudentMutation
+  useDeleteStudentMutation,
 } = StudentApi;
