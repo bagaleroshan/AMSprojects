@@ -53,7 +53,7 @@ const CreateUser = () => {
   return (
     <>
       <CreateUserForm
-        buttonName="SIGN UP"
+        buttonName="CREATE USER"
         isLoading={isLoadingCreateUser}
         formikRef={formikRef}
         onSubmit={submitValue}

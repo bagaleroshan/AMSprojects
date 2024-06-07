@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
 import { FormikProps } from "formik";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useCreateStudentMutation } from "../../services/api/StudentApi";
@@ -9,11 +9,11 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import StudentForm from "./StudentForm";
 import { IStudent } from "../interfaces/StudentInterface";
+import StudentForm from "./StudentForm";
 
 const CreateStudent = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const formikRef = useRef<FormikProps<IStudent> | null>(null);
 
   const [
@@ -34,7 +34,7 @@ const CreateStudent = () => {
     if (isSuccessCreateStudent) {
       formikRef.current?.resetForm();
       toast.success("Student created successfully");
-      // navigate("/subjects");
+      navigate("/admin/forms/subjects");
     }
   });
 
