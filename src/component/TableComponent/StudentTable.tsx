@@ -47,7 +47,7 @@ const StudentTable: React.FC = () => {
   }
 
   const handleStudentEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/update/${selectedRowData[0]._id}`, {
+    navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
       replace: true,
     });
   };

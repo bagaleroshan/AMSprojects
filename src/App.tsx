@@ -31,6 +31,7 @@ const App = () => {
       >
         <Route index element={<WelcomePage />} />
         <Route path="register" element={<CreateUser />} />
+        
         <Route path="login" element={<UserLogin />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
