@@ -19,7 +19,6 @@ const AdminForm = ({ firstTab, secondTab, header }) => {
             <AdminTabs
               firstTab={firstTab}
               secondTab={secondTab}
-              onTabChange={(tab) => setActiveTab(tab)}
             />
             {/* ********modify********* */}
           </Box>

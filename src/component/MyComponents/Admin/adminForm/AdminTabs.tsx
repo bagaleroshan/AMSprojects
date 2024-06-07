@@ -90,7 +90,7 @@ function a11yProps(index: number) {
 
 const tabTypes = ["users", "students", "subjects", "groups"];
 
-export default function AdminTabs({ onTabChange, firstTab, secondTab }) {
+export default function AdminTabs({ firstTab, secondTab }) {
   const navigate = useNavigate();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     navigate(`/admin/forms/${tabTypes[newValue]}`);
