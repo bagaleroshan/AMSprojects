@@ -1,14 +1,10 @@
-import { Box, Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Box, Button } from "@mui/material";
 import UserTable from "../../../../TableComponent/UserTable";
 
 const UserList = ({ onChangePage }) => {
   return (
     <>
-      <div style={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5">User List</Typography>
-      </div>
-      <Box height={30} />
       <div className="SubjectAddButton">
         <Button
           variant="contained"
@@ -19,6 +15,7 @@ const UserList = ({ onChangePage }) => {
           Add
         </Button>
       </div>
+      <Box height={60}/>
       <UserTable></UserTable>
     </>
   );

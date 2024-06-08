@@ -60,8 +60,9 @@ const ShowAllSubjects: React.FC = () => {
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
-    // console.log("Delete action triggered", selectedRowData);
+    
     selectedRowData.forEach((value: IData) => {
+      console.log(value.id)
       deleteSubject(value.id);
     });
   };

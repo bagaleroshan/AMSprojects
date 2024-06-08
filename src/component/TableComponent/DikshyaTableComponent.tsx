@@ -1,22 +1,10 @@
+import SearchIcon from "@mui/icons-material/Search";
+import { InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputAdornment,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 export interface IData<T = any> {
   [key: string]: T;
@@ -175,20 +163,13 @@ const TableComponent: React.FC<TableComponentProps> = ({
 
   return (
     <div>
-      <Stack
-        sx={{
-          direction: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
+      <div>
         {/* <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearchChange}
         /> */}
-
         <TextField
           size="small"
           variant="outlined"
@@ -205,41 +186,33 @@ const TableComponent: React.FC<TableComponentProps> = ({
           }}
         />
         {selectedRows.size > 0 && (
-          <Stack display="flex" direction="row" spacing={2}>
-            <Button
-              variant="contained"
+          <div>
+            <button
               onClick={handleEditClick}
-              startIcon={<EditOutlinedIcon />}
               disabled={
                 selectedRowData.length === 0 || selectedRowData.length > 1
               }
             >
               Edit
-            </Button>
-            <Button
-              color="error"
-              variant="contained"
-              startIcon={<DeleteOutlineOutlinedIcon />}
+            </button>
+            <button
               onClick={handleDeleteClick}
               disabled={selectedRowData.length === 0}
             >
               Delete
-            </Button>
-            <Button
-              color="success"
-              variant="contained"
-              startIcon={<VisibilityOutlinedIcon />}
+            </button>
+            <button
               onClick={handleViewClick}
               disabled={
                 selectedRowData.length === 0 || selectedRowData.length > 1
               }
             >
               View
-            </Button>
-          </Stack>
+            </button>
+          </div>
         )}
-      </Stack>
-      <Box height={5} />
+      </div>
+
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -277,8 +250,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </tbody>
       </table>
       <div>
-        <Box height={10} />
-        {/* <select className="table-select"
+        <select
           value={query.limit}
           onChange={(e) =>
             handleQueryChange({ limit: Number(e.target.value), page: 1 })
@@ -288,23 +260,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
           <option value={20}>Limit 20</option>
           <option value={40}>Limit 40</option>
           <option value={1000}>Show All</option>
-        </select> */}
-
-        <TextField
-        size="small"
-          id="select"
-          value={query.limit}
-          onChange={(e) =>
-            handleQueryChange({ limit: Number(e.target.value), page: 1 })
-          }
-          select
-        >
-          <MenuItem value={10}>Limit 10</MenuItem>
-          <MenuItem value={20}>Limit 20</MenuItem>
-          <MenuItem value={40}>Limit 40</MenuItem>
-          <MenuItem value={1000}>Show All</MenuItem>
-        </TextField>
-
+        </select>
         <ReactPaginate
           previousLabel={"previous"}
           nextLabel={"next"}

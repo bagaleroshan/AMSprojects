@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import AdminTabs from "./AdminTabs";
 // import StudentTable from "../../../TableComponent/StudentTable";
 
-const AdminForm = ({ firstTab, secondTab, header }) => {
+const AdminForm = ({ firstTab, secondTab }) => {
   // const [activeTab, setActiveTab] = useState("User");
   return (
     <>
@@ -12,10 +12,8 @@ const AdminForm = ({ firstTab, secondTab, header }) => {
             <Typography
               variant="h4"
               sx={{ paddingLeft: "3rem", fontWeight: "550" }}
-            >
-              {header}
-            </Typography>
-            <Box height={30} />
+            ></Typography>
+
             <AdminTabs firstTab={firstTab} secondTab={secondTab} />
             {/* ********modify********* */}
           </Box>

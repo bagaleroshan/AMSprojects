@@ -62,11 +62,13 @@ const UserTable: React.FC = () => {
   };
 
   const handleDeleteClick = async (selectedRowData: IData[]) => {
-    // console.log("Delete action triggered", selectedRowData.role);
+
     for (const value of selectedRowData) {
+    console.log(value.id)
+
       await deleteUsers(value.id).unwrap();
     }
-    refetch();
+    refetch()
   };
 
   return (

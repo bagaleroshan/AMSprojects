@@ -1,12 +1,9 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import CreateSubject from "../../../../subject/CreateSubject";
 
 const CreateSubjects = ({ onChangePage }) => {
   return (
     <>
-      {/* <div style={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5">Create Subject</Typography>
-      </div> */}
       <Box height={10} />
       <div className="SubjectAddButton">
         <Button
