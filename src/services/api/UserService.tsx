@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IQuery } from "./StudentApi";
+import { IUser } from "../../component/interfaces/UserInterface";
 
 export const UserApi = createApi({
   reducerPath: "UserApi",
@@ -146,6 +147,26 @@ export const UserApi = createApi({
         };
       },
     }),
+    //byAdmin AfterLogin
+    updateTeacherProfile: builder.mutation<
+      void,
+      { id: string; body: Partial<IUser> }
+    >({
+      query: ({ id, body }) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/users/${id}`,
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -158,6 +179,7 @@ export const {
   useReadUserByIdQuery,
   useMyProfileQuery,
   useUpdateProfileMutation,
+  useUpdateTeacherProfileMutation,
   useReadUsersQuery,
   useDeleteUsersByIdMutation,
 } = UserApi;
