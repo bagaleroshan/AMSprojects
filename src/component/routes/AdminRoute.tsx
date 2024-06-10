@@ -10,6 +10,7 @@ import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
+import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 
