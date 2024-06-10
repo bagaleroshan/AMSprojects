@@ -50,7 +50,9 @@ const UserTable: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`);
+    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`, {
+      replace: true,
+    });
   };
 
   const handleViewClick = (selectedRowData: IData[]) => {
@@ -58,11 +60,9 @@ const UserTable: React.FC = () => {
       state: { viewUserData: selectedRowData[0] },
       replace: true,
     });
-    // console.log(selectedRowData);
   };
 
   const handleDeleteClick = async (selectedRowData: IData[]) => {
-
     for (const value of selectedRowData) {
     console.log(value.id)
 

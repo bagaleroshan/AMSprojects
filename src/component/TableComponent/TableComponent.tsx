@@ -1,22 +1,20 @@
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  MenuItem,
+  Stack,
+  TextField
+} from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputAdornment,
-  MenuItem,
-  Select,
-  Stack,
-  TextField,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 export interface IData<T = any> {
   [key: string]: T;

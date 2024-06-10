@@ -10,7 +10,7 @@ const DwInput: React.FC<IDwInputProps> = ({
   multiline,
   isPhoneNumber,
   isLoading,
-  autofocus,
+  autofocus = false,
   ...props
 }) => {
   return (
@@ -38,7 +38,7 @@ const DwInput: React.FC<IDwInputProps> = ({
                 rows={5}
                 color="primary"
                 size="small"
-                autoFocus={autofocus}
+                autoFocus={meta.initialTouched ? false : autofocus}
                 disabled={isLoading}
                 onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                   isPhoneNumber

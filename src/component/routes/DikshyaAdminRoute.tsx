@@ -43,7 +43,7 @@ const AdminRoute = () => {
             <Route
               path="create"
               element={
-                <AdminForm firstTab="users" secondTab="/create" header="User" />
+                <AdminForm firstTab="users" secondTab="/create"  />
               }
             />
 

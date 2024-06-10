@@ -32,6 +32,8 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
         innerRef={formikRef}
         validationSchema={userValidation}
         enableReinitialize={true}
+        // to ensure validation is only triggered on form submission
+        validateOnBlur={false}
       >
         {(formik) => {
           return (
@@ -39,7 +41,7 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
               <Container component="main" maxWidth="xs">
                 <Box
                   sx={{
-                    marginTop: 2,
+                    marginTop: 6,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -52,7 +54,7 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                   <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
                     {buttonName}
                   </Typography>
-                  <Box sx={{ mt: 3 }}>
+                  <Box sx={{ mt: 2 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <DwInput

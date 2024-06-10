@@ -1,24 +1,24 @@
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import StudentForm from "./StudentForm";
+import { useEffect } from "react";
+import { IStudent } from "../interfaces/StudentInterface";
 import {
   useReadStudentByIdQuery,
   useUpdateStudentMutation,
 } from "../../services/api/StudentApi";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { IStudent } from "../interfaces/StudentInterface";
-import StudentForm from "./StudentForm";
 
 const UpdateStudent = () => {
   const params = useParams();
   const navigate = useNavigate();
 
   const [
-    updateStudent,
+    updateSubject,
     {
       isError: isErrorUpdateStudent,
       isSuccess: isSuccessUpdateStudent,
@@ -36,7 +36,7 @@ const UpdateStudent = () => {
   const student = dataViewSpecific?.result || {};
 
   const submitValue = async (values: IStudent) => {
-    updateStudent({ id: params.id, body: values });
+    updateSubject({ id: params.id, body: values });
   };
 
   useEffect(() => {
@@ -51,9 +51,9 @@ const UpdateStudent = () => {
   useEffect(() => {
     if (isSuccessUpdateStudent) {
       toast.success("Student Updated Successfully");
-      navigate("/admin/forms/students");
+      navigate(`/admin/forms/students`);
     }
-  }, [isSuccessUpdateStudent, navigate]);
+  });
 
   useEffect(() => {
     isErrorViewSpecific &&
@@ -71,7 +71,7 @@ const UpdateStudent = () => {
         isLoading={isLoadingUpdateStudent}
         onSubmit={submitValue}
         student={student}
-      ></StudentForm>
+      />
     </div>
   );
 };

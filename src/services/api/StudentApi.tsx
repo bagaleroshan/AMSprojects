@@ -26,7 +26,18 @@ export const StudentApi = createApi({
       invalidatesTags: ["readStudents"],
     }),
 
-    UpdateStudent: builder.mutation({
+    // UpdateStudent: builder.mutation({
+    //   query: (data) => {
+    //     return {
+    //       url: `/students/${data.id}`,
+    //       method: "PATCH",
+    //       body: data.body,
+    //     };
+    //   },
+    //   invalidatesTags: ["readStudents", "readStudentsById"],
+    // }),
+
+    updateStudent: builder.mutation({
       query: (data) => {
         return {
           url: `/students/${data.id}`,
