@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setRole, setToken } from "../../features/userSlice";
 import { useUserLoginMutation } from "../../services/api/UserService";
+import { RootState } from "../../store/store";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
@@ -13,7 +14,6 @@ import {
 } from "../../utils/utils";
 import { IUser } from "../interfaces/UserInterface";
 import UserLoginForm from "./UserLoginForm";
-import { RootState } from "../../store/store";
 
 const UserLogin = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
@@ -37,19 +37,6 @@ const UserLogin = () => {
   };
 
   useEffect(() => {
-    if (isErrorUserLogin) {
-      if (isFetchBaseQueryError(errorUserLogin)) {
-        const errorMessage = getErrorMessage(errorUserLogin);
-        toast.error(errorMessage, { autoClose: 5000 });
-      } else if (isSerializedError(errorUserLogin)) {
-        toast.error(errorUserLogin?.message, { autoClose: 5000 });
-      } else {
-        toast.error("Unknown Error", { autoClose: 5000 });
-      }
-    }
-  }, [isErrorUserLogin, errorUserLogin]);
-
-  useEffect(() => {
     if (isSuccessUserLogin) {
       dispatch(setRole(userLoginData.result.role));
       dispatch(setToken(userLoginData.token));
@@ -62,6 +49,18 @@ const UserLogin = () => {
       //   ? navigate("/admin/update-password")
       //   : navigate("/teachers/update-password");
    */
+
+  useEffect(() => {
+    if (isErrorUserLogin) {
+      if (isFetchBaseQueryError(errorUserLogin)) {
+        toast.error(getErrorMessage(errorUserLogin), { autoClose: 5000 });
+      } else if (isSerializedError(errorUserLogin)) {
+        toast.error(errorUserLogin?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
+  }, [isErrorUserLogin, errorUserLogin]);
 
   return (
     <>

@@ -53,17 +53,14 @@ const StudentTable: React.FC = () => {
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
-    console.log("Delete action triggered", selectedRowData);
     selectedRowData.forEach((value: IData) => {
       deleteStudents(value.id);
-      // console.log(value.id);
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
     navigate(`/admin/forms/students/${selectedRowData[0].id}`, {
       replace: true,
     });
-    console.log(selectedRowData);
   };
 
   return (

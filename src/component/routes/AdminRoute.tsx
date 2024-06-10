@@ -4,15 +4,15 @@ import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import AdminMessages from "../MyComponents/Admin/AdminMessages";
 import AdminReport from "../MyComponents/Admin/AdminReport";
 import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import UpdateTeacher from "../TableComponent/UpdateTeacher";
+import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
+import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import ReadSpecificSubject from "../subject/ReadSpecificSubject";
-import ReadSpecificStudent from "../Student/ReadSpecificStudent";
-import ReadSpecificUser from "../user/ReadSpecificUser";
 
 const AdminRoute = () => {
   return (
@@ -59,16 +59,6 @@ const AdminRoute = () => {
             <Route path=":id" element={<ReadSpecificUser />} />
           </Route>
 
-          {/* <Route index element={<div>Forms</div>} />
-          <Route path="users" element={<Outlet />}>
-            <Route index element={<UserTable />} />
-            <Route path=":id" element={<MyProfile />} />
-            <Route path="create" element={<CreateUser />} />
-            <Route path="update" element={<Outlet />}>
-              <Route path=":id" element={<UpdateTeacher />} />
-            </Route>
-          </Route> */}
-
           {/* ---------------- Students------------------------------ */}
 
           <Route path="students" element={<Outlet />}>
@@ -97,14 +87,6 @@ const AdminRoute = () => {
             </Route>
             <Route path=":id" element={<ReadSpecificStudent />} />
           </Route>
-          {/* <Route path="students" element={<Outlet />}>
-            <Route index element={<StudentTable />} />
-            <Route path=":id" element={<ReadSpecificStudent />} />
-            <Route path="create" element={<CreateStudent />} />
-            <Route path="update" element={<Outlet />}>
-              <Route path=":id" element={<UpdateStudent />} />
-            </Route>
-          </Route> */}
 
           {/* --------------- Subjects------------------------------------ */}
           <Route path="subjects" element={<Outlet />}>
@@ -128,20 +110,11 @@ const AdminRoute = () => {
                 />
               }
             />
-
+            <Route path=":id" element={<ReadSpecificSubject />} />
             <Route path="update" element={<Outlet />}>
               <Route path=":id" element={<UpdateSubject />} />
             </Route>
-            <Route path=":id" element={<ReadSpecificSubject />} />
           </Route>
-          {/* <Route path="subjects" element={<Outlet />}>
-            <Route index element={<ShowAllSubjects />} />
-            <Route path=":id" element={<ReadSpecificSubject />} />
-            <Route path="create" element={<CreateSubject />} />
-            <Route path="update" element={<Outlet />}>
-              <Route path=":id" element={<UpdateSubject />} />
-            </Route>
-          </Route> */}
         </Route>
 
         <Route path="*" element={<Navigate to="/admin" replace />} />
@@ -151,3 +124,37 @@ const AdminRoute = () => {
 };
 
 export default AdminRoute;
+
+{
+  /* <Route path="subjects" element={<Outlet />}>
+            <Route index element={<ShowAllSubjects />} />
+            <Route path=":id" element={<ReadSpecificSubject />} />
+            <Route path="create" element={<CreateSubject />} />
+            <Route path="update" element={<Outlet />}>
+              <Route path=":id" element={<UpdateSubject />} />
+            </Route>
+          </Route> */
+
+  {
+    /* <Route path="students" element={<Outlet />}>
+            <Route index element={<StudentTable />} />
+            <Route path=":id" element={<ReadSpecificStudent />} />
+            <Route path="create" element={<CreateStudent />} />
+            <Route path="update" element={<Outlet />}>
+              <Route path=":id" element={<UpdateStudent />} />
+            </Route>
+          </Route> */
+
+    {
+      /* <Route index element={<div>Forms</div>} />
+          <Route path="users" element={<Outlet />}>
+            <Route index element={<UserTable />} />
+            <Route path=":id" element={<MyProfile />} />
+            <Route path="create" element={<CreateUser />} />
+            <Route path="update" element={<Outlet />}>
+              <Route path=":id" element={<UpdateTeacher />} />
+            </Route>
+          </Route> */
+    }
+  }
+}

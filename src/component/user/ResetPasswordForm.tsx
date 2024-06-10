@@ -23,6 +23,9 @@ const ResetPasswordForm: React.FC<IUserFormValues> = ({
         innerRef={formikRef}
         validationSchema={userResetPassValidation}
         enableReinitialize={true}
+        // to ensure validation is only triggered on form submission
+        // validateOnChange={false}
+        validateOnBlur={false}
       >
         {(formik) => {
           return (

@@ -12,4 +12,5 @@ export interface IFormValues {
   formikRef?: React.Ref<FormikProps<IStudent>>;
   onSubmit: (values: IStudent) => void;
   student?: IStudent;
+  autofocus?: boolean;
 }

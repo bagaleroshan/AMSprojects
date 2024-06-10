@@ -16,6 +16,7 @@ import {
   userLoginInitialValues,
 } from "../interfaces/UserInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import { useEffect, useRef } from "react";
 
 const UserLoginForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN IN",
@@ -23,6 +24,13 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
+  // const emailInputRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (emailInputRef.current) {
+  //     emailInputRef.current.focus();
+  //   }
+  // }, []);
   return (
     <>
       <Formik
@@ -31,6 +39,8 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
         innerRef={formikRef}
         validationSchema={userLoginValidation}
         enableReinitialize={true}
+        // to ensure validation is only triggered on form submission
+        validateOnBlur={false}
       >
         {(formik) => {
           return (
