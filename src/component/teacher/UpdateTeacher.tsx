@@ -1,11 +1,8 @@
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { IUser } from "../interfaces/UserInterface";
-import { RootState } from "../../store/store";
 import {
   useReadUserByIdQuery,
   useUpdateTeacherProfileMutation,
@@ -15,21 +12,20 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { IUser } from "../interfaces/UserInterface";
 import UpdateTeacherForm from "./UpdateTeacherForm";
 
 const UpdateTeacher = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const navigate = useNavigate();
-  const adminToken = useSelector((store: RootState) => store.user.adminToken);
   const params = useParams();
-  const myId = params.id;
+
   const {
     isError: isErrorMyProfile,
     error: errorMyProfile,
     data: dataMyProfile,
   } = useReadUserByIdQuery(params.id);
   const profileData = dataMyProfile?.result || {};
-  console.log(profileData);
 
   useEffect(() => {
     isErrorMyProfile &&
@@ -64,7 +60,7 @@ const UpdateTeacher = () => {
   useEffect(() => {
     if (isSuccessUpdateTeacher) {
       toast.success("User Updated successfully", { autoClose: 3000 });
-      navigate("/admin/forms/users");
+      navigate("/admin/users");
     }
   }, [isSuccessUpdateTeacher, navigate]);
 

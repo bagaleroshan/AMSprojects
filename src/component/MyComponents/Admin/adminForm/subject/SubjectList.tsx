@@ -6,9 +6,9 @@ const SubjectList = ({ onChangePage }) => {
     <>
       <div style={{ width: "100%", textAlign: "center" }}>
         {/* <Typography variant="h4" sx={{fontWeight:'1200px'}}>Subject List</Typography> */}
-        <h2>Subject List</h2>
+        {/* <h2>Subject List</h2> */}
       </div>
-      <Box height={30} />
+      {/* <Box height={30} /> */}
       <div className="SubjectAddButton">
         <Button
           variant="contained"
@@ -19,6 +19,7 @@ const SubjectList = ({ onChangePage }) => {
           Add
         </Button>
       </div>
+      <Box height={60}/>
       <ShowAllSubjects/>
     </>
   );

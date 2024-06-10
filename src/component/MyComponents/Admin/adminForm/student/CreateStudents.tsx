@@ -1,5 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
-import CreateSubject from "../../../../subject/CreateSubject";
+import { Box, Button } from "@mui/material";
 import CreateStudent from "../../../../Student/CreateStudent";
 
 const CreateStudents = ({ onChangePage }) => {
