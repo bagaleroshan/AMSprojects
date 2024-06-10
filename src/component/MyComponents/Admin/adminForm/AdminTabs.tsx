@@ -46,7 +46,6 @@ const StyledTab = styled((props: StyledTabProps) => (
   fontSize: theme.typography.pxToRem(15),
   marginRight: theme.spacing(1),
   color: "#141414",
-  // fontWeight:"400",
   "&.Mui-selected": {
     color: "#0c828f",
   },
@@ -106,6 +105,7 @@ export default function AdminTabs({ firstTab, secondTab }) {
           value={tabTypes.indexOf(firstTab)}
           onChange={handleChange}
           aria-label="basic tabs example"
+          
         >
           <StyledTab label="Users" {...a11yProps(0)} />
 

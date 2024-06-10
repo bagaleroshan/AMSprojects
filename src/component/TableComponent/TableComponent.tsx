@@ -8,7 +8,7 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
-  TextField
+  TextField,
 } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -203,7 +203,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
           }}
         />
         {selectedRows.size > 0 && (
-          <Stack display="flex" direction="row" spacing={2}>
+          <Stack display="flex" direction="row" spacing={0.5}>
             <Button
               variant="contained"
               onClick={handleEditClick}
@@ -289,7 +289,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </select> */}
 
         <TextField
-        size="small"
+          size="small"
           id="select"
           value={query.limit}
           onChange={(e) =>

@@ -52,7 +52,7 @@ export default function AdminSidebar() {
               sx={{
                 marginRight: 5,
                 ...(open && { display: "none" }),
-                "&:hover": { color: "#0195CF" },
+                // "&:hover": { color: "#0195CF" },
               }}
             >
               <MenuIcon />
@@ -196,11 +196,23 @@ export default function AdminSidebar() {
                   color: "#0195CF",
                 },
                 backgroundColor:
-                  location.pathname === "/admin/users"
+                  location.pathname === "/admin/users" ||
+                  location.pathname === "/admin/users/create" ||
+                  location.pathname === "/admin/students" ||
+                  location.pathname === "/admin/students/create" ||
+                  location.pathname === "/admin/subjects" ||
+                  location.pathname === "/admin/subjects/create"
                     ? "rgba(239,249,255,1)"
                     : "default",
                 color:
-                  location.pathname === "/admin/users" ? "#0195CF" : "default",
+                  location.pathname === "/admin/users" ||
+                  location.pathname === "/admin/users/create" ||
+                  location.pathname === "/admin/subjects" ||
+                  location.pathname === "/admin/subjects/create" ||
+                  location.pathname === "/admin/students" ||
+                  location.pathname === "/admin/students/create"
+                    ? "#0195CF"
+                    : "default",
               }}
               onClick={() => navigate("/admin/users")}
             >
@@ -221,7 +233,12 @@ export default function AdminSidebar() {
                         color: "#0195CF",
                       },
                       color:
-                        location.pathname === "/admin/users"
+                        location.pathname === "/admin/users" ||
+                        location.pathname === "/admin/users/create" ||
+                        location.pathname === "/admin/subjects" ||
+                        location.pathname === "/admin/subjects/create" ||
+                        location.pathname === "/admin/students" ||
+                        location.pathname === "/admin/students/create"
                           ? "#0195CF"
                           : "default",
                     }}
