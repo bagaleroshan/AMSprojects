@@ -2,7 +2,6 @@ import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { setRole } from "../../features/userSlice";
 import { useCreateUserMutation } from "../../services/api/UserService";
 import {
   getErrorMessage,
@@ -22,6 +21,7 @@ const CreateUser = () => {
       isSuccess: isSuccessCreateUser,
       isLoading: isLoadingCreateUser,
       error: errorCreateUser,
+      data: dataCreateUser,
     },
   ] = useCreateUserMutation();
 
@@ -31,12 +31,12 @@ const CreateUser = () => {
 
   useEffect(() => {
     if (isSuccessCreateUser) {
-      toast.success("Please check your email for login verification", {
+      toast.success(dataCreateUser.message, {
         autoClose: 3000,
       });
       formikRef.current?.resetForm();
     }
-  }, [isSuccessCreateUser]);
+  }, [isSuccessCreateUser, dataCreateUser]);
 
   useEffect(() => {
     if (isErrorCreateUser) {
