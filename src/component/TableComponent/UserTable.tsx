@@ -6,6 +6,7 @@ import {
 } from "../../services/api/UserService";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
+import UserExportCSV from "../ExportCSV/UserExportCSV";
 
 interface Query {
   page: number;
@@ -71,6 +72,10 @@ const UserTable: React.FC = () => {
 
   return (
     <div>
+      <UserExportCSV
+        data={data.result.results}
+        fileName="User File"
+      ></UserExportCSV>
       <TableComponent
         columns={columns}
         data={data.result.results}

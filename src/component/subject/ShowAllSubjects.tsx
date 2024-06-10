@@ -4,6 +4,7 @@ import {
   useDeleteSubjectMutation,
   useReadSubjectsQuery,
 } from "../../services/api/SubjectService";
+import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
@@ -68,6 +69,11 @@ const ShowAllSubjects: React.FC = () => {
 
   return (
     <div>
+      <SubjectExportCSV
+        data={data.result.results}
+        fileName="student"
+      ></SubjectExportCSV>
+
       <TableComponent
         columns={columns}
         data={data.result.results}

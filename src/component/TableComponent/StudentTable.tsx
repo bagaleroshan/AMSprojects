@@ -4,6 +4,7 @@ import {
   useDeleteStudentMutation,
   useReadStudentsQuery,
 } from "../../services/api/StudentApi";
+import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
 interface Query {
@@ -68,6 +69,12 @@ const StudentTable: React.FC = () => {
 
   return (
     <div>
+      <div>
+        <StudentExportCSV
+          data={data.result.results}
+          fileName="Student File"
+        ></StudentExportCSV>
+      </div>
       <TableComponent
         columns={columns}
         data={data.result.results}
