@@ -1,11 +1,11 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminAttendance from "../mycomponents/admin/AdminAttendance";
-import AdminDashboard from "../mycomponents/admin/AdminDashboard";
-import AdminMessages from "../mycomponents/admin/AdminMessages";
-import AdminReport from "../mycomponents/admin/AdminReport";
-import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
+import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
+import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AdminMessages from "../MyComponents/Admin/AdminMessages";
+import AdminReport from "../MyComponents/Admin/AdminReport";
+import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import UpdateStudent from "../Student/UpdateStudent";
-import UpdateTeacher from "../TableComponent/UpdateTeacher";
+import UpdateTeacher from "../teacher/UpdateTeacher";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
@@ -31,8 +31,23 @@ const DikshyaAdminRoute = () => {
         <Route path="attendance" element={<AdminAttendance />} />
         <Route path="messages" element={<AdminMessages />} />
         <Route path="report" element={<AdminReport />} />
+<<<<<<< HEAD
+        <Route path="forms" element={<Outlet />}>
+          {/* ------------------- Users -------------------------------- */}
+
+          <Route path="users" element={<Outlet />}>
+            <Route
+              index
+              element={<AdminForm firstTab="users" secondTab="userList" />}
+            />
+            <Route
+              path="create"
+              element={<AdminForm firstTab="users" secondTab="/create" />}
+            />
+=======
 
         {/* ------------------- Users -------------------------------- */}
+>>>>>>> 96a8b2680d75fcb9cba81497ca1f7b482d410d7e
 
         <Route path="users" element={<Outlet />}>
           <Route

@@ -34,7 +34,7 @@ const CreateStudent = () => {
     if (isSuccessCreateStudent) {
       formikRef.current?.resetForm();
       toast.success("Student created successfully");
-      navigate("/admin/forms/students");
+      navigate("/admin/students");
     }
   });
 

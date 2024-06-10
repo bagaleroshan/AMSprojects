@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   useReadUserByIdQuery,
-  useUpdateProfileMutation,
+  useUpdateTeacherProfileMutation,
 } from "../../services/api/UserService";
 import {
   getErrorMessage,
@@ -18,14 +18,13 @@ import UpdateTeacherForm from "./UpdateTeacherForm";
 const UpdateTeacher = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
   const navigate = useNavigate();
-  // const adminToken = useSelector((store: RootState) => store.user.adminToken);
   const params = useParams();
+
   const {
     isError: isErrorMyProfile,
     error: errorMyProfile,
     data: dataMyProfile,
   } = useReadUserByIdQuery(params.id);
-
   const profileData = dataMyProfile?.result || {};
 
   useEffect(() => {
@@ -39,23 +38,29 @@ const UpdateTeacher = () => {
 
   /* Update Profile Stuff */
   const [
-    updateTeacher,
+    updateTeacherProfile,
     {
       isError: isErrorUpdateTeacher,
       isSuccess: isSuccessUpdateTeacher,
       isLoading: isLoadingUpdateTeacher,
       error: errorUpdateTeacher,
     },
-  ] = useUpdateProfileMutation();
+  ] = useUpdateTeacherProfileMutation();
 
   const submitValue = async (values: IUser) => {
-    updateTeacher(values);
+    updateTeacherProfile({
+      id: params.id,
+      body: {
+        fullName: values.fullName,
+        phoneNumber: values.phoneNumber,
+      },
+    });
   };
 
   useEffect(() => {
     if (isSuccessUpdateTeacher) {
       toast.success("User Updated successfully", { autoClose: 3000 });
-      navigate("/admin/forms/users");
+      navigate("/admin/users");
     }
   }, [isSuccessUpdateTeacher, navigate]);
 

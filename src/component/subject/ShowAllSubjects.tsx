@@ -47,13 +47,13 @@ const ShowAllSubjects: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/subjects/update/${selectedRowData[0].id}`, {
+    navigate(`/admin/subjects/update/${selectedRowData[0].id}`, {
       // state: { updateData: selectedRowData[0] },
       replace: true,
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/subjects/${selectedRowData[0].id}`, {
+    navigate(`/admin/subjects/${selectedRowData[0].id}`, {
       // state: { viewData: selectedRowData[0] },
       replace: true,
     });
@@ -61,7 +61,6 @@ const ShowAllSubjects: React.FC = () => {
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     selectedRowData.forEach((value: IData) => {
-      console.log(value.id)
       deleteSubject(value.id);
     });
   };
