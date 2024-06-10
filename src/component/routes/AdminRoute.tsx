@@ -12,7 +12,6 @@ import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import UserLogout from "../user/UserLogout";
 
 const AdminRoute = () => {
   return (
