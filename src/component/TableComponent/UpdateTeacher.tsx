@@ -27,6 +27,7 @@ const UpdateTeacher = () => {
   } = useReadUserByIdQuery(params.id);
 
   const profileData = dataMyProfile?.result || {};
+  console.log(profileData);
 
   useEffect(() => {
     isErrorMyProfile &&

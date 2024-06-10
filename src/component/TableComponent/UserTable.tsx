@@ -57,8 +57,7 @@ const UserTable: React.FC = () => {
   };
 
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewUserData: selectedRowData[0] },
+    navigate(`/admin/forms/users/${selectedRowData[0].id}`, {
       replace: true,
     });
     goBack();
