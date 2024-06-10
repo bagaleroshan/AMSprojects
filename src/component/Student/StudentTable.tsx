@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  useDeleteUsersByIdMutation,
-  useReadUsersQuery,
-} from "../../services/api/UserService";
-import TableComponent, { IData } from "./TableComponent";
-import "./table.css";
+  useDeleteStudentMutation,
+  useReadStudentsQuery,
+} from "../../services/api/StudentApi";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -14,14 +13,12 @@ interface Query {
   sort: string[];
 }
 
-const UserTable: React.FC = () => {
+const StudentTable: React.FC = () => {
   const navigate = useNavigate();
-  const goBack = () => navigate(-1);
   const columns = [
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
     { Header: "Contact", accessor: "phoneNumber" },
-    { Header: "Role", accessor: "role" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -31,12 +28,11 @@ const UserTable: React.FC = () => {
     sort: [],
   });
 
-  const { data, isLoading, isError, refetch } = useReadUsersQuery({
+  const { data, isLoading, isError, refetch } = useReadStudentsQuery({
     ...query,
     sort: query.sort.join(","),
   });
-
-  const [deleteUsers] = useDeleteUsersByIdMutation();
+  const [deleteStudents] = useDeleteStudentMutation();
 
   useEffect(() => {
     refetch();
@@ -50,26 +46,21 @@ const UserTable: React.FC = () => {
     return <div>Error loading data.</div>;
   }
 
-  const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`, {
+  const handleStudentEditClick = (selectedRowData: IData[]) => {
+    navigate(`/admin/students/update/${selectedRowData[0].id}`, {
       replace: true,
     });
   };
 
+  const handleDeleteClick = (selectedRowData: IData[]) => {
+    selectedRowData.forEach((value: IData) => {
+      deleteStudents(value.id);
+    });
+  };
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/users/${selectedRowData[0].id}`, {
+    navigate(`/admin/students/${selectedRowData[0].id}`, {
       replace: true,
     });
-    goBack();
-  };
-
-  const handleDeleteClick = async (selectedRowData: IData[]) => {
-    for (const value of selectedRowData) {
-      console.log(value.id);
-
-      await deleteUsers(value.id).unwrap();
-    }
-    refetch();
   };
 
   return (
@@ -81,7 +72,7 @@ const UserTable: React.FC = () => {
         setQuery={setQuery}
         currentSort={query.sort}
         totalData={data.result.totalDataInWholePage}
-        onEditClick={handleEditClick}
+        onEditClick={handleStudentEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
@@ -89,4 +80,4 @@ const UserTable: React.FC = () => {
   );
 };
 
-export default UserTable;
+export default StudentTable;

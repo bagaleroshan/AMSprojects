@@ -6,7 +6,7 @@ import AdminReport from "../MyComponents/Admin/AdminReport";
 import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
-import UpdateTeacher from "../TableComponent/UpdateTeacher";
+import UpdateTeacher from "../teacher/UpdateTeacher";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
@@ -36,6 +36,8 @@ const AdminRoute = () => {
         {/* ------------------- Users -------------------------------- */}
 
         <Route path="users" element={<Outlet />}>
+          <Route path=":id" element={<ReadSpecificUser />} />
+
           <Route
             index
             element={<AdminForm firstTab="users" secondTab="userList" />}
@@ -44,11 +46,9 @@ const AdminRoute = () => {
             path="create"
             element={<AdminForm firstTab="users" secondTab="/create" />}
           />
-
-          <Route path="update" element={<Outlet></Outlet>}>
+          <Route path="update" element={<Outlet />}>
             <Route path=":id" element={<UpdateTeacher />} />
           </Route>
-          <Route path=":id" element={<ReadSpecificUser />} />
         </Route>
 
         {/* ---------------- Students------------------------------ */}
@@ -62,8 +62,8 @@ const AdminRoute = () => {
             path="create"
             element={<AdminForm firstTab="students" secondTab="/create" />}
           />
-          <Route path="update" element={<Outlet></Outlet>}>
-            <Route path=":id" element={<UpdateStudent></UpdateStudent>} />
+          <Route path="update" element={<Outlet />}>
+            <Route path=":id" element={<UpdateStudent />} />
           </Route>
           <Route path=":id" element={<ReadSpecificStudent />} />
         </Route>

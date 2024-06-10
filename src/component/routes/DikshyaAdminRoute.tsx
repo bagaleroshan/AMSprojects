@@ -5,7 +5,7 @@ import AdminMessages from "../MyComponents/Admin/AdminMessages";
 import AdminReport from "../MyComponents/Admin/AdminReport";
 import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import UpdateStudent from "../Student/UpdateStudent";
-import UpdateTeacher from "../TableComponent/UpdateTeacher";
+import UpdateTeacher from "../teacher/UpdateTeacher";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";

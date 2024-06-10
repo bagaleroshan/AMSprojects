@@ -10,10 +10,12 @@ import {
   isSerializedError,
 } from "../../../utils/utils";
 import CreateTeacherForm from "./CreateTeacherForm";
+import { useNavigate } from "react-router-dom";
 // import { setRole } from "../../features/userSlice";
 
 const CreateTeacher = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
+  const navigate = useNavigate();
 
   const [
     createUser,
@@ -22,6 +24,7 @@ const CreateTeacher = () => {
       isSuccess: isSuccessCreateUser,
       isLoading: isLoadingCreateUser,
       error: errorCreateUser,
+      data: dataCreateUser,
     },
   ] = useCreateUserMutation();
 
@@ -31,12 +34,13 @@ const CreateTeacher = () => {
 
   useEffect(() => {
     if (isSuccessCreateUser) {
-      toast.success("Please check your email for login verification", {
+      toast.success(dataCreateUser.message, {
         autoClose: 3000,
       });
       formikRef.current?.resetForm();
+      navigate("/admin/users");
     }
-  }, [isSuccessCreateUser]);
+  }, [isSuccessCreateUser, dataCreateUser, navigate]);
 
   useEffect(() => {
     if (isErrorCreateUser) {

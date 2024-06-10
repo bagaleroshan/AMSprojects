@@ -1,6 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button } from "@mui/material";
-import StudentTable from "../../../../TableComponent/StudentTable";
+import StudentTable from "../../../../Student/StudentTable";
+
 const StudentList = ({ onChangePage }) => {
   return (
     <>
@@ -14,7 +15,7 @@ const StudentList = ({ onChangePage }) => {
           Add
         </Button>
       </div>
-      <Box height={60}/>
+      <Box height={60} />
       <StudentTable />
     </>
   );
