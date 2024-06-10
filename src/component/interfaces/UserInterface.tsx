@@ -2,6 +2,7 @@ import { FormikProps } from "formik";
 
 /* -------------------- User Sign Up -----------------------------*/
 export interface IUser {
+  id?: string;
   fullName?: string;
   email?: string;
   password?: string;
