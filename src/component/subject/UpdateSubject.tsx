@@ -51,7 +51,7 @@ const UpdateSubject = () => {
   useEffect(() => {
     if (isSuccessUpdateSubject) {
       toast.success("Subject Updated Successfully");
-      navigate(`/admin/forms/subjects`);
+      navigate(`/admin/subjects`);
     }
   });
 

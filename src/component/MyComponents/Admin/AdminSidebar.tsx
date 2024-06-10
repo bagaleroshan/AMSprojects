@@ -26,6 +26,7 @@ import {
   DrawerHeader,
   LightTooltip,
 } from "../../theme/MuiSidebarTheme";
+import { Typography } from "@mui/material";
 
 export default function AdminSidebar() {
   const theme = useTheme();
@@ -56,16 +57,16 @@ export default function AdminSidebar() {
             >
               <MenuIcon />
             </IconButton>
-            {/* <IconButton size="small" edge="start" aria-label="logo">
+            <IconButton size="small" edge="start" aria-label="logo">
               <img
                 src="/deerwalk.png"
                 alt="Logo"
                 style={{ width: "40px", height: "40px" }}
               />
-            </IconButton> */}
-            {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               AMS
-            </Typography> */}
+            </Typography>
           </Toolbar>
         </AppBar>
 
@@ -88,7 +89,17 @@ export default function AdminSidebar() {
             {/* -----Dashboard----- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/admin"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color: location.pathname === "/admin" ? "#0195CF" : "default",
+              }}
               onClick={() => navigate("/admin")}
             >
               <LightTooltip title="Dashboard" placement="right">
@@ -104,7 +115,11 @@ export default function AdminSidebar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/admin" ? "#0195CF" : "default",
                     }}
                   >
                     <DashboardIcon />
@@ -122,7 +137,20 @@ export default function AdminSidebar() {
             {/* ----Attendance----- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/admin/attendance"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/admin/attendance"
+                    ? "#0195CF"
+                    : "default",
+              }}
               onClick={() => navigate("/admin/attendance")}
             >
               <LightTooltip title="Attendance" placement="right">
@@ -138,7 +166,13 @@ export default function AdminSidebar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/admin/attendance"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <SpeakerNotesIcon />
@@ -156,8 +190,19 @@ export default function AdminSidebar() {
             {/* ----Forms---- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
-              onClick={() => navigate("/admin/forms/users")}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/admin/users"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/admin/users" ? "#0195CF" : "default",
+              }}
+              onClick={() => navigate("/admin/users")}
             >
               <LightTooltip title="Forms" placement="right">
                 <ListItemButton
@@ -172,7 +217,13 @@ export default function AdminSidebar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/admin/users"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <FeedIcon />
@@ -190,7 +241,20 @@ export default function AdminSidebar() {
             {/* ---Messages--- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/admin/messages"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/admin/messages"
+                    ? "#0195CF"
+                    : "default",
+              }}
               onClick={() => navigate("/admin/messages")}
             >
               <LightTooltip title="Message" placement="right">
@@ -206,7 +270,13 @@ export default function AdminSidebar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/admin/messages"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <EmailIcon />
@@ -224,7 +294,18 @@ export default function AdminSidebar() {
             {/* ----Report---- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/admin/report"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/admin/report" ? "#0195CF" : "default",
+              }}
               onClick={() => navigate("/admin/report")}
             >
               <LightTooltip title="Report" placement="right">
@@ -240,7 +321,13 @@ export default function AdminSidebar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/admin/report"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <ReportIcon />
@@ -258,7 +345,20 @@ export default function AdminSidebar() {
             {/* ----Update Password---- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/admin/update-password"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/admin/update-password"
+                    ? "#0195CF"
+                    : "default",
+              }}
               onClick={() => navigate("/admin/update-password")}
             >
               <LightTooltip title="Change Password" placement="right">
@@ -274,7 +374,13 @@ export default function AdminSidebar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/admin/update-password"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <PasswordIcon />
@@ -292,7 +398,17 @@ export default function AdminSidebar() {
             {/* ----Logout---- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/logout"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color: location.pathname === "/logout" ? "#0195CF" : "default",
+              }}
               onClick={() => navigate("/logout")}
             >
               <LightTooltip title="Logout" placement="right">
@@ -308,7 +424,11 @@ export default function AdminSidebar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/logout" ? "#0195CF" : "default",
                     }}
                   >
                     <LogoutIcon />

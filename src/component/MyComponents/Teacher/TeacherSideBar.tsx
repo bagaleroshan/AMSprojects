@@ -19,7 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Drawer,
@@ -31,6 +31,7 @@ export default function TeacherSideBar() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -86,7 +87,18 @@ export default function TeacherSideBar() {
             {/* Dashboard */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/teachers"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/teachers" ? "#0195CF" : "default",
+              }}
               onClick={() => navigate("/teachers")}
             >
               <LightTooltip title="Dashboard" placement="right">
@@ -102,7 +114,13 @@ export default function TeacherSideBar() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
-                      "&:hover": { color: "#0195CF" },
+                      "&:hover": {
+                        color: "#0195CF",
+                      },
+                      color:
+                        location.pathname === "/teachers"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <DashboardIcon />
@@ -111,7 +129,6 @@ export default function TeacherSideBar() {
                     primary="Dashboard"
                     sx={{
                       opacity: open ? 1 : 0,
-                      "&:hover": { color: "#0195CF" },
                     }}
                   />
                 </ListItemButton>
@@ -120,7 +137,20 @@ export default function TeacherSideBar() {
             {/* Profile */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/teachers/my-profile"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/teachers/my-profile"
+                    ? "#0195CF"
+                    : "default",
+              }}
               onClick={() => navigate("/teachers/my-profile")}
             >
               <LightTooltip title="My Profile" placement="right">
@@ -137,12 +167,16 @@ export default function TeacherSideBar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                       "&:hover": { color: "#0195CF" },
+                      color:
+                        location.pathname === "/teachers/my-profile"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <AccountCircleIcon />
                   </ListItemIcon>
                   <ListItemText
-                    primary="Message"
+                    primary="Profile"
                     sx={{
                       opacity: open ? 1 : 0,
                       "&:hover": { color: "#0195CF" },
@@ -154,7 +188,20 @@ export default function TeacherSideBar() {
             {/* Messages */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/Teachers/messages"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/Teachers/messages"
+                    ? "#0195CF"
+                    : "default",
+              }}
               onClick={() => navigate("/Teachers/messages")}
             >
               <LightTooltip title="Message" placement="right">
@@ -171,6 +218,10 @@ export default function TeacherSideBar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                       "&:hover": { color: "#0195CF" },
+                      color:
+                        location.pathname === "/Teachers/messages"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <EmailIcon />
@@ -188,7 +239,20 @@ export default function TeacherSideBar() {
             {/* Report */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/teachers/report"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/teachers/report"
+                    ? "#0195CF"
+                    : "default",
+              }}
               onClick={() => navigate("/teachers/report")}
             >
               <LightTooltip title="Report" placement="right">
@@ -205,6 +269,10 @@ export default function TeacherSideBar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                       "&:hover": { color: "#0195CF" },
+                      color:
+                        location.pathname === "/teachers/report"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <ReportIcon />
@@ -222,7 +290,20 @@ export default function TeacherSideBar() {
             {/* ----Update Password---- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/teachers/update-password"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color:
+                  location.pathname === "/teachers/update-password"
+                    ? "#0195CF"
+                    : "default",
+              }}
               onClick={() => navigate("/teachers/update-password")}
             >
               <LightTooltip title="Change Password" placement="right">
@@ -239,6 +320,10 @@ export default function TeacherSideBar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                       "&:hover": { color: "#0195CF" },
+                      color:
+                        location.pathname === "/teachers/update-password"
+                          ? "#0195CF"
+                          : "default",
                     }}
                   >
                     <PasswordIcon />
@@ -256,7 +341,17 @@ export default function TeacherSideBar() {
             {/* ----Logout---- */}
             <ListItem
               disablePadding
-              sx={{ display: "block" }}
+              sx={{
+                display: "block",
+                "&:hover": {
+                  color: "#0195CF",
+                },
+                backgroundColor:
+                  location.pathname === "/logout"
+                    ? "rgba(239,249,255,1)"
+                    : "default",
+                color: location.pathname === "/logout" ? "#0195CF" : "default",
+              }}
               onClick={() => navigate("/logout")}
             >
               <LightTooltip title="Logout" placement="right">
@@ -273,6 +368,8 @@ export default function TeacherSideBar() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                       "&:hover": { color: "#0195CF" },
+                      color:
+                        location.pathname === "/logout" ? "#0195CF" : "default",
                     }}
                   >
                     <LogoutIcon />

@@ -50,3 +50,11 @@ table {
   color: #ccc;
   cursor: not-allowed;
 }
+
+.table-select{
+  width:100px;
+  height:40px;
+}
+.table-select option span{
+  font-size: 25px;
+}
