@@ -64,9 +64,11 @@ const UserTable: React.FC = () => {
 
   const handleDeleteClick = async (selectedRowData: IData[]) => {
     for (const value of selectedRowData) {
+    console.log(value.id)
+
       await deleteUsers(value.id).unwrap();
     }
-    refetch();
+    refetch()
   };
 
   return (

@@ -1,23 +1,9 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import CreateUser from "../../../../user/CreateUser";
 
 const CreateUsers = ({ onChangePage }) => {
   return (
     <>
-      <div style={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5">Create Users</Typography>
-      </div>
-      <Box height={30} />
       <div className="SubjectAddButton">
         <Button
           variant="contained"
@@ -27,7 +13,7 @@ const CreateUsers = ({ onChangePage }) => {
           User List
         </Button>
       </div>
-      <Box height={30} />
+
       {/* <Stack
         sx={{
           display: "flex",

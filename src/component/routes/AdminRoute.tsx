@@ -1,12 +1,12 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
-import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
-import AdminMessages from "../MyComponents/Admin/AdminMessages";
-import AdminReport from "../MyComponents/Admin/AdminReport";
-import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import UpdateTeacher from "../TableComponent/UpdateTeacher";
+import AdminAttendance from "../mycomponents/admin/AdminAttendance";
+import AdminDashboard from "../mycomponents/admin/AdminDashboard";
+import AdminMessages from "../mycomponents/admin/AdminMessages";
+import AdminReport from "../mycomponents/admin/AdminReport";
+import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
@@ -37,19 +37,11 @@ const AdminRoute = () => {
           <Route path="users" element={<Outlet />}>
             <Route
               index
-              element={
-                <AdminForm
-                  firstTab="users"
-                  secondTab="userList"
-                  header="User"
-                />
-              }
+              element={<AdminForm firstTab="users" secondTab="userList" />}
             />
             <Route
               path="create"
-              element={
-                <AdminForm firstTab="users" secondTab="/create" header="User" />
-              }
+              element={<AdminForm firstTab="users" secondTab="/create" />}
             />
 
             <Route path="update" element={<Outlet></Outlet>}>
@@ -63,22 +55,12 @@ const AdminRoute = () => {
             <Route
               index
               element={
-                <AdminForm
-                  firstTab="students"
-                  secondTab="studentList"
-                  header="Student"
-                />
+                <AdminForm firstTab="students" secondTab="studentList" />
               }
             />
             <Route
               path="create"
-              element={
-                <AdminForm
-                  firstTab="students"
-                  secondTab="/create"
-                  header="Student"
-                />
-              }
+              element={<AdminForm firstTab="students" secondTab="/create" />}
             />
             <Route path="update" element={<Outlet></Outlet>}>
               <Route path=":id" element={<UpdateStudent></UpdateStudent>} />
@@ -91,22 +73,12 @@ const AdminRoute = () => {
             <Route
               index
               element={
-                <AdminForm
-                  firstTab="subjects"
-                  secondTab="subjectList"
-                  header="Subject"
-                />
+                <AdminForm firstTab="subjects" secondTab="subjectList" />
               }
             />
             <Route
               path="create"
-              element={
-                <AdminForm
-                  firstTab="subjects"
-                  secondTab="/create"
-                  header="Subject"
-                />
-              }
+              element={<AdminForm firstTab="subjects" secondTab="/create" />}
             />
             <Route path=":id" element={<ReadSpecificSubject />} />
             <Route path="update" element={<Outlet />}>
