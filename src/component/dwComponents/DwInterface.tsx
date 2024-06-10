@@ -1,3 +1,5 @@
+import { FieldProps } from "formik";
+
 /* ----------------------------------------- DwSelect-------------------------------------- */
 export interface ISelectLabels {
   label: string;
@@ -23,6 +25,7 @@ export interface IDwInputProps {
   isPhoneNumber?: boolean;
   isLoading?: boolean;
   autofocus?: boolean;
+  // formikProps?: FieldProps;
 }
 
 /* -----------------------------------------DwPasswordProps -------------------------------- */
