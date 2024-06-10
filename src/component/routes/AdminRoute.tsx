@@ -1,12 +1,12 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import ReadSpecificStudent from "../Student/ReadSpecificStudent";
-import UpdateStudent from "../Student/UpdateStudent";
-import UpdateTeacher from "../TableComponent/UpdateTeacher";
 import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
 import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import AdminMessages from "../MyComponents/Admin/AdminMessages";
 import AdminReport from "../MyComponents/Admin/AdminReport";
 import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import ReadSpecificStudent from "../Student/ReadSpecificStudent";
+import UpdateStudent from "../Student/UpdateStudent";
+import UpdateTeacher from "../TableComponent/UpdateTeacher";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import MyProfile from "../user/MyProfile";
@@ -48,6 +48,7 @@ const AdminRoute = () => {
           <Route path="update" element={<Outlet></Outlet>}>
             <Route path=":id" element={<UpdateTeacher />} />
           </Route>
+          <Route path=":id" element={<ReadSpecificUser />} />
         </Route>
 
         {/* ---------------- Students------------------------------ */}
