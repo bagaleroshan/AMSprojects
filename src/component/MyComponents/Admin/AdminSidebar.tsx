@@ -196,15 +196,13 @@ export default function AdminSidebar() {
                   color: "#0195CF",
                 },
                 backgroundColor:
-                  location.pathname === "/admin/forms/users"
+                  location.pathname === "/admin/users"
                     ? "rgba(239,249,255,1)"
                     : "default",
                 color:
-                  location.pathname === "/admin/forms/users"
-                    ? "#0195CF"
-                    : "default",
+                  location.pathname === "/admin/users" ? "#0195CF" : "default",
               }}
-              onClick={() => navigate("/admin/forms/users")}
+              onClick={() => navigate("/admin/users")}
             >
               <LightTooltip title="Forms" placement="right">
                 <ListItemButton
@@ -223,7 +221,7 @@ export default function AdminSidebar() {
                         color: "#0195CF",
                       },
                       color:
-                        location.pathname === "/admin/forms/users"
+                        location.pathname === "/admin/users"
                           ? "#0195CF"
                           : "default",
                     }}

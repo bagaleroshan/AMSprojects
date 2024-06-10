@@ -93,7 +93,7 @@ const tabTypes = ["users", "students", "subjects", "groups"];
 export default function AdminTabs({ firstTab, secondTab }) {
   const navigate = useNavigate();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    navigate(`/admin/forms/${tabTypes[newValue]}`);
+    navigate(`/admin/${tabTypes[newValue]}`);
   };
 
   console.log("--------", firstTab, secondTab);
