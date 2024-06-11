@@ -1,21 +1,22 @@
-import { Button } from "@mui/material";
-import CreateUser from "../../../../user/CreateUser";
+import { Box, Button } from "@mui/material";
 
-const CreateUsers = ({ onChangePage }) => {
+const CreateGroups = ({ onChangePage }) => {
   return (
     <>
+      <Box height={10} />
       <div className="SubjectAddButton">
         <Button
           variant="contained"
           color="primary"
           onClick={() => onChangePage("")}
         >
-          User List
+          Group List
         </Button>
       </div>
-      <CreateUser />
+      
+      
     </>
   );
 };
 
-export default CreateUsers;
+export default CreateGroups;

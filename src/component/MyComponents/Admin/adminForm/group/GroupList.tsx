@@ -1,8 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button } from "@mui/material";
-import StudentTable from "../../../../Student/StudentTable";
 
-const StudentList = ({ onChangePage }) => {
+const GroupList = ({ onChangePage }) => {
   return (
     <>
       <div className="SubjectAddButton">
@@ -16,9 +15,10 @@ const StudentList = ({ onChangePage }) => {
         </Button>
       </div>
       <Box height={30} />
-      <StudentTable />
+      
+     
     </>
   );
 };
 
-export default StudentList;
+export default GroupList;
