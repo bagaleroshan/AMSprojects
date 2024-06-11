@@ -25,8 +25,8 @@ const App = () => {
           path="admin/*"
           element={
             <AmsLayout>
-              <AdminRoute />
-              {/* <DikshyaAdminRoute /> */}
+              {/* <AdminRoute /> */}
+              <DikshyaAdminRoute />
             </AmsLayout>
           }
         />

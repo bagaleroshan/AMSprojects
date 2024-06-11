@@ -5,10 +5,10 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import Groups from "./group/Group";
 import Students from "./student/Student";
 import Subject from "./subject/Subject";
 import User from "./user/User";
+import Group from "./group/Group";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -87,7 +87,7 @@ function a11yProps(index: number) {
   };
 }
 
-const tabTypes = ["users", "students", "subjects", "groups"];
+const tabTypes = ["users", "students", "subjects", "group"];
 
 export default function AdminTabs({ firstTab, secondTab }) {
   const navigate = useNavigate();
@@ -105,13 +105,36 @@ export default function AdminTabs({ firstTab, secondTab }) {
           value={tabTypes.indexOf(firstTab)}
           onChange={handleChange}
           aria-label="basic tabs example"
-          
         >
-          <StyledTab label="Users" {...a11yProps(0)} />
+          <Tab
+            label="Users"
+            {...a11yProps(0)}
+            onClick={() => {
+              navigate("/admin/users");
+            }}
+          />
 
-          <StyledTab label="Students" {...a11yProps(1)} />
-          <StyledTab label="Subjects" {...a11yProps(2)} />
-          <StyledTab label="Groups" {...a11yProps(3)} />
+          <Tab
+            label="Students"
+            {...a11yProps(1)}
+            onClick={() => {
+              navigate("/admin/students");
+            }}
+          />
+          <Tab
+            label="Subjects"
+            {...a11yProps(2)}
+            onClick={() => {
+              navigate("/admin/subjects");
+            }}
+          />
+          <Tab
+            label="Groups"
+            {...a11yProps(3)}
+            onClick={() => {
+              navigate("/admin/group");
+            }}
+          />
         </StyledTabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -124,7 +147,7 @@ export default function AdminTabs({ firstTab, secondTab }) {
         <Subject secondTab={secondTab} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <Groups />
+        <Group secondTab={secondTab} />
       </CustomTabPanel>
     </Box>
   );

@@ -19,7 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Drawer,
@@ -32,11 +32,20 @@ export default function AdminSidebar() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleNavigate = (path) => {
+    window.scrollTo({
+      top: 0,
+       behavior: "smooth",
+    });
+    navigate(path);
   };
 
   return (
@@ -100,7 +109,7 @@ export default function AdminSidebar() {
                     : "default",
                 color: location.pathname === "/admin" ? "#0195CF" : "default",
               }}
-              onClick={() => navigate("/admin")}
+              onClick={() => handleNavigate("/admin")}
             >
               <LightTooltip title="Dashboard" placement="right">
                 <ListItemButton
@@ -151,7 +160,7 @@ export default function AdminSidebar() {
                     ? "#0195CF"
                     : "default",
               }}
-              onClick={() => navigate("/admin/attendance")}
+              onClick={() => handleNavigate("/admin/attendance")}
             >
               <LightTooltip title="Attendance" placement="right">
                 <ListItemButton
@@ -214,7 +223,7 @@ export default function AdminSidebar() {
                     ? "#0195CF"
                     : "default",
               }}
-              onClick={() => navigate("/admin/users")}
+              onClick={() => handleNavigate("/admin/users")}
             >
               <LightTooltip title="Forms" placement="right">
                 <ListItemButton
@@ -272,7 +281,7 @@ export default function AdminSidebar() {
                     ? "#0195CF"
                     : "default",
               }}
-              onClick={() => navigate("/admin/messages")}
+              onClick={() => handleNavigate("/admin/messages")}
             >
               <LightTooltip title="Message" placement="right">
                 <ListItemButton
@@ -323,7 +332,7 @@ export default function AdminSidebar() {
                 color:
                   location.pathname === "/admin/report" ? "#0195CF" : "default",
               }}
-              onClick={() => navigate("/admin/report")}
+              onClick={() => handleNavigate("/admin/report")}
             >
               <LightTooltip title="Report" placement="right">
                 <ListItemButton
@@ -376,7 +385,7 @@ export default function AdminSidebar() {
                     ? "#0195CF"
                     : "default",
               }}
-              onClick={() => navigate("/admin/update-password")}
+              onClick={() => handleNavigate("/admin/update-password")}
             >
               <LightTooltip title="Change Password" placement="right">
                 <ListItemButton
@@ -426,7 +435,7 @@ export default function AdminSidebar() {
                     : "default",
                 color: location.pathname === "/logout" ? "#0195CF" : "default",
               }}
-              onClick={() => navigate("/logout")}
+              onClick={() => handleNavigate("/logout")}
             >
               <LightTooltip title="Logout" placement="right">
                 <ListItemButton
