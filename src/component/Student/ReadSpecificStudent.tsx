@@ -9,21 +9,20 @@ import {
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useReadStudentByIdQuery } from "../../services/api/StudentApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { useReadStudentByIdQuery } from "../../services/api/StudentApi";
 
 const ReadSpecificStudent = () => {
-  const params = useParams();
+  const { id } = useParams();
   const {
     isError: isErrorViewSpecific,
     data: dataViewSpecific,
     error: errorViewSpecific,
-  } = useReadStudentByIdQuery(params.id);
-  console.log(dataViewSpecific);
+  } = useReadStudentByIdQuery(id);
   const student = dataViewSpecific?.result || {};
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IStudent } from "../component/interfaces/StudentInterface";
 
 const initialState: IStudent = {
-  id: 1,
+  id: "",
   fullName: "",
   email: "",
   address: "",

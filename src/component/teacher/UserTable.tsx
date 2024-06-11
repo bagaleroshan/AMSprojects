@@ -16,7 +16,6 @@ interface Query {
 
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
-  const goBack = () => navigate(-1);
   const columns = [
     { Header: "Name", accessor: "fullName" },
     { Header: "Email", accessor: "email" },
@@ -60,7 +59,6 @@ const UserTable: React.FC = () => {
     navigate(`/admin/users/${selectedRowData[0].id}`, {
       replace: true,
     });
-    goBack();
   };
 
   const handleDeleteClick = async (selectedRowData: IData[]) => {

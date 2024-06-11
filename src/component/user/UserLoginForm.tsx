@@ -16,7 +16,6 @@ import {
   userLoginInitialValues,
 } from "../interfaces/UserInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import { useEffect, useRef } from "react";
 
 const UserLoginForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN IN",
@@ -24,13 +23,6 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  // const emailInputRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (emailInputRef.current) {
-  //     emailInputRef.current.focus();
-  //   }
-  // }, []);
   return (
     <>
       <Formik
@@ -108,7 +100,7 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                           Forgot password?
                         </Button>
                       </Grid>
-                      <Grid item>
+                      {/* <Grid item>
                         <Button
                           color="inherit"
                           href="/register"
@@ -122,7 +114,7 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                         >
                           {"Don't have an account? Sign Up"}
                         </Button>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                   </Box>
                 </Box>
