@@ -1,12 +1,5 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import { userValidation } from "../../validation/userValidation";
 import DwInput from "../dwComponents/DwInput";
@@ -17,6 +10,7 @@ import {
   userInitialValues,
 } from "../interfaces/UserInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 const CreateUserForm: React.FC<IUserFormValues> = ({
   buttonName = "CREATE",
@@ -48,9 +42,8 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                   }}
                 >
                   <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                    <LockOutlinedIcon />
+                    <PersonAddAlt1Icon />
                   </Avatar>
-
                   <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
                     {buttonName}
                   </Typography>
@@ -112,23 +105,6 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                           buttonName={buttonName}
                           isLoading={isLoading}
                         />
-                      </Grid>
-
-                      <Grid container justifyContent="center">
-                        <Grid item>
-                          <Button
-                            color="inherit"
-                            href="/login"
-                            sx={{
-                              "&:hover": {
-                                color: "blue",
-                                background: "white",
-                              },
-                            }}
-                          >
-                            Already have an account? Sign in
-                          </Button>
-                        </Grid>
                       </Grid>
                     </Grid>
                   </Box>
