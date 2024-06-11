@@ -7,6 +7,7 @@ export const UserApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
   }),
+  tagTypes: ["readUsers", "readUsersById"],
 
   endpoints: (builder) => ({
     createUser: builder.mutation({
@@ -17,6 +18,7 @@ export const UserApi = createApi({
           body,
         };
       },
+      invalidatesTags: ["readUsers"],
     }),
     deleteUsersById: builder.mutation({
       query: (id) => {
@@ -32,6 +34,7 @@ export const UserApi = createApi({
           },
         };
       },
+      invalidatesTags: ["readUsers"],
     }),
 
     userLogin: builder.mutation({
@@ -42,6 +45,7 @@ export const UserApi = createApi({
           body,
         };
       },
+      invalidatesTags: ["readUsers", "readUsersById"],
     }),
 
     updatePassword: builder.mutation({

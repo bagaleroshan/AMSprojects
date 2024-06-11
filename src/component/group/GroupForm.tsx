@@ -8,31 +8,34 @@ import {
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import { validationSchema } from "../../validation/subjectValidation";
+
 import DwInput from "../dwComponents/DwInput";
-import { IFormValues, ISubject } from "../interfaces/SubjectInterface";
+import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../TableComponent/theme/MuiLoadingButtonTheme";
 
-const SubjectForm: React.FC<IFormValues> = ({
+const GroupForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  subject = {},
+  group = {},
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  const initialValues: ISubject = {
-    subjectName: subject?.subjectName || "",
-    subjectCode: subject?.subjectCode || "",
-    numberOfClasses: subject?.numberOfClasses || "",
+  const groupInitialValues: IGroup = {
+    // id: group?.id || "",
+    subject: group?.subject || "",
+    teacher: group?.teacher || "",
+    groupName: group?.groupName || "",
+    students: group?.students || "",
+    startTime: group?.startTime || "",
+    endTime: group?.endTime || "",
   };
-
   return (
     <div>
       <Formik
-        initialValues={initialValues}
+        initialValues={groupInitialValues}
         innerRef={formikRef}
         onSubmit={onSubmit}
-        validationSchema={validationSchema}
+        validationSchema={groupValidationSchema}
         enableReinitialize={true}
       >
         {(formik) => {
@@ -58,13 +61,13 @@ const SubjectForm: React.FC<IFormValues> = ({
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <DwInput
-                          name="subjectName"
-                          label="Subject Name"
+                          name="subject"
+                          label="Subject"
                           type="text"
                           fullWidth
-                          id="subjectName"
+                          id="subject"
                           onChange={(e) => {
-                            formik.setFieldValue("subjectName", e.target.value);
+                            formik.setFieldValue("subject", e.target.value);
                           }}
                           autofocus={true}
                           isLoading={isLoading}
@@ -73,27 +76,65 @@ const SubjectForm: React.FC<IFormValues> = ({
                       <Grid item xs={12}>
                         <DwInput
                           fullWidth
-                          name="subjectCode"
-                          label="Subject Code"
-                          type="text"
+                          name="teacher"
+                          label="Teacher"
+                          type="teacher"
                           onChange={(e) => {
-                            formik.setFieldValue("subjectCode", e.target.value);
+                            formik.setFieldValue("teacher", e.target.value);
                           }}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="groupName"
+                          label="Group Name"
+                          type="groupName"
+                          onChange={(e) => {
+                            formik.setFieldValue("groupName", e.target.value);
+                          }}
+                          isPhoneNumber={true}
                           isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <DwInput
                           fullWidth
-                          name="numberOfClasses"
-                          label="No.of Classes"
-                          type="number"
+                          name="students"
+                          label="Students"
+                          type="students"
                           onChange={(e) => {
-                            formik.setFieldValue(
-                              "numberOfClasses",
-                              e.target.value
-                            );
+                            formik.setFieldValue("students", e.target.value);
                           }}
+                          isPhoneNumber={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="startTime"
+                          label="Start Time"
+                          type="startTime"
+                          onChange={(e) => {
+                            formik.setFieldValue("startTime", e.target.value);
+                          }}
+                          isPhoneNumber={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="endTime"
+                          label="End Time"
+                          type="endTime"
+                          onChange={(e) => {
+                            formik.setFieldValue("endTime", e.target.value);
+                          }}
+                          isPhoneNumber={true}
                           isLoading={isLoading}
                         />
                       </Grid>
@@ -108,7 +149,7 @@ const SubjectForm: React.FC<IFormValues> = ({
                         <Grid item>
                           <Button
                             color="inherit"
-                            href="/admin/forms/subjects"
+                            href="/admin/forms/group"
                             sx={{
                               "&:hover": {
                                 color: "blue",
@@ -132,54 +173,4 @@ const SubjectForm: React.FC<IFormValues> = ({
   );
 };
 
-export default SubjectForm;
-
-/* 
-<Form>
-              <Typography variant="h5" sx={{ textAlign: "center" }}>
-                Update Subject
-              </Typography>
-              <Stack
-                spacing={2}
-                alignItems="center"
-                sx={{ marginTop: "10px", padding: "16px" }}
-              >
-                <DwInput
-                  name="subjectName"
-                  label="Subject Name"
-                  type="text"
-                  onChange={(e) => {
-                    formik.setFieldValue("subjectName", e.target.value);
-                  }}
-                  isLoading={isLoading}
-                ></DwInput>
-
-                <DwInput
-                  name="subjectCode"
-                  label="Subject Code"
-                  type="text"
-                  onChange={(e) => {
-                    formik.setFieldValue("subjectCode", e.target.value);
-                  }}
-                  isLoading={isLoading}
-                ></DwInput>
-
-                <DwInput
-                  name="numberOfClasses"
-                  label="No.of Classes"
-                  type="number"
-                  onChange={(e) => {
-                    formik.setFieldValue("numberOfClasses", e.target.value);
-                  }}
-                  isLoading={isLoading}
-                ></DwInput>
-
-                <Grid item xs={12}>
-                  <MuiLoadingButtonTheme
-                    buttonName={buttonName}
-                    isLoading={isLoading}
-                  />
-                </Grid>
-              </Stack>
-            </Form>
-*/
+export default GroupForm;
