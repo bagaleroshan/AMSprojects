@@ -180,12 +180,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
           justifyContent: "space-between",
         }}
       >
-        {/* <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        /> */}
+       
 
         <TextField
           size="small"

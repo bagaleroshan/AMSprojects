@@ -100,7 +100,7 @@ export default function AdminTabs({ firstTab, secondTab }) {
   const value = tabTypes.indexOf(firstTab);
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
         <StyledTabs
           value={tabTypes.indexOf(firstTab)}
           onChange={handleChange}
@@ -136,7 +136,7 @@ export default function AdminTabs({ firstTab, secondTab }) {
             }}
           />
         </StyledTabs>
-      </Box>
+      {/* </Box> */}
       <CustomTabPanel value={value} index={0}>
         <User secondTab={secondTab} />
       </CustomTabPanel>

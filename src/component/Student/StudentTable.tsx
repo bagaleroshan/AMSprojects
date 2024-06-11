@@ -65,7 +65,8 @@ const StudentTable: React.FC = () => {
 
   return (
     <div>
-      <TableComponent
+
+      {/* <TableComponent
         columns={columns}
         data={data.result.results}
         query={query}
@@ -75,7 +76,23 @@ const StudentTable: React.FC = () => {
         onEditClick={handleStudentEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
-      />
+      /> */}
+
+{data.result.results.length === 0 ? (
+        <p>No students is available</p>
+      ) : (
+        <TableComponent
+          columns={columns}
+          data={data.result.results}
+          query={query}
+          setQuery={setQuery}
+          currentSort={query.sort}
+          totalData={data.result.totalDataInWholePage}
+          onEditClick={handleStudentEditClick}
+          onViewClick={handleViewClick}
+          onDeleteClick={handleDeleteClick}
+        />
+      )}
     </div>
   );
 };
