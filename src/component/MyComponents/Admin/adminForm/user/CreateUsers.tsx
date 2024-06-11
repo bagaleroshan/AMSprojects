@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import CreateUser from "../../../../user/CreateUser";
+import CreateTeacher from "../../../teacher/CreateTeacher";
 
 const CreateUsers = ({ onChangePage }) => {
   return (
@@ -92,7 +93,7 @@ const CreateUsers = ({ onChangePage }) => {
           </Button>
         </Stack>
       </Stack> */}
-      <CreateUser />
+      <CreateTeacher />
     </>
   );
 };
