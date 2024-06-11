@@ -103,7 +103,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
 
   const handleDeleteClick = () => {
     onDeleteClick(selectedRowData);
-
     // Clear selected rows state
     setSelectedRows(new Set());
     setSelectedRowData([]);
