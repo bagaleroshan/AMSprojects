@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { CSVLink } from "react-csv";
-
+import "./styles.css";
 interface DataItem {
   id: string;
   subjectName: string;

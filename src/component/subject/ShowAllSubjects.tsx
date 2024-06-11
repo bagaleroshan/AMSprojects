@@ -6,6 +6,7 @@ import {
 } from "../../services/api/SubjectService";
 import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+import DeleteConfirmation from "../../DeleteConfirmation";
 
 interface Query {
   page: number;
@@ -35,6 +36,8 @@ const ShowAllSubjects: React.FC = () => {
   });
   const [deleteSubject] = useDeleteSubjectMutation();
 
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>([]);
   useEffect(() => {
     refetch();
   }, [query, refetch]);
@@ -61,17 +64,26 @@ const ShowAllSubjects: React.FC = () => {
   };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
-    // console.log("Delete action triggered", selectedRowData);
-    selectedRowData.forEach((value: IData) => {
-      deleteSubject(value.id);
-    });
+    setSelectedSubjectIds(selectedRowData.map((value: IData) => value.id));
+    setOpenDeleteConfirmation(true);
   };
 
+  const handleConfirmDelete = async () => {
+    await Promise.all(selectedSubjectIds.map((id) => deleteSubject(id)));
+    setOpenDeleteConfirmation(false);
+    setSelectedSubjectIds([]);
+    refetch();
+  };
+
+  const handleCancelDelete = () => {
+    setOpenDeleteConfirmation(false);
+    setSelectedSubjectIds([]);
+  };
   return (
     <div>
       <SubjectExportCSV
         data={data.result.results}
-        fileName="student"
+        fileName="Subject File"
       ></SubjectExportCSV>
 
       <TableComponent
@@ -85,6 +97,13 @@ const ShowAllSubjects: React.FC = () => {
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
+      {openDeleteConfirmation && (
+        <DeleteConfirmation
+          open={openDeleteConfirmation}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
     </div>
   );
 };

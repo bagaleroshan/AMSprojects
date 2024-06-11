@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { CSVLink } from "react-csv";
-
+import './styles.css';
 interface DataItem {
   id: string;
   name: string;
@@ -17,7 +17,7 @@ interface UserExportCSVProps {
 const UserExportCSV: FC<UserExportCSVProps> = ({ data, fileName }) => {
   const columns = [
     { label: "Id", key: "id" },
-    { label: "Name", key: "name" },
+    { label: "Name", key: "fullName" },
     { label: "Email", key: "email" },
     { label: "Contact", key: "phoneNumber" },
     { label: "Role", key: "role" },
