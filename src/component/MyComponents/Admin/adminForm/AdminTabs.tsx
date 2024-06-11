@@ -28,9 +28,9 @@ const StyledTabs = styled((props: StyledTabsProps) => (
     backgroundColor: "transparent",
   },
   "& .MuiTabs-indicatorSpan": {
-    maxWidth: 40,
+    maxWidth: "80%",
     width: "100%",
-    backgroundColor: "#635ee7",
+    backgroundColor: "#1976D2",
   },
 });
 

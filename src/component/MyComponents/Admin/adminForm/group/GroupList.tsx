@@ -14,7 +14,8 @@ const GroupList = ({ onChangePage }) => {
           Add
         </Button>
       </div>
-      <Box height={60} />
+      <Box height={30} />
+      
      
     </>
   );

@@ -237,12 +237,12 @@ const TableComponent: React.FC<TableComponentProps> = ({
           </Stack>
         )}
       </Stack>
-      <Box height={5} />
+      <Box height={15} />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              <th>Select</th>
+              <th style={{width:"80px"}}>Select</th>
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -276,18 +276,8 @@ const TableComponent: React.FC<TableComponentProps> = ({
       </table>
       <div>
         <Box height={10} />
-        {/* <select className="table-select"
-          value={query.limit}
-          onChange={(e) =>
-            handleQueryChange({ limit: Number(e.target.value), page: 1 })
-          }
-        >
-          <option value={10}>Limit 10</option>
-          <option value={20}>Limit 20</option>
-          <option value={40}>Limit 40</option>
-          <option value={1000}>Show All</option>
-        </select> */}
-
+        
+       <Stack display="flex" flexDirection="row" justifyContent="space-between">
         <TextField
           size="small"
           id="select"
@@ -315,6 +305,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
           containerClassName={"pagination"}
           activeClassName={"active"}
         />
+        </Stack>
       </div>
     </div>
   );
