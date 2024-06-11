@@ -1,24 +1,16 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
-import { userValidation } from "../../validation/userValidation";
-import DwInput from "../dwComponents/DwInput";
-import DwSelect from "../dwComponents/DwSelect";
+import { userValidation } from "../../../validation/userValidation";
+import DwInput from "../../dwComponents/DwInput";
+import DwSelect from "../../dwComponents/DwSelect";
 import {
   IUserFormValues,
   roles,
   userInitialValues,
-} from "../interfaces/UserInterface";
-import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+} from "../../interfaces/UserInterface";
+import MuiLoadingButtonTheme from "../../theme/MuiLoadingButtonTheme";
 
-const CreateUserForm: React.FC<IUserFormValues> = ({
+const CreateTeacherForm: React.FC<IUserFormValues> = ({
   buttonName = "CREATE",
   isLoading = false,
   formikRef = undefined,
@@ -32,8 +24,6 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
         innerRef={formikRef}
         validationSchema={userValidation}
         enableReinitialize={true}
-        // to ensure validation is only triggered on form submission
-        validateOnBlur={false}
       >
         {(formik) => {
           return (
@@ -41,20 +31,16 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
               <Container component="main" maxWidth="xs">
                 <Box
                   sx={{
-                    marginTop: 6,
+                    marginTop: 2,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                   }}
                 >
-                  <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                    <LockOutlinedIcon />
-                  </Avatar>
-
                   <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
                     {buttonName}
                   </Typography>
-                  <Box sx={{ mt: 2 }}>
+                  <Box sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <DwInput
@@ -113,23 +99,6 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                           isLoading={isLoading}
                         />
                       </Grid>
-
-                      <Grid container justifyContent="center">
-                        <Grid item>
-                          <Button
-                            color="inherit"
-                            href="/login"
-                            sx={{
-                              "&:hover": {
-                                color: "blue",
-                                background: "white",
-                              },
-                            }}
-                          >
-                            Already have an account? Sign in
-                          </Button>
-                        </Grid>
-                      </Grid>
                     </Grid>
                   </Box>
                 </Box>
@@ -142,4 +111,4 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
   );
 };
 
-export default CreateUserForm;
+export default CreateTeacherForm;

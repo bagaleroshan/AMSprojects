@@ -2,6 +2,7 @@ import { FormikProps } from "formik";
 
 /* -------------------- User Sign Up -----------------------------*/
 export interface IUser {
+  id?: string;
   fullName?: string;
   email?: string;
   password?: string;
@@ -17,7 +18,7 @@ export interface IUser {
 
 export const roles = [
   { label: "Teacher", value: "teacher" },
-  { label: "Admin", value: "admin" },
+
   // { label: "Super Admin", value: "superAdmin" },
 ];
 

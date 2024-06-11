@@ -5,13 +5,13 @@ import {
   useReadSubjectByIdQuery,
   useUpdateSubjectMutation,
 } from "../../services/api/SubjectService";
-import SubjectForm from "./SubjectForm";
-import { ISubject } from "../interfaces/SubjectInterface";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { ISubject } from "../interfaces/SubjectInterface";
+import SubjectForm from "./SubjectForm";
 
 const UpdateSubject = () => {
   const params = useParams();
@@ -51,7 +51,7 @@ const UpdateSubject = () => {
   useEffect(() => {
     if (isSuccessUpdateSubject) {
       toast.success("Subject Updated Successfully");
-      navigate(`/admin/forms/subjects`);
+      navigate(`/admin/subjects`);
     }
   });
 

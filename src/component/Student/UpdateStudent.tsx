@@ -51,7 +51,8 @@ const UpdateStudent = () => {
   useEffect(() => {
     if (isSuccessUpdateStudent) {
       toast.success("Student Updated Successfully");
-      navigate(`/admin/forms/students`);
+      navigate("/admin/students");
+      // navigate(-1);
     }
   });
 

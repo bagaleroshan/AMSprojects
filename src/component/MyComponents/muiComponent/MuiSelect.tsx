@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const DwMuiSelect = () => {
+const MuiSelect = () => {
   const [month, setMonth] = React.useState("3");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -74,4 +74,4 @@ const DwMuiSelect = () => {
   );
 };
 
-export default DwMuiSelect;
+export default MuiSelect;

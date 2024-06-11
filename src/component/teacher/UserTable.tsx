@@ -4,9 +4,12 @@ import {
   useDeleteUsersByIdMutation,
   useReadUsersQuery,
 } from "../../services/api/UserService";
-import TableComponent, { IData } from "./TableComponent";
-import "./table.css";
+// import TableComponent, { IData } from "./TableComponent";
+// import "./table.css";
 import UserExportCSV from "../ExportCSV/UserExportCSV";
+import { IData } from "../ReactTable/MyTable";
+import TableComponent from "../TableComponent/TableComponent";
+// import TableComponent from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -51,19 +54,18 @@ const UserTable: React.FC = () => {
   }
 
   const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/users/update/${selectedRowData[0].id}`);
+    navigate(`/admin/users/update/${selectedRowData[0].id}`, {
+      replace: true,
+    });
   };
 
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`View`, {
-      state: { viewUserData: selectedRowData[0] },
+    navigate(`/admin/users/${selectedRowData[0].id}`, {
       replace: true,
     });
-    // console.log(selectedRowData);
   };
 
   const handleDeleteClick = async (selectedRowData: IData[]) => {
-    // console.log("Delete action triggered", selectedRowData.role);
     for (const value of selectedRowData) {
       await deleteUsers(value.id).unwrap();
     }

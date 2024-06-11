@@ -8,32 +8,35 @@ import {
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
-import { userValidation } from "../../validation/userValidation";
-import DwInput from "../dwComponents/DwInput";
-import DwSelect from "../dwComponents/DwSelect";
-import {
-  IUserFormValues,
-  roles,
-  userInitialValues,
-} from "../interfaces/UserInterface";
-import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
-const CreateUserForm: React.FC<IUserFormValues> = ({
-  buttonName = "CREATE",
+import DwInput from "../dwComponents/DwInput";
+import { IFormValues, IGroup } from "../interfaces/GroupInterface";
+import MuiLoadingButtonTheme from "../TableComponent/theme/MuiLoadingButtonTheme";
+
+const GroupForm: React.FC<IFormValues> = ({
+  buttonName = "Create",
   isLoading = false,
+  group = {},
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
+  const groupInitialValues: IGroup = {
+    // id: group?.id || "",
+    subject: group?.subject || "",
+    teacher: group?.teacher || "",
+    groupName: group?.groupName || "",
+    students: group?.students || "",
+    startTime: group?.startTime || "",
+    endTime: group?.endTime || "",
+  };
   return (
-    <>
+    <div>
       <Formik
-        initialValues={userInitialValues}
-        onSubmit={onSubmit}
+        initialValues={groupInitialValues}
         innerRef={formikRef}
-        validationSchema={userValidation}
+        onSubmit={onSubmit}
+        validationSchema={groupValidationSchema}
         enableReinitialize={true}
-        // to ensure validation is only triggered on form submission
-        validateOnBlur={false}
       >
         {(formik) => {
           return (
@@ -41,7 +44,7 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
               <Container component="main" maxWidth="xs">
                 <Box
                   sx={{
-                    marginTop: 6,
+                    marginTop: 2,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -54,17 +57,17 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                   <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
                     {buttonName}
                   </Typography>
-                  <Box sx={{ mt: 2 }}>
+                  <Box sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <DwInput
-                          name="fullName"
-                          label="Full Name"
+                          name="subject"
+                          label="Subject"
                           type="text"
                           fullWidth
-                          id="firstName"
+                          id="subject"
                           onChange={(e) => {
-                            formik.setFieldValue("fullName", e.target.value);
+                            formik.setFieldValue("subject", e.target.value);
                           }}
                           autofocus={true}
                           isLoading={isLoading}
@@ -73,37 +76,65 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                       <Grid item xs={12}>
                         <DwInput
                           fullWidth
-                          type="email"
-                          label="Email"
-                          name="email"
-                          autoComplete="email"
+                          name="teacher"
+                          label="Teacher"
+                          type="teacher"
                           onChange={(e) => {
-                            formik.setFieldValue("email", e.target.value);
+                            formik.setFieldValue("teacher", e.target.value);
                           }}
                           isLoading={isLoading}
                         />
                       </Grid>
+
                       <Grid item xs={12}>
                         <DwInput
                           fullWidth
-                          name="phoneNumber"
-                          label="Phone Number"
-                          type="number"
+                          name="groupName"
+                          label="Group Name"
+                          type="groupName"
                           onChange={(e) => {
-                            formik.setFieldValue("phoneNumber", e.target.value);
+                            formik.setFieldValue("groupName", e.target.value);
                           }}
                           isPhoneNumber={true}
                           isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <DwSelect
-                          name="role"
-                          label="Role"
+                        <DwInput
+                          fullWidth
+                          name="students"
+                          label="Students"
+                          type="students"
                           onChange={(e) => {
-                            formik.setFieldValue("role", e.target.value);
+                            formik.setFieldValue("students", e.target.value);
                           }}
-                          selectLabels={roles}
+                          isPhoneNumber={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="startTime"
+                          label="Start Time"
+                          type="startTime"
+                          onChange={(e) => {
+                            formik.setFieldValue("startTime", e.target.value);
+                          }}
+                          isPhoneNumber={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwInput
+                          fullWidth
+                          name="endTime"
+                          label="End Time"
+                          type="endTime"
+                          onChange={(e) => {
+                            formik.setFieldValue("endTime", e.target.value);
+                          }}
+                          isPhoneNumber={true}
                           isLoading={isLoading}
                         />
                       </Grid>
@@ -118,15 +149,15 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                         <Grid item>
                           <Button
                             color="inherit"
-                            href="/login"
+                            href="/admin/forms/group"
                             sx={{
                               "&:hover": {
                                 color: "blue",
-                                background: "white",
+                                // background: "white",
                               },
                             }}
                           >
-                            Already have an account? Sign in
+                            Go back?
                           </Button>
                         </Grid>
                       </Grid>
@@ -138,8 +169,8 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
           );
         }}
       </Formik>
-    </>
+    </div>
   );
 };
 
-export default CreateUserForm;
+export default GroupForm;

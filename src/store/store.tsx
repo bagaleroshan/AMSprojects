@@ -7,12 +7,14 @@ import { UserApi } from "../services/api/UserService";
 import studentSlice from "../features/studentSlice";
 import userSlice from "../features/userSlice";
 import { StudentApi } from "../services/api/StudentApi";
+import groupSlice from "../features/groupSlice";
+import { GroupApi } from "../services/api/GroupService";
 
 // Configuration object for Redux Persist
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "subject", "student"], // only persist the user reducer
+  whitelist: ["user", "subject", "student", "group"], // only persist the user reducer
 };
 
 // Combine all reducers
@@ -20,9 +22,11 @@ const rootReducer = combineReducers({
   user: userSlice,
   subject: subjectSlice,
   student: studentSlice,
+  group: groupSlice,
   [UserApi.reducerPath]: UserApi.reducer,
   [SubjectApi.reducerPath]: SubjectApi.reducer,
   [StudentApi.reducerPath]: StudentApi.reducer,
+  [GroupApi.reducerPath]: GroupApi.reducer,
 });
 
 // Create a persisted reducer

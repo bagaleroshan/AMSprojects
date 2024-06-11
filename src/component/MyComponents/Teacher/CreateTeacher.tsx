@@ -1,18 +1,21 @@
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useCreateUserMutation } from "../../services/api/UserService";
+import { useCreateUserMutation } from "../../../services/api/UserService";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
-} from "../../utils/utils";
-import { IUser } from "../interfaces/UserInterface";
-import CreateUserForm from "./CreateUserForm";
+} from "../../../utils/utils";
+import { IUser } from "../../interfaces/UserInterface";
+import CreateTeacherForm from "./CreateTeacherForm";
+// import { setRole } from "../../features/userSlice";
 
-const CreateUser = () => {
+const CreateTeacher = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
+  const navigate = useNavigate();
 
   const [
     createUser,
@@ -35,8 +38,9 @@ const CreateUser = () => {
         autoClose: 3000,
       });
       formikRef.current?.resetForm();
+      navigate("/admin/users");
     }
-  }, [isSuccessCreateUser, dataCreateUser]);
+  }, [isSuccessCreateUser, dataCreateUser, navigate]);
 
   useEffect(() => {
     if (isErrorCreateUser) {
@@ -52,8 +56,8 @@ const CreateUser = () => {
 
   return (
     <>
-      <CreateUserForm
-        buttonName="CREATE USER"
+      <CreateTeacherForm
+        buttonName="CREATE TEACHER"
         isLoading={isLoadingCreateUser}
         formikRef={formikRef}
         onSubmit={submitValue}
@@ -62,4 +66,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default CreateTeacher;

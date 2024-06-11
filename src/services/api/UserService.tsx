@@ -1,11 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IQuery } from "./StudentService";
+import { IQuery } from "./StudentApi";
+import { IUser } from "../../component/interfaces/UserInterface";
 
 export const UserApi = createApi({
   reducerPath: "UserApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
   }),
+  tagTypes: ["readUsers", "readUsersById"],
 
   endpoints: (builder) => ({
     createUser: builder.mutation({
@@ -16,6 +18,7 @@ export const UserApi = createApi({
           body,
         };
       },
+      invalidatesTags: ["readUsers"],
     }),
     deleteUsersById: builder.mutation({
       query: (id) => {
@@ -31,6 +34,7 @@ export const UserApi = createApi({
           },
         };
       },
+      invalidatesTags: ["readUsers"],
     }),
 
     userLogin: builder.mutation({
@@ -41,6 +45,7 @@ export const UserApi = createApi({
           body,
         };
       },
+      invalidatesTags: ["readUsers", "readUsersById"],
     }),
 
     updatePassword: builder.mutation({
@@ -121,6 +126,15 @@ export const UserApi = createApi({
       providesTags: ["readUsers"],
     }),
 
+    // readUserById: builder.query({
+    //   query: (id) => {
+    //     return {
+    //       url: `/users/${id}`,
+    //       method: "GET",
+    //     };
+    //   },
+    //   providesTags: ["readUser"],
+    // }),
     updateProfile: builder.mutation({
       query: (body) => {
         const token = localStorage.getItem("token");
@@ -129,6 +143,26 @@ export const UserApi = createApi({
         }
         return {
           url: "/users/update-profile",
+          method: "PATCH",
+          body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    //byAdmin AfterLogin
+    updateTeacherProfile: builder.mutation<
+      void,
+      { id: string; body: Partial<IUser> }
+    >({
+      query: ({ id, body }) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/users/${id}`,
           method: "PATCH",
           body,
           headers: {
@@ -149,6 +183,7 @@ export const {
   useReadUserByIdQuery,
   useMyProfileQuery,
   useUpdateProfileMutation,
+  useUpdateTeacherProfileMutation,
   useReadUsersQuery,
   useDeleteUsersByIdMutation,
 } = UserApi;

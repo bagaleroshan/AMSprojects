@@ -30,6 +30,9 @@ const UpdatePasswordForm: React.FC<IUserFormValues> = ({
         innerRef={formikRef}
         validationSchema={userUpdatePassValidation}
         enableReinitialize={true}
+        // to ensure validation is only triggered on form submission
+        // validateOnChange={false}
+        validateOnBlur={false}
       >
         {(formik) => {
           return (

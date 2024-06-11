@@ -8,6 +8,7 @@ import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 import TableComponent, { IData } from "./TableComponent";
 import "./table.css";
 import DeleteConfirmation from "../../DeleteConfirmation";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -53,7 +54,7 @@ const StudentTable: React.FC = () => {
   }
 
   const handleStudentEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/update/${selectedRowData[0].id}`, {
+    navigate(`/admin/students/update/${selectedRowData[0].id}`, {
       replace: true,
     });
   };
@@ -61,6 +62,9 @@ const StudentTable: React.FC = () => {
   const handleDeleteClick = (selectedRowData: IData[]) => {
     setSelectedStudentIds(selectedRowData.map((value: IData) => value.id));
     setOpenDeleteConfirmation(true);
+    selectedRowData.forEach((value: IData) => {
+      deleteStudents(value.id);
+    });
   };
 
   const handleConfirmDelete = async () => {
@@ -76,10 +80,9 @@ const StudentTable: React.FC = () => {
   };
 
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/forms/students/${selectedRowData[0].id}`, {
+    navigate(`/admin/students/${selectedRowData[0].id}`, {
       replace: true,
     });
-    console.log(selectedRowData);
   };
 
   return (

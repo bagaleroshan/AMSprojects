@@ -9,21 +9,21 @@ import {
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useReadStudentByIdQuery } from "../../services/api/StudentApi";
+import { useReadUserByIdQuery } from "../../services/api/UserService";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
 
-const ReadSpecificStudent = () => {
+const ReadSpecificUser = () => {
   const { id } = useParams();
   const {
     isError: isErrorViewSpecific,
     data: dataViewSpecific,
     error: errorViewSpecific,
-  } = useReadStudentByIdQuery(id);
-  const student = dataViewSpecific?.result || {};
+  } = useReadUserByIdQuery(id);
+  const user = dataViewSpecific?.result || {};
 
   useEffect(() => {
     isErrorViewSpecific &&
@@ -40,18 +40,16 @@ const ReadSpecificStudent = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Full Name</TableCell>
+              <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
-              {/* <TableCell>Course </TableCell> */}
-              <TableCell>Phone Number </TableCell>
+              <TableCell>Contact</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell>{student.fullName}</TableCell>
-              <TableCell>{student.email}</TableCell>
-              {/* <TableCell>{student.course} </TableCell> */}
-              <TableCell>{student.phoneNumber} </TableCell>
+              <TableCell>{user.fullName}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.phoneNumber} </TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -60,4 +58,4 @@ const ReadSpecificStudent = () => {
   );
 };
 
-export default ReadSpecificStudent;
+export default ReadSpecificUser;
