@@ -15,7 +15,6 @@ import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
-import ExportCSV from "../ExportCSV/ExportCSV";
 
 export interface IData<T = any> {
   [key: string]: T;

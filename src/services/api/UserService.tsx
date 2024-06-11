@@ -117,9 +117,16 @@ export const UserApi = createApi({
 
     readUsers: builder.query({
       query: (query: IQuery) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/users?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
 

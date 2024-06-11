@@ -4,19 +4,15 @@ import {
   useDeleteStudentMutation,
   useReadStudentsQuery,
 } from "../../services/api/StudentApi";
-import StudentExportCSV from "../ExportCSV/StudentExportCSV";
-import TableComponent, { IData } from "./TableComponent";
-import "./table.css";
-import DeleteConfirmation from "../../DeleteConfirmation";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
-
+import StudentExportCSV from "../ExportCSV/StudentExportCSV";
+import DeleteConfirmation from "../../DeleteConfirmation";
 interface Query {
   page: number;
   limit: number;
   findQuery: string;
   sort: string[];
 }
-
 const StudentTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
@@ -24,47 +20,43 @@ const StudentTable: React.FC = () => {
     { Header: "Email", accessor: "email" },
     { Header: "Contact", accessor: "phoneNumber" },
   ];
-
   const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
     sort: [],
   });
-
   const { data, isLoading, isError, refetch } = useReadStudentsQuery({
     ...query,
     sort: query.sort.join(","),
   });
   const [deleteStudents] = useDeleteStudentMutation();
-
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
 
   useEffect(() => {
     refetch();
   }, [query, refetch]);
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
-
   const handleStudentEditClick = (selectedRowData: IData[]) => {
     navigate(`/admin/students/update/${selectedRowData[0].id}`, {
       replace: true,
     });
   };
 
+  const handleViewClick = (selectedRowData: IData[]) => {
+    navigate(`/admin/students/${selectedRowData[0].id}`, {
+      replace: true,
+    });
+  };
   const handleDeleteClick = (selectedRowData: IData[]) => {
     setSelectedStudentIds(selectedRowData.map((value: IData) => value.id));
     setOpenDeleteConfirmation(true);
-    selectedRowData.forEach((value: IData) => {
-      deleteStudents(value.id);
-    });
   };
 
   const handleConfirmDelete = async () => {
@@ -78,18 +70,12 @@ const StudentTable: React.FC = () => {
     setOpenDeleteConfirmation(false);
     setSelectedStudentIds([]);
   };
-
-  const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/students/${selectedRowData[0].id}`, {
-      replace: true,
-    });
-  };
-
   return (
     <div>
-      <div>
-        <StudentExportCSV data={data.result.results} fileName="Student File" />
-      </div>
+      <StudentExportCSV
+        data={data.result.results}
+        fileName="Student File"
+      ></StudentExportCSV>
       <TableComponent
         columns={columns}
         data={data.result.results}
@@ -111,5 +97,4 @@ const StudentTable: React.FC = () => {
     </div>
   );
 };
-
 export default StudentTable;

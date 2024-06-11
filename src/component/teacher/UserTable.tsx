@@ -4,12 +4,11 @@ import {
   useDeleteUsersByIdMutation,
   useReadUsersQuery,
 } from "../../services/api/UserService";
-// import TableComponent, { IData } from "./TableComponent";
-// import "./table.css";
+
 import UserExportCSV from "../ExportCSV/UserExportCSV";
 import { IData } from "../ReactTable/MyTable";
 import TableComponent from "../TableComponent/TableComponent";
-// import TableComponent from "../TableComponent/TableComponent";
+import DeleteConfirmation from "../../DeleteConfirmation";
 
 interface Query {
   page: number;
@@ -41,6 +40,8 @@ const UserTable: React.FC = () => {
 
   const [deleteUsers] = useDeleteUsersByIdMutation();
 
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   useEffect(() => {
     refetch();
   }, [query, refetch]);
@@ -65,13 +66,28 @@ const UserTable: React.FC = () => {
     });
   };
 
-  const handleDeleteClick = async (selectedRowData: IData[]) => {
-    for (const value of selectedRowData) {
-      await deleteUsers(value.id).unwrap();
-    }
+  // const handleDeleteClick = async (selectedRowData: IData[]) => {
+  //   for (const value of selectedRowData) {
+  //     await deleteUsers(value.id).unwrap();
+  //   }
+  //   refetch();
+  // };
+  const handleDeleteClick = (selectedRowData: IData[]) => {
+    setSelectedUserIds(selectedRowData.map((value: IData) => value.id));
+    setOpenDeleteConfirmation(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    await Promise.all(selectedUserIds.map((id) => deleteUsers(id)));
+    setOpenDeleteConfirmation(false);
+    setSelectedUserIds([]);
     refetch();
   };
 
+  const handleCancelDelete = () => {
+    setOpenDeleteConfirmation(false);
+    setSelectedUserIds([]);
+  };
   return (
     <div>
       <UserExportCSV
@@ -89,6 +105,13 @@ const UserTable: React.FC = () => {
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
+      {openDeleteConfirmation && (
+        <DeleteConfirmation
+          open={openDeleteConfirmation}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
     </div>
   );
 };
