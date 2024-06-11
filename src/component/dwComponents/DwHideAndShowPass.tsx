@@ -19,13 +19,16 @@ const EndAdornment: React.FC<IEndAdornmentProps> = ({
   <InputAdornment position="end">
     <IconButton
       onClick={togglePasswordVisibility}
-      // sx={{ "&:hover": { color: "blue" } }}
       sx={{
         color: showPassword ? "primary.main" : "action.active",
         "&:hover": { color: "blue" },
       }}
     >
-      {showPassword ? <Visibility /> : <VisibilityOff />}
+      {showPassword ? (
+        <Visibility fontSize="medium" />
+      ) : (
+        <VisibilityOff fontSize="medium" />
+      )}
     </IconButton>
   </InputAdornment>
 );

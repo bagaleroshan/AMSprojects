@@ -1,9 +1,4 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
-import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
-import AdminMessages from "../MyComponents/Admin/AdminMessages";
-import AdminReport from "../MyComponents/Admin/AdminReport";
-import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import UpdateStudent from "../Student/UpdateStudent";
 import UpdateTeacher from "../teacher/UpdateTeacher";
 import UpdateSubject from "../subject/UpdateSubject";
@@ -12,6 +7,11 @@ import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
+import AdminDashboard from "../mycomponents/admin/AdminDashboard";
+import AdminAttendance from "../mycomponents/admin/AdminAttendance";
+import AdminReport from "../mycomponents/admin/AdminReport";
+import AdminMessages from "../mycomponents/admin/AdminMessages";
+import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
 
 const DikshyaAdminRoute = () => {
   return (
@@ -31,23 +31,8 @@ const DikshyaAdminRoute = () => {
         <Route path="attendance" element={<AdminAttendance />} />
         <Route path="messages" element={<AdminMessages />} />
         <Route path="report" element={<AdminReport />} />
-<<<<<<< HEAD
-        <Route path="forms" element={<Outlet />}>
-          {/* ------------------- Users -------------------------------- */}
-
-          <Route path="users" element={<Outlet />}>
-            <Route
-              index
-              element={<AdminForm firstTab="users" secondTab="userList" />}
-            />
-            <Route
-              path="create"
-              element={<AdminForm firstTab="users" secondTab="/create" />}
-            />
-=======
 
         {/* ------------------- Users -------------------------------- */}
->>>>>>> 96a8b2680d75fcb9cba81497ca1f7b482d410d7e
 
         <Route path="users" element={<Outlet />}>
           <Route
@@ -59,9 +44,7 @@ const DikshyaAdminRoute = () => {
             element={<AdminForm firstTab="users" secondTab="/create" />}
           />
 
-          <Route path="update" element={<Outlet></Outlet>}>
-            <Route path=":id" element={<UpdateTeacher />} />
-          </Route>
+          <Route path="update/:id" element={<UpdateTeacher />} />
         </Route>
 
         {/* ---------------- Students------------------------------ */}
@@ -75,9 +58,7 @@ const DikshyaAdminRoute = () => {
             path="create"
             element={<AdminForm firstTab="students" secondTab="/create" />}
           />
-          <Route path="update" element={<Outlet></Outlet>}>
-            <Route path=":id" element={<UpdateStudent></UpdateStudent>} />
-          </Route>
+          <Route path="update/:id" element={<UpdateStudent />} />
           <Route path=":id" element={<ReadSpecificStudent />} />
         </Route>
 
@@ -92,10 +73,25 @@ const DikshyaAdminRoute = () => {
             element={<AdminForm firstTab="subjects" secondTab="/create" />}
           />
 
-          <Route path="update" element={<Outlet />}>
+          <Route path="update/:id" element={<UpdateSubject />} />
+          <Route path=":id" element={<ReadSpecificSubject />} />
+        </Route>
+
+        {/* --------------- Groups------------------------------------ */}
+        <Route path="group" element={<Outlet />}>
+          <Route
+            index
+            element={<AdminForm firstTab="group" secondTab="groupList" />}
+          />
+          <Route
+            path="create"
+            element={<AdminForm firstTab="group" secondTab="/create" />}
+          />
+
+          {/* <Route path="update" element={<Outlet />}>
             <Route path=":id" element={<UpdateSubject />} />
           </Route>
-          <Route path=":id" element={<ReadSpecificSubject />} />
+          <Route path=":id" element={<ReadSpecificSubject />} /> */}
         </Route>
 
         <Route path="*" element={<Navigate to="/admin" replace />} />

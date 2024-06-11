@@ -33,7 +33,7 @@ const CreateSubject = () => {
     if (isSuccessCreateSubject) {
       formikRef.current?.resetForm();
       toast.success("Subject created successfully");
-      navigate("/admin/forms/subjects");
+      navigate("/admin/subjects");
     }
   });
 
