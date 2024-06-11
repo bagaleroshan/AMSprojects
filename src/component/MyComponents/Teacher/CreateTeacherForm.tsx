@@ -8,7 +8,7 @@ import {
   roles,
   userInitialValues,
 } from "../../interfaces/UserInterface";
-import MuiLoadingButtonTheme from "../../TableComponent/theme/MuiLoadingButtonTheme";
+import MuiLoadingButtonTheme from "../../theme/MuiLoadingButtonTheme";
 
 const CreateTeacherForm: React.FC<IUserFormValues> = ({
   buttonName = "CREATE",

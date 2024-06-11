@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import "../Style.css/TLogout.css";
-import AdminSidebar from "./AdminSidebar";
 
 const AdminChangePassword = () => {
   return (
