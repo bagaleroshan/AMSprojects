@@ -1,16 +1,16 @@
 import { FormikProps } from "formik";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useCreateUserMutation } from "../../../services/api/UserService";
-import { IUser } from "../../interfaces/UserInterface";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../../utils/utils";
+import { IUser } from "../../interfaces/UserInterface";
 import CreateTeacherForm from "./CreateTeacherForm";
-import { useNavigate } from "react-router-dom";
 // import { setRole } from "../../features/userSlice";
 
 const CreateTeacher = () => {
