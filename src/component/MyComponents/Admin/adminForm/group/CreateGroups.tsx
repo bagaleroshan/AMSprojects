@@ -1,4 +1,5 @@
 import { Box, Button } from "@mui/material";
+import CreateGroup from "../../../../group/CreateGroup";
 
 const CreateGroups = ({ onChangePage }) => {
   return (
@@ -13,8 +14,7 @@ const CreateGroups = ({ onChangePage }) => {
           Group List
         </Button>
       </div>
-      
-      
+      <CreateGroup />
     </>
   );
 };

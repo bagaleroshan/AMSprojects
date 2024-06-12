@@ -87,7 +87,7 @@ function a11yProps(index: number) {
   };
 }
 
-const tabTypes = ["users", "students", "subjects", "group"];
+const tabTypes = ["users", "students", "subjects", "groups"];
 
 export default function AdminTabs({ firstTab, secondTab }) {
   const navigate = useNavigate();
@@ -132,7 +132,7 @@ export default function AdminTabs({ firstTab, secondTab }) {
             label="Groups"
             {...a11yProps(3)}
             onClick={() => {
-              navigate("/admin/group");
+              navigate("/admin/groups");
             }}
           />
         </StyledTabs>

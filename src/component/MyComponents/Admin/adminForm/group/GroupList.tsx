@@ -1,5 +1,6 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button } from "@mui/material";
+import GroupTable from "../../../../group/GroupTable";
 
 const GroupList = ({ onChangePage }) => {
   return (
@@ -15,8 +16,7 @@ const GroupList = ({ onChangePage }) => {
         </Button>
       </div>
       <Box height={30} />
-      
-     
+      <GroupTable />
     </>
   );
 };
