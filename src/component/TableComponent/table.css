@@ -6,6 +6,7 @@ table{
     /* min-height: 30vh; */
   }
   
+  
   table td, table th {
     border: 1px solid #ddd;
     padding: 8px;
@@ -61,3 +62,12 @@ table{
   font-size: 25px;
 } 
 
+/* th {
+  position: sticky;
+  top: 0%; 
+}
+
+.table-container {
+  overflow-y: auto; 
+ 
+} */

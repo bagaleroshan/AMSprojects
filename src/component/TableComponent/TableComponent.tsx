@@ -173,7 +173,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   );
 
   return (
-    <div>
+    <div className="table-container">
       <Stack
         sx={{
           direction: "flex",
@@ -271,86 +271,90 @@ const TableComponent: React.FC<TableComponentProps> = ({
       </table>
       <div>
         <Box height={15} />
-        { data.length===0 ? (<Box
-          sx={{
-            width: "100%",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}>
-            <Box height={60}/>
-            <Typography variant="h5">No user is available</Typography>
-            <Box height={60}/>
+        {data.length === 0 ? (
+          <Box
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Box height={60} />
+            <Typography variant="h5">This {searchTerm} is not available</Typography>
+            <Box height={60} />
             <Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          <TextField
-            sx={{ marginTop: "10px" }}
-            size="small"
-            id="select"
-            value={query.limit}
-            onChange={(e) =>
-              handleQueryChange({ limit: Number(e.target.value), page: 1 })
-            }
-            select
-          >
-            <MenuItem value={10}>Limit 10</MenuItem>
-            <MenuItem value={20}>Limit 20</MenuItem>
-            <MenuItem value={40}>Limit 40</MenuItem>
-            <MenuItem value={1000}>Show All</MenuItem>
-          </TextField>
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+            >
+              <TextField
+                sx={{ marginTop: "10px" }}
+                size="small"
+                id="select"
+                value={query.limit}
+                onChange={(e) =>
+                  handleQueryChange({ limit: Number(e.target.value), page: 1 })
+                }
+                select
+              >
+                <MenuItem value={10}>Limit 10</MenuItem>
+                <MenuItem value={20}>Limit 20</MenuItem>
+                <MenuItem value={40}>Limit 40</MenuItem>
+                <MenuItem value={1000}>Show All</MenuItem>
+              </TextField>
 
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={Math.ceil(totalData / query.limit)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-          />
-        </Stack>
-          </Box>): (<Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          
-          <TextField
-            sx={{ marginTop: "10px" }}
-            size="small"
-            id="select"
-            value={query.limit}
-            onChange={(e) =>
-              handleQueryChange({ limit: Number(e.target.value), page: 1 })
-            }
-            select
+              <ReactPaginate
+                previousLabel={"previous"}
+                nextLabel={"next"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={Math.ceil(totalData / query.limit)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
+            </Stack>
+          </Box>
+        ) : (
+          <Stack
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
           >
-            <MenuItem value={10}>Limit 10</MenuItem>
-            <MenuItem value={20}>Limit 20</MenuItem>
-            <MenuItem value={40}>Limit 40</MenuItem>
-            <MenuItem value={1000}>Show All</MenuItem>
-          </TextField>
+            <TextField
+              sx={{ marginTop: "10px" }}
+              size="small"
+              id="select"
+              value={query.limit}
+              onChange={(e) =>
+                handleQueryChange({ limit: Number(e.target.value), page: 1 })
+              }
+              select
+            >
+              <MenuItem value={10}>Limit 10</MenuItem>
+              <MenuItem value={20}>Limit 20</MenuItem>
+              <MenuItem value={40}>Limit 40</MenuItem>
+              <MenuItem value={1000}>Show All</MenuItem>
+            </TextField>
 
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={Math.ceil(totalData / query.limit)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-          />
-        </Stack>)}
+            <ReactPaginate
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={Math.ceil(totalData / query.limit)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+            />
+          </Stack>
+        )}
         {/* <Stack
           display="flex"
           flexDirection="row"
