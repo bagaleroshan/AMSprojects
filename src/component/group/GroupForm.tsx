@@ -2,20 +2,27 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { useReadStudentsQuery } from "../../services/api/StudentApi";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
+import { useReadUsersQuery } from "../../services/api/UserService";
 import { groupValidationSchema } from "../../validation/groupValidation";
+import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import DwInput from "../dwComponents/DwInput";
-import { useReadUsersQuery } from "../../services/api/UserService";
-import { useReadStudentsQuery } from "../../services/api/StudentApi";
+import DwCheckbox from "../dwComponents/DwCheckbox";
 
 interface Query {
   page?: number;
   limit?: number;
+  role?: string;
   findQuery?: string;
   sort?: string[];
+}
+
+interface Student {
+  id: string;
+  email: string;
 }
 
 const GroupForm: React.FC<IFormValues> = ({
@@ -25,7 +32,7 @@ const GroupForm: React.FC<IFormValues> = ({
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  const [query, setQuery] = useState<Query>({
+  const [query] = useState<Query>({
     page: 1,
     limit: 10,
     role: "teacher",
@@ -36,10 +43,10 @@ const GroupForm: React.FC<IFormValues> = ({
   /* Teachers */
   const { data: datatReadTeachers } = useReadUsersQuery({
     ...query,
-    sort: query.sort.join(","),
+    sort: query.sort?.join(",") || "",
   });
-  console.log("datatReadTeachers", datatReadTeachers?.result?.results);
-  let teachers = (datatReadTeachers?.result?.results || []).map((value) => {
+  // console.log("datatReadTeachers", datatReadTeachers?.result?.results);
+  const teachers = (datatReadTeachers?.result?.results || []).map((value) => {
     return {
       value: value.id,
       label: value.fullName,
@@ -49,10 +56,10 @@ const GroupForm: React.FC<IFormValues> = ({
   /* Subjects */
   const { data: dataReadSubjects } = useReadSubjectsQuery({
     ...query,
-    sort: query.sort.join(","),
+    sort: query.sort?.join(","),
   });
   // console.log("dataReadSubjects", dataReadSubjects?.result?.results);
-  let subjects = (dataReadSubjects?.result?.results || []).map((value) => {
+  const subjects = (dataReadSubjects?.result?.results || []).map((value) => {
     return {
       value: value.id,
       label: value.subjectName,
@@ -62,15 +69,17 @@ const GroupForm: React.FC<IFormValues> = ({
   /* Students */
   const { data: dataReadStudents } = useReadStudentsQuery({
     ...query,
-    sort: query.sort.join(","),
+    sort: query.sort?.join(","),
   });
-  // console.log("dataReadStudents", dataReadStudents?.result?.results);
-  let students = (dataReadStudents?.result?.results || []).map((value) => {
-    return {
-      value: value.id,
-      label: value.fullName,
-    };
-  });
+  console.log("dataReadStudents", dataReadStudents?.result?.results);
+  const students = (dataReadStudents?.result?.results || []).map(
+    (value: Student) => {
+      return {
+        value: value.id,
+        label: value.email,
+      };
+    }
+  );
 
   const groupInitialValues: IGroup = {
     subject: group.subject || "",
@@ -109,14 +118,13 @@ const GroupForm: React.FC<IFormValues> = ({
                     {buttonName}
                   </Typography>
                   <Box sx={{ mt: 3 }}>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <DwInput
                           name="groupName"
                           label="Group Name"
                           type="text"
                           fullWidth
-                          id="groupName"
                           onChange={(e) => {
                             formik.setFieldValue("groupName", e.target.value);
                           }}
@@ -132,16 +140,18 @@ const GroupForm: React.FC<IFormValues> = ({
                             formik.setFieldValue("teacher", e.target.value);
                           }}
                           selectLabels={teachers}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <DwSelect
-                          name="Subjects"
-                          label="Subjects"
+                          name="subject"
+                          label="Subject"
                           onChange={(e) => {
                             formik.setFieldValue("subject", e.target.value);
                           }}
                           selectLabels={subjects}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -149,9 +159,23 @@ const GroupForm: React.FC<IFormValues> = ({
                           name="students"
                           label="Students"
                           onChange={(e) => {
-                            formik.setFieldValue("students", e.target.value);
+                            formik.setFieldValue(
+                              "students",
+                              e.target.value ? [e.target.value] : []
+                            );
                           }}
                           selectLabels={students}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwCheckbox
+                          name="active"
+                          label="Class Ongoing?"
+                          onChange={(e) => {
+                            formik.setFieldValue("active", e.target.checked);
+                          }}
+                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>

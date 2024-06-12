@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const groupValidationSchema = yup.object({
-  subject: yup.string().required("Subject is required."),
+  subjects: yup.string().required("Subject is required."),
   teacher: yup.string().required("Teacher is required."),
   groupName: yup
     .string()

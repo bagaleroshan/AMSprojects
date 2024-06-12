@@ -4,14 +4,14 @@ import { Field, FieldProps } from "formik";
 interface IDwCheckboxProps {
   name: string;
   label: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) =>void;
-  // multiline?: false;
-
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
 }
 const DwCheckbox: React.FC<IDwCheckboxProps> = ({
   name,
   label,
   onChange,
+  isLoading,
   ...props
 }) => {
   return (
@@ -30,6 +30,7 @@ const DwCheckbox: React.FC<IDwCheckboxProps> = ({
                     checked={meta.value}
                     onChange={onChange ? onChange : field.onChange}
                     color="primary"
+                    disabled={isLoading}
                   />
                 }
               ></FormControlLabel>
