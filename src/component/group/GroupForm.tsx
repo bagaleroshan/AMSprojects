@@ -9,6 +9,7 @@ import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 import DwInput from "../dwComponents/DwInput";
 import { useReadUsersQuery } from "../../services/api/UserService";
+import { useReadStudentsQuery } from "../../services/api/StudentApi";
 
 interface Query {
   page?: number;
@@ -27,32 +28,47 @@ const GroupForm: React.FC<IFormValues> = ({
   const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
+    role: "teacher",
     findQuery: "",
     sort: [],
   });
+
+  /* Teachers */
+  const { data: datatReadTeachers } = useReadUsersQuery({
+    ...query,
+    sort: query.sort.join(","),
+  });
+  console.log("datatReadTeachers", datatReadTeachers?.result?.results);
+  let teachers = (datatReadTeachers?.result?.results || []).map((value) => {
+    return {
+      value: value.id,
+      label: value.fullName,
+    };
+  });
+
   /* Subjects */
   const { data: dataReadSubjects } = useReadSubjectsQuery({
     ...query,
     sort: query.sort.join(","),
   });
   // console.log("dataReadSubjects", dataReadSubjects?.result?.results);
-
-  /* Teachers */
-  const { data: datatReadUsers } = useReadUsersQuery({
-    ...query,
-    sort: query.sort.join(","),
-  });
-
   let subjects = (dataReadSubjects?.result?.results || []).map((value) => {
     return {
       value: value.id,
       label: value.subjectName,
     };
   });
-  let users = (datatReadUsers?.result?.results || []).map((value) => {
+
+  /* Students */
+  const { data: dataReadStudents } = useReadStudentsQuery({
+    ...query,
+    sort: query.sort.join(","),
+  });
+  // console.log("dataReadStudents", dataReadStudents?.result?.results);
+  let students = (dataReadStudents?.result?.results || []).map((value) => {
     return {
       value: value.id,
-      label: value.subjectName,
+      label: value.fullName,
     };
   });
 
@@ -72,6 +88,7 @@ const GroupForm: React.FC<IFormValues> = ({
         onSubmit={onSubmit}
         validationSchema={groupValidationSchema}
         enableReinitialize={true}
+        validateOnBlur={false}
       >
         {(formik) => {
           return (
@@ -109,6 +126,16 @@ const GroupForm: React.FC<IFormValues> = ({
                       </Grid>
                       <Grid item xs={12}>
                         <DwSelect
+                          name="teacher"
+                          label="Teacher"
+                          onChange={(e) => {
+                            formik.setFieldValue("teacher", e.target.value);
+                          }}
+                          selectLabels={teachers}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwSelect
                           name="Subjects"
                           label="Subjects"
                           onChange={(e) => {
@@ -119,12 +146,12 @@ const GroupForm: React.FC<IFormValues> = ({
                       </Grid>
                       <Grid item xs={12}>
                         <DwSelect
-                          name="teacher"
-                          label="Teacher"
+                          name="students"
+                          label="Students"
                           onChange={(e) => {
-                            formik.setFieldValue("teacher", e.target.value);
+                            formik.setFieldValue("students", e.target.value);
                           }}
-                          selectLabels={users}
+                          selectLabels={students}
                         />
                       </Grid>
                       <Grid item xs={12}>
