@@ -19,7 +19,6 @@ export interface IUser {
 export const roles = [
   { label: "Teacher", value: "teacher" },
   { label: "Admin", value: "admin" },
-  // { label: "Super Admin", value: "superAdmin" },
 ];
 
 export const userInitialValues: IUser = {

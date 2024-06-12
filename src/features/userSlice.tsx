@@ -11,6 +11,7 @@ const initialState: IUser = {
   adminToken: "",
   teachersToken: "",
 };
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -20,7 +21,7 @@ export const userSlice = createSlice({
     },
 
     setToken: (state, action: PayloadAction<string>) => {
-      if (state.role === "admin") {
+      if (state.role === "admin" || state.role === "superAdmin") {
         state.adminToken = action.payload;
       } else {
         state.teachersToken = action.payload;
