@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { CSVLink } from "react-csv";
+import "./ExportCSV.css";
 
 interface DataItem {
   id: string;
@@ -35,6 +36,3 @@ const StudentExportCSV: FC<StudentExportCSVProps> = ({ data, fileName }) => {
 };
 
 export default StudentExportCSV;
-
-
-
