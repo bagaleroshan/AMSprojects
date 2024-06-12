@@ -1,4 +1,3 @@
-import { Box, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -89,7 +88,6 @@ const StudentTable: React.FC = () => {
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
-
       {openDeleteConfirmation && (
         <DeleteConfirmation
           open={openDeleteConfirmation}

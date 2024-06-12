@@ -21,10 +21,10 @@ interface Query {
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName" },
-    { Header: "Email", accessor: "email" },
-    { Header: "Contact", accessor: "phoneNumber" },
-    { Header: "Role", accessor: "role" },
+    { Header: "Name", accessor: "fullName", width: "30%" },
+    { Header: "Email", accessor: "email", width: "40%" },
+    { Header: "Contact", accessor: "phoneNumber", width: "12%" },
+    { Header: "Role", accessor: "role", width: "10%" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -85,7 +85,11 @@ const UserTable: React.FC = () => {
   };
   return (
     <div>
-      {/* <TableComponent
+      <UserExportCSV
+        data={data.result.results}
+        fileName="User File"
+      ></UserExportCSV>
+      <TableComponent
         columns={columns}
         data={data.result.results}
         query={query}
@@ -95,49 +99,8 @@ const UserTable: React.FC = () => {
         onEditClick={handleEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
-      /> */}
-      {data.result.results.length === 0 ? (
-        <Box
-          sx={{
-            width: "100%",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <TableComponent
-            columns={columns}
-            data={data.result.results}
-            query={query}
-            setQuery={setQuery}
-            currentSort={query.sort}
-            totalData={data.result.totalDataInWholePage}
-            onEditClick={handleEditClick}
-            onViewClick={handleViewClick}
-            onDeleteClick={handleDeleteClick}
-          />
-          <Typography variant="h5"> No User is available</Typography>
-        </Box>
-      ) : (
-        <div>
-          <UserExportCSV
-            data={data.result.results}
-            fileName="User File"
-          ></UserExportCSV>
-          <TableComponent
-            columns={columns}
-            data={data.result.results}
-            query={query}
-            setQuery={setQuery}
-            currentSort={query.sort}
-            totalData={data.result.totalDataInWholePage}
-            onEditClick={handleEditClick}
-            onViewClick={handleViewClick}
-            onDeleteClick={handleDeleteClick}
-          />
-        </div>
-      )}
+      />
+
       {openDeleteConfirmation && (
         <DeleteConfirmation
           open={openDeleteConfirmation}
