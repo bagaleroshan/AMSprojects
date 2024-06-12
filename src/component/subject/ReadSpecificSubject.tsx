@@ -17,12 +17,12 @@ import {
 } from "../../utils/utils";
 
 const ReadSpecificSubject = () => {
-  const params = useParams();
+  const { id } = useParams();
   const {
     isError: isErrorViewSpecific,
     data: dataViewSpecific,
     error: errorViewSpecific,
-  } = useReadSubjectByIdQuery(params.id);
+  } = useReadSubjectByIdQuery(id);
   const subject = dataViewSpecific?.result || {};
 
   useEffect(() => {

@@ -5,13 +5,13 @@ import {
   useReadSubjectByIdQuery,
   useUpdateSubjectMutation,
 } from "../../services/api/SubjectService";
-import SubjectForm from "./SubjectForm";
-import { ISubject } from "../interfaces/SubjectInterface";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { ISubject } from "../interfaces/SubjectInterface";
+import SubjectForm from "./SubjectForm";
 
 const UpdateSubject = () => {
   const params = useParams();

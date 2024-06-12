@@ -14,6 +14,7 @@ import {
   IUserFormValues,
   updatePassInitialValue,
 } from "../interfaces/UserInterface";
+import LockResetIcon from "@mui/icons-material/LockReset";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const UpdatePasswordForm: React.FC<IUserFormValues> = ({
@@ -47,7 +48,7 @@ const UpdatePasswordForm: React.FC<IUserFormValues> = ({
                   }}
                 >
                   <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                    <LockOutlinedIcon />
+                    <LockResetIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
                     {buttonName}

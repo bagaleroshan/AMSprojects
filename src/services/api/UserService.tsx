@@ -20,6 +20,7 @@ export const UserApi = createApi({
       },
       invalidatesTags: ["readUsers"],
     }),
+
     deleteUsersById: builder.mutation({
       query: (id) => {
         const token = localStorage.getItem("token");
@@ -117,24 +118,22 @@ export const UserApi = createApi({
 
     readUsers: builder.query({
       query: (query: IQuery) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/users?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
 
       providesTags: ["readUsers"],
     }),
 
-    // readUserById: builder.query({
-    //   query: (id) => {
-    //     return {
-    //       url: `/users/${id}`,
-    //       method: "GET",
-    //     };
-    //   },
-    //   providesTags: ["readUser"],
-    // }),
     updateProfile: builder.mutation({
       query: (body) => {
         const token = localStorage.getItem("token");

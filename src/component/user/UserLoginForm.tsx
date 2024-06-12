@@ -16,7 +16,6 @@ import {
   userLoginInitialValues,
 } from "../interfaces/UserInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import { useEffect, useRef } from "react";
 
 const UserLoginForm: React.FC<IUserFormValues> = ({
   buttonName = "SIGN IN",
@@ -24,13 +23,6 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  // const emailInputRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (emailInputRef.current) {
-  //     emailInputRef.current.focus();
-  //   }
-  // }, []);
   return (
     <>
       <Formik
@@ -60,40 +52,50 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                   <Typography component="h1" variant="h5">
                     Sign in
                   </Typography>
-                  <Box sx={{ mt: 1 }}>
-                    <DwInput
-                      margin="normal"
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      onChange={(e) => {
-                        formik.setFieldValue("email", e.target.value);
-                      }}
-                      autofocus={true}
-                    />
-                    <DwHideAndShowPass
-                      margin="normal"
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      onChange={(e) => {
-                        formik.setFieldValue("password", e.target.value);
-                      }}
-                      autoComplete="current-password"
-                    />
-                    <Grid item xs={12}>
-                      <MuiLoadingButtonTheme
-                        buttonName={buttonName}
-                        isLoading={isLoading}
-                      />
-                    </Grid>
-                    <Grid container spacing={3} direction="row">
-                      <Grid item xs>
+                  <Box sx={{ mt: 2 }}>
+                    <Grid container spacing={1}>
+                      <Grid item xs={12}>
+                        <DwInput
+                          margin="normal"
+                          fullWidth
+                          id="email"
+                          label="Email Address"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          onChange={(e) => {
+                            formik.setFieldValue("email", e.target.value);
+                          }}
+                          autofocus={true}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwHideAndShowPass
+                          margin="normal"
+                          fullWidth
+                          name="password"
+                          label="Password"
+                          type="password"
+                          id="password"
+                          onChange={(e) => {
+                            formik.setFieldValue("password", e.target.value);
+                          }}
+                          autoComplete="current-password"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <MuiLoadingButtonTheme
+                          buttonName={buttonName}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xs={12}
+                        justifyContent="center"
+                        alignItems="center"
+                      >
                         <Button
                           color="inherit"
                           href="/forgot-password"
@@ -101,26 +103,12 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                             fontSize: "0.7rem",
                             "&:hover": {
                               color: "blue",
-                              background: "white",
+                              background: "inherit",
+                              textAlign: "center",
                             },
                           }}
                         >
                           Forgot password?
-                        </Button>
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          color="inherit"
-                          href="/register"
-                          sx={{
-                            fontSize: "0.7rem",
-                            "&:hover": {
-                              color: "blue",
-                              background: "white",
-                            },
-                          }}
-                        >
-                          {"Don't have an account? Sign Up"}
                         </Button>
                       </Grid>
                     </Grid>

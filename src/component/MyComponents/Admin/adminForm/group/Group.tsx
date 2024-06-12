@@ -1,19 +1,20 @@
-import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import GroupList from "./GroupList";
+import CreateGroups from "./CreateGroups";
 
-const Group = () => {
+const Group = ({ secondTab }) => {
+  const navigate = useNavigate();
+  const onChangePage = (page) => {
+    navigate("/admin/group" + page);
+  };
+
   return (
     <>
       <Box height={10} />
-      <div style={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5">Group List</Typography>
-      </div>
-      <Box height={30} />
-      <div className="SubjectAddButton">
-        <Button variant="contained" startIcon={<AddIcon />} color="secondary">
-          Add
-        </Button>
-      </div>
+      {(secondTab === "groupList" && (
+        <GroupList onChangePage={(page) => onChangePage(page)} />
+      )) || <CreateGroups onChangePage={(page) => onChangePage(page)} />}
     </>
   );
 };
