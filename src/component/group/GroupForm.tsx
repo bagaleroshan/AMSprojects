@@ -8,10 +8,15 @@ import {
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
+import React, { useState } from "react";
+import TimePicker from "react-time-picker"; // Import react-time-picker
 
 import DwInput from "../dwComponents/DwInput";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
-import MuiLoadingButtonTheme from "../TableComponent/theme/MuiLoadingButtonTheme";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import { groupValidationSchema } from "../../validation/groupValidation";
+import { useNavigate } from "react-router-dom";
+import { IQuery } from "../../services/api/GroupService";
 
 const GroupForm: React.FC<IFormValues> = ({
   buttonName = "Create",
@@ -20,15 +25,37 @@ const GroupForm: React.FC<IFormValues> = ({
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
+  const [query, setQuery] = useState<IQuery>({
+    page: 1,
+    limit: 10,
+    findQuery: "",
+    sort: [],
+  });
+
+  const [startTime, setStartTime] = useState(group.startTime || "");
+  const [endTime, setEndTime] = useState(group.endTime || "");
+  <select
+    name="subject"
+    id="subject"
+    onChange={(e) => {
+      formik.setFieldValue("subject", e.target.value);
+    }}
+  >
+    {newData.map((subjectName, index) => (
+      <option key={index} value={subjectName}>
+        {subjectName}
+      </option>
+    ))}
+  </select>;
   const groupInitialValues: IGroup = {
-    // id: group?.id || "",
-    subject: group?.subject || "",
-    teacher: group?.teacher || "",
-    groupName: group?.groupName || "",
-    students: group?.students || "",
-    startTime: group?.startTime || "",
-    endTime: group?.endTime || "",
+    subject: group.subject || "",
+    teacher: group.teacher || "",
+    groupName: group.groupName || "",
+    students: group.students || "",
+    startTime: group.startTime || "",
+    endTime: group.endTime || "",
   };
+  const navigate = useNavigate();
   return (
     <div>
       <Formik
@@ -60,17 +87,13 @@ const GroupForm: React.FC<IFormValues> = ({
                   <Box sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <DwInput
+                        <select
+                          style={{ width: "200px" }}
                           name="subject"
-                          label="Subject"
-                          type="text"
-                          fullWidth
                           id="subject"
                           onChange={(e) => {
                             formik.setFieldValue("subject", e.target.value);
                           }}
-                          autofocus={true}
-                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -113,29 +136,31 @@ const GroupForm: React.FC<IFormValues> = ({
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <DwInput
-                          fullWidth
-                          name="startTime"
-                          label="Start Time"
-                          type="startTime"
-                          onChange={(e) => {
-                            formik.setFieldValue("startTime", e.target.value);
+                        <label htmlFor="startTime">Start Time</label>
+                        <TimePicker
+                          id="startTime"
+                          value={startTime}
+                          onChange={(val) => {
+                            setStartTime(val);
+                            formik.setFieldValue("startTime", val);
                           }}
-                          isPhoneNumber={true}
-                          isLoading={isLoading}
+                          disableClock={true}
+                          clearIcon={null}
+                          className="form-control"
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <DwInput
-                          fullWidth
-                          name="endTime"
-                          label="End Time"
-                          type="endTime"
-                          onChange={(e) => {
-                            formik.setFieldValue("endTime", e.target.value);
+                        <label htmlFor="endTime">End Time</label>
+                        <TimePicker
+                          id="endTime"
+                          value={endTime}
+                          onChange={(val) => {
+                            setEndTime(val);
+                            formik.setFieldValue("endTime", val);
                           }}
-                          isPhoneNumber={true}
-                          isLoading={isLoading}
+                          disableClock={true}
+                          clearIcon={null}
+                          className="form-control"
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -149,11 +174,12 @@ const GroupForm: React.FC<IFormValues> = ({
                         <Grid item>
                           <Button
                             color="inherit"
-                            href="/admin/forms/group"
+                            onClick={() => {
+                              navigate("/admin/groups");
+                            }}
                             sx={{
                               "&:hover": {
                                 color: "blue",
-                                // background: "white",
                               },
                             }}
                           >

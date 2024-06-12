@@ -15,7 +15,7 @@ export const GroupApi = createApi({
   tagTypes: ["readGroups", "readGroupsById"],
 
   endpoints: (builder) => ({
-    readSubject: builder.query({
+    readGroup: builder.query({
       query: (query: IQuery) => {
         return {
           url: `/groups?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
@@ -24,10 +24,10 @@ export const GroupApi = createApi({
       },
       providesTags: ["readGroups"],
     }),
-    createStudent: builder.mutation({
+    createGroup: builder.mutation({
       query: (body) => {
         return {
-          url: "/students",
+          url: "/groups",
           method: "POST",
           body: body,
         };
@@ -67,9 +67,9 @@ export const GroupApi = createApi({
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const {
-  useCreateStudentMutation,
+  useCreateGroupMutation,
   useUpdateGroupMutation,
   useReadGroupByIdQuery,
   useDeleteGroupMutation,
-  useReadSubjectQuery,
+  useReadGroupQuery,
 } = GroupApi;
