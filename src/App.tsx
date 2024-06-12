@@ -24,8 +24,6 @@ const App = () => {
           element={
             <AmsLayout>
               <AdminRoute />
-              {/* <DikshyaAdminRoute /> */}
-              {/* <GroupForm /> */}
             </AmsLayout>
           }
         />

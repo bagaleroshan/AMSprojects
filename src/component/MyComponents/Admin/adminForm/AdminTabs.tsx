@@ -27,6 +27,7 @@ const StyledTabs = styled((props: StyledTabsProps) => (
     justifyContent: "center",
     backgroundColor: "transparent",
   },
+  color: "red",
   "& .MuiTabs-indicatorSpan": {
     maxWidth: "80%",
     width: "100%",
@@ -41,13 +42,14 @@ interface StyledTabProps {
 const StyledTab = styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
 ))(({ theme }) => ({
-  textTransform: "none",
-  fontWeight: theme.typography.fontWeightRegular,
+  // textTransform: "none",
+  //fontWeight: theme.typography.fontWeightRegular,
+  fontWeight: "bold",
   fontSize: theme.typography.pxToRem(15),
   marginRight: theme.spacing(1),
-  color: "#141414",
+  color: "#757575",
   "&.Mui-selected": {
-    color: "#0c828f",
+    color: "#1976D2",
   },
   "&.Mui-focusVisible": {
     backgroundColor: "#30c1d1",
@@ -87,9 +89,14 @@ function a11yProps(index: number) {
   };
 }
 
-const tabTypes = ["users", "students", "subjects", "group"];
+const tabTypes = ["users", "students", "subjects", "groups"];
 
-export default function AdminTabs({ firstTab, secondTab }) {
+interface AdminTabsProps {
+  firstTab: string;
+  secondTab?: string;
+}
+
+export default function AdminTabs({ firstTab, secondTab }: AdminTabsProps) {
   const navigate = useNavigate();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     navigate(`/admin/${tabTypes[newValue]}`);
@@ -100,43 +107,47 @@ export default function AdminTabs({ firstTab, secondTab }) {
   const value = tabTypes.indexOf(firstTab);
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <StyledTabs
-          value={tabTypes.indexOf(firstTab)}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab
-            label="Users"
-            {...a11yProps(0)}
-            onClick={() => {
-              navigate("/admin/users");
-            }}
-          />
+      {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
+      <StyledTabs
+        value={tabTypes.indexOf(firstTab)}
+        onChange={handleChange}
+        aria-label="basic tabs example"
+      >
+        <Tab
+          label="Users"
+          {...a11yProps(0)}
+          onClick={() => {
+            navigate("/admin/users");
+          }}
+          sx={{ fontSize: "16px", fontWeight: "bold" }}
+        />
 
-          <Tab
-            label="Students"
-            {...a11yProps(1)}
-            onClick={() => {
-              navigate("/admin/students");
-            }}
-          />
-          <Tab
-            label="Subjects"
-            {...a11yProps(2)}
-            onClick={() => {
-              navigate("/admin/subjects");
-            }}
-          />
-          <Tab
-            label="Groups"
-            {...a11yProps(3)}
-            onClick={() => {
-              navigate("/admin/group");
-            }}
-          />
-        </StyledTabs>
-      </Box>
+        <Tab
+          label="Students"
+          {...a11yProps(1)}
+          onClick={() => {
+            navigate("/admin/students");
+          }}
+          sx={{ fontSize: "16px", fontWeight: "bold" }}
+        />
+        <Tab
+          label="Subjects"
+          {...a11yProps(2)}
+          onClick={() => {
+            navigate("/admin/subjects");
+          }}
+          sx={{ fontSize: "16px", fontWeight: "bold" }}
+        />
+        <Tab
+          label="Groups"
+          {...a11yProps(3)}
+          onClick={() => {
+            navigate("/admin/groups");
+          }}
+          sx={{ fontSize: "16px", fontWeight: "bold" }}
+        />
+      </StyledTabs>
+
       <CustomTabPanel value={value} index={0}>
         <User secondTab={secondTab} />
       </CustomTabPanel>

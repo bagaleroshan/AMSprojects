@@ -6,9 +6,9 @@ import {
 } from "../../services/api/UserService";
 
 import UserExportCSV from "../ExportCSV/UserExportCSV";
-import { IData } from "../ReactTable/MyTable";
-import TableComponent from "../TableComponent/TableComponent";
+
 import DeleteConfirmation from "../../DeleteConfirmation";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -20,10 +20,10 @@ interface Query {
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName" },
-    { Header: "Email", accessor: "email" },
-    { Header: "Contact", accessor: "phoneNumber" },
-    { Header: "Role", accessor: "role" },
+    { Header: "Name", accessor: "fullName", width: "30%" },
+    { Header: "Email", accessor: "email", width: "40%" },
+    { Header: "Contact", accessor: "phoneNumber", width: "12%" },
+    { Header: "Role", accessor: "role", width: "10%" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -66,7 +66,6 @@ const UserTable: React.FC = () => {
     });
   };
 
- 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     setSelectedUserIds(selectedRowData.map((value: IData) => value.id));
     setOpenDeleteConfirmation(true);
@@ -100,6 +99,7 @@ const UserTable: React.FC = () => {
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
+
       {openDeleteConfirmation && (
         <DeleteConfirmation
           open={openDeleteConfirmation}

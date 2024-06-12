@@ -6,12 +6,12 @@ import CreateGroups from "./CreateGroups";
 const Group = ({ secondTab }) => {
   const navigate = useNavigate();
   const onChangePage = (page) => {
-    navigate("/admin/group" + page);
+    navigate("/admin/groups" + page);
   };
 
   return (
     <>
-      <Box height={10} />
+      {/* <Box height={10} /> */}
       {(secondTab === "groupList" && (
         <GroupList onChangePage={(page) => onChangePage(page)} />
       )) || <CreateGroups onChangePage={(page) => onChangePage(page)} />}

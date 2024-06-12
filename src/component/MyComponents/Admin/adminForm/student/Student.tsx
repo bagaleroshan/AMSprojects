@@ -12,7 +12,7 @@ const Student = ({ secondTab }) => {
 
   return (
     <>
-      <Box height={10} />
+      {/* <Box height={10} /> */}
       {(secondTab === "studentList" && (
         <StudentList onChangePage={(page) => onChangePage(page)} />
       )) || <CreateStudents onChangePage={(page) => onChangePage(page)} />}

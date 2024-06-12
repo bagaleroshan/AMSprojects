@@ -1,52 +1,61 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import TimePicker from "react-time-picker"; // Import react-time-picker
-
-import DwInput from "../dwComponents/DwInput";
+import { useReadSubjectsQuery } from "../../services/api/SubjectService";
+import { groupValidationSchema } from "../../validation/groupValidation";
+import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import { groupValidationSchema } from "../../validation/groupValidation";
-import { useNavigate } from "react-router-dom";
-import { IQuery } from "../../services/api/GroupService";
+import DwInput from "../dwComponents/DwInput";
+import { useReadUsersQuery } from "../../services/api/UserService";
+
+interface Query {
+  page?: number;
+  limit?: number;
+  findQuery?: string;
+  sort?: string[];
+}
 
 const GroupForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  group = {},
+  group = {} as IGroup,
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  const [query, setQuery] = useState<IQuery>({
+  const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
     sort: [],
   });
+  /* Subjects */
+  const { data: dataReadSubjects } = useReadSubjectsQuery({
+    ...query,
+    sort: query.sort.join(","),
+  });
+  // console.log("dataReadSubjects", dataReadSubjects?.result?.results);
 
-  const [startTime, setStartTime] = useState(group.startTime || "");
-  const [endTime, setEndTime] = useState(group.endTime || "");
-  <select
-    name="subject"
-    id="subject"
-    onChange={(e) => {
-      formik.setFieldValue("subject", e.target.value);
-    }}
-  >
-    {newData.map((subjectName, index) => (
-      <option key={index} value={subjectName}>
-        {subjectName}
-      </option>
-    ))}
-  </select>;
+  /* Teachers */
+  const { data: datatReadUsers } = useReadUsersQuery({
+    ...query,
+    sort: query.sort.join(","),
+  });
+
+  let subjects = (dataReadSubjects?.result?.results || []).map((value) => {
+    return {
+      value: value.id,
+      label: value.subjectName,
+    };
+  });
+  let users = (datatReadUsers?.result?.results || []).map((value) => {
+    return {
+      value: value.id,
+      label: value.subjectName,
+    };
+  });
+
   const groupInitialValues: IGroup = {
     subject: group.subject || "",
     teacher: group.teacher || "",
@@ -55,7 +64,6 @@ const GroupForm: React.FC<IFormValues> = ({
     startTime: group.startTime || "",
     endTime: group.endTime || "",
   };
-  const navigate = useNavigate();
   return (
     <div>
       <Formik
@@ -71,7 +79,7 @@ const GroupForm: React.FC<IFormValues> = ({
               <Container component="main" maxWidth="xs">
                 <Box
                   sx={{
-                    marginTop: 2,
+                    marginTop: 1,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -80,87 +88,43 @@ const GroupForm: React.FC<IFormValues> = ({
                   <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
                     <LockOutlinedIcon />
                   </Avatar>
-
                   <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
                     {buttonName}
                   </Typography>
                   <Box sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <select
-                          style={{ width: "200px" }}
-                          name="subject"
-                          id="subject"
-                          onChange={(e) => {
-                            formik.setFieldValue("subject", e.target.value);
-                          }}
-                        />
-                      </Grid>
+                    <Grid container spacing={1}>
                       <Grid item xs={12}>
                         <DwInput
-                          fullWidth
-                          name="teacher"
-                          label="Teacher"
-                          type="teacher"
-                          onChange={(e) => {
-                            formik.setFieldValue("teacher", e.target.value);
-                          }}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12}>
-                        <DwInput
-                          fullWidth
                           name="groupName"
                           label="Group Name"
-                          type="groupName"
+                          type="text"
+                          fullWidth
+                          id="groupName"
                           onChange={(e) => {
                             formik.setFieldValue("groupName", e.target.value);
                           }}
-                          isPhoneNumber={true}
+                          autofocus={true}
                           isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <DwInput
-                          fullWidth
-                          name="students"
-                          label="Students"
-                          type="students"
+                        <DwSelect
+                          name="Subjects"
+                          label="Subjects"
                           onChange={(e) => {
-                            formik.setFieldValue("students", e.target.value);
+                            formik.setFieldValue("subject", e.target.value);
                           }}
-                          isPhoneNumber={true}
-                          isLoading={isLoading}
+                          selectLabels={subjects}
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <label htmlFor="startTime">Start Time</label>
-                        <TimePicker
-                          id="startTime"
-                          value={startTime}
-                          onChange={(val) => {
-                            setStartTime(val);
-                            formik.setFieldValue("startTime", val);
+                        <DwSelect
+                          name="teacher"
+                          label="Teacher"
+                          onChange={(e) => {
+                            formik.setFieldValue("teacher", e.target.value);
                           }}
-                          disableClock={true}
-                          clearIcon={null}
-                          className="form-control"
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <label htmlFor="endTime">End Time</label>
-                        <TimePicker
-                          id="endTime"
-                          value={endTime}
-                          onChange={(val) => {
-                            setEndTime(val);
-                            formik.setFieldValue("endTime", val);
-                          }}
-                          disableClock={true}
-                          clearIcon={null}
-                          className="form-control"
+                          selectLabels={users}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -168,24 +132,6 @@ const GroupForm: React.FC<IFormValues> = ({
                           buttonName={buttonName}
                           isLoading={isLoading}
                         />
-                      </Grid>
-
-                      <Grid container justifyContent="center">
-                        <Grid item>
-                          <Button
-                            color="inherit"
-                            onClick={() => {
-                              navigate("/admin/groups");
-                            }}
-                            sx={{
-                              "&:hover": {
-                                color: "blue",
-                              },
-                            }}
-                          >
-                            Go back?
-                          </Button>
-                        </Grid>
                       </Grid>
                     </Grid>
                   </Box>
