@@ -6,6 +6,7 @@ import {
 } from "../../services/api/SubjectService";
 import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { Box, Typography } from "@mui/material";
 import DeleteConfirmation from "../../DeleteConfirmation";
 
 interface Query {
@@ -18,9 +19,9 @@ interface Query {
 const ShowAllSubjects: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "subjectName" },
-    { Header: "Code", accessor: "subjectCode" },
-    { Header: "Classes", accessor: "numberOfClasses" },
+    { Header: "Name", accessor: "subjectName", width: "40%" },
+    { Header: "Code", accessor: "subjectCode", width: "30%" },
+    { Header: "Classes", accessor: "numberOfClasses", width: "20%" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -81,7 +82,10 @@ const ShowAllSubjects: React.FC = () => {
   };
   return (
     <div>
-      <SubjectExportCSV data={data.result.results} fileName="Subject File" />
+      <SubjectExportCSV
+        data={data.result.results}
+        fileName="Subject File"
+      ></SubjectExportCSV>
 
       <TableComponent
         columns={columns}
@@ -94,6 +98,7 @@ const ShowAllSubjects: React.FC = () => {
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
+
       {openDeleteConfirmation && (
         <DeleteConfirmation
           open={openDeleteConfirmation}
