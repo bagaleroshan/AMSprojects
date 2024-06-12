@@ -12,7 +12,7 @@ const User = ({ secondTab }) => {
 
   return (
     <>
-      <Box height={10} />
+      {/* <Box height={10} /> */}
       {(secondTab === "userList" && (
         <UserList onChangePage={(page) => onChangePage(page)} />
       )) || <CreateUsers onChangePage={(page) => onChangePage(page)} />}

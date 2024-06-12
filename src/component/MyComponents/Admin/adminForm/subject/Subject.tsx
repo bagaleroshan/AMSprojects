@@ -12,7 +12,7 @@ const Subject = ({ secondTab }) => {
 
   return (
     <>
-      <Box height={10} />
+      {/* <Box height={10} /> */}
       {(secondTab === "subjectList" && (
         <SubjectList onChangePage={(page) => onChangePage(page)} />
       )) || <CreateSubject onChangePage={(page) => onChangePage(page)} />}

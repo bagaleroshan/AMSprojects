@@ -78,14 +78,14 @@ const DikshyaAdminRoute = () => {
         </Route>
 
         {/* --------------- Groups------------------------------------ */}
-        <Route path="group" element={<Outlet />}>
+        <Route path="groups" element={<Outlet />}>
           <Route
             index
-            element={<AdminForm firstTab="group" secondTab="groupList" />}
+            element={<AdminForm firstTab="groups" secondTab="groupList" />}
           />
           <Route
             path="create"
-            element={<AdminForm firstTab="group" secondTab="/create" />}
+            element={<AdminForm firstTab="groups" secondTab="/create" />}
           />
 
           {/* <Route path="update" element={<Outlet />}>

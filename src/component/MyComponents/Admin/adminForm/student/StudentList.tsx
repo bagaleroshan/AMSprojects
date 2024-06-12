@@ -15,7 +15,7 @@ const StudentList = ({ onChangePage }) => {
           Add
         </Button>
       </div>
-      <Box height={30} />
+      <Box height={15} />
       <StudentTable />
     </>
   );
