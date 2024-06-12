@@ -1,4 +1,4 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import { userValidation } from "../../validation/userValidation";
@@ -10,7 +10,6 @@ import {
   userInitialValues,
 } from "../interfaces/UserInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 const CreateUserForm: React.FC<IUserFormValues> = ({
   buttonName = "CREATE",

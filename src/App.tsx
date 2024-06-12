@@ -9,8 +9,6 @@ import ResetPassword from "./component/user/ResetPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
-import GroupForm from "./component/group/GroupForm";
-import GroupTable from "./component/group/GroupTable";
 
 const App = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
@@ -25,10 +23,7 @@ const App = () => {
           path="admin/*"
           element={
             <AmsLayout>
-              {/* <AdminRoute /> */}
-              {/* <DikshyaAdminRoute /> */}
-              <GroupForm />
-              {/* <GroupTable /> */}
+              <AdminRoute />
             </AmsLayout>
           }
         />

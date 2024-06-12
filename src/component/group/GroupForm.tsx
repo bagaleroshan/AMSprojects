@@ -1,17 +1,14 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
-import {
-  getErrorMessage,
-  isFetchBaseQueryError,
-  isSerializedError,
-} from "../../utils/utils";
 import { groupValidationSchema } from "../../validation/groupValidation";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import DwInput from "../dwComponents/DwInput";
+import { useReadUsersQuery } from "../../services/api/UserService";
 
 interface Query {
   page?: number;
@@ -33,30 +30,31 @@ const GroupForm: React.FC<IFormValues> = ({
     findQuery: "",
     sort: [],
   });
+  /* Subjects */
   const { data: dataReadSubjects } = useReadSubjectsQuery({
     ...query,
     sort: query.sort.join(","),
   });
-  console.log("dataReadSubjects", dataReadSubjects);
+  // console.log("dataReadSubjects", dataReadSubjects?.result?.results);
 
-  // const {
-  //   isError: isErrorViewSpecific,
-  //   data: dataReadSubjects,
-  //   error: errorViewSpecific,
-  // } = useReadSubjectsQuery({
-  //   ...query,
-  //   sort: query.sort.join(","),
-  // });
-  console.log("dataReadSubjects", dataReadSubjects?.result?.results);
-
-  let subjects = (dataReadSubjects?.result?.results || []).map((value, i) => {
-    return {
-      value: value.id,
-      label: value.subjectCode,
-    };
+  /* Teachers */
+  const { data: datatReadUsers } = useReadUsersQuery({
+    ...query,
+    sort: query.sort.join(","),
   });
 
-  console.log("**************", subjects);
+  let subjects = (dataReadSubjects?.result?.results || []).map((value) => {
+    return {
+      value: value.id,
+      label: value.subjectName,
+    };
+  });
+  let users = (datatReadUsers?.result?.results || []).map((value) => {
+    return {
+      value: value.id,
+      label: value.subjectName,
+    };
+  });
 
   const groupInitialValues: IGroup = {
     subject: group.subject || "",
@@ -66,7 +64,6 @@ const GroupForm: React.FC<IFormValues> = ({
     startTime: group.startTime || "",
     endTime: group.endTime || "",
   };
-
   return (
     <div>
       <Formik
@@ -82,7 +79,7 @@ const GroupForm: React.FC<IFormValues> = ({
               <Container component="main" maxWidth="xs">
                 <Box
                   sx={{
-                    marginTop: 2,
+                    marginTop: 1,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -95,16 +92,45 @@ const GroupForm: React.FC<IFormValues> = ({
                     {buttonName}
                   </Typography>
                   <Box sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={1}>
+                      <Grid item xs={12}>
+                        <DwInput
+                          name="groupName"
+                          label="Group Name"
+                          type="text"
+                          fullWidth
+                          id="groupName"
+                          onChange={(e) => {
+                            formik.setFieldValue("groupName", e.target.value);
+                          }}
+                          autofocus={true}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
                       <Grid item xs={12}>
                         <DwSelect
-                          style={{ width: "200px" }}
                           name="Subjects"
-                          id="subject"
+                          label="Subjects"
                           onChange={(e) => {
                             formik.setFieldValue("subject", e.target.value);
                           }}
                           selectLabels={subjects}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DwSelect
+                          name="teacher"
+                          label="Teacher"
+                          onChange={(e) => {
+                            formik.setFieldValue("teacher", e.target.value);
+                          }}
+                          selectLabels={users}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <MuiLoadingButtonTheme
+                          buttonName={buttonName}
+                          isLoading={isLoading}
                         />
                       </Grid>
                     </Grid>
