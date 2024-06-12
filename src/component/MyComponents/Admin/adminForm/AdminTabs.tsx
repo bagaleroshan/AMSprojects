@@ -89,7 +89,7 @@ function a11yProps(index: number) {
   };
 }
 
-const tabTypes = ["users", "students", "subjects", "group"];
+const tabTypes = ["users", "students", "subjects", "groups"];
 
 interface AdminTabsProps {
   firstTab: string;
@@ -142,7 +142,7 @@ export default function AdminTabs({ firstTab, secondTab }: AdminTabsProps) {
           label="Groups"
           {...a11yProps(3)}
           onClick={() => {
-            navigate("/admin/group");
+            navigate("/admin/groups");
           }}
           sx={{ fontSize: "16px", fontWeight: "bold" }}
         />

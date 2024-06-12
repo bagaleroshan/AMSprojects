@@ -4,9 +4,12 @@ import {
   useDeleteUsersByIdMutation,
   useReadUsersQuery,
 } from "../../services/api/UserService";
-import { IData } from "../ReactTable/MyTable";
-import TableComponent from "../TableComponent/TableComponent";
+
+import UserExportCSV from "../ExportCSV/UserExportCSV";
+
 import { Box, Typography } from "@mui/material";
+import DeleteConfirmation from "../../DeleteConfirmation";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -38,6 +41,8 @@ const UserTable: React.FC = () => {
 
   const [deleteUsers] = useDeleteUsersByIdMutation();
 
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   useEffect(() => {
     refetch();
   }, [query, refetch]);
@@ -62,13 +67,22 @@ const UserTable: React.FC = () => {
     });
   };
 
-  const handleDeleteClick = async (selectedRowData: IData[]) => {
-    for (const value of selectedRowData) {
-      await deleteUsers(value.id).unwrap();
-    }
+  const handleDeleteClick = (selectedRowData: IData[]) => {
+    setSelectedUserIds(selectedRowData.map((value: IData) => value.id));
+    setOpenDeleteConfirmation(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    await Promise.all(selectedUserIds.map((id) => deleteUsers(id)));
+    setOpenDeleteConfirmation(false);
+    setSelectedUserIds([]);
     refetch();
   };
 
+  const handleCancelDelete = () => {
+    setOpenDeleteConfirmation(false);
+    setSelectedUserIds([]);
+  };
   return (
     <div>
       {/* <TableComponent
@@ -88,22 +102,47 @@ const UserTable: React.FC = () => {
             width: "100%",
             textAlign: "center",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
           }}
         >
+          <TableComponent
+            columns={columns}
+            data={data.result.results}
+            query={query}
+            setQuery={setQuery}
+            currentSort={query.sort}
+            totalData={data.result.totalDataInWholePage}
+            onEditClick={handleEditClick}
+            onViewClick={handleViewClick}
+            onDeleteClick={handleDeleteClick}
+          />
           <Typography variant="h5"> No User is available</Typography>
         </Box>
       ) : (
-        <TableComponent
-          columns={columns}
-          data={data.result.results}
-          query={query}
-          setQuery={setQuery}
-          currentSort={query.sort}
-          totalData={data.result.totalDataInWholePage}
-          onEditClick={handleEditClick}
-          onViewClick={handleViewClick}
-          onDeleteClick={handleDeleteClick}
+        <div>
+          <UserExportCSV
+            data={data.result.results}
+            fileName="User File"
+          ></UserExportCSV>
+          <TableComponent
+            columns={columns}
+            data={data.result.results}
+            query={query}
+            setQuery={setQuery}
+            currentSort={query.sort}
+            totalData={data.result.totalDataInWholePage}
+            onEditClick={handleEditClick}
+            onViewClick={handleViewClick}
+            onDeleteClick={handleDeleteClick}
+          />
+        </div>
+      )}
+      {openDeleteConfirmation && (
+        <DeleteConfirmation
+          open={openDeleteConfirmation}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
         />
       )}
     </div>

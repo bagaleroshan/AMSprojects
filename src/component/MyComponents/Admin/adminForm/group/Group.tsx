@@ -6,7 +6,7 @@ import CreateGroups from "./CreateGroups";
 const Group = ({ secondTab }) => {
   const navigate = useNavigate();
   const onChangePage = (page) => {
-    navigate("/admin/group" + page);
+    navigate("/admin/groups" + page);
   };
 
   return (

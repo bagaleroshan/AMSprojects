@@ -1,3 +1,4 @@
+import { Box, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -5,15 +6,15 @@ import {
   useReadStudentsQuery,
 } from "../../services/api/StudentApi";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
-import { Box, Paper, Stack, Typography } from "@mui/material";
 
+import DeleteConfirmation from "../../DeleteConfirmation";
+import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 interface Query {
   page: number;
   limit: number;
   findQuery: string;
   sort: string[];
 }
-
 const StudentTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
@@ -21,52 +22,63 @@ const StudentTable: React.FC = () => {
     { Header: "Email", accessor: "email" },
     { Header: "Contact", accessor: "phoneNumber" },
   ];
-
   const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
     sort: [],
   });
-
   const { data, isLoading, isError, refetch } = useReadStudentsQuery({
     ...query,
     sort: query.sort.join(","),
   });
   const [deleteStudents] = useDeleteStudentMutation();
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
 
   useEffect(() => {
     refetch();
   }, [query, refetch]);
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
-
   const handleStudentEditClick = (selectedRowData: IData[]) => {
     navigate(`/admin/students/update/${selectedRowData[0].id}`, {
       replace: true,
     });
   };
 
-  const handleDeleteClick = (selectedRowData: IData[]) => {
-    selectedRowData.forEach((value: IData) => {
-      deleteStudents(value.id);
-    });
-  };
   const handleViewClick = (selectedRowData: IData[]) => {
     navigate(`/admin/students/${selectedRowData[0].id}`, {
       replace: true,
     });
   };
+  const handleDeleteClick = (selectedRowData: IData[]) => {
+    setSelectedStudentIds(selectedRowData.map((value: IData) => value.id));
+    setOpenDeleteConfirmation(true);
+  };
 
+  const handleConfirmDelete = async () => {
+    await Promise.all(selectedStudentIds.map((id) => deleteStudents(id)));
+    setOpenDeleteConfirmation(false);
+    setSelectedStudentIds([]);
+    refetch();
+  };
+
+  const handleCancelDelete = () => {
+    setOpenDeleteConfirmation(false);
+    setSelectedStudentIds([]);
+  };
   return (
     <div>
-      {/* <TableComponent
+      <StudentExportCSV
+        data={data.result.results}
+        fileName="Student File"
+      ></StudentExportCSV>
+      <TableComponent
         columns={columns}
         data={data.result.results}
         query={query}
@@ -76,50 +88,16 @@ const StudentTable: React.FC = () => {
         onEditClick={handleStudentEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
-      /> */}
+      />
 
-      {data.result.results.length === 0 ? (
-        <div>
-          <Box
-            sx={{
-              width: "100%",
-              textAlign: "center",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <Stack>
-              <TableComponent
-                columns={columns}
-                data={data.result.results}
-                query={query}
-                setQuery={setQuery}
-                currentSort={query.sort}
-                totalData={data.result.totalDataInWholePage}
-                onEditClick={handleStudentEditClick}
-                onViewClick={handleViewClick}
-                onDeleteClick={handleDeleteClick}
-              />
-            </Stack>
-            <Typography variant="h5"> No students is available</Typography>
-          </Box>
-        </div>
-      ) : (
-        <TableComponent
-          columns={columns}
-          data={data.result.results}
-          query={query}
-          setQuery={setQuery}
-          currentSort={query.sort}
-          totalData={data.result.totalDataInWholePage}
-          onEditClick={handleStudentEditClick}
-          onViewClick={handleViewClick}
-          onDeleteClick={handleDeleteClick}
+      {openDeleteConfirmation && (
+        <DeleteConfirmation
+          open={openDeleteConfirmation}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
         />
       )}
     </div>
   );
 };
-
 export default StudentTable;
