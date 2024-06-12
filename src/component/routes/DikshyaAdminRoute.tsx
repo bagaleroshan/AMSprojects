@@ -31,23 +31,8 @@ const DikshyaAdminRoute = () => {
         <Route path="attendance" element={<AdminAttendance />} />
         <Route path="messages" element={<AdminMessages />} />
         <Route path="report" element={<AdminReport />} />
-<<<<<<< HEAD
-        <Route path="forms" element={<Outlet />}>
-          {/* ------------------- Users -------------------------------- */}
-
-          <Route path="users" element={<Outlet />}>
-            <Route
-              index
-              element={<AdminForm firstTab="users" secondTab="userList" />}
-            />
-            <Route
-              path="create"
-              element={<AdminForm firstTab="users" secondTab="/create" />}
-            />
-=======
 
         {/* ------------------- Users -------------------------------- */}
->>>>>>> 96a8b2680d75fcb9cba81497ca1f7b482d410d7e
 
         <Route path="users" element={<Outlet />}>
           <Route

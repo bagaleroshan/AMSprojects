@@ -11,6 +11,7 @@ import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
 import DikshyaAdminRoute from "./component/routes/DikshyaAdminRoute";
+import GroupForm from "./component/group/GroupForm";
 
 const App = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
@@ -27,6 +28,7 @@ const App = () => {
             <AmsLayout>
               <AdminRoute />
               {/* <DikshyaAdminRoute /> */}
+              {/* <GroupForm /> */}
             </AmsLayout>
           }
         />

@@ -11,7 +11,7 @@ import { Form, Formik } from "formik";
 import { validationSchema } from "../../validation/subjectValidation";
 import DwInput from "../dwComponents/DwInput";
 import { IFormValues, ISubject } from "../interfaces/SubjectInterface";
-import MuiLoadingButtonTheme from "../TableComponent/theme/MuiLoadingButtonTheme";
+import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const SubjectForm: React.FC<IFormValues> = ({
   buttonName = "Create",
