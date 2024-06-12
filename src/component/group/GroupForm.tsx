@@ -1,4 +1,5 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import React, { useEffect, useState } from "react";
+import { Form, Formik } from "formik";
 import {
   Avatar,
   Box,
@@ -7,46 +8,75 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { Form, Formik } from "formik";
-import React, { useState } from "react";
-import TimePicker from "react-time-picker"; // Import react-time-picker
-
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import TimePicker from "react-time-picker";
 import DwInput from "../dwComponents/DwInput";
-import { IFormValues, IGroup } from "../interfaces/GroupInterface";
-import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 import { groupValidationSchema } from "../../validation/groupValidation";
-import { useNavigate } from "react-router-dom";
+
+import { IFormValues, IGroup } from "../interfaces/GroupInterface";
+import { useReadStudentsQuery } from "../../services/api/StudentApi";
+import { useReadSubjectsQuery } from "../../services/api/SubjectService";
+import { useReadUsersQuery } from "../../services/api/UserService";
+import DwSelect from "../dwComponents/DwSelect";
 import { IQuery } from "../../services/api/GroupService";
 
 const GroupForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  group = {},
+  group = {} as IGroup,
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  const [query, setQuery] = useState<IQuery>({
-    page: 1,
-    limit: 10,
-    findQuery: "",
-    sort: [],
-  });
+  const [subjects, setSubjects] = useState<string[]>([]);
+  const [teachers, setTeachers] = useState<string[]>([]);
+  const [students, setStudents] = useState<string[]>([]);
 
-  const [startTime, setStartTime] = useState(group.startTime || "");
-  const [endTime, setEndTime] = useState(group.endTime || "");
-  <select
-    name="subject"
-    id="subject"
-    onChange={(e) => {
-      formik.setFieldValue("subject", e.target.value);
-    }}
-  >
-    {newData.map((subjectName, index) => (
-      <option key={index} value={subjectName}>
-        {subjectName}
-      </option>
-    ))}
-  </select>;
+  const { data: subjectsData } = useReadSubjectsQuery({
+    page: 1,
+    limit: 100,
+  } as IQuery);
+  const { data: teachersData } = useReadUsersQuery({
+    page: 1,
+    limit: 100,
+  } as IQuery);
+  const { data: studentsData } = useReadStudentsQuery({
+    page: 1,
+    limit: 100,
+  } as IQuery);
+
+  useEffect(() => {
+    if (subjectsData) {
+      setSubjects(
+        subjectsData.result.results.map(
+          (value: { subjectName: string }) => value.subjectName
+        )
+      );
+    }
+  }, [subjectsData]);
+
+  useEffect(() => {
+    if (teachersData) {
+      setTeachers(
+        teachersData.result.results.map(
+          (value: { teacherName: string }) => value.teacherName
+        )
+      );
+    }
+  }, [teachersData]);
+
+  useEffect(() => {
+    if (studentsData) {
+      setStudents(
+        studentsData.result.results.map(
+          (value: { studentName: string }) => value.studentName
+        )
+      );
+    }
+  }, [studentsData]);
+
+  const [startTime, setStartTime] = useState<string>(group.startTime || "");
+  const [endTime, setEndTime] = useState<string>(group.endTime || "");
+
   const groupInitialValues: IGroup = {
     subject: group.subject || "",
     teacher: group.teacher || "",
@@ -55,7 +85,7 @@ const GroupForm: React.FC<IFormValues> = ({
     startTime: group.startTime || "",
     endTime: group.endTime || "",
   };
-  const navigate = useNavigate();
+
   return (
     <div>
       <Formik
@@ -87,28 +117,56 @@ const GroupForm: React.FC<IFormValues> = ({
                   <Box sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <select
+                        <DwSelect
+                          selectLabels={["Label 1", "Label 2"]}
                           style={{ width: "200px" }}
                           name="subject"
                           id="subject"
                           onChange={(e) => {
                             formik.setFieldValue("subject", e.target.value);
                           }}
-                        />
+                        >
+                          {subjects.map((subjectName, index) => (
+                            <option key={index} value={subjectName}>
+                              {subjectName}
+                            </option>
+                          ))}
+                        </DwSelect>
                       </Grid>
                       <Grid item xs={12}>
-                        <DwInput
-                          fullWidth
+                        <DwSelect
+                          selectLabels={["Label 1", "Label 2"]}
+                          style={{ width: "200px" }}
                           name="teacher"
-                          label="Teacher"
-                          type="teacher"
+                          id="teacher"
                           onChange={(e) => {
                             formik.setFieldValue("teacher", e.target.value);
                           }}
-                          isLoading={isLoading}
-                        />
+                        >
+                          {teachers.map((teacherName, index) => (
+                            <option key={index} value={teacherName}>
+                              {teacherName}
+                            </option>
+                          ))}
+                        </DwSelect>
                       </Grid>
-
+                      <Grid item xs={12}>
+                        <DwSelect
+                          selectLabels={["Label 1", "Label 2"]}
+                          style={{ width: "200px" }}
+                          name="students"
+                          id="students"
+                          onChange={(e) => {
+                            formik.setFieldValue("students", e.target.value);
+                          }}
+                        >
+                          {students.map((studentName, index) => (
+                            <option key={index} value={studentName}>
+                              {studentName}
+                            </option>
+                          ))}
+                        </DwSelect>
+                      </Grid>
                       <Grid item xs={12}>
                         <DwInput
                           fullWidth
@@ -123,30 +181,14 @@ const GroupForm: React.FC<IFormValues> = ({
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <DwInput
-                          fullWidth
-                          name="students"
-                          label="Students"
-                          type="students"
-                          onChange={(e) => {
-                            formik.setFieldValue("students", e.target.value);
-                          }}
-                          isPhoneNumber={true}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
                         <label htmlFor="startTime">Start Time</label>
                         <TimePicker
                           id="startTime"
                           value={startTime}
-                          onChange={(val) => {
-                            setStartTime(val);
-                            formik.setFieldValue("startTime", val);
+                          onChange={(value: string) => {
+                            setStartTime(value);
+                            formik.setFieldValue("startTime", value);
                           }}
-                          disableClock={true}
-                          clearIcon={null}
-                          className="form-control"
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -154,38 +196,22 @@ const GroupForm: React.FC<IFormValues> = ({
                         <TimePicker
                           id="endTime"
                           value={endTime}
-                          onChange={(val) => {
-                            setEndTime(val);
-                            formik.setFieldValue("endTime", val);
+                          onChange={(value: string) => {
+                            setEndTime(value);
+                            formik.setFieldValue("endTime", value);
                           }}
-                          disableClock={true}
-                          clearIcon={null}
-                          className="form-control"
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <MuiLoadingButtonTheme
-                          buttonName={buttonName}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
-
-                      <Grid container justifyContent="center">
-                        <Grid item>
-                          <Button
-                            color="inherit"
-                            onClick={() => {
-                              navigate("/admin/groups");
-                            }}
-                            sx={{
-                              "&:hover": {
-                                color: "blue",
-                              },
-                            }}
-                          >
-                            Go back?
-                          </Button>
-                        </Grid>
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          disabled={isLoading}
+                        >
+                          {buttonName}
+                        </Button>
                       </Grid>
                     </Grid>
                   </Box>

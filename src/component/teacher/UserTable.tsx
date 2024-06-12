@@ -6,8 +6,7 @@ import {
 } from "../../services/api/UserService";
 
 import UserExportCSV from "../ExportCSV/UserExportCSV";
-import { IData } from "../ReactTable/MyTable";
-import TableComponent from "../TableComponent/TableComponent";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 import DeleteConfirmation from "../../DeleteConfirmation";
 
 interface Query {
