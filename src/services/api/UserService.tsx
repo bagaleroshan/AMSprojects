@@ -16,6 +16,9 @@ export const UserApi = createApi({
           url: "/users",
           method: "POST",
           body,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         };
       },
       invalidatesTags: ["readUsers"],
