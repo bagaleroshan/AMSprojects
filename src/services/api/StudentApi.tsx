@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface IQuery {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort: string;
+  page?: number;
+  limit?: number;
+  findQuery?: string;
+  sort?: string;
 }
 
 export const StudentApi = createApi({
