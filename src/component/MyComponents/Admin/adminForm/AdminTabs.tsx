@@ -147,7 +147,7 @@ export default function AdminTabs({ firstTab, secondTab }: AdminTabsProps) {
           sx={{ fontSize: "16px", fontWeight: "bold" }}
         />
       </StyledTabs>
-      {/* </Box> */}
+
       <CustomTabPanel value={value} index={0}>
         <User secondTab={secondTab} />
       </CustomTabPanel>

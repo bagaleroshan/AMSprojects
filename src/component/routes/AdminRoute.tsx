@@ -70,6 +70,20 @@ const AdminRoute = () => {
           <Route path=":id" element={<ReadSpecificSubject />} />
         </Route>
 
+        {/* --------------- Group------------------------------------ */}
+        <Route path="groups" element={<Outlet />}>
+          <Route
+            index
+            element={<AdminForm firstTab="groups" secondTab="groupList" />}
+          />
+          <Route
+            path="create"
+            element={<AdminForm firstTab="groups" secondTab="create" />}
+          />
+          {/* <Route path="update/:id" element={<UpdateSubject />} /> */}
+          {/* <Route path=":id" element={<ReadSpecificSubject />} /> */}
+        </Route>
+
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>

@@ -7,7 +7,6 @@ import {
 
 import UserExportCSV from "../ExportCSV/UserExportCSV";
 
-import { Box, Typography } from "@mui/material";
 import DeleteConfirmation from "../../DeleteConfirmation";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
 

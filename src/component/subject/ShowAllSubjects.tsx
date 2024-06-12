@@ -19,9 +19,9 @@ interface Query {
 const ShowAllSubjects: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "subjectName" },
-    { Header: "Code", accessor: "subjectCode" },
-    { Header: "Classes", accessor: "numberOfClasses" },
+    { Header: "Name", accessor: "subjectName", width: "40%" },
+    { Header: "Code", accessor: "subjectCode", width: "30%" },
+    { Header: "Classes", accessor: "numberOfClasses", width: "20%" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -82,7 +82,7 @@ const ShowAllSubjects: React.FC = () => {
   };
   return (
     <div>
-      {/* <SubjectExportCSV
+      <SubjectExportCSV
         data={data.result.results}
         fileName="Subject File"
       ></SubjectExportCSV>
@@ -97,50 +97,7 @@ const ShowAllSubjects: React.FC = () => {
         onEditClick={handleEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
-      /> */}
-
-      {data.result.results.length === 0 ? (
-        <Box
-          sx={{
-            width: "100%",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <TableComponent
-            columns={columns}
-            data={data.result.results}
-            query={query}
-            setQuery={setQuery}
-            currentSort={query.sort}
-            totalData={data.result.totalDataInWholePage}
-            onEditClick={handleEditClick}
-            onViewClick={handleViewClick}
-            onDeleteClick={handleDeleteClick}
-          />
-          <Typography variant="h5"> No User is available</Typography>
-        </Box>
-      ) : (
-        <div>
-          <SubjectExportCSV
-            data={data.result.results}
-            fileName="Subject File"
-          ></SubjectExportCSV>
-          <TableComponent
-            columns={columns}
-            data={data.result.results}
-            query={query}
-            setQuery={setQuery}
-            currentSort={query.sort}
-            totalData={data.result.totalDataInWholePage}
-            onEditClick={handleEditClick}
-            onViewClick={handleViewClick}
-            onDeleteClick={handleDeleteClick}
-          />
-        </div>
-      )}
+      />
 
       {openDeleteConfirmation && (
         <DeleteConfirmation
