@@ -81,10 +81,7 @@ const ShowAllSubjects: React.FC = () => {
   };
   return (
     <div>
-      <SubjectExportCSV
-        data={data.result.results}
-        fileName="Subject File"
-      ></SubjectExportCSV>
+      <SubjectExportCSV data={data.result.results} fileName="Subject File" />
 
       <TableComponent
         columns={columns}

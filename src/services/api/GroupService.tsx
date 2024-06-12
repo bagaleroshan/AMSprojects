@@ -17,47 +17,82 @@ export const GroupApi = createApi({
   endpoints: (builder) => ({
     readGroup: builder.query({
       query: (query: IQuery) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/groups?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       providesTags: ["readGroups"],
     }),
     createGroup: builder.mutation({
       query: (body) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: "/groups",
           method: "POST",
           body: body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       invalidatesTags: ["readGroups"],
     }),
     updateGroup: builder.mutation({
       query: (data) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/groups/${data.id}`,
           method: "PATCH",
           body: data.body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       invalidatesTags: ["readGroups", "readGroupsById"],
     }),
     readGroupById: builder.query({
       query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/groups/${id}`,
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       providesTags: ["readGroups"],
     }),
     deleteGroup: builder.mutation({
       query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/groups/${id}`,
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       invalidatesTags: ["readGroups"],

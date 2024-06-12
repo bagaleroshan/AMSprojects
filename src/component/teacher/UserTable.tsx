@@ -6,8 +6,7 @@ import {
 } from "../../services/api/UserService";
 
 import UserExportCSV from "../ExportCSV/UserExportCSV";
-import { IData } from "../ReactTable/MyTable";
-import TableComponent from "../TableComponent/TableComponent";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 import DeleteConfirmation from "../../DeleteConfirmation";
 
 interface Query {
@@ -66,12 +65,7 @@ const UserTable: React.FC = () => {
     });
   };
 
-  // const handleDeleteClick = async (selectedRowData: IData[]) => {
-  //   for (const value of selectedRowData) {
-  //     await deleteUsers(value.id).unwrap();
-  //   }
-  //   refetch();
-  // };
+ 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     setSelectedUserIds(selectedRowData.map((value: IData) => value.id));
     setOpenDeleteConfirmation(true);
