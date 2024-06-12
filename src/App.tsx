@@ -24,7 +24,6 @@ const App = () => {
           element={
             <AmsLayout>
               <AdminRoute />
-              {/* <DikshyaAdminRoute /> */}
             </AmsLayout>
           }
         />
