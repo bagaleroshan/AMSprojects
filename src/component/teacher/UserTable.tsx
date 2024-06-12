@@ -65,12 +65,7 @@ const UserTable: React.FC = () => {
     });
   };
 
-  // const handleDeleteClick = async (selectedRowData: IData[]) => {
-  //   for (const value of selectedRowData) {
-  //     await deleteUsers(value.id).unwrap();
-  //   }
-  //   refetch();
-  // };
+ 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     setSelectedUserIds(selectedRowData.map((value: IData) => value.id));
     setOpenDeleteConfirmation(true);

@@ -98,3 +98,4 @@ const StudentTable: React.FC = () => {
   );
 };
 export default StudentTable;
+
