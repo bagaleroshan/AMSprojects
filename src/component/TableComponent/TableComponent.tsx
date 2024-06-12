@@ -7,6 +7,7 @@ import {
   Button,
   InputAdornment,
   MenuItem,
+  Pagination,
   Stack,
   TextField,
 } from "@mui/material";
@@ -180,8 +181,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
           justifyContent: "space-between",
         }}
       >
-       
-
         <TextField
           size="small"
           variant="outlined"
@@ -237,7 +236,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              <th style={{width:"80px"}}>Select</th>
+              <th style={{ width: "80px" }}>Select</th>
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -270,36 +269,41 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </tbody>
       </table>
       <div>
-        <Box height={10} />
-        
-       <Stack display="flex" flexDirection="row" justifyContent="space-between">
-        <TextField
-          size="small"
-          id="select"
-          value={query.limit}
-          onChange={(e) =>
-            handleQueryChange({ limit: Number(e.target.value), page: 1 })
-          }
-          select
-        >
-          <MenuItem value={10}>Limit 10</MenuItem>
-          <MenuItem value={20}>Limit 20</MenuItem>
-          <MenuItem value={40}>Limit 40</MenuItem>
-          <MenuItem value={1000}>Show All</MenuItem>
-        </TextField>
+        <Box height={15} />
 
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={Math.ceil(totalData / query.limit)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          activeClassName={"active"}
-        />
+        <Stack
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+        >
+          <TextField
+            sx={{ marginTop: "10px" }}
+            size="small"
+            id="select"
+            value={query.limit}
+            onChange={(e) =>
+              handleQueryChange({ limit: Number(e.target.value), page: 1 })
+            }
+            select
+          >
+            <MenuItem value={10}>Limit 10</MenuItem>
+            <MenuItem value={20}>Limit 20</MenuItem>
+            <MenuItem value={40}>Limit 40</MenuItem>
+            <MenuItem value={1000}>Show All</MenuItem>
+          </TextField>
+
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={Math.ceil(totalData / query.limit)}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
         </Stack>
       </div>
     </div>

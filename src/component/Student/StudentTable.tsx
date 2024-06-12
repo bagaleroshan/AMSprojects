@@ -5,6 +5,7 @@ import {
   useReadStudentsQuery,
 } from "../../services/api/StudentApi";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 
 interface Query {
   page: number;
@@ -65,7 +66,6 @@ const StudentTable: React.FC = () => {
 
   return (
     <div>
-
       {/* <TableComponent
         columns={columns}
         data={data.result.results}
@@ -78,8 +78,33 @@ const StudentTable: React.FC = () => {
         onDeleteClick={handleDeleteClick}
       /> */}
 
-{data.result.results.length === 0 ? (
-        <p>No students is available</p>
+      {data.result.results.length === 0 ? (
+        <div>
+          <Box
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Stack>
+              <TableComponent
+                columns={columns}
+                data={data.result.results}
+                query={query}
+                setQuery={setQuery}
+                currentSort={query.sort}
+                totalData={data.result.totalDataInWholePage}
+                onEditClick={handleStudentEditClick}
+                onViewClick={handleViewClick}
+                onDeleteClick={handleDeleteClick}
+              />
+            </Stack>
+            <Typography variant="h5"> No students is available</Typography>
+          </Box>
+        </div>
       ) : (
         <TableComponent
           columns={columns}

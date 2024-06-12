@@ -11,7 +11,7 @@ const Group = ({ secondTab }) => {
 
   return (
     <>
-      <Box height={10} />
+      {/* <Box height={10} /> */}
       {(secondTab === "groupList" && (
         <GroupList onChangePage={(page) => onChangePage(page)} />
       )) || <CreateGroups onChangePage={(page) => onChangePage(page)} />}

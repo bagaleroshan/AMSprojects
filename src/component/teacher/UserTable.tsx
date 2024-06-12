@@ -6,6 +6,7 @@ import {
 } from "../../services/api/UserService";
 import { IData } from "../ReactTable/MyTable";
 import TableComponent from "../TableComponent/TableComponent";
+import { Box, Typography } from "@mui/material";
 
 interface Query {
   page: number;
@@ -70,7 +71,7 @@ const UserTable: React.FC = () => {
 
   return (
     <div>
-      <TableComponent
+      {/* <TableComponent
         columns={columns}
         data={data.result.results}
         query={query}
@@ -80,7 +81,31 @@ const UserTable: React.FC = () => {
         onEditClick={handleEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
-      />
+      /> */}
+      {data.result.results.length === 0 ? (
+        <Box
+          sx={{
+            width: "100%",
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Typography variant="h5"> No User is available</Typography>
+        </Box>
+      ) : (
+        <TableComponent
+          columns={columns}
+          data={data.result.results}
+          query={query}
+          setQuery={setQuery}
+          currentSort={query.sort}
+          totalData={data.result.totalDataInWholePage}
+          onEditClick={handleEditClick}
+          onViewClick={handleViewClick}
+          onDeleteClick={handleDeleteClick}
+        />
+      )}
     </div>
   );
 };
