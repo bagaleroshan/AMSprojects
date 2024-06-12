@@ -27,55 +27,68 @@ const GroupForm: React.FC<IFormValues> = ({
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
-  const [subjects, setSubjects] = useState<string[]>([]);
-  const [teachers, setTeachers] = useState<string[]>([]);
-  const [students, setStudents] = useState<string[]>([]);
-
-  const { data: subjectsData } = useReadSubjectsQuery({
+  const [query, setQuery] = useState<Query>({
     page: 1,
-    limit: 100,
-  } as IQuery);
-  const { data: teachersData } = useReadUsersQuery({
-    page: 1,
-    limit: 100,
-  } as IQuery);
-  const { data: studentsData } = useReadStudentsQuery({
-    page: 1,
-    limit: 100,
-  } as IQuery);
+    limit: 10,
+    findQuery: "",
+    sort: [],
+  });
+  const { data: dataReadSubjects } = useReadSubjectsQuery({
+    ...query,
+    sort: query.sort.join(","),
+  });
+  const subjects = dataReadSubjects?.result || {};
+  console.log("dataReadSubjects", dataReadSubjects);
 
-  useEffect(() => {
-    if (subjectsData) {
-      setSubjects(
-        subjectsData.result.results.map(
-          (value: { subjectName: string }) => value.subjectName
-        )
-      );
-    }
-  }, [subjectsData]);
+  // const [subjects, setSubjects] = useState<string[]>([]);
+  // const [teachers, setTeachers] = useState<string[]>([]);
+  // const [students, setStudents] = useState<string[]>([]);
 
-  useEffect(() => {
-    if (teachersData) {
-      setTeachers(
-        teachersData.result.results.map(
-          (value: { teacherName: string }) => value.teacherName
-        )
-      );
-    }
-  }, [teachersData]);
+  // const { data: subjectsData } = useReadSubjectsQuery({
+  //   page: 1,
+  //   limit: 100,
+  // } as IQuery);
+  // const { data: teachersData } = useReadUsersQuery({
+  //   page: 1,
+  //   limit: 100,
+  // } as IQuery);
+  // const { data: studentsData } = useReadStudentsQuery({
+  //   page: 1,
+  //   limit: 100,
+  // } as IQuery);
 
-  useEffect(() => {
-    if (studentsData) {
-      setStudents(
-        studentsData.result.results.map(
-          (value: { studentName: string }) => value.studentName
-        )
-      );
-    }
-  }, [studentsData]);
+  // useEffect(() => {
+  //   if (subjectsData) {
+  //     setSubjects(
+  //       subjectsData.result.results.map(
+  //         (value: { subjectName: string }) => value.subjectName
+  //       )
+  //     );
+  //   }
+  // }, [subjectsData]);
 
-  const [startTime, setStartTime] = useState<string>(group.startTime || "");
-  const [endTime, setEndTime] = useState<string>(group.endTime || "");
+  // useEffect(() => {
+  //   if (teachersData) {
+  //     setTeachers(
+  //       teachersData.result.results.map(
+  //         (value: { teacherName: string }) => value.teacherName
+  //       )
+  //     );
+  //   }
+  // }, [teachersData]);
+
+  // useEffect(() => {
+  //   if (studentsData) {
+  //     setStudents(
+  //       studentsData.result.results.map(
+  //         (value: { studentName: string }) => value.studentName
+  //       )
+  //     );
+  //   }
+  // }, [studentsData]);
+
+  // const [startTime, setStartTime] = useState<string>(group.startTime || "");
+  // const [endTime, setEndTime] = useState<string>(group.endTime || "");
 
   const groupInitialValues: IGroup = {
     subject: group.subject || "",
@@ -118,24 +131,17 @@ const GroupForm: React.FC<IFormValues> = ({
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <DwSelect
-                          selectLabels={["Label 1", "Label 2"]}
                           style={{ width: "200px" }}
-                          name="subject"
+                          name="Subjects"
                           id="subject"
                           onChange={(e) => {
                             formik.setFieldValue("subject", e.target.value);
                           }}
-                        >
-                          {subjects.map((subjectName, index) => (
-                            <option key={index} value={subjectName}>
-                              {subjectName}
-                            </option>
-                          ))}
-                        </DwSelect>
+                          selectLabels={subjects}
+                        />
                       </Grid>
-                      <Grid item xs={12}>
+                      {/* <Grid item xs={12}>
                         <DwSelect
-                          selectLabels={["Label 1", "Label 2"]}
                           style={{ width: "200px" }}
                           name="teacher"
                           id="teacher"
@@ -152,7 +158,6 @@ const GroupForm: React.FC<IFormValues> = ({
                       </Grid>
                       <Grid item xs={12}>
                         <DwSelect
-                          selectLabels={["Label 1", "Label 2"]}
                           style={{ width: "200px" }}
                           name="students"
                           id="students"
@@ -212,7 +217,7 @@ const GroupForm: React.FC<IFormValues> = ({
                         >
                           {buttonName}
                         </Button>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                   </Box>
                 </Box>
