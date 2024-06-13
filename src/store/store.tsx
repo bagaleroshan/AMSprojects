@@ -1,14 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import groupSlice from "../features/groupSlice";
+import studentSlice from "../features/studentSlice";
 import subjectSlice from "../features/subjectSlice";
+import userSlice from "../features/userSlice";
+import { GroupApi } from "../services/api/GroupService";
+import { StudentApi } from "../services/api/StudentApi";
 import { SubjectApi } from "../services/api/SubjectService";
 import { UserApi } from "../services/api/UserService";
-import studentSlice from "../features/studentSlice";
-import userSlice from "../features/userSlice";
-import { StudentApi } from "../services/api/StudentApi";
-import groupSlice from "../features/groupSlice";
-import { GroupApi } from "../services/api/GroupService";
 
 // Configuration object for Redux Persist
 const persistConfig = {
