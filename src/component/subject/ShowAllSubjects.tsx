@@ -8,6 +8,8 @@ import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
 import { Box, Typography } from "@mui/material";
 import DeleteConfirmation from "../../DeleteConfirmation";
+import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
+import { toast } from "react-toastify";
 
 interface Query {
   page: number;
@@ -35,7 +37,36 @@ const ShowAllSubjects: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteSubject] = useDeleteSubjectMutation();
+  const [
+    deleteSubject,
+    {
+      isError: isErrorDeleteSubject,
+      error: errorDeleteSubject,
+      isSuccess: isSuccessDeleteSubject,
+      data: dataDeleteSubject,
+    },
+  ] = useDeleteSubjectMutation();
+  useEffect(() => {
+    if (isErrorDeleteSubject) {
+      if (isFetchBaseQueryError(errorDeleteSubject)) {
+        toast.error(getErrorMessage(errorDeleteSubject), { autoClose: 5000 });
+      } else if (isSerializedError(errorDeleteSubject)) {
+        toast.error(errorDeleteSubject?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
+  }, [isErrorDeleteSubject, errorDeleteSubject]);
+
+  useEffect(() => {
+    if (isSuccessDeleteSubject) {
+      toast.success(dataDeleteSubject.message, {
+        autoClose: 3000,
+      });
+    }
+  }, [isSuccessDeleteSubject, dataDeleteSubject]);
+
+
 
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>([]);

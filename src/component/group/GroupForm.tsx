@@ -10,7 +10,6 @@ import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import DwCheckbox from "../dwComponents/DwCheckbox";
 
 interface Query {
   page?: number;
@@ -82,12 +81,12 @@ const GroupForm: React.FC<IFormValues> = ({
   );
 
   const groupInitialValues: IGroup = {
-    subject: group.subject || "",
-    teacher: group.teacher || "",
-    groupName: group.groupName || "",
-    students: group.students || "",
-    startTime: group.startTime || "",
-    endTime: group.endTime || "",
+    subject: "",
+    teacher: "",
+    groupName: "",
+    students: "",
+    startTime: "",
+    endTime: "",
   };
   return (
     <div>
@@ -168,16 +167,7 @@ const GroupForm: React.FC<IFormValues> = ({
                           isLoading={isLoading}
                         />
                       </Grid>
-                      <Grid item xs={12}>
-                        <DwCheckbox
-                          name="active"
-                          label="Class Ongoing?"
-                          onChange={(e) => {
-                            formik.setFieldValue("active", e.target.checked);
-                          }}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
+
                       <Grid item xs={12}>
                         <MuiLoadingButtonTheme
                           buttonName={buttonName}

@@ -8,6 +8,8 @@ import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 import DeleteConfirmation from "../../DeleteConfirmation";
 import StudentExportCSV from "../ExportCSV/StudentExportCSV";
+import { toast } from "react-toastify";
+import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
 interface Query {
   page: number;
   limit: number;
@@ -31,7 +33,28 @@ const StudentTable: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteStudents] = useDeleteStudentMutation();
+  const [deleteStudents,{isError:isDeleteStudentError,error:errorDeleteStudent,isSuccess:isSuccessDeleteStudent,data:successDeleteStudent}] = useDeleteStudentMutation();
+
+  useEffect(() => {
+    if (isDeleteStudentError) {
+      if (isFetchBaseQueryError(errorDeleteStudent)) {
+        toast.error(getErrorMessage(errorDeleteStudent), { autoClose: 5000 });
+      } else if (isSerializedError(errorDeleteStudent)) {
+        toast.error(errorDeleteStudent?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
+  }, [isDeleteStudentError, errorDeleteStudent]);
+  
+  useEffect(() => {
+    if (isSuccessDeleteStudent) {
+      toast.success(successDeleteStudent.message, {
+        autoClose: 3000,
+      });
+    }
+  }, [isSuccessDeleteStudent, successDeleteStudent]);
+
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
 
