@@ -2,12 +2,13 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {
   Box,
   Button,
   InputAdornment,
   MenuItem,
-  Pagination,
   Stack,
   TextField,
   Typography,
@@ -118,7 +119,12 @@ const TableComponent: React.FC<TableComponentProps> = ({
   const renderSortIcon = (accessor: string) => {
     const sortField = currentSort.find((sort) => sort.includes(accessor));
     if (sortField) {
-      return sortField.startsWith("-") ? "↓" : "↑";
+      // return sortField.startsWith("-") ? "↓" : "↑";
+      return sortField.startsWith("-") ? (
+        <ArrowDownwardIcon style={{ fontSize: "16px", marginLeft: "10px" }} />
+      ) : (
+        <ArrowUpwardIcon style={{ fontSize: "16px", marginLeft: "10px" }} />
+      );
     }
     return "";
   };
@@ -174,116 +180,167 @@ const TableComponent: React.FC<TableComponentProps> = ({
 
   return (
     <div className="table-container">
-      <Stack
-        sx={{
-          direction: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <TextField
-          size="small"
-          variant="outlined"
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
+      <div>
+        <Stack
+          sx={{
+            direction: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
-        />
-        {selectedRows.size > 0 && (
-          <Stack display="flex" direction="row" spacing={0.5}>
-            <Button
-              variant="contained"
-              onClick={handleEditClick}
-              startIcon={<EditOutlinedIcon />}
-              disabled={
-                selectedRowData.length === 0 || selectedRowData.length > 1
-              }
-            >
-              Edit
-            </Button>
-            <Button
-              color="error"
-              variant="contained"
-              startIcon={<DeleteOutlineOutlinedIcon />}
-              onClick={handleDeleteClick}
-              disabled={selectedRowData.length === 0}
-            >
-              Delete
-            </Button>
-            <Button
-              color="success"
-              variant="contained"
-              startIcon={<VisibilityOutlinedIcon />}
-              onClick={handleViewClick}
-              disabled={
-                selectedRowData.length === 0 || selectedRowData.length > 1
-              }
-            >
-              View
-            </Button>
-          </Stack>
-        )}
-      </Stack>
-      <Box height={15} />
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              <th>Select</th>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  style={{ width: column.width || "auto" }}
-                  onClick={() => handleSort(column.id)}
-                >
-                  {column.render("Header")}
-                  {renderSortIcon(column.id)}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, index) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} onClick={() => handleRowClick(index)}>
-                <td>
-                  <Checkbox
-                    checked={selectedRows.has(index)}
-                    onChange={(e) => e.stopPropagation()} // prevent row click
-                  />
-                </td>
-                {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+        >
+          <TextField
+            size="small"
+            variant="outlined"
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          {selectedRows.size > 0 && (
+            <Stack display="flex" direction="row" spacing={0.5}>
+              <Button
+                variant="contained"
+                onClick={handleEditClick}
+                startIcon={<EditOutlinedIcon />}
+                disabled={
+                  selectedRowData.length === 0 || selectedRowData.length > 1
+                }
+              >
+                Edit
+              </Button>
+              <Button
+                color="error"
+                variant="contained"
+                startIcon={<DeleteOutlineOutlinedIcon />}
+                onClick={handleDeleteClick}
+                disabled={selectedRowData.length === 0}
+              >
+                Delete
+              </Button>
+              <Button
+                color="success"
+                variant="contained"
+                startIcon={<VisibilityOutlinedIcon />}
+                onClick={handleViewClick}
+                disabled={
+                  selectedRowData.length === 0 || selectedRowData.length > 1
+                }
+              >
+                View
+              </Button>
+            </Stack>
+          )}
+        </Stack>
+        <Box height={15} />
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                <th style={{ width: "10%" }}>Select</th>
+
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    style={{ width: column.width || "auto" }}
+                    onClick={() => handleSort(column.id)}
+                  >
+                    {column.render("Header")}
+                    {renderSortIcon(column.id)}
+                  </th>
                 ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <div>
-        <Box height={15} />
-        {data.length === 0 ? (
-          <Box
-            sx={{
-              width: "100%",
-              textAlign: "center",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <Box height={60} />
-            <Typography variant="h5">This {searchTerm} is not available</Typography>
-            <Box height={60} />
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, index) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  onClick={() => handleRowClick(index)}
+                >
+                  <td>
+                    <Checkbox
+                      checked={selectedRows.has(index)}
+                      onChange={(e) => e.stopPropagation()} // prevent row click
+                    />
+                  </td>
+                  {row.cells.map((cell) => (
+                    <td
+                      {...cell.getCellProps()}
+                      style={{ width: cell.column.width || "auto" }}
+                    >
+                      {cell.render("Cell")}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div>
+          <Box height={15} />
+          {data.length === 0 ? (
+            <Box
+              sx={{
+                width: "100%",
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Box height={60} />
+              <Typography variant="h5">
+                This {searchTerm} is not available
+              </Typography>
+              <Box height={60} />
+              <Stack
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+              >
+                <TextField
+                  sx={{ marginTop: "10px" }}
+                  size="small"
+                  id="select"
+                  value={query.limit}
+                  onChange={(e) =>
+                    handleQueryChange({
+                      limit: Number(e.target.value),
+                      page: 1,
+                    })
+                  }
+                  select
+                >
+                  <MenuItem value={10}>Limit 10</MenuItem>
+                  <MenuItem value={20}>Limit 20</MenuItem>
+                  <MenuItem value={40}>Limit 40</MenuItem>
+                  <MenuItem value={1000}>Show All</MenuItem>
+                </TextField>
+
+                <ReactPaginate
+                  previousLabel={"previous"}
+                  nextLabel={"next"}
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={Math.ceil(totalData / query.limit)}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageClick}
+                  containerClassName={"pagination"}
+                  activeClassName={"active"}
+                />
+              </Stack>
+            </Box>
+          ) : (
             <Stack
               display="flex"
               flexDirection="row"
@@ -318,44 +375,8 @@ const TableComponent: React.FC<TableComponentProps> = ({
                 activeClassName={"active"}
               />
             </Stack>
-          </Box>
-        ) : (
-          <Stack
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-          >
-            <TextField
-              sx={{ marginTop: "10px" }}
-              size="small"
-              id="select"
-              value={query.limit}
-              onChange={(e) =>
-                handleQueryChange({ limit: Number(e.target.value), page: 1 })
-              }
-              select
-            >
-              <MenuItem value={10}>Limit 10</MenuItem>
-              <MenuItem value={20}>Limit 20</MenuItem>
-              <MenuItem value={40}>Limit 40</MenuItem>
-              <MenuItem value={1000}>Show All</MenuItem>
-            </TextField>
-
-            <ReactPaginate
-              previousLabel={"previous"}
-              nextLabel={"next"}
-              breakLabel={"..."}
-              breakClassName={"break-me"}
-              pageCount={Math.ceil(totalData / query.limit)}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              activeClassName={"active"}
-            />
-          </Stack>
-        )}
-        {/* <Stack
+          )}
+          {/* <Stack
           display="flex"
           flexDirection="row"
           justifyContent="space-between"
@@ -389,6 +410,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             activeClassName={"active"}
           />
         </Stack> */}
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
-import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
-import AdminMessages from "../MyComponents/Admin/AdminMessages";
-import AdminReport from "../MyComponents/Admin/AdminReport";
-import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import AdminAttendance from "../mycomponents/admin/AdminAttendance";
+import AdminDashboard from "../mycomponents/admin/AdminDashboard";
+import AdminMessages from "../mycomponents/admin/AdminMessages";
+import AdminReport from "../mycomponents/admin/AdminReport";
+import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";

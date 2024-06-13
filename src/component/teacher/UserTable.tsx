@@ -20,9 +20,10 @@ interface Query {
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
+    
     { Header: "Name", accessor: "fullName", width: "30%" },
     { Header: "Email", accessor: "email", width: "40%" },
-    { Header: "Contact", accessor: "phoneNumber", width: "12%" },
+    { Header: "Contact", accessor: "phoneNumber", width: "10%" },
     { Header: "Role", accessor: "role", width: "10%" },
   ];
 

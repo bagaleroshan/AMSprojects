@@ -5,6 +5,9 @@ table{
     width: 100%;
     /* min-height: 30vh; */
   }
+  .table-container table tr {
+    height: 40px; /* Adjust as needed */
+  }
   
   
   table td, table th {
@@ -54,20 +57,33 @@ table{
   cursor: not-allowed;
 }
 
-.table-select{
+/* .table-select{
   width:100px;
   height:40px;
-}
+} */
+
 .table-select option span{
   font-size: 25px;
 } 
 
-/* th {
+
+
+.table-container{
+  max-height: 100vh;
+  width:100% 
+}
+.table-container table {
+  table-layout: fixed;
+  width: 100%;
+}
+th {
   position: sticky;
-  top: 0%; 
+  top: 10%; 
+  z-index:2;
+  height:40%;
 }
 
-.table-container {
-  overflow-y: auto; 
- 
-} */
+td {
+  position: relative; 
+  
+}
