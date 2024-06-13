@@ -1,7 +1,15 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { useReadStudentsQuery } from "../../services/api/StudentApi";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useReadUsersQuery } from "../../services/api/UserService";
@@ -10,6 +18,7 @@ import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import { DatePicker } from "@mui/lab";
 
 interface Query {
   page?: number;
@@ -27,7 +36,6 @@ interface Student {
 const GroupForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  group = {} as IGroup,
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
@@ -44,7 +52,6 @@ const GroupForm: React.FC<IFormValues> = ({
     ...query,
     sort: query.sort?.join(",") || "",
   });
-  // console.log("datatReadTeachers", datatReadTeachers?.result?.results);
   const teachers = (datatReadTeachers?.result?.results || []).map((value) => {
     return {
       value: value.id,
@@ -57,7 +64,6 @@ const GroupForm: React.FC<IFormValues> = ({
     ...query,
     sort: query.sort?.join(","),
   });
-  // console.log("dataReadSubjects", dataReadSubjects?.result?.results);
   const subjects = (dataReadSubjects?.result?.results || []).map((value) => {
     return {
       value: value.id,
@@ -70,7 +76,6 @@ const GroupForm: React.FC<IFormValues> = ({
     ...query,
     sort: query.sort?.join(","),
   });
-  console.log("dataReadStudents", dataReadStudents?.result?.results);
   const students = (dataReadStudents?.result?.results || []).map(
     (value: Student) => {
       return {
@@ -88,6 +93,7 @@ const GroupForm: React.FC<IFormValues> = ({
     startTime: "",
     endTime: "",
   };
+
   return (
     <div>
       <Formik
@@ -127,7 +133,7 @@ const GroupForm: React.FC<IFormValues> = ({
                           onChange={(e) => {
                             formik.setFieldValue("groupName", e.target.value);
                           }}
-                          autofocus={true}
+                          autoFocus={true}
                           isLoading={isLoading}
                         />
                       </Grid>
@@ -168,6 +174,40 @@ const GroupForm: React.FC<IFormValues> = ({
                         />
                       </Grid>
 
+                      <Grid item xs={12}>
+                        <DatePicker
+                          selected={formik.values.startTime}
+                          onChange={(date) =>
+                            formik.setFieldValue("startTime", date)
+                          }
+                          showTimeSelect
+                          showTimeSelectOnly
+                          timeIntervals={15}
+                          timeCaption="Time"
+                          dateFormat="h:mm aa"
+                          customInput={
+                            <TextField
+                              fullWidth
+                              style={{ width: "100%" }}
+                              label="Start Time"
+                            />
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DatePicker
+                          selected={formik.values.endTime}
+                          onChange={(date) =>
+                            formik.setFieldValue("endTime", date)
+                          }
+                          showTimeSelect
+                          showTimeSelectOnly
+                          timeIntervals={15}
+                          timeCaption="Time"
+                          dateFormat="h:mm aa"
+                          customInput={<TextField fullWidth label="End Time" />}
+                        />
+                      </Grid>
                       <Grid item xs={12}>
                         <MuiLoadingButtonTheme
                           buttonName={buttonName}
