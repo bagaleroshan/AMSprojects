@@ -9,6 +9,8 @@ import UserExportCSV from "../ExportCSV/UserExportCSV";
 
 import DeleteConfirmation from "../../DeleteConfirmation";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { toast } from "react-toastify";
+import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
 
 interface Query {
   page: number;
@@ -44,7 +46,29 @@ const UserTable: React.FC = () => {
     sort: query.sort.join(","),
   });
 
-  const [deleteUsers] = useDeleteUsersByIdMutation();
+  const [deleteUsers,{isError:isDeleteUserError,isSuccess:isDeletedUserSuccessfully,error:errorDeleteUser,data:isDeleteData}] = useDeleteUsersByIdMutation();
+
+  
+  useEffect(() => {
+    if (isDeleteUserError) {
+      if (isFetchBaseQueryError(errorDeleteUser)) {
+        toast.error(getErrorMessage(errorDeleteUser), { autoClose: 5000 });
+      } else if (isSerializedError(errorDeleteUser)) {
+        toast.error(errorDeleteUser?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
+  }, [isDeleteUserError, errorDeleteUser]);
+  
+  useEffect(() => {
+    if (isDeletedUserSuccessfully) {
+      toast.success(isDeleteData.message, {
+        autoClose: 3000,
+      });
+    }
+  }, [isDeletedUserSuccessfully, isDeleteData]);
+
 
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
