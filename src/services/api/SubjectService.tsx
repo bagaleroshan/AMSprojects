@@ -10,9 +10,16 @@ export const SubjectApi = createApi({
   endpoints: (builder) => ({
     readSubjects: builder.query({
       query: (query: IQuery) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/subjects?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       //tag2. provideTag
@@ -21,10 +28,17 @@ export const SubjectApi = createApi({
 
     createSubject: builder.mutation({
       query: (body) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: "/subjects",
           method: "POST",
           body: body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       invalidatesTags: ["readSubjects"],
@@ -32,10 +46,17 @@ export const SubjectApi = createApi({
 
     updateSubject: builder.mutation({
       query: (data) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/subjects/${data.id}`,
           method: "PATCH",
           body: data.body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       invalidatesTags: ["readSubjects", "readSubjectsById"],
@@ -43,9 +64,16 @@ export const SubjectApi = createApi({
 
     readSubjectById: builder.query({
       query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/subjects/${id}`,
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       providesTags: ["readSubjects"],
@@ -53,9 +81,16 @@ export const SubjectApi = createApi({
 
     deleteSubject: builder.mutation({
       query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
         return {
           url: `/subjects/${id}`,
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         };
       },
       invalidatesTags: ["readSubjects"],

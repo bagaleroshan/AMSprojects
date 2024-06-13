@@ -17,6 +17,18 @@ const DwInput: React.FC<IDwInputProps> = ({
     <div>
       <Field name={name}>
         {({ field, meta }: FieldProps) => {
+          const handleKeyDown = (
+            event: React.KeyboardEvent<HTMLInputElement>
+          ) => {
+            if (
+              isPhoneNumber &&
+              meta.value.length >= 10 &&
+              event.key !== "Backspace" &&
+              event.key !== "Tab"
+            ) {
+              event.preventDefault();
+            }
+          };
           return (
             <Box
               sx={{
@@ -29,26 +41,26 @@ const DwInput: React.FC<IDwInputProps> = ({
                 {...field}
                 {...props}
                 id={name}
-                name={name}
                 label={label}
                 type={type}
-                value={meta.value}
+                value={field.value}
                 onChange={onChange ? onChange : field.onChange}
                 multiline={multiline}
-                rows={5}
+                rows={multiline ? 5 : undefined}
                 color="primary"
                 size="small"
                 autoFocus={meta.initialTouched ? false : autofocus}
                 disabled={isLoading}
-                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                  isPhoneNumber
-                    ? meta.value.length >= 10 &&
-                      event.key !== "Backspace" &&
-                      event.key !== "Tab"
-                      ? event.preventDefault()
-                      : null
-                    : null;
-                }}
+                onKeyDown={handleKeyDown}
+                // onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                //   isPhoneNumber
+                //     ? meta.value.length >= 10 &&
+                //       event.key !== "Backspace" &&
+                //       event.key !== "Tab"
+                //       ? event.preventDefault()
+                //       : null
+                //     : null;
+                // }}
               />
               {meta.touched && meta.error ? (
                 <Typography style={{ fontSize: "0.8rem", color: "red" }}>

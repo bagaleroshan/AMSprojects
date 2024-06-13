@@ -8,7 +8,6 @@ import ResetPassword from "./component/user/ResetPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
-import DikshyaAdminRoute from "./component/routes/DikshyaAdminRoute";
 import AdminRoute from "./component/routes/AdminRoute";
 
 const App = () => {
@@ -25,9 +24,6 @@ const App = () => {
           element={
             <AmsLayout>
               <AdminRoute />
-              {/* <DikshyaAdminRoute /> */}
-              {/* <GroupForm /> */}
-              {/* <GroupTable /> */}
             </AmsLayout>
           }
         />

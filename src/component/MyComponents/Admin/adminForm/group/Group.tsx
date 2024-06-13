@@ -1,7 +1,6 @@
-import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import GroupList from "./GroupList";
 import CreateGroups from "./CreateGroups";
+import GroupList from "./GroupList";
 
 const Group = ({ secondTab }) => {
   const navigate = useNavigate();
@@ -11,7 +10,7 @@ const Group = ({ secondTab }) => {
 
   return (
     <>
-      <Box height={10} />
+      {/* <Box height={10} /> */}
       {(secondTab === "groupList" && (
         <GroupList onChangePage={(page) => onChangePage(page)} />
       )) || <CreateGroups onChangePage={(page) => onChangePage(page)} />}

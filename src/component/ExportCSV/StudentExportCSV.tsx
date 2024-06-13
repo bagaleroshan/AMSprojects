@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { CSVLink } from "react-csv";
+import "./ExportCSV.css";
 
 interface DataItem {
   id: string;

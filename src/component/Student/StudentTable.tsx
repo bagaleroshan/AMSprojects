@@ -5,8 +5,9 @@ import {
   useReadStudentsQuery,
 } from "../../services/api/StudentApi";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
-import StudentExportCSV from "../ExportCSV/StudentExportCSV";
+
 import DeleteConfirmation from "../../DeleteConfirmation";
+import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 interface Query {
   page: number;
   limit: number;
@@ -16,9 +17,9 @@ interface Query {
 const StudentTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName" },
-    { Header: "Email", accessor: "email" },
-    { Header: "Contact", accessor: "phoneNumber" },
+    { Header: "Name", accessor: "fullName", width: "30%" },
+    { Header: "Email", accessor: "email", width: "40%" },
+    { Header: "Contact", accessor: "phoneNumber", width: "20%" },
   ];
   const [query, setQuery] = useState<Query>({
     page: 1,
