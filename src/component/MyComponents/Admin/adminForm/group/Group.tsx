@@ -1,7 +1,6 @@
-import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import GroupList from "./GroupList";
 import CreateGroups from "./CreateGroups";
+import GroupList from "./GroupList";
 
 const Group = ({ secondTab }) => {
   const navigate = useNavigate();

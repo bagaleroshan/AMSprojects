@@ -14,6 +14,8 @@ const DwSelect: React.FC<IDwSelectProps> = ({
     <div>
       <Field name={name}>
         {({ field, meta }: FieldProps) => {
+          const { value, onChange: fieldOnChange } = field;
+          const { touched, error } = meta;
           return (
             <Box
               sx={{
@@ -27,8 +29,8 @@ const DwSelect: React.FC<IDwSelectProps> = ({
                 {...props}
                 id={name}
                 label={label}
-                value={meta.value}
-                onChange={onChange ? onChange : field.onChange}
+                value={value}
+                onChange={onChange || fieldOnChange}
                 select
                 fullWidth
                 size="small"
@@ -43,14 +45,14 @@ const DwSelect: React.FC<IDwSelectProps> = ({
                   );
                 })}
               </TextField>
-              {meta.touched && meta.error ? (
+              {touched && error && (
                 <Typography
                   variant="body2"
                   style={{ fontSize: "0.8rem", color: "red" }}
                 >
-                  {meta.error}
+                  {error}
                 </Typography>
-              ) : null}
+              )}
             </Box>
           );
         }}

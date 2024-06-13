@@ -17,10 +17,10 @@ interface Query {
 const GroupTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Group Name", accessor: "groupName" , width:'30%'},
-    { Header: "Subject Name", accessor: "subjectName", width:'30%'},
-    { Header: "Teacher Name", accessor: "teacherName", width:'20%'},
-    { Header: "Status", accessor: "status", width:'10%' },
+    { Header: "Group Name", accessor: "groupName", width: "30%" },
+    { Header: "Subject Name", accessor: "subjectName", width: "30%" },
+    { Header: "Teacher Name", accessor: "teacherName", width: "20%" },
+    { Header: "Status", accessor: "status", width: "10%" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -32,7 +32,7 @@ const GroupTable: React.FC = () => {
 
   const { data, isLoading, isError, refetch } = useReadGroupQuery({
     ...query,
-    sort: query.sort.join(","),
+    sort: query.sort.join(",") || "",
   });
   const [deleteGroups] = useDeleteGroupMutation();
 

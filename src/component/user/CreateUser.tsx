@@ -10,9 +10,11 @@ import {
 } from "../../utils/utils";
 import { IUser } from "../interfaces/UserInterface";
 import CreateUserForm from "./CreateUserForm";
+import { useNavigate } from "react-router-dom";
 
 const CreateUser = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
+  const navigate = useNavigate();
 
   const [
     createUser,
@@ -35,8 +37,9 @@ const CreateUser = () => {
         autoClose: 3000,
       });
       formikRef.current?.resetForm();
+      navigate("/admin/users");
     }
-  }, [isSuccessCreateUser, dataCreateUser]);
+  }, [isSuccessCreateUser, dataCreateUser, navigate]);
 
   useEffect(() => {
     if (isErrorCreateUser) {
