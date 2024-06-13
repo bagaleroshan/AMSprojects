@@ -5,7 +5,7 @@ export interface IGroup {
   subject: string;
   teacher: string;
   groupName: string;
-  students: string;
+  students?: string;
   startTime: string;
   endTime: string;
 }

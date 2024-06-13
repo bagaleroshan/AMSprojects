@@ -7,10 +7,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikProps } from "formik";
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useReadStudentsQuery } from "../../services/api/StudentApi";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useReadUsersQuery } from "../../services/api/UserService";
 import { groupValidationSchema } from "../../validation/groupValidation";
@@ -18,19 +18,12 @@ import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import { DatePicker } from "@mui/lab";
-
 interface Query {
   page?: number;
   limit?: number;
   role?: string;
   findQuery?: string;
   sort?: string[];
-}
-
-interface Student {
-  id: string;
-  email: string;
 }
 
 const GroupForm: React.FC<IFormValues> = ({
@@ -71,25 +64,11 @@ const GroupForm: React.FC<IFormValues> = ({
     };
   });
 
-  /* Students */
-  const { data: dataReadStudents } = useReadStudentsQuery({
-    ...query,
-    sort: query.sort?.join(","),
-  });
-  const students = (dataReadStudents?.result?.results || []).map(
-    (value: Student) => {
-      return {
-        value: value.id,
-        label: value.email,
-      };
-    }
-  );
-
   const groupInitialValues: IGroup = {
     subject: "",
     teacher: "",
     groupName: "",
-    students: "",
+    // students: "",
     startTime: "",
     endTime: "",
   };
@@ -100,11 +79,10 @@ const GroupForm: React.FC<IFormValues> = ({
         initialValues={groupInitialValues}
         innerRef={formikRef}
         onSubmit={onSubmit}
-        validationSchema={groupValidationSchema}
         enableReinitialize={true}
         validateOnBlur={false}
       >
-        {(formik) => {
+        {(formik: FormikProps<IGroup>) => {
           return (
             <Form>
               <Container component="main" maxWidth="xs">
@@ -131,6 +109,7 @@ const GroupForm: React.FC<IFormValues> = ({
                           type="text"
                           fullWidth
                           onChange={(e) => {
+                            console.log("Group Name", e.target.value);
                             formik.setFieldValue("groupName", e.target.value);
                           }}
                           autoFocus={true}
@@ -142,6 +121,7 @@ const GroupForm: React.FC<IFormValues> = ({
                           name="teacher"
                           label="Teacher"
                           onChange={(e) => {
+                            console.log("Teacher", e.target.value);
                             formik.setFieldValue("teacher", e.target.value);
                           }}
                           selectLabels={teachers}
@@ -153,6 +133,7 @@ const GroupForm: React.FC<IFormValues> = ({
                           name="subject"
                           label="Subject"
                           onChange={(e) => {
+                            console.log("subject", e.target.value);
                             formik.setFieldValue("subject", e.target.value);
                           }}
                           selectLabels={subjects}
@@ -160,26 +141,12 @@ const GroupForm: React.FC<IFormValues> = ({
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <DwSelect
-                          name="students"
-                          label="Students"
-                          onChange={(e) => {
-                            formik.setFieldValue(
-                              "students",
-                              e.target.value ? [e.target.value] : []
-                            );
-                          }}
-                          selectLabels={students}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12}>
                         <DatePicker
                           selected={formik.values.startTime}
-                          onChange={(date) =>
-                            formik.setFieldValue("startTime", date)
-                          }
+                          onChange={(date) => {
+                            console.log("startTime", date);
+                            formik.setFieldValue("startTime", date);
+                          }}
                           showTimeSelect
                           showTimeSelectOnly
                           timeIntervals={15}
@@ -197,9 +164,10 @@ const GroupForm: React.FC<IFormValues> = ({
                       <Grid item xs={12}>
                         <DatePicker
                           selected={formik.values.endTime}
-                          onChange={(date) =>
-                            formik.setFieldValue("endTime", date)
-                          }
+                          onChange={(date) => {
+                            console.log("endTime", date);
+                            formik.setFieldValue("endTime", date);
+                          }}
                           showTimeSelect
                           showTimeSelectOnly
                           timeIntervals={15}

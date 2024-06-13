@@ -16,7 +16,7 @@ const CreateGroup = () => {
   const formikRef = useRef<FormikProps<IGroup> | null>(null);
 
   const [
-    CreateGroup,
+    createGroup,
     {
       isError: isErrorCreateGroup,
       isSuccess: isSuccessCreateGroup,
@@ -26,7 +26,7 @@ const CreateGroup = () => {
   ] = useCreateGroupMutation();
 
   const submitValue = async (values: IGroup) => {
-    CreateGroup(values);
+    await createGroup(values);
   };
 
   useEffect(() => {

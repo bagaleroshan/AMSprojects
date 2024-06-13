@@ -7,8 +7,13 @@ const theme = createTheme({
   components: {
     MuiLoadingButton: {
       styleOverrides: {
-        circularProgress: {
-          color: "#ffffff", // Bright white color for the loading indicator
+        // circularProgress: {
+        //   color: "#ffffff", // Bright white color for the loading indicator
+        // },
+        root: {
+          "& .MuiCircularProgress-root": {
+            color: "#ffffff", // Bright white color for the CircularProgress
+          },
         },
       },
     },
