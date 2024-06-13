@@ -4,11 +4,12 @@ import {
   Box,
   Container,
   Grid,
-  Typography,
   TextField,
+  Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { useReadStudentsQuery } from "../../services/api/StudentApi";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useReadUsersQuery } from "../../services/api/UserService";
@@ -17,9 +18,7 @@ import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import DwCheckbox from "../dwComponents/DwCheckbox";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from "@mui/lab";
 
 interface Query {
   page?: number;
@@ -37,7 +36,6 @@ interface Student {
 const GroupForm: React.FC<IFormValues> = ({
   buttonName = "Create",
   isLoading = false,
-  group = {} as IGroup,
   formikRef = undefined,
   onSubmit = () => {},
 }) => {
@@ -88,12 +86,12 @@ const GroupForm: React.FC<IFormValues> = ({
   );
 
   const groupInitialValues: IGroup = {
-    subject: group.subject || "",
-    teacher: group.teacher || "",
-    groupName: group.groupName || "",
-    students: group.students || "",
-    startTime: group.startTime || new Date(),
-    endTime: group.endTime || new Date(),
+    subject: "",
+    teacher: "",
+    groupName: "",
+    students: "",
+    startTime: "",
+    endTime: "",
   };
 
   return (
@@ -208,16 +206,6 @@ const GroupForm: React.FC<IFormValues> = ({
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           customInput={<TextField fullWidth label="End Time" />}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <DwCheckbox
-                          name="active"
-                          label="Class Ongoing?"
-                          onChange={(e) => {
-                            formik.setFieldValue("active", e.target.checked);
-                          }}
-                          isLoading={isLoading}
                         />
                       </Grid>
                       <Grid item xs={12}>
