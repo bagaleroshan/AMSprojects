@@ -121,12 +121,12 @@ const TableComponent: React.FC<TableComponentProps> = ({
     if (sortField) {
       // return sortField.startsWith("-") ? "↓" : "↑";
       return sortField.startsWith("-") ? (
-        <ArrowDownwardIcon style={{ fontSize: "16px", marginLeft: "10px" }} />
+        <ArrowDownwardIcon style={{ fontSize: "16px" }} className="sort-icon" />
       ) : (
-        <ArrowUpwardIcon style={{ fontSize: "16px", marginLeft: "10px" }} />
+        <ArrowUpwardIcon style={{ fontSize: "16px" }} className="sort-icon" />
       );
     }
-    return "";
+    return <span className="sort-icon-placeholder"></span>;
   };
 
   const handleSort = (accessor: string) => {
@@ -179,8 +179,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
   );
 
   return (
-    <div className="table-container">
-      <div>
+    
+      <div className="table-container">
+        <div className="table-wrapper">
         <Stack
           sx={{
             direction: "flex",
@@ -241,14 +242,15 @@ const TableComponent: React.FC<TableComponentProps> = ({
         <Box height={15} />
         <table {...getTableProps()}>
           <thead>
+
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                <th style={{ width: "10%" }}>Select</th>
+                <th style={{ width: "150px" }}>Select</th>
 
                 {headerGroup.headers.map((column) => (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    style={{ width: column.width || "auto" }}
+                    style={{ width: column.width }}
                     onClick={() => handleSort(column.id)}
                   >
                     {column.render("Header")}
@@ -275,7 +277,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                   {row.cells.map((cell) => (
                     <td
                       {...cell.getCellProps()}
-                      style={{ width: cell.column.width || "auto" }}
+                      style={{ width: cell.column.width }}
                     >
                       {cell.render("Cell")}
                     </td>
@@ -285,6 +287,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             })}
           </tbody>
         </table>
+
         <div>
           <Box height={15} />
           {data.length === 0 ? (
@@ -299,7 +302,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             >
               <Box height={60} />
               <Typography variant="h5">
-                This {searchTerm} is not available
+                {searchTerm} is not available
               </Typography>
               <Box height={60} />
               <Stack
@@ -411,8 +414,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
           />
         </Stack> */}
         </div>
+        </div>
       </div>
-    </div>
+   
   );
 };
 
