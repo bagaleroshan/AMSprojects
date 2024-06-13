@@ -18,8 +18,8 @@ import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 import DwCheckbox from "../dwComponents/DwCheckbox";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { DatePicker } from "@mui/lab";
 
 interface Query {
   page?: number;
