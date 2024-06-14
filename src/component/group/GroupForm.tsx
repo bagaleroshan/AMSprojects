@@ -13,11 +13,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useReadUsersQuery } from "../../services/api/UserService";
-import { groupValidationSchema } from "../../validation/groupValidation";
 import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import groupValidationSchema from "../../validation/groupValidation";
+
 interface Query {
   page?: number;
   limit?: number;
@@ -45,32 +46,27 @@ const GroupForm: React.FC<IFormValues> = ({
     ...query,
     sort: query.sort?.join(",") || "",
   });
-  const teachers = (datatReadTeachers?.result?.results || []).map((value) => {
-    return {
-      value: value.id,
-      label: value.fullName,
-    };
-  });
+  const teachers = (datatReadTeachers?.result?.results || []).map((value) => ({
+    value: value.id,
+    label: value.fullName,
+  }));
 
   /* Subjects */
   const { data: dataReadSubjects } = useReadSubjectsQuery({
     ...query,
     sort: query.sort?.join(","),
   });
-  const subjects = (dataReadSubjects?.result?.results || []).map((value) => {
-    return {
-      value: value.id,
-      label: value.subjectName,
-    };
-  });
+  const subjects = (dataReadSubjects?.result?.results || []).map((value) => ({
+    value: value.id,
+    label: value.subjectName,
+  }));
 
   const groupInitialValues: IGroup = {
     subject: "",
     teacher: "",
     groupName: "",
-    // students: "",
-    startTime: "",
-    endTime: "",
+    startTime: null || "",
+    endTime: null || "",
   };
 
   return (
@@ -80,115 +76,141 @@ const GroupForm: React.FC<IFormValues> = ({
         innerRef={formikRef}
         onSubmit={onSubmit}
         enableReinitialize={true}
+        validationSchema={groupValidationSchema}
         validateOnBlur={false}
       >
-        {(formik: FormikProps<IGroup>) => {
-          return (
-            <Form>
-              <Container component="main" maxWidth="xs">
-                <Box
-                  sx={{
-                    marginTop: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                    <LockOutlinedIcon />
-                  </Avatar>
-                  <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
-                    {buttonName}
-                  </Typography>
-                  <Box sx={{ mt: 3 }}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <DwInput
-                          name="groupName"
-                          label="Group Name"
-                          type="text"
-                          fullWidth
-                          onChange={(e) => {
-                            console.log("Group Name", e.target.value);
-                            formik.setFieldValue("groupName", e.target.value);
-                          }}
-                          autoFocus={true}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <DwSelect
-                          name="teacher"
-                          label="Teacher"
-                          onChange={(e) => {
-                            console.log("Teacher", e.target.value);
-                            formik.setFieldValue("teacher", e.target.value);
-                          }}
-                          selectLabels={teachers}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <DwSelect
-                          name="subject"
-                          label="Subject"
-                          onChange={(e) => {
-                            console.log("subject", e.target.value);
-                            formik.setFieldValue("subject", e.target.value);
-                          }}
-                          selectLabels={subjects}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <DatePicker
-                          selected={formik.values.startTime}
-                          onChange={(date) => {
-                            console.log("startTime", date);
-                            formik.setFieldValue("startTime", date);
-                          }}
-                          showTimeSelect
-                          showTimeSelectOnly
-                          timeIntervals={15}
-                          timeCaption="Time"
-                          dateFormat="h:mm aa"
-                          customInput={
-                            <TextField
-                              fullWidth
-                              style={{ width: "100%" }}
-                              label="Start Time"
-                            />
-                          }
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <DatePicker
-                          selected={formik.values.endTime}
-                          onChange={(date) => {
-                            console.log("endTime", date);
-                            formik.setFieldValue("endTime", date);
-                          }}
-                          showTimeSelect
-                          showTimeSelectOnly
-                          timeIntervals={15}
-                          timeCaption="Time"
-                          dateFormat="h:mm aa"
-                          customInput={<TextField fullWidth label="End Time" />}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <MuiLoadingButtonTheme
-                          buttonName={buttonName}
-                          isLoading={isLoading}
-                        />
-                      </Grid>
+        {(formik: FormikProps<IGroup>) => (
+          <Form>
+            <Container component="main" maxWidth="xs">
+              <Box
+                sx={{
+                  marginTop: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
+                  {buttonName}
+                </Typography>
+                <Box sx={{ mt: 3 }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <DwInput
+                        name="groupName"
+                        label="Group Name"
+                        type="text"
+                        fullWidth
+                        onChange={(e) =>
+                          formik.setFieldValue("groupName", e.target.value)
+                        }
+                        autoFocus={true}
+                        isLoading={isLoading}
+                      />
                     </Grid>
-                  </Box>
+                    <Grid item xs={12}>
+                      <DwSelect
+                        name="teacher"
+                        label="Teacher"
+                        onChange={(e) =>
+                          formik.setFieldValue("teacher", e.target.value)
+                        }
+                        selectLabels={teachers}
+                        isLoading={isLoading}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <DwSelect
+                        name="subject"
+                        label="Subject"
+                        onChange={(e) =>
+                          formik.setFieldValue("subject", e.target.value)
+                        }
+                        selectLabels={subjects}
+                        isLoading={isLoading}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <DatePicker
+                        selected={formik.values.startTime}
+                        style={{ width: "100%" }}
+                        onChange={(date: Date) => {
+                          console.log("Start Time", date);
+                          formik.setFieldValue("startTime", date);
+                        }}
+                        onBlur={() => {
+                          formik.setFieldTouched("startTime", true); // Mark startTime field as touched on blur
+                        }}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        timeCaption="Time"
+                        dateFormat="h:mm aa"
+                        customInput={
+                          <TextField
+                            fullWidth
+                            style={{ width: "100%" }}
+                            label="Start Time"
+                            error={
+                              formik.touched.startTime &&
+                              Boolean(formik.errors.startTime)
+                            }
+                            helperText={
+                              formik.touched.startTime &&
+                              formik.errors.startTime
+                                ? formik.errors.startTime
+                                : ""
+                            }
+                          />
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <DatePicker
+                        selected={formik.values.endTime}
+                        onChange={(date: Date) =>
+                          formik.setFieldValue("endTime", date)
+                        }
+                        onBlur={() => {
+                          formik.setFieldTouched("endTime", true); // Mark startTime field as touched on blur
+                        }}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        timeCaption="Time"
+                        dateFormat="h:mm aa"
+                        customInput={
+                          <TextField
+                            fullWidth
+                            label="End Time"
+                            error={
+                              formik.touched.endTime &&
+                              Boolean(formik.errors.endTime)
+                            }
+                            helperText={
+                              formik.touched.endTime && formik.errors.endTime
+                                ? formik.errors.endTime
+                                : ""
+                            }
+                          />
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <MuiLoadingButtonTheme
+                        buttonName={buttonName}
+                        isLoading={isLoading}
+                      />
+                    </Grid>
+                  </Grid>
                 </Box>
-              </Container>
-            </Form>
-          );
-        }}
+              </Box>
+            </Container>
+          </Form>
+        )}
       </Formik>
     </div>
   );
