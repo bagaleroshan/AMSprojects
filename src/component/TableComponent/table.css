@@ -1,42 +1,55 @@
 .table-container {
-  width: 1200px;
+  width: 1190px;
+}
+
+.table-container {
+  width: 100%;
+  max-width: 1190px;
 }
 
 .table-wrapper {
-  overflow-x: auto;
+  width: 100%;
+  overflow-x: auto; 
+  position:'relative' /* Adjust to make sure the wrapper spans the full width */
 }
 
-table{
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-  }
-  
-  
-  table td, table th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    white-space: nowrap;
-    
-  }
-  
-  table tr:nth-child(even){background-color: #f2f2f2;}
-  
-  table tr:hover {background-color: #ddd;}
-  
-  table th,tfoot td {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #1976D2;
-    color: white;
-  }
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
 
-  
+table thead tr th{
+  position: sticky;
+  top: 10%; /* Sticky header at the top */
+  z-index: 10; 
+}
+
+table td, table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  white-space: nowrap;
+}
 
 
- .pagination {
+table tr:nth-child(even) { background-color: #f2f2f2; }
+
+table tr:hover { background-color: #ddd; }
+
+table th, tfoot td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #1976D2;
+  color: white;
+  
+}
+
+
+
+
+.pagination {
   display: flex;
   list-style: none;
   padding: 0;
@@ -65,29 +78,15 @@ table{
   cursor: not-allowed;
 }
 
-
-
-.table-select option span{
+.table-select option span {
   font-size: 25px;
-} 
-
-
-
+}
 
 .table-container table {
-  width: max-content; 
-  min-width: 100%; 
-  table-layout: auto; 
-     
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
 }
-
- .table-container  thead th{
-  position: sticky;
-  top: 10%; 
-  z-index:20;
-  height:100%
-}
-
 
 .sort-icon-placeholder {
   display: inline-block;
@@ -95,8 +94,9 @@ table{
 
 .table-container th .sort-icon {
   position: absolute;
-  right: 20px; 
+  right: 20px;
 }
+
 
 
 
