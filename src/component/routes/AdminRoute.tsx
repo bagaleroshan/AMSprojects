@@ -13,6 +13,8 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+import UpdateGroup from "../group/UpdateGroup";
+import ReadSpecificGroup from "../group/ReadSpecificGroup";
 
 const AdminRoute = () => {
   return (
@@ -80,8 +82,8 @@ const AdminRoute = () => {
             path="create"
             element={<AdminForm firstTab="groups" secondTab="create" />}
           />
-          {/* <Route path="update/:id" element={<UpdateSubject />} /> */}
-          {/* <Route path=":id" element={<ReadSpecificSubject />} /> */}
+          <Route path="update/:id" element={<UpdateGroup />} />
+          <Route path=":id" element={<ReadSpecificGroup />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/admin" replace />} />

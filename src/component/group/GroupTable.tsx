@@ -6,6 +6,8 @@ import {
   useDeleteGroupMutation,
   useReadGroupQuery,
 } from "../../services/api/GroupService";
+import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
+import { toast } from "react-toastify";
 
 interface Query {
   page: number;
@@ -18,9 +20,9 @@ const GroupTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
     { Header: "Group Name", accessor: "groupName", width: "30%" },
-    { Header: "Subject Name", accessor: "subject", width: "30%" },
-    { Header: "Teacher Name", accessor: "teacher", width: "20%" },
-    { Header: "Status", accessor: "status", width: "10%" },
+    { Header: "Subject Name", accessor: "subject.subjectCode", width: "30%" },
+    { Header: "Teacher Name", accessor: "teacher.fullName", width: "20%" },
+
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -34,7 +36,28 @@ const GroupTable: React.FC = () => {
     ...query,
     sort: query.sort.join(",") || "",
   });
-  const [deleteGroups] = useDeleteGroupMutation();
+  const [deleteGroups,{isError:isErrorDeletingGroup,error:errorDeleteGroup,isSuccess:isSuccessDeletingData,data:deleteGroupData}] = useDeleteGroupMutation();
+  
+  useEffect(() => {
+    if (isErrorDeletingGroup) {
+      if (isFetchBaseQueryError(errorDeleteGroup)) {
+        toast.error(getErrorMessage(errorDeleteGroup), { autoClose: 5000 });
+      } else if (isSerializedError(errorDeleteGroup)) {
+        toast.error(errorDeleteGroup?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
+  }, [isErrorDeletingGroup, errorDeleteGroup]);
+  
+  useEffect(() => {
+    if (isSuccessDeletingData) {
+      toast.success(deleteGroupData.message, {
+        autoClose: 3000,
+      });
+    }
+  }, [isSuccessDeletingData, deleteGroupData]);
+  
 
   useEffect(() => {
     refetch();
@@ -57,6 +80,7 @@ const GroupTable: React.FC = () => {
   const handleDeleteClick = (selectedRowData: IData[]) => {
     selectedRowData.forEach((value: IData) => {
       deleteGroups(value.id);
+      refetch();
     });
   };
   const handleViewClick = (selectedRowData: IData[]) => {

@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useReadUsersQuery } from "../../services/api/UserService";
-import { groupValidationSchema } from "../../validation/groupValidation";
+// import { groupValidationSchema } from "../../validation/groupValidation";
 import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
@@ -31,6 +31,7 @@ const GroupForm: React.FC<IFormValues> = ({
   isLoading = false,
   formikRef = undefined,
   onSubmit = () => {},
+  group = {},
 }) => {
   const [query] = useState<Query>({
     page: 1,
@@ -46,6 +47,8 @@ const GroupForm: React.FC<IFormValues> = ({
     sort: query.sort?.join(",") || "",
   });
   const teachers = (datatReadTeachers?.result?.results || []).map((value) => {
+    // console.log(group.teacher?.fullName, "************name**************");
+
     return {
       value: value.id,
       label: value.fullName,
@@ -65,13 +68,13 @@ const GroupForm: React.FC<IFormValues> = ({
   });
 
   const groupInitialValues: IGroup = {
-    subject: "",
-    teacher: "",
-    groupName: "",
-    // students: "",
-    startTime: "",
-    endTime: "",
+    subject: group.subject?.id || "",
+    teacher: group.teacher?.id || "",
+    groupName: group.groupName || "",
+    startTime: group.startTime || "",
+    endTime: group.endTime || "",
   };
+  console.log(group);
 
   return (
     <div>
@@ -143,7 +146,7 @@ const GroupForm: React.FC<IFormValues> = ({
                       <Grid item xs={12}>
                         <DatePicker
                           selected={formik.values.startTime}
-                          onChange={(date) => {
+                          onChange={(date: Date) => {
                             console.log("startTime", date);
                             formik.setFieldValue("startTime", date);
                           }}
@@ -164,7 +167,7 @@ const GroupForm: React.FC<IFormValues> = ({
                       <Grid item xs={12}>
                         <DatePicker
                           selected={formik.values.endTime}
-                          onChange={(date) => {
+                          onChange={(date: Date) => {
                             console.log("endTime", date);
                             formik.setFieldValue("endTime", date);
                           }}

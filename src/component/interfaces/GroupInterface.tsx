@@ -6,10 +6,9 @@ export interface IGroup {
   teacher: string;
   groupName: string;
   students?: string;
-  startTime: string;
+  startTime: string ;
   endTime: string;
 }
-
 export interface IFormValues {
   buttonName: string;
   isLoading: boolean;
