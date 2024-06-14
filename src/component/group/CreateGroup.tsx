@@ -26,7 +26,9 @@ const CreateGroup = () => {
   ] = useCreateGroupMutation();
 
   const submitValue = async (values: IGroup) => {
+    console.log("*******************", values);
     CreateGroup(values);
+    console.log("jenis*********************");
   };
 
   useEffect(() => {

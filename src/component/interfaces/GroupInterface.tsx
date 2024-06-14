@@ -6,8 +6,8 @@ export interface IGroup {
   teacher: string;
   groupName: string;
   students: string;
-  startTime: string;
-  endTime: string;
+  startTime: Date;
+  endTime: Date;
 }
 
 export interface IFormValues {
