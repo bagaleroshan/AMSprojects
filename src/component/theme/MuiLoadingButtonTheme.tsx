@@ -23,7 +23,8 @@ const theme = createTheme({
 const MuiLoadingButtonTheme: React.FC<{
   isLoading?: boolean;
   buttonName?: string;
-}> = ({ isLoading = true, buttonName = "Submit" }) => {
+  onClick?: () => void;
+}> = ({ isLoading = true, buttonName = "Submit", onClick = () => {} }) => {
   return (
     <ThemeProvider theme={theme}>
       {isLoading ? (
@@ -55,6 +56,7 @@ const MuiLoadingButtonTheme: React.FC<{
           variant="contained"
           color="primary"
           sx={{ mt: 3, mb: 2 }}
+          onClick={onClick}
         >
           {buttonName}
         </Button>

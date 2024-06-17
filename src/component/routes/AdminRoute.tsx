@@ -15,6 +15,11 @@ import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import UpdateGroup from "../group/UpdateGroup";
 import ReadSpecificGroup from "../group/ReadSpecificGroup";
+import GroupWithStudent from "../group/GroupWithStudent";
+import {
+  AddStudentsToGroup,
+  MultiSelectComponent,
+} from "../group/AddStudentsToGroup";
 
 const AdminRoute = () => {
   return (
@@ -82,7 +87,13 @@ const AdminRoute = () => {
             path="create"
             element={<AdminForm firstTab="groups" secondTab="create" />}
           />
+          {/* <Route path="students" element={<MultiSelectComponent />} /> */}
+
           <Route path="update/:id" element={<UpdateGroup />} />
+          {/* <Route path=":id" element={<Outlet />}>
+            <Route index element={<ReadSpecificGroup />} />
+            <Route path="students" element={<MultiSelectComponent />} />
+          </Route> */}
           <Route path=":id" element={<ReadSpecificGroup />} />
         </Route>
 
