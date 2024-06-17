@@ -10,22 +10,19 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   TextField,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import {
-  Column,
-  usePagination,
-  useSortBy,
-  useTable,
-  useBlockLayout,
-} from "react-table";
+import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
-import { useSticky } from "react-table-sticky";
 import "./table.css";
-import { Styles } from "./TableStyles";
 
 export interface IData<T = any> {
   [key: string]: T;
@@ -307,6 +304,48 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </div>
       </div>
 
+      {/* <Table {...getTableProps()}>
+        <TableHead>
+          {headerGroups.map((headerGroup) => (
+            <TableRow {...headerGroup.getHeaderGroupProps()}>
+              <TableCell>Select</TableCell>
+              {headerGroup.headers.map((column) => (
+                <TableCell
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  style={{ width: column.width || "auto" }}
+                  onClick={() => handleSort(column.id)}
+                >
+                  {column.render("Header")}
+                  {renderSortIcon(column.id)}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableHead>
+        <TableBody {...getTableBodyProps()}>
+          {page.map((row, index) => {
+            prepareRow(row);
+            return (
+              <TableRow
+                {...row.getRowProps()}
+                onClick={() => handleRowClick(index)}
+              >
+                <TableCell>
+                  <Checkbox
+                    checked={selectedRows.has(index)}
+                    onChange={(e) => e.stopPropagation()} // prevent row click
+                  />
+                </TableCell>
+                {row.cells.map((cell) => (
+                  <TableCell {...cell.getCellProps()}>
+                    {cell.render("Cell")}
+                  </TableCell>
+                ))}
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table> */}
       <div>
         <Box height={15} />
         {data.length === 0 ? (
@@ -321,6 +360,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
           >
             <Box height={60} />
             <Typography variant="h5">{searchTerm} is not available</Typography>
+            <Typography variant="h5">No user is available</Typography>
             <Box height={60} />
             <Stack
               display="flex"

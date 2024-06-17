@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useReadSubjectsQuery } from "../../services/api/SubjectService";
 import { useReadUsersQuery } from "../../services/api/UserService";
-// import { groupValidationSchema } from "../../validation/groupValidation";
+import groupValidationSchema from "../../validation/groupValidation";
 import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
@@ -83,6 +83,7 @@ const GroupForm: React.FC<IFormValues> = ({
         innerRef={formikRef}
         onSubmit={onSubmit}
         enableReinitialize={true}
+        validationSchema={groupValidationSchema}
         validateOnBlur={false}
       >
         {(formik: FormikProps<IGroup>) => {
@@ -112,7 +113,6 @@ const GroupForm: React.FC<IFormValues> = ({
                           type="text"
                           fullWidth
                           onChange={(e) => {
-                            console.log("Group Name", e.target.value);
                             formik.setFieldValue("groupName", e.target.value);
                           }}
                           autoFocus={true}
@@ -124,7 +124,6 @@ const GroupForm: React.FC<IFormValues> = ({
                           name="teacher"
                           label="Teacher"
                           onChange={(e) => {
-                            console.log("Teacher", e.target.value);
                             formik.setFieldValue("teacher", e.target.value);
                           }}
                           selectLabels={teachers}
@@ -136,19 +135,22 @@ const GroupForm: React.FC<IFormValues> = ({
                           name="subject"
                           label="Subject"
                           onChange={(e) => {
-                            console.log("subject", e.target.value);
                             formik.setFieldValue("subject", e.target.value);
                           }}
                           selectLabels={subjects}
                           isLoading={isLoading}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={6}>
                         <DatePicker
                           selected={formik.values.startTime}
+                          style={{ width: "100%" }}
                           onChange={(date: Date) => {
-                            console.log("startTime", date);
+                            console.log("Start Time", date);
                             formik.setFieldValue("startTime", date);
+                          }}
+                          onBlur={() => {
+                            formik.setFieldTouched("startTime", true); // Mark startTime field as touched on blur
                           }}
                           showTimeSelect
                           showTimeSelectOnly
@@ -160,6 +162,16 @@ const GroupForm: React.FC<IFormValues> = ({
                               fullWidth
                               style={{ width: "100%" }}
                               label="Start Time"
+                              error={
+                                formik.touched.startTime &&
+                                Boolean(formik.errors.startTime)
+                              }
+                              helperText={
+                                formik.touched.startTime &&
+                                formik.errors.startTime
+                                  ? formik.errors.startTime
+                                  : ""
+                              }
                             />
                           }
                         />
@@ -167,16 +179,32 @@ const GroupForm: React.FC<IFormValues> = ({
                       <Grid item xs={12}>
                         <DatePicker
                           selected={formik.values.endTime}
-                          onChange={(date: Date) => {
-                            console.log("endTime", date);
-                            formik.setFieldValue("endTime", date);
+                          onChange={(date: Date) =>
+                            formik.setFieldValue("endTime", date)
+                          }
+                          onBlur={() => {
+                            formik.setFieldTouched("endTime", true); // Mark startTime field as touched on blur
                           }}
                           showTimeSelect
                           showTimeSelectOnly
                           timeIntervals={15}
                           timeCaption="Time"
                           dateFormat="h:mm aa"
-                          customInput={<TextField fullWidth label="End Time" />}
+                          customInput={
+                            <TextField
+                              fullWidth
+                              label="End Time"
+                              error={
+                                formik.touched.endTime &&
+                                Boolean(formik.errors.endTime)
+                              }
+                              helperText={
+                                formik.touched.endTime && formik.errors.endTime
+                                  ? formik.errors.endTime
+                                  : ""
+                              }
+                            />
+                          }
                         />
                       </Grid>
                       <Grid item xs={12}>
