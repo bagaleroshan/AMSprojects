@@ -1,14 +1,12 @@
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {
   Box,
   Button,
-  Container,
-  Grid,
   InputAdornment,
   MenuItem,
   Stack,
@@ -17,9 +15,17 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Column, usePagination, useSortBy, useTable } from "react-table";
+import {
+  Column,
+  usePagination,
+  useSortBy,
+  useTable,
+  useBlockLayout,
+} from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
+import { useSticky } from "react-table-sticky";
 import "./table.css";
+import { Styles } from "./TableStyles";
 
 export interface IData<T = any> {
   [key: string]: T;
@@ -181,7 +187,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   );
 
   return (
-    <div  className="table-container" >
+    <div className="table-container">
       <Stack
         sx={{
           direction: "flex",
@@ -240,54 +246,67 @@ const TableComponent: React.FC<TableComponentProps> = ({
         )}
       </Stack>
       <Box height={15} />
-      <Stack className="table-wrapper">
-        <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                <th style={{ width: "150px" }}>Select</th>
 
-                {headerGroup.headers.map((column) => (
+      <div className="outer-wrapper">
+        <div className="table-wrapper">
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
                   <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    style={{ width: column.width }}
-                    onClick={() => handleSort(column.id)}
+                    style={{
+                      width: "150px",
+                      position: "sticky",
+                      left: 0,
+                      zIndex: 20,
+                    }}
                   >
-                    {column.render("Header")}
-                    {renderSortIcon(column.id)}
+                    Select
                   </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row, index) => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  onClick={() => handleRowClick(index)}
-                >
-                  <td>
-                    <Checkbox
-                      checked={selectedRows.has(index)}
-                      onChange={(e) => e.stopPropagation()} // prevent row click
-                    />
-                  </td>
-                  {row.cells.map((cell) => (
-                    <td
-                      {...cell.getCellProps()}
-                      style={{ width: cell.column.width }}
+
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      style={{ width: column.width }}
+                      onClick={() => handleSort(column.id)}
                     >
-                      {cell.render("Cell")}
-                    </td>
+                      {column.render("Header")}
+                      {renderSortIcon(column.id)}
+                    </th>
                   ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </Stack>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, index) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    onClick={() => handleRowClick(index)}
+                  >
+                    <td>
+                      <Checkbox
+                        checked={selectedRows.has(index)}
+                        onChange={(e) => e.stopPropagation()} // prevent row click
+                      />
+                    </td>
+                    {row.cells.map((cell) => (
+                      <td
+                        {...cell.getCellProps()}
+                        style={{ width: cell.column.width }}
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div>
         <Box height={15} />
         {data.length === 0 ? (

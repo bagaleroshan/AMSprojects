@@ -10,7 +10,11 @@ import UserExportCSV from "../ExportCSV/UserExportCSV";
 import DeleteConfirmation from "../../DeleteConfirmation";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
 import { toast } from "react-toastify";
-import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../utils/utils";
 
 interface Query {
   page: number;
@@ -22,16 +26,31 @@ interface Query {
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName", width: "350px" },
-    { Header: "Email", accessor: "email", width: "350px" },
-    { Header: "Contact", accessor: "phoneNumber", width: "350px" },
-    { Header: "Role", accessor: "role", width: "350px" },
-    { Header: "Hello", accessor: "hello", width: "350px" },
-    { Header: "World", accessor: "world", width: "350px" },
-    { Header: "Science", accessor: "science", width: "350px" },
-    { Header: "Math", accessor: "math", width: "350px" },
-    { Header: "Social", accessor: "social", width: "350px" },
-    { Header: "Physics", accessor: "physics", width: "350px" },
+    { Header: "Name", accessor: "fullName", width: "350px", minWidth: "350px" },
+    { Header: "Email", accessor: "email", width: "350px", minWidth:'350px' },
+    {
+      Header: "Contact",
+      accessor: "phoneNumber",
+      width: "350px",
+      minWidth: "350px",
+    },
+    { Header: "Role", accessor: "role", width: "350px", minWidth: "350px" },
+    { Header: "Hello", accessor: "hello", width: "350px", minWidth: "350px" },
+    { Header: "World", accessor: "world", width: "350px", minWidth: "350px" },
+    {
+      Header: "Science",
+      accessor: "science",
+      width: "350px",
+      minWidth: "350px",
+    },
+    { Header: "Math", accessor: "math", width: "350px", minWidth: "350px" },
+    { Header: "Social", accessor: "social", width: "350px", minWidth: "350px" },
+    {
+      Header: "Physics",
+      accessor: "physics",
+      width: "350px",
+      minWidth: "350px",
+    },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -46,9 +65,16 @@ const UserTable: React.FC = () => {
     sort: query.sort.join(","),
   });
 
-  const [deleteUsers,{isError:isDeleteUserError,isSuccess:isDeletedUserSuccessfully,error:errorDeleteUser,data:isDeleteData}] = useDeleteUsersByIdMutation();
+  const [
+    deleteUsers,
+    {
+      isError: isDeleteUserError,
+      isSuccess: isDeletedUserSuccessfully,
+      error: errorDeleteUser,
+      data: isDeleteData,
+    },
+  ] = useDeleteUsersByIdMutation();
 
-  
   useEffect(() => {
     if (isDeleteUserError) {
       if (isFetchBaseQueryError(errorDeleteUser)) {
@@ -60,7 +86,7 @@ const UserTable: React.FC = () => {
       }
     }
   }, [isDeleteUserError, errorDeleteUser]);
-  
+
   useEffect(() => {
     if (isDeletedUserSuccessfully) {
       toast.success(isDeleteData.message, {
@@ -68,7 +94,6 @@ const UserTable: React.FC = () => {
       });
     }
   }, [isDeletedUserSuccessfully, isDeleteData]);
-
 
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
