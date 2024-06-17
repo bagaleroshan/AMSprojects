@@ -1,30 +1,45 @@
 import * as yup from "yup";
 
-export const groupValidationSchema = yup.object({
+const groupValidationSchema = yup.object({
   subject: yup.string().required("Subject is required."),
   teacher: yup.string().required("Teacher is required."),
   groupName: yup
     .string()
-    .matches(
-      /^[a-zA-Z0-9 ]+$/,
-      "Group name must contain only letters, numbers, and spaces."
+    .test(
+      "is-valid-group-name",
+      "Group name must contain only letters, numbers, and spaces.",
+      (value) => /^[a-zA-Z0-9 ]+$/.test(value || "")
     )
-    .min(3, "Group name must be between 3 and 50 characters long.")
-    .max(50, "Group name must be between 3 and 50 characters long.")
+    .test(
+      "is-correct-length",
+      "Group name must be between 3 and 50 characters long.",
+      (value) => (value && value.length >= 3 && value.length <= 50) || false
+    )
     .required("Group name is required."),
-
   startTime: yup
-    .string()
-    .matches(
-      /^([01]\d|2[0-3]):?([0-5]\d)$/,
-      "Start time must be in HH:mm format."
-    )
+    .date()
+    .typeError("Invalid start time")
     .required("Start time is required."),
   endTime: yup
-    .string()
-    //   .matches(
-    //     /^([01]\d|2[0-3]):?([0-5]\d)$/,
-    //     "End time must be in HH:mm format."
-    //   )
-    .required("End time is required."),
+    .date()
+    .typeError("Invalid end time")
+    .required("End time is required.")
+    .test(
+      "is-greater",
+      "End time must be later than start time.",
+      function (value) {
+        const { startTime } = this.parent;
+        return !startTime || !value || value > startTime;
+      }
+    )
+    .test(
+      "is-after-start",
+      "End time must be after start time.",
+      function (value) {
+        const { startTime } = this.parent;
+        return !startTime || !value || value > startTime;
+      }
+    ),
 });
+
+export default groupValidationSchema;

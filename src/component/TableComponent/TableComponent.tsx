@@ -9,6 +9,11 @@ import {
   MenuItem,
   Pagination,
   Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   TextField,
   Typography,
 } from "@mui/material";
@@ -232,125 +237,134 @@ const TableComponent: React.FC<TableComponentProps> = ({
         )}
       </Stack>
       <Box height={15} />
-      <table {...getTableProps()}>
-        <thead>
+      <Table {...getTableProps()}>
+        <TableHead>
           {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              <th>Select</th>
+            <TableRow {...headerGroup.getHeaderGroupProps()}>
+              <TableCell>Select</TableCell>
               {headerGroup.headers.map((column) => (
-                <th
+                <TableCell
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   style={{ width: column.width || "auto" }}
                   onClick={() => handleSort(column.id)}
                 >
                   {column.render("Header")}
                   {renderSortIcon(column.id)}
-                </th>
+                </TableCell>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
+        </TableHead>
+        <TableBody {...getTableBodyProps()}>
           {page.map((row, index) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} onClick={() => handleRowClick(index)}>
-                <td>
+              <TableRow
+                {...row.getRowProps()}
+                onClick={() => handleRowClick(index)}
+              >
+                <TableCell>
                   <Checkbox
                     checked={selectedRows.has(index)}
                     onChange={(e) => e.stopPropagation()} // prevent row click
                   />
-                </td>
+                </TableCell>
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  <TableCell {...cell.getCellProps()}>
+                    {cell.render("Cell")}
+                  </TableCell>
                 ))}
-              </tr>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       <div>
         <Box height={15} />
-        { data.length===0 ? (<Box
-          sx={{
-            width: "100%",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}>
-            <Box height={60}/>
+        {data.length === 0 ? (
+          <Box
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Box height={60} />
             <Typography variant="h5">No user is available</Typography>
-            <Box height={60}/>
+            <Box height={60} />
             <Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          <TextField
-            sx={{ marginTop: "10px" }}
-            size="small"
-            id="select"
-            value={query.limit}
-            onChange={(e) =>
-              handleQueryChange({ limit: Number(e.target.value), page: 1 })
-            }
-            select
-          >
-            <MenuItem value={10}>Limit 10</MenuItem>
-            <MenuItem value={20}>Limit 20</MenuItem>
-            <MenuItem value={40}>Limit 40</MenuItem>
-            <MenuItem value={1000}>Show All</MenuItem>
-          </TextField>
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+            >
+              <TextField
+                sx={{ marginTop: "10px" }}
+                size="small"
+                id="select"
+                value={query.limit}
+                onChange={(e) =>
+                  handleQueryChange({ limit: Number(e.target.value), page: 1 })
+                }
+                select
+              >
+                <MenuItem value={10}>Limit 10</MenuItem>
+                <MenuItem value={20}>Limit 20</MenuItem>
+                <MenuItem value={40}>Limit 40</MenuItem>
+                <MenuItem value={1000}>Show All</MenuItem>
+              </TextField>
 
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={Math.ceil(totalData / query.limit)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-          />
-        </Stack>
-          </Box>): (<Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          
-          <TextField
-            sx={{ marginTop: "10px" }}
-            size="small"
-            id="select"
-            value={query.limit}
-            onChange={(e) =>
-              handleQueryChange({ limit: Number(e.target.value), page: 1 })
-            }
-            select
+              <ReactPaginate
+                previousLabel={"previous"}
+                nextLabel={"next"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={Math.ceil(totalData / query.limit)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                activeClassName={"active"}
+              />
+            </Stack>
+          </Box>
+        ) : (
+          <Stack
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
           >
-            <MenuItem value={10}>Limit 10</MenuItem>
-            <MenuItem value={20}>Limit 20</MenuItem>
-            <MenuItem value={40}>Limit 40</MenuItem>
-            <MenuItem value={1000}>Show All</MenuItem>
-          </TextField>
+            <TextField
+              sx={{ marginTop: "10px" }}
+              size="small"
+              id="select"
+              value={query.limit}
+              onChange={(e) =>
+                handleQueryChange({ limit: Number(e.target.value), page: 1 })
+              }
+              select
+            >
+              <MenuItem value={10}>Limit 10</MenuItem>
+              <MenuItem value={20}>Limit 20</MenuItem>
+              <MenuItem value={40}>Limit 40</MenuItem>
+              <MenuItem value={1000}>Show All</MenuItem>
+            </TextField>
 
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={Math.ceil(totalData / query.limit)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-          />
-        </Stack>)}
+            <ReactPaginate
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={Math.ceil(totalData / query.limit)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+            />
+          </Stack>
+        )}
         {/* <Stack
           display="flex"
           flexDirection="row"

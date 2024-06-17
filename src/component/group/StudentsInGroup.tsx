@@ -3,16 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DeleteConfirmation from "../../DeleteConfirmation";
 import {
-  useDeleteSubjectMutation,
-  useReadSubjectsQuery,
-} from "../../services/api/SubjectService";
+  useDeleteStudentMutation,
+  useReadStudentsQuery,
+} from "../../services/api/StudentApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
+import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { Grid, Typography } from "@mui/material";
 
 interface Query {
   page: number;
@@ -20,58 +21,57 @@ interface Query {
   findQuery: string;
   sort: string[];
 }
-
-const ShowAllSubjects: React.FC = () => {
+const StudentsInGroup: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "subjectName", width: "40%" },
-    { Header: "Code", accessor: "subjectCode", width: "30%" },
-    { Header: "Classes", accessor: "numberOfClasses", width: "20%" },
+    { Header: "Name", accessor: "fullName", width: "30%" },
+    { Header: "Email", accessor: "email", width: "40%" },
+    { Header: "Contact", accessor: "phoneNumber", width: "20%" },
   ];
-
   const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
     sort: [],
   });
-
-  const { data, isLoading, isError, refetch } = useReadSubjectsQuery({
+  const { data, isLoading, isError, refetch } = useReadStudentsQuery({
     ...query,
     sort: query.sort.join(","),
   });
+  // if(data.result.result)
   const [
-    deleteSubject,
+    deleteStudents,
     {
-      isError: isErrorDeleteSubject,
-      error: errorDeleteSubject,
-      isSuccess: isSuccessDeleteSubject,
-      data: dataDeleteSubject,
+      isError: isDeleteStudentError,
+      error: errorDeleteStudent,
+      isSuccess: isSuccessDeleteStudent,
+      data: successDeleteStudent,
     },
-  ] = useDeleteSubjectMutation();
+  ] = useDeleteStudentMutation();
 
   useEffect(() => {
-    if (isErrorDeleteSubject) {
-      if (isFetchBaseQueryError(errorDeleteSubject)) {
-        toast.error(getErrorMessage(errorDeleteSubject), { autoClose: 5000 });
-      } else if (isSerializedError(errorDeleteSubject)) {
-        toast.error(errorDeleteSubject?.message, { autoClose: 5000 });
+    if (isDeleteStudentError) {
+      if (isFetchBaseQueryError(errorDeleteStudent)) {
+        toast.error(getErrorMessage(errorDeleteStudent), { autoClose: 5000 });
+      } else if (isSerializedError(errorDeleteStudent)) {
+        toast.error(errorDeleteStudent?.message, { autoClose: 5000 });
       } else {
         toast.error("Unknown Error", { autoClose: 5000 });
       }
     }
-  }, [isErrorDeleteSubject, errorDeleteSubject]);
+  }, [isDeleteStudentError, errorDeleteStudent]);
 
   useEffect(() => {
-    if (isSuccessDeleteSubject) {
-      toast.success(dataDeleteSubject.message, {
+    if (isSuccessDeleteStudent) {
+      toast.success(successDeleteStudent.message, {
         autoClose: 3000,
       });
     }
-  }, [isSuccessDeleteSubject, dataDeleteSubject]);
+  }, [isSuccessDeleteStudent, successDeleteStudent]);
 
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
-  const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>([]);
+  const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
+
   useEffect(() => {
     refetch();
   }, [query, refetch]);
@@ -79,46 +79,51 @@ const ShowAllSubjects: React.FC = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
   }
-
-  const handleEditClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/subjects/update/${selectedRowData[0].id}`, {
-      // state: { updateData: selectedRowData[0] },
+  const handleStudentEditClick = (selectedRowData: IData[]) => {
+    navigate(`/admin/students/update/${selectedRowData[0].id}`, {
       replace: true,
     });
   };
+
   const handleViewClick = (selectedRowData: IData[]) => {
-    navigate(`/admin/subjects/${selectedRowData[0].id}`, {
-      // state: { viewData: selectedRowData[0] },
+    navigate(`/admin/students/${selectedRowData[0].id}`, {
       replace: true,
     });
   };
-
   const handleDeleteClick = (selectedRowData: IData[]) => {
-    setSelectedSubjectIds(selectedRowData.map((value: IData) => value.id));
+    setSelectedStudentIds(selectedRowData.map((value: IData) => value.id));
     setOpenDeleteConfirmation(true);
   };
 
   const handleConfirmDelete = async () => {
-    await Promise.all(selectedSubjectIds.map((id) => deleteSubject(id)));
+    await Promise.all(selectedStudentIds.map((id) => deleteStudents(id)));
     setOpenDeleteConfirmation(false);
-    setSelectedSubjectIds([]);
+    setSelectedStudentIds([]);
     refetch();
   };
 
   const handleCancelDelete = () => {
     setOpenDeleteConfirmation(false);
-    setSelectedSubjectIds([]);
+    setSelectedStudentIds([]);
   };
   return (
     <div>
-      <SubjectExportCSV
-        data={data.result.results}
-        fileName="Subject File"
-      ></SubjectExportCSV>
+      <Grid container>
+        <Grid item xs={4}>
+          <StudentExportCSV
+            data={data.result.results}
+            fileName="Student File"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Typography component="h2" variant="h6" gutterBottom>
+            Students in this group...
+          </Typography>
+        </Grid>
+      </Grid>
 
       <TableComponent
         columns={columns}
@@ -127,11 +132,10 @@ const ShowAllSubjects: React.FC = () => {
         setQuery={setQuery}
         currentSort={query.sort}
         totalData={data.result.totalDataInWholePage}
-        onEditClick={handleEditClick}
+        onEditClick={handleStudentEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
       />
-
       {openDeleteConfirmation && (
         <DeleteConfirmation
           open={openDeleteConfirmation}
@@ -142,5 +146,4 @@ const ShowAllSubjects: React.FC = () => {
     </div>
   );
 };
-
-export default ShowAllSubjects;
+export default StudentsInGroup;
