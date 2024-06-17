@@ -1,6 +1,9 @@
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { FC } from "react";
 import { CSVLink } from "react-csv";
-import "./styles.css";
+import { LightTooltip } from "../theme/MuiSidebarTheme";
+
+// import "./styles.css";
 interface DataItem {
   id: string;
   subjectName: string;
@@ -26,10 +29,12 @@ const SubjectExportCSV: FC<SubjectExportCSVProps> = ({ data, fileName }) => {
       data={data}
       headers={columns}
       filename={`${fileName}.csv`}
-      className="btn btn-primary"
+      // className="btn btn-primary"
       target="_blank"
     >
-      Download
+      <LightTooltip title="Download" placement="right">
+        <FileDownloadIcon  color="primary" />
+      </LightTooltip>
     </CSVLink>
   );
 };

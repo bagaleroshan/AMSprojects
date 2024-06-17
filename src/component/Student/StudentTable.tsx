@@ -19,9 +19,9 @@ interface Query {
 const StudentTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName", width: "30%" },
-    { Header: "Email", accessor: "email", width: "40%" },
-    { Header: "Contact", accessor: "phoneNumber", width: "20%" },
+    { Header: "Name", accessor: "fullName", width: "350px" },
+    { Header: "Email", accessor: "email", width: "350px" },
+    { Header: "Contact", accessor: "phoneNumber", width: "350px" },
   ];
   const [query, setQuery] = useState<Query>({
     page: 1,

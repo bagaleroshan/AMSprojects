@@ -24,9 +24,9 @@ interface Query {
 const ShowAllSubjects: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "subjectName", width: "40%" },
-    { Header: "Code", accessor: "subjectCode", width: "30%" },
-    { Header: "Classes", accessor: "numberOfClasses", width: "20%" },
+    { Header: "Name", accessor: "subjectName", width: "350px" },
+    { Header: "Code", accessor: "subjectCode", width: "350px" },
+    { Header: "Classes", accessor: "numberOfClasses", width: "350px" },
   ];
 
   const [query, setQuery] = useState<Query>({

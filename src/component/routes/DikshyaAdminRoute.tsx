@@ -12,6 +12,7 @@ import AdminAttendance from "../mycomponents/admin/AdminAttendance";
 import AdminReport from "../mycomponents/admin/AdminReport";
 import AdminMessages from "../mycomponents/admin/AdminMessages";
 import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
+import SpecificUserDetail from "../mycomponents/admin/adminForm/user/SpecificUserDetail";
 
 const DikshyaAdminRoute = () => {
   return (
@@ -45,6 +46,8 @@ const DikshyaAdminRoute = () => {
           />
 
           <Route path="update/:id" element={<UpdateTeacher />} />
+          <Route path=":id" element={<SpecificUserDetail />} />
+
         </Route>
 
         {/* ---------------- Students------------------------------ */}
@@ -75,6 +78,7 @@ const DikshyaAdminRoute = () => {
 
           <Route path="update/:id" element={<UpdateSubject />} />
           <Route path=":id" element={<ReadSpecificSubject />} />
+
         </Route>
 
         {/* --------------- Groups------------------------------------ */}

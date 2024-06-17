@@ -19,7 +19,7 @@ const MuiSelect = () => {
     <>
       <Stack display="flex" direction="row" spacing={25}>
         <Box sx={{ minWidth: 120 }} component="div">
-          <FormControl fullWidth color="secondary">
+          <FormControl fullWidth color="primary">
             <InputLabel id="demo-simple-select-label">Month</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -45,7 +45,7 @@ const MuiSelect = () => {
         </Box>
 
         <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth color="secondary">
+          <FormControl fullWidth color="primary">
             <InputLabel id="demo-simple-select-label">Month</InputLabel>
             <Select
               labelId="demo-simple-select-label"

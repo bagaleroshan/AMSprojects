@@ -1,3 +1,5 @@
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,7 +9,6 @@ import {
   Button,
   InputAdornment,
   MenuItem,
-  Pagination,
   Stack,
   Table,
   TableBody,
@@ -123,9 +124,14 @@ const TableComponent: React.FC<TableComponentProps> = ({
   const renderSortIcon = (accessor: string) => {
     const sortField = currentSort.find((sort) => sort.includes(accessor));
     if (sortField) {
-      return sortField.startsWith("-") ? "↓" : "↑";
+      // return sortField.startsWith("-") ? "↓" : "↑";
+      return sortField.startsWith("-") ? (
+        <ArrowDownwardIcon style={{ fontSize: "16px" }} className="sort-icon" />
+      ) : (
+        <ArrowUpwardIcon style={{ fontSize: "16px" }} className="sort-icon" />
+      );
     }
-    return "";
+    return <span className="sort-icon-placeholder"></span>;
   };
 
   const handleSort = (accessor: string) => {
@@ -178,7 +184,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   );
 
   return (
-    <div>
+    <div className="table-container">
       <Stack
         sx={{
           direction: "flex",
@@ -237,7 +243,68 @@ const TableComponent: React.FC<TableComponentProps> = ({
         )}
       </Stack>
       <Box height={15} />
-      <Table {...getTableProps()}>
+
+      <div className="outer-wrapper">
+        <div className="table-wrapper">
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  <th
+                    style={{
+                      width: "150px",
+                      position: "sticky",
+                      left: 0,
+                      zIndex: 20,
+                    }}
+                  >
+                    Select
+                  </th>
+
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      style={{ width: column.width }}
+                      onClick={() => handleSort(column.id)}
+                    >
+                      {column.render("Header")}
+                      {renderSortIcon(column.id)}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, index) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    onClick={() => handleRowClick(index)}
+                  >
+                    <td>
+                      <Checkbox
+                        checked={selectedRows.has(index)}
+                        onChange={(e) => e.stopPropagation()} // prevent row click
+                      />
+                    </td>
+                    {row.cells.map((cell) => (
+                      <td
+                        {...cell.getCellProps()}
+                        style={{ width: cell.column.width }}
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* <Table {...getTableProps()}>
         <TableHead>
           {headerGroups.map((headerGroup) => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -278,7 +345,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             );
           })}
         </TableBody>
-      </Table>
+      </Table> */}
       <div>
         <Box height={15} />
         {data.length === 0 ? (
@@ -292,7 +359,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             }}
           >
             <Box height={60} />
-            <Typography variant="h5">No user is available</Typography>
+            <Typography variant="h5">{searchTerm} is not available</Typography>
             <Box height={60} />
             <Stack
               display="flex"
@@ -305,7 +372,10 @@ const TableComponent: React.FC<TableComponentProps> = ({
                 id="select"
                 value={query.limit}
                 onChange={(e) =>
-                  handleQueryChange({ limit: Number(e.target.value), page: 1 })
+                  handleQueryChange({
+                    limit: Number(e.target.value),
+                    page: 1,
+                  })
                 }
                 select
               >
@@ -365,40 +435,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
             />
           </Stack>
         )}
-        {/* <Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          <TextField
-            sx={{ marginTop: "10px" }}
-            size="small"
-            id="select"
-            value={query.limit}
-            onChange={(e) =>
-              handleQueryChange({ limit: Number(e.target.value), page: 1 })
-            }
-            select
-          >
-            <MenuItem value={10}>Limit 10</MenuItem>
-            <MenuItem value={20}>Limit 20</MenuItem>
-            <MenuItem value={40}>Limit 40</MenuItem>
-            <MenuItem value={1000}>Show All</MenuItem>
-          </TextField>
-
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={Math.ceil(totalData / query.limit)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-          />
-        </Stack> */}
       </div>
     </div>
   );
