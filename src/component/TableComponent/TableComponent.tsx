@@ -360,7 +360,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
           >
             <Box height={60} />
             <Typography variant="h5">{searchTerm} is not available</Typography>
-            <Typography variant="h5">No user is available</Typography>
             <Box height={60} />
             <Stack
               display="flex"
