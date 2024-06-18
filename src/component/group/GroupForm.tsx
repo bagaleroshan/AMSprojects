@@ -32,6 +32,7 @@ const GroupForm: React.FC<IFormValues> = ({
   isLoading = false,
   formikRef = undefined,
   onSubmit = () => {},
+  group = {},
 }) => {
   const [query] = useState<Query>({
     page: 1,
@@ -62,12 +63,13 @@ const GroupForm: React.FC<IFormValues> = ({
   }));
 
   const groupInitialValues: IGroup = {
-    subject: "",
-    teacher: "",
-    groupName: "",
-    startTime: null || "",
-    endTime: null || "",
+    subject: group.subject?.id || "",
+    teacher: group.teacher?.id || "",
+    groupName: group.groupName || "",
+    startTime: group.startTime || "",
+    endTime: group.endTime || "",
   };
+  console.log("group", group?.subject?.id);
 
   return (
     <div>
@@ -175,7 +177,7 @@ const GroupForm: React.FC<IFormValues> = ({
                           formik.setFieldValue("endTime", date)
                         }
                         onBlur={() => {
-                          formik.setFieldTouched("endTime", true); // Mark startTime field as touched on blur
+                          formik.setFieldTouched("endTime", true);
                         }}
                         showTimeSelect
                         showTimeSelectOnly
