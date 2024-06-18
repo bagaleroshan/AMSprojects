@@ -74,7 +74,6 @@ const GroupForm: React.FC<IFormValues> = ({
     startTime: group.startTime || "",
     endTime: group.endTime || "",
   };
-  console.log(group);
 
   return (
     <div>

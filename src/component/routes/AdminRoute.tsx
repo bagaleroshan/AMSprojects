@@ -6,6 +6,8 @@ import AdminReport from "../MyComponents/Admin/AdminReport";
 import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
+import ReadSpecificGroup from "../group/ReadSpecificGroup";
+import UpdateGroup from "../group/UpdateGroup";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import UpdateSubject from "../subject/UpdateSubject";
 import UpdateTeacher from "../teacher/UpdateTeacher";
@@ -13,13 +15,6 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import UpdateGroup from "../group/UpdateGroup";
-import ReadSpecificGroup from "../group/ReadSpecificGroup";
-import GroupWithStudent from "../group/GroupWithStudent";
-import {
-  AddStudentsToGroup,
-  MultiSelectComponent,
-} from "../group/AddStudentsToGroup";
 
 const AdminRoute = () => {
   return (
@@ -87,13 +82,7 @@ const AdminRoute = () => {
             path="create"
             element={<AdminForm firstTab="groups" secondTab="create" />}
           />
-          {/* <Route path="students" element={<MultiSelectComponent />} /> */}
-
           <Route path="update/:id" element={<UpdateGroup />} />
-          {/* <Route path=":id" element={<Outlet />}>
-            <Route index element={<ReadSpecificGroup />} />
-            <Route path="students" element={<MultiSelectComponent />} />
-          </Route> */}
           <Route path=":id" element={<ReadSpecificGroup />} />
         </Route>
 
