@@ -97,6 +97,24 @@ export const GroupApi = createApi({
       },
       invalidatesTags: ["readGroups"],
     }),
+    addStudentGroup: builder.mutation({
+      query: ({ body, id }) => {
+        console.log("body*------------", body);
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/groups/addStudent/${id}`,
+          method: "PATCH",
+          body: {students:body},
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      invalidatesTags: ["readGroups"],
+    }),
   }),
 });
 
@@ -107,4 +125,5 @@ export const {
   useReadGroupByIdQuery,
   useDeleteGroupMutation,
   useReadGroupQuery,
+  useAddStudentGroupMutation,
 } = GroupApi;

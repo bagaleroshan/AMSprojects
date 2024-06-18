@@ -1,39 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import DeleteConfirmation from "../../DeleteConfirmation";
+import { useDeleteStudentMutation } from "../../services/api/StudentApi";
 import {
-  useDeleteStudentMutation,
-  useReadStudentsQuery,
-} from "../../services/api/StudentApi";
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../utils/utils";
+// import StudentExportCSV from "../ExportCSV/StudentExportCSV";
+import { Grid, Typography } from "@mui/material";
+import { useReadGroupByIdQuery } from "../../services/api/GroupService";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
 
-import DeleteConfirmation from "../../DeleteConfirmation";
-import StudentExportCSV from "../ExportCSV/StudentExportCSV";
-import { toast } from "react-toastify";
-import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
 interface Query {
   page: number;
   limit: number;
   findQuery: string;
   sort: string[];
 }
-const StudentTable: React.FC = () => {
+const StudentsInGroup: React.FC = (id) => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName", width: "350px" },
-    { Header: "Email", accessor: "email", width: "350px" },
-    { Header: "Contact", accessor: "phoneNumber", width: "350px" },
+    { Header: "Name", accessor: "fullName", width: "30%" },
+    { Header: "Email", accessor: "email", width: "40%" },
+    { Header: "Contact", accessor: "phoneNumber", width: "20%" },
   ];
+
   const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
     sort: [],
   });
-  const { data, isLoading, isError, refetch } = useReadStudentsQuery({
-    ...query,
-    sort: query.sort.join(","),
-  });
-  const [deleteStudents,{isError:isDeleteStudentError,error:errorDeleteStudent,isSuccess:isSuccessDeleteStudent,data:successDeleteStudent}] = useDeleteStudentMutation();
+  const { data, isLoading, isError, refetch } = useReadGroupByIdQuery(id.id);
+  // console.log("Data jsahdjasdasa", data);
+  const [
+    deleteStudents,
+    {
+      isError: isDeleteStudentError,
+      error: errorDeleteStudent,
+      isSuccess: isSuccessDeleteStudent,
+      data: successDeleteStudent,
+    },
+  ] = useDeleteStudentMutation();
 
   useEffect(() => {
     if (isDeleteStudentError) {
@@ -46,7 +56,7 @@ const StudentTable: React.FC = () => {
       }
     }
   }, [isDeleteStudentError, errorDeleteStudent]);
-  
+
   useEffect(() => {
     if (isSuccessDeleteStudent) {
       toast.success(successDeleteStudent.message, {
@@ -61,6 +71,7 @@ const StudentTable: React.FC = () => {
   useEffect(() => {
     refetch();
   }, [query, refetch]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -96,13 +107,23 @@ const StudentTable: React.FC = () => {
   };
   return (
     <div>
-      <StudentExportCSV
-        data={data.result.results}
-        fileName="Student File"
-      ></StudentExportCSV>
+      <Grid container>
+        {/* <Grid item xs={4}>
+          <StudentExportCSV
+            data={data.result.results}
+            fileName="Student File"
+          />
+        </Grid> */}
+        <Grid item xs={6}>
+          <Typography component="h2" variant="h6" gutterBottom>
+            Students in this group...
+          </Typography>
+        </Grid>
+      </Grid>
+
       <TableComponent
         columns={columns}
-        data={data.result.results}
+        data={data.result.students}
         query={query}
         setQuery={setQuery}
         currentSort={query.sort}
@@ -121,4 +142,4 @@ const StudentTable: React.FC = () => {
     </div>
   );
 };
-export default StudentTable;
+export default StudentsInGroup;

@@ -9,6 +9,7 @@ import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
 import AdminRoute from "./component/routes/AdminRoute";
+import DikshyaAdminRoute from "./component/routes/DikshyaAdminRoute";
 
 const App = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
@@ -24,6 +25,7 @@ const App = () => {
           element={
             <AmsLayout>
               <AdminRoute />
+              {/* <DikshyaAdminRoute /> */}
             </AmsLayout>
           }
         />

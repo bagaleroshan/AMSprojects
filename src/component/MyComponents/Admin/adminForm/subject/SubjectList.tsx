@@ -1,5 +1,5 @@
-import { Box, Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Box, Button } from "@mui/material";
 import ShowAllSubjects from "../../../../subject/ShowAllSubjects";
 const SubjectList = ({ onChangePage }) => {
   return (

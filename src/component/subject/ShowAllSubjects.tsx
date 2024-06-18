@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import DeleteConfirmation from "../../DeleteConfirmation";
 import {
   useDeleteSubjectMutation,
   useReadSubjectsQuery,
 } from "../../services/api/SubjectService";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../utils/utils";
 import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
-import { Box, Typography } from "@mui/material";
-import DeleteConfirmation from "../../DeleteConfirmation";
-import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
-import { toast } from "react-toastify";
 
 interface Query {
   page: number;
@@ -21,9 +24,9 @@ interface Query {
 const ShowAllSubjects: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "subjectName", width: "40%" },
-    { Header: "Code", accessor: "subjectCode", width: "30%" },
-    { Header: "Classes", accessor: "numberOfClasses", width: "20%" },
+    { Header: "Name", accessor: "subjectName", width: "350px" },
+    { Header: "Code", accessor: "subjectCode", width: "350px" },
+    { Header: "Classes", accessor: "numberOfClasses", width: "350px" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -46,6 +49,7 @@ const ShowAllSubjects: React.FC = () => {
       data: dataDeleteSubject,
     },
   ] = useDeleteSubjectMutation();
+
   useEffect(() => {
     if (isErrorDeleteSubject) {
       if (isFetchBaseQueryError(errorDeleteSubject)) {
@@ -65,8 +69,6 @@ const ShowAllSubjects: React.FC = () => {
       });
     }
   }, [isSuccessDeleteSubject, dataDeleteSubject]);
-
-
 
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedSubjectIds, setSelectedSubjectIds] = useState<string[]>([]);
