@@ -10,13 +10,8 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -282,7 +277,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                     {...row.getRowProps()}
                     onClick={() => handleRowClick(index)}
                   >
-                    <td>
+                    <td style={{ width: "150px" }}>
                       <Checkbox
                         checked={selectedRows.has(index)}
                         onChange={(e) => e.stopPropagation()} // prevent row click

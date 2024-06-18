@@ -6,7 +6,11 @@ import {
   useDeleteGroupMutation,
   useReadGroupQuery,
 } from "../../services/api/GroupService";
-import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../utils/utils";
 import { toast } from "react-toastify";
 
 interface Query {
@@ -19,10 +23,9 @@ interface Query {
 const GroupTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Group Name", accessor: "groupName", width: "30%" },
-    { Header: "Subject Name", accessor: "subject.subjectCode", width: "30%" },
-    { Header: "Teacher Name", accessor: "teacher.fullName", width: "20%" },
-
+    { Header: "Group Name", accessor: "groupName", width: "350px" },
+    { Header: "Subject Name", accessor: "subject.subjectCode", width: "350px" },
+    { Header: "Teacher Name", accessor: "teacher.fullName", width: "350px" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -36,8 +39,16 @@ const GroupTable: React.FC = () => {
     ...query,
     sort: query.sort.join(",") || "",
   });
-  const [deleteGroups,{isError:isErrorDeletingGroup,error:errorDeleteGroup,isSuccess:isSuccessDeletingData,data:deleteGroupData}] = useDeleteGroupMutation();
-  
+  const [
+    deleteGroups,
+    {
+      isError: isErrorDeletingGroup,
+      error: errorDeleteGroup,
+      isSuccess: isSuccessDeletingData,
+      data: deleteGroupData,
+    },
+  ] = useDeleteGroupMutation();
+
   useEffect(() => {
     if (isErrorDeletingGroup) {
       if (isFetchBaseQueryError(errorDeleteGroup)) {
@@ -49,7 +60,7 @@ const GroupTable: React.FC = () => {
       }
     }
   }, [isErrorDeletingGroup, errorDeleteGroup]);
-  
+
   useEffect(() => {
     if (isSuccessDeletingData) {
       toast.success(deleteGroupData.message, {
@@ -57,7 +68,6 @@ const GroupTable: React.FC = () => {
       });
     }
   }, [isSuccessDeletingData, deleteGroupData]);
-  
 
   useEffect(() => {
     refetch();

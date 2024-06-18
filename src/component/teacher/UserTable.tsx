@@ -26,30 +26,27 @@ interface Query {
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName", width: "350px", minWidth: "350px" },
-    { Header: "Email", accessor: "email", width: "350px", minWidth:'350px' },
+    { Header: "Name", accessor: "fullName", fixedWidth: "350px" },
+    { Header: "Email", accessor: "email", fixedWidth: "350px" },
     {
       Header: "Contact",
       accessor: "phoneNumber",
-      width: "350px",
-      minWidth: "350px",
+      fixedWidth: "350px",
     },
-    { Header: "Role", accessor: "role", width: "350px", minWidth: "350px" },
-    { Header: "Hello", accessor: "hello", width: "350px", minWidth: "350px" },
-    { Header: "World", accessor: "world", width: "350px", minWidth: "350px" },
+    { Header: "Role", accessor: "role", fixedWidth: "350px" },
+    { Header: "Hello", accessor: "hello", fixedWidth: "350px" },
+    { Header: "World", accessor: "world", fixedWidth: "350px" },
     {
       Header: "Science",
       accessor: "science",
-      width: "350px",
-      minWidth: "350px",
+      fixedWidth: "350px",
     },
-    { Header: "Math", accessor: "math", width: "350px", minWidth: "350px" },
-    { Header: "Social", accessor: "social", width: "350px", minWidth: "350px" },
+    { Header: "Math", accessor: "math", fixedWidth: "350px" },
+    { Header: "Social", accessor: "social", fixedWidth: "350px" },
     {
       Header: "Physics",
       accessor: "physics",
-      width: "350px",
-      minWidth: "350px",
+      fixedWidth: "350px",
     },
   ];
 
