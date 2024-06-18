@@ -176,7 +176,7 @@ const GroupForm: React.FC<IFormValues> = ({
                           }
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={6}>
                         <DatePicker
                           selected={formik.values.endTime}
                           onChange={(date: Date) =>

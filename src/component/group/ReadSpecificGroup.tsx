@@ -30,7 +30,7 @@ const ReadSpecificGroup = () => {
     error: errorViewSpecific,
   } = useReadGroupByIdQuery(id);
   const group = dataViewSpecific?.result || {};
-  // console.log("group**********************", dataViewSpecific?.result);
+  console.log("group**********************", dataViewSpecific?.result?.results);
 
   useEffect(() => {
     isErrorViewSpecific &&
@@ -95,7 +95,7 @@ const ReadSpecificGroup = () => {
             </Grid>
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                <StudentsInGroup />
+                <StudentsInGroup id={id} />
               </Paper>
             </Grid>
           </Grid>
