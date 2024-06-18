@@ -23,7 +23,7 @@ export const studentValidationSchema = yup.object({
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
     })
     .required("Email is required."),
-    phoneNumber: yup
+  phoneNumber: yup
     .string()
     .matches(/^[0-9]{10}$/, "Phone number must have 10 digits")
     .test("is-valid-phone-number", "Invalid phone number", (value): boolean => {

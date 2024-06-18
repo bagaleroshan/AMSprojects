@@ -18,6 +18,7 @@ import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+
 interface Query {
   page?: number;
   limit?: number;
@@ -46,26 +47,20 @@ const GroupForm: React.FC<IFormValues> = ({
     ...query,
     sort: query.sort?.join(",") || "",
   });
-  const teachers = (datatReadTeachers?.result?.results || []).map((value) => {
-    // console.log(group.teacher?.fullName, "************name**************");
-
-    return {
-      value: value.id,
-      label: value.fullName,
-    };
-  });
+  const teachers = (datatReadTeachers?.result?.results || []).map((value) => ({
+    value: value.id,
+    label: value.fullName,
+  }));
 
   /* Subjects */
   const { data: dataReadSubjects } = useReadSubjectsQuery({
     ...query,
     sort: query.sort?.join(","),
   });
-  const subjects = (dataReadSubjects?.result?.results || []).map((value) => {
-    return {
-      value: value.id,
-      label: value.subjectName,
-    };
-  });
+  const subjects = (dataReadSubjects?.result?.results || []).map((value) => ({
+    value: value.id,
+    label: value.subjectName,
+  }));
 
   const groupInitialValues: IGroup = {
     subject: group.subject?.id || "",
@@ -74,7 +69,6 @@ const GroupForm: React.FC<IFormValues> = ({
     startTime: group.startTime || "",
     endTime: group.endTime || "",
   };
-
   return (
     <div>
       <Formik
