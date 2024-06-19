@@ -6,7 +6,7 @@ import TeacherSideBar from "../mycomponents/teacher/TeacherSideBar";
 
 const AmsLayout = ({ children }) => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
-  
+
   return (
     <div className="admindashboard">
       <Box sx={{ display: "flex" }}>
@@ -21,3 +21,4 @@ const AmsLayout = ({ children }) => {
 };
 
 export default AmsLayout;
+  

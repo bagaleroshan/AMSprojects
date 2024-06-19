@@ -39,6 +39,7 @@ const GroupTable: React.FC = () => {
     ...query,
     sort: query.sort.join(",") || "",
   });
+  console.log(data);
   const [
     deleteGroups,
     {

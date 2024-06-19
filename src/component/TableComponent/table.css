@@ -35,26 +35,17 @@ table th {
 table td{
   border:1px solid #ddd;
   padding:8px;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  width:30px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
 }
+
 
 table tr:nth-child(even) { background-color: #f2f2f2; }
 
 table tr:hover { background-color: #ddd; }
 
-
-
 th:nth-child(1){
   position: sticky;
   left:0;
   z-index: 20;
- 
 }
 
 td:nth-child(1){
@@ -73,10 +64,7 @@ td:nth-child(2){
   position:sticky;
   left:150px;
   z-index:10;
-  width:15px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  
   
   
   /* background-color:#EDF8FF; */
@@ -117,13 +105,20 @@ tr td:nth-child(2):hover{
 }
 
 
-/* tr td:nth-child(1):hover{
+tr td:nth-child(1):hover{
   background-color: #ddd;
-} */
+}
 /* tr td:nth-child(3):hover{
   background-color: #ddd;
 } */
 
+td .ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 150px;
+}
 .pagination {
   display: flex;
   list-style: none;

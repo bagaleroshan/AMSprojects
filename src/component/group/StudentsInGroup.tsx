@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DeleteConfirmation from "../../DeleteConfirmation";
-import {
-  useDeleteStudentMutation,
-  useReadStudentsQuery,
-} from "../../services/api/StudentApi";
+import { useDeleteStudentMutation } from "../../services/api/StudentApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import StudentExportCSV from "../ExportCSV/StudentExportCSV";
-import TableComponent, { IData } from "../TableComponent/TableComponent";
+// import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 import { Grid, Typography } from "@mui/material";
+import { useReadGroupByIdQuery } from "../../services/api/GroupService";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -21,24 +19,22 @@ interface Query {
   findQuery: string;
   sort: string[];
 }
-const StudentsInGroup: React.FC = () => {
+const StudentsInGroup: React.FC = (id) => {
   const navigate = useNavigate();
   const columns = [
     { Header: "Name", accessor: "fullName", width: "30%" },
     { Header: "Email", accessor: "email", width: "40%" },
     { Header: "Contact", accessor: "phoneNumber", width: "20%" },
   ];
+
   const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
     sort: [],
   });
-  const { data, isLoading, isError, refetch } = useReadStudentsQuery({
-    ...query,
-    sort: query.sort.join(","),
-  });
-  // if(data.result.result)
+  const { data, isLoading, isError, refetch } = useReadGroupByIdQuery(id.id);
+  // console.log("Data jsahdjasdasa", data);
   const [
     deleteStudents,
     {
@@ -112,12 +108,12 @@ const StudentsInGroup: React.FC = () => {
   return (
     <div>
       <Grid container>
-        <Grid item xs={4}>
+        {/* <Grid item xs={4}>
           <StudentExportCSV
             data={data.result.results}
             fileName="Student File"
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={6}>
           <Typography component="h2" variant="h6" gutterBottom>
             Students in this group...
@@ -127,7 +123,7 @@ const StudentsInGroup: React.FC = () => {
 
       <TableComponent
         columns={columns}
-        data={data.result.results}
+        data={data.result.students}
         query={query}
         setQuery={setQuery}
         currentSort={query.sort}

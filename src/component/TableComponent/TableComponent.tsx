@@ -11,7 +11,7 @@ import {
   MenuItem,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -287,8 +287,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
                       <td
                         {...cell.getCellProps()}
                         style={{ width: cell.column.width }}
+                        className="text-wrap"
                       >
-                        {cell.render("Cell")}
+                        <span className="ellipsis">{cell.render("Cell")}</span>
                       </td>
                     ))}
                   </tr>
