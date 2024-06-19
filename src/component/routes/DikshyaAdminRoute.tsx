@@ -7,12 +7,12 @@ import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import ReadSpecificSubject from "../subject/ReadSpecificSubject";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
-import AdminDashboard from "../mycomponents/admin/AdminDashboard";
-import AdminAttendance from "../mycomponents/admin/AdminAttendance";
-import AdminReport from "../mycomponents/admin/AdminReport";
-import AdminMessages from "../mycomponents/admin/AdminMessages";
-import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
-import SpecificUserDetail from "../mycomponents/admin/adminForm/user/SpecificUserDetail";
+import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
+import AdminReport from "../MyComponents/Admin/AdminReport";
+import AdminMessages from "../MyComponents/Admin/AdminMessages";
+import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import SpecificUserDetail from "../MyComponents/Admin/adminForm/user/SpecificUserDetail";
 
 const DikshyaAdminRoute = () => {
   return (
@@ -47,7 +47,6 @@ const DikshyaAdminRoute = () => {
 
           <Route path="update/:id" element={<UpdateTeacher />} />
           <Route path=":id" element={<SpecificUserDetail />} />
-
         </Route>
 
         {/* ---------------- Students------------------------------ */}
@@ -78,7 +77,6 @@ const DikshyaAdminRoute = () => {
 
           <Route path="update/:id" element={<UpdateSubject />} />
           <Route path=":id" element={<ReadSpecificSubject />} />
-
         </Route>
 
         {/* --------------- Groups------------------------------------ */}
