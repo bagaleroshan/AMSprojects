@@ -23,9 +23,9 @@ interface Query {
 const GroupTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Group Name", accessor: "groupName", width: "30%" },
-    { Header: "Subject Name", accessor: "subject.subjectName", width: "30%" },
-    { Header: "Teacher Name", accessor: "teacher.fullName", width: "20%" },
+    { Header: "Group Name", accessor: "groupName", width: "350px" },
+    { Header: "Subject Name", accessor: "subject.subjectCode", width: "350px" },
+    { Header: "Teacher Name", accessor: "teacher.fullName", width: "350px" },
   ];
 
   const [query, setQuery] = useState<Query>({
