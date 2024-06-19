@@ -56,13 +56,13 @@ td:nth-child(1){
 
 th:nth-child(2){
   position: sticky;
-  left:150px;
+  left:120px;
   z-index: 20;
 }
 
 td:nth-child(2){
   position:sticky;
-  left:150px;
+  left:120px;
   z-index:10;
   
   
@@ -117,7 +117,7 @@ td .ellipsis{
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
-  max-width: 150px;
+  max-width:300px;
 }
 .pagination {
   display: flex;

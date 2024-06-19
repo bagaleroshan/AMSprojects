@@ -18,6 +18,7 @@ import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
+import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 
 export interface IData<T = any> {
   [key: string]: T;
@@ -247,7 +248,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   <th
                     style={{
-                      width: "150px",
+                      width: "120px",
                       position: "sticky",
                       left: 0,
                       zIndex: 20,
@@ -277,7 +278,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                     {...row.getRowProps()}
                     onClick={() => handleRowClick(index)}
                   >
-                    <td style={{ width: "150px" }}>
+                    <td style={{ width: "120px", textAlign: "center" }}>
                       <Checkbox
                         checked={selectedRows.has(index)}
                         onChange={(e) => e.stopPropagation()} // prevent row click
@@ -287,7 +288,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
                       <td
                         {...cell.getCellProps()}
                         style={{ width: cell.column.width }}
-                        className="text-wrap"
                       >
                         <span className="ellipsis">{cell.render("Cell")}</span>
                       </td>
