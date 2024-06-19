@@ -1,7 +1,11 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useTable } from "react-table";
+import { useTakeAttendanceMutation } from "../../services/api/AttendanceSerice";
 
 export const AttendanceTable = ({ students }) => {
+  const [takeAttendance] = useTakeAttendanceMutation();
+  const params = useParams();
   const [attendance, setAttendance] = useState(
     students.map((student) => ({ ...student, present: false }))
   );
@@ -16,17 +20,19 @@ export const AttendanceTable = ({ students }) => {
     setAttendance(updatedAttendance);
   };
 
-  const handleButtonClick =  async() => {
-    const currentDate = new Date().toLocaleDateString();
-    await attendance.forEach(student => {
-      
-    console.log ({date:currentDate,attendance:{name:student.name,present:student.present}})
-     
-    });
-   
+  const handleButtonClick = async () => {
+    const currentDate = new Date().toISOString();
+    const results = attendance.map(student => ({
+      date: currentDate,
+      attendance: { student: student.id, present: student.present }
+    }));
+  
+    try {
+      await takeAttendance({ id: params.id, data: results });
+    } catch (error) {
+      console.error('Error recording attendance:', error);
+    }
   };
-
-
 
   const columns = useMemo(
     () => [
@@ -42,7 +48,10 @@ export const AttendanceTable = ({ students }) => {
         Header: "Present",
         accessor: "present",
         Cell: ({ row }) => (
-          <span onClick={() => toggleAttendance(row.index)} style={{ cursor: "pointer" }}>
+          <span
+            onClick={() => toggleAttendance(row.index)}
+            style={{ cursor: "pointer" }}
+          >
             {row.original.present ? "✅" : "❌"}
           </span>
         ),
