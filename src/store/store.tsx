@@ -4,10 +4,12 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import groupSlice from "../features/groupSlice";
 import studentSlice from "../features/studentSlice";
 import subjectSlice from "../features/subjectSlice";
+import teacherSlice from "../features/teacherSlice";
 import userSlice from "../features/userSlice";
 import { GroupApi } from "../services/api/GroupService";
 import { StudentApi } from "../services/api/StudentApi";
 import { SubjectApi } from "../services/api/SubjectService";
+import { TeacherApi } from "../services/api/TeacherService";
 import { UserApi } from "../services/api/UserService";
 
 // Configuration object for Redux Persist
@@ -23,10 +25,12 @@ const rootReducer = combineReducers({
   subject: subjectSlice,
   student: studentSlice,
   group: groupSlice,
+  teacher: teacherSlice,
   [UserApi.reducerPath]: UserApi.reducer,
   [SubjectApi.reducerPath]: SubjectApi.reducer,
   [StudentApi.reducerPath]: StudentApi.reducer,
   [GroupApi.reducerPath]: GroupApi.reducer,
+  [TeacherApi.reducerPath]: TeacherApi.reducer,
 });
 
 // Create a persisted reducer
@@ -44,7 +48,8 @@ export const store = configureStore({
       SubjectApi.middleware,
       UserApi.middleware,
       StudentApi.middleware,
-      GroupApi.middleware
+      GroupApi.middleware,
+      TeacherApi.middleware
     ),
 });
 
