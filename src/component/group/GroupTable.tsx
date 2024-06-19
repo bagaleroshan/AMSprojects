@@ -12,6 +12,7 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import { toast } from "react-toastify";
+import GroupExportCSV from "../ExportCSV/GroupExportCSV";
 
 interface Query {
   page: number;
@@ -102,6 +103,10 @@ const GroupTable: React.FC = () => {
 
   return (
     <div>
+      <GroupExportCSV
+        data={data.result.results}
+        fileName="Group File"
+      ></GroupExportCSV>
       <TableComponent
         columns={columns}
         data={data.result.results}
