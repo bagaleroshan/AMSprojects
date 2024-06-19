@@ -1,11 +1,10 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTable } from "react-table";
 
 export const AttendanceTable = ({ students }) => {
   const [attendance, setAttendance] = useState(
     students.map((student) => ({ ...student, present: false }))
   );
-  
 
   const toggleAttendance = (index) => {
     const updatedAttendance = attendance.map((student, i) => {
@@ -17,6 +16,18 @@ export const AttendanceTable = ({ students }) => {
     setAttendance(updatedAttendance);
   };
 
+  const handleButtonClick =  async() => {
+    const currentDate = new Date().toLocaleDateString();
+    await attendance.forEach(student => {
+      
+    console.log ({date:currentDate,attendance:{name:student.name,present:student.present}})
+     
+    });
+   
+  };
+
+
+
   const columns = useMemo(
     () => [
       {
@@ -24,19 +35,16 @@ export const AttendanceTable = ({ students }) => {
         accessor: "name",
       },
       {
-        Header: "Absent Name",
+        Header: "Student ID",
         accessor: "id",
       },
       {
         Header: "Present",
         accessor: "present",
-        width: "300px",
         Cell: ({ row }) => (
-          <input
-            type="checkbox"
-            checked={row.original.present}
-            onChange={() => toggleAttendance(row.index)}
-          />
+          <span onClick={() => toggleAttendance(row.index)} style={{ cursor: "pointer" }}>
+            {row.original.present ? "✅" : "❌"}
+          </span>
         ),
       },
     ],
@@ -49,30 +57,31 @@ export const AttendanceTable = ({ students }) => {
     useTable({ columns, data });
 
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+    <div>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
               ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <button onClick={handleButtonClick}>Log Attendance</button>
+    </div>
   );
 };
-
-// Sample usage
