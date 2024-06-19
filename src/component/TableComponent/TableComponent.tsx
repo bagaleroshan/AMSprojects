@@ -10,11 +10,6 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   TextField,
   Typography,
 } from "@mui/material";
@@ -282,7 +277,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                     {...row.getRowProps()}
                     onClick={() => handleRowClick(index)}
                   >
-                    <td>
+                    <td style={{ width: "150px" }}>
                       <Checkbox
                         checked={selectedRows.has(index)}
                         onChange={(e) => e.stopPropagation()} // prevent row click
@@ -292,8 +287,9 @@ const TableComponent: React.FC<TableComponentProps> = ({
                       <td
                         {...cell.getCellProps()}
                         style={{ width: cell.column.width }}
+                        className="text-wrap"
                       >
-                        {cell.render("Cell")}
+                        <span className="ellipsis">{cell.render("Cell")}</span>
                       </td>
                     ))}
                   </tr>

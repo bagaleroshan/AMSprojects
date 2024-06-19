@@ -1,23 +1,21 @@
 
 .outer-wrapper{
-  max-width: 1190px;
+  width: 1190px;
   overflow-x: auto;
   border-radius: 10px;
   max-height:400px;
 }
 .table-wrapper {
-  width: 1190px;
-  
+  /* width: 1190px; */
+  /* width:100%; */
 }
-.highlight {
-  background-color: #ddd !important;
-}
+
 
 table {
   font-family: Arial, Helvetica, sans-serif;
   border-spacing:0;
   /* border-collapse: collapse; */
-  width: 100%;
+  /* width: 100%; */
   table-layout: fixed;
   position: relative;
 }
@@ -37,20 +35,17 @@ table th {
 table td{
   border:1px solid #ddd;
   padding:8px;
-  text-overflow: ellipsis;
 }
+
 
 table tr:nth-child(even) { background-color: #f2f2f2; }
 
 table tr:hover { background-color: #ddd; }
 
-
-
 th:nth-child(1){
   position: sticky;
   left:0;
   z-index: 20;
- 
 }
 
 td:nth-child(1){
@@ -69,9 +64,12 @@ td:nth-child(2){
   position:sticky;
   left:150px;
   z-index:10;
+  
+  
+  
   /* background-color:#EDF8FF; */
 }
-th:nth-child(3){
+/* th:nth-child(3){
   position: sticky;
   left:500px;
   z-index: 20;
@@ -80,8 +78,8 @@ td:nth-child(3){
   position:sticky;
   left:500px;
   z-index:10;
-  /* background-color:#EDF8FF; */
-}
+  
+} */
 
 tr:nth-child(even) td:nth-child(1) {
   background-color: #f2f2f2;
@@ -89,28 +87,38 @@ tr:nth-child(even) td:nth-child(1) {
 tr:nth-child(even) td:nth-child(2) {
   background-color: #f2f2f2;
 }
-tr:nth-child(even) td:nth-child(3) {
+/* tr:nth-child(even) td:nth-child(3) {
   background-color: #f2f2f2;
-}
+} */
 tr:nth-child(odd) td:nth-child(1) {
   background-color: #EDF8FF;
 }
 tr:nth-child(odd) td:nth-child(2) {
   background-color: #EDF8FF;
 }
-tr:nth-child(odd) td:nth-child(3) {
+/* tr:nth-child(odd) td:nth-child(3) {
   background-color: #EDF8FF;
-}
-/* tr td:nth-child(2):hover{
+} */
+
+tr td:nth-child(2):hover{
   background-color: #ddd;
 }
+
+
 tr td:nth-child(1):hover{
   background-color: #ddd;
 }
-tr td:nth-child(3):hover{
+/* tr td:nth-child(3):hover{
   background-color: #ddd;
 } */
 
+td .ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 150px;
+}
 .pagination {
   display: flex;
   list-style: none;
