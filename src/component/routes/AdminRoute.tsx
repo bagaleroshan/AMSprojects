@@ -15,6 +15,7 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+import { UseAttendanceTable } from "../attendanceComponents/UseAttendanceTable";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -23,7 +24,7 @@ const AdminRoute = () => {
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
-        <Route path="attendance" element={<AdminAttendance />} />
+        <Route path="attendance" element={<UseAttendanceTable/>} />
         <Route path="messages" element={<AdminMessages />} />
         <Route path="report" element={<AdminReport />} />
         {/* ------------------- Users -------------------------------- */}
