@@ -26,7 +26,6 @@ const ExportCSV: FC<ExportCSVProps> = ({ data, fileName }) => {
       data={data}
       headers={columns}
       filename={`${fileName}.csv`}
-      className="btn btn-primary"
       target="_blank"
     >
       Export to CSV

@@ -9,7 +9,11 @@ import TableComponent, { IData } from "../TableComponent/TableComponent";
 import DeleteConfirmation from "../../DeleteConfirmation";
 import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 import { toast } from "react-toastify";
-import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../utils/utils";
 interface Query {
   page: number;
   limit: number;
@@ -33,7 +37,15 @@ const StudentTable: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteStudents,{isError:isDeleteStudentError,error:errorDeleteStudent,isSuccess:isSuccessDeleteStudent,data:successDeleteStudent}] = useDeleteStudentMutation();
+  const [
+    deleteStudents,
+    {
+      isError: isDeleteStudentError,
+      error: errorDeleteStudent,
+      isSuccess: isSuccessDeleteStudent,
+      data: successDeleteStudent,
+    },
+  ] = useDeleteStudentMutation();
 
   useEffect(() => {
     if (isDeleteStudentError) {
@@ -46,7 +58,7 @@ const StudentTable: React.FC = () => {
       }
     }
   }, [isDeleteStudentError, errorDeleteStudent]);
-  
+
   useEffect(() => {
     if (isSuccessDeleteStudent) {
       toast.success(successDeleteStudent.message, {
@@ -100,6 +112,7 @@ const StudentTable: React.FC = () => {
         data={data.result.results}
         fileName="Student File"
       ></StudentExportCSV>
+
       <TableComponent
         columns={columns}
         data={data.result.results}
