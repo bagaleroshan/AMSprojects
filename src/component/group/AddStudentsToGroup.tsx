@@ -1,13 +1,8 @@
-import {
-  Button,
-  ButtonGroup,
-  Grid,
-  Modal as MuiModal,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Modal as MuiModal, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
+import { ModalContent, customStyles } from "../../muiModals/modalStyles";
 import { useAddStudentGroupMutation } from "../../services/api/GroupService";
 import { useReadStudentsQuery } from "../../services/api/StudentApi";
 import {
@@ -16,7 +11,6 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-import { ModalContent, customStyles } from "../../muiModals/modalStyles";
 
 interface Query {
   page: number;
@@ -36,6 +30,7 @@ export const AddStudentsToGroup = ({ id }) => {
 
   const { data } = useReadStudentsQuery({
     ...query,
+    limit: 0,
     sort: query.sort.join(","),
   });
 
@@ -103,24 +98,42 @@ export const AddStudentsToGroup = ({ id }) => {
           justifyContent: "center",
         }}
       >
-        <ModalContent sx={{ width: 600, height: 300 }}>
+        <ModalContent sx={{ width: 600, height: 250 }}>
           <Typography id="modal-title" variant="h6" component="h2">
             Add Students to Group
           </Typography>
-          <Select
-            isMulti
-            value={selectedOptions}
-            onChange={handleChange}
-            options={students}
-            styles={customStyles}
-          />
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Button onClick={handleClose} fullWidth>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid item xs={12}>
+              <Select
+                isMulti
+                value={selectedOptions}
+                onChange={handleChange}
+                options={students}
+                styles={customStyles}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                onClick={handleClose}
+                fullWidth
+                type="submit"
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  background: "red",
+                  "&:hover": { background: "#FF2E2E" },
+                }}
+              >
                 Cancel
               </Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <MuiLoadingButtonTheme
                 buttonName="Add Student"
                 onClick={handleClick}

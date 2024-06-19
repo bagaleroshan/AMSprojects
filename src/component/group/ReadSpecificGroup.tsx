@@ -93,9 +93,10 @@ const ReadSpecificGroup = () => {
               </Paper>
             </Grid>
             <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                <StudentsInGroup id={id} />
-              </Paper>
+              <StudentsInGroup id={id} />
+
+              {/* <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+              </Paper> */}
             </Grid>
           </Grid>
         </Container>

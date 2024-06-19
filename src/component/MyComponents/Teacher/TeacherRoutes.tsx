@@ -1,9 +1,9 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import TChangePassword from "./TeacherChangePassword";
 import TDashboard from "./TeacherDashboard";
-import TLogout from "./TeacherLogout";
 import TMessages from "./TeacherMessages";
 import TReport from "./TeacherReport";
+import TeacherChangePassword from "./TeacherChangePassword";
+import TeacherLogout from "./TeacherLogout";
 
 const TeacherRoutes = () => {
   return (
@@ -62,7 +62,7 @@ const TeacherRoutes = () => {
               path="ChangePassword"
               element={
                 <div>
-                  <TChangePassword></TChangePassword>
+                  <TeacherChangePassword></TeacherChangePassword>
                 </div>
               }
             ></Route>
@@ -70,7 +70,7 @@ const TeacherRoutes = () => {
               path="Logout"
               element={
                 <div>
-                  <TLogout></TLogout>
+                  <TeacherLogout></TeacherLogout>
                 </div>
               }
             ></Route>
