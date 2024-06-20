@@ -22,10 +22,16 @@ export const AttendanceTable = ({ students }) => {
 
   const handleButtonClick = async () => {
     const currentDate = new Date().toISOString();
-    const results = attendance.map(student => ({
-      date: currentDate,
-      attendance: { student: student.id, present: student.present }
+    const attendanceData = attendance.map(student => ({
+      studentId: student.id,
+      present: student.present
     }));
+    
+    const results = {
+      date: currentDate,
+      attendance: attendanceData
+    };
+    console.log(results)
   
     try {
       await takeAttendance({ id: params.id, data: results });
