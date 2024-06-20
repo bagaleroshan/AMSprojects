@@ -24,8 +24,8 @@ const TeacherDashboard = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
                   onChange={handleChange}
-                  textColor="secondary"
-                  indicatorColor="secondary"
+                  // textColor="secondary"
+                  // indicatorColor="secondary"
                 >
                   <Tab label="Ongoing Courses" value="1" />
                   <Tab label="Completed Courses" value="2" />
