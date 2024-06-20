@@ -22,21 +22,21 @@ export const AttendanceTable = ({ students }) => {
 
   const handleButtonClick = async () => {
     const currentDate = new Date().toISOString();
-    const attendanceData = attendance.map(student => ({
+    const attendanceData = attendance.map((student) => ({
       studentId: student.id,
-      present: student.present
+      present: student.present,
     }));
-    
+
     const results = {
       date: currentDate,
-      attendance: attendanceData
+      attendance: attendanceData,
     };
-    console.log(results)
-  
+    console.log(results);
+
     try {
       await takeAttendance({ id: params.id, data: results });
     } catch (error) {
-      console.error('Error recording attendance:', error);
+      console.error("Error recording attendance:", error);
     }
   };
 
@@ -63,7 +63,7 @@ export const AttendanceTable = ({ students }) => {
         ),
       },
     ],
-    [attendance]
+    [toggleAttendance]
   );
 
   const data = useMemo(() => attendance, [attendance]);

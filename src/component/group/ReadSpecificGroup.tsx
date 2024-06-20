@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { format } from "date-fns";
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -39,12 +40,6 @@ const ReadSpecificGroup = () => {
         ? toast.error(errorViewSpecific?.message)
         : "Unknown Error");
   }, [isErrorViewSpecific, errorViewSpecific]);
-
-  // const navigate = useNavigate();
-  // function preventDefault(event: React.MouseEvent) {
-  //   event.preventDefault();
-  //   navigate("/admin/groups/students");
-  // }
 
   return (
     <>
@@ -76,8 +71,12 @@ const ReadSpecificGroup = () => {
                           <TableCell>{group.groupName}</TableCell>
                           <TableCell>{group.subject?.subjectName}</TableCell>
                           <TableCell>{group.teacher?.fullName} </TableCell>
-                          <TableCell>{group.startTime} </TableCell>
-                          <TableCell>{group.endTime} </TableCell>
+                          {/* <TableCell>
+                            {format(new Date(group.startTime), "HH:mm")}
+                          </TableCell>
+                          <TableCell>
+                            {(new Date(group.endTime), "HH:mm")}
+                          </TableCell> */}
                         </TableRow>
                       </TableBody>
                     </Table>
@@ -94,7 +93,6 @@ const ReadSpecificGroup = () => {
             </Grid>
             <Grid item xs={12}>
               <StudentsInGroup id={id} />
-
               {/* <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               </Paper> */}
             </Grid>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { toast } from "react-toastify";
 import {
   useDeleteGroupMutation,
@@ -42,21 +41,7 @@ const GroupTable: React.FC = () => {
   });
   // console.log("***********************", data?.result?.results);
   const groupData = data?.result?.results;
-  console.log("groupData*********************", groupData);
-
-  // const [initialGroup, setInitialGroup] = useState<IGroup | null>(null);
-  // useEffect(() => {
-  //   if (groupData) {
-  //     const groupDate = groupData.map((value) => {
-  //       return {
-  //         ...value,
-  //         startTime: new Date(value.startTime),
-  //         endTime: new Date(value.endTime),
-  //       };
-  //     });
-  //     setInitialGroup(groupDate);
-  //   }
-  // }, [groupData]);
+  // console.log("groupData*********************", groupData);
 
   const [
     deleteGroups,
@@ -127,7 +112,7 @@ const GroupTable: React.FC = () => {
       ></GroupExportCSV> */}
       <TableComponent
         columns={columns}
-        data={initialGroup}
+        data={groupData}
         query={query}
         setQuery={setQuery}
         currentSort={query.sort}
