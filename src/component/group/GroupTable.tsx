@@ -100,13 +100,13 @@ const GroupTable: React.FC = () => {
       replace: true,
     });
   };
-
+ const fileName="Group File"
   return (
     <div>
-      <GroupExportCSV
+      {/* <GroupExportCSV
         data={data.result.results}
         fileName="Group File"
-      ></GroupExportCSV>
+      ></GroupExportCSV> */}
       <TableComponent
         columns={columns}
         data={data.result.results}
@@ -117,6 +117,7 @@ const GroupTable: React.FC = () => {
         onEditClick={handleGroupEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
+        fileName={fileName}
       />
     </div>
   );

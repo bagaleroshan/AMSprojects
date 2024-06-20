@@ -134,12 +134,13 @@ const UserTable: React.FC = () => {
     setOpenDeleteConfirmation(false);
     setSelectedUserIds([]);
   };
+  const fileName="User File"
   return (
     <div>
-      <UserExportCSV
+      {/* <UserExportCSV
         data={data.result.results}
         fileName="User File"
-      ></UserExportCSV>
+      ></UserExportCSV> */}
       <TableComponent
         columns={columns}
         data={data.result.results}
@@ -150,6 +151,7 @@ const UserTable: React.FC = () => {
         onEditClick={handleEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
+        fileName={fileName}
       />
 
       {openDeleteConfirmation && (

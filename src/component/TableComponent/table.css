@@ -1,4 +1,6 @@
-
+.table-container{
+  width:100%;
+}
 .outer-wrapper{
   width: 1190px;
   overflow-x: auto;

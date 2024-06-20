@@ -113,12 +113,13 @@ const ShowAllSubjects: React.FC = () => {
     setOpenDeleteConfirmation(false);
     setSelectedSubjectIds([]);
   };
+  const fileName='Subject File'
   return (
     <div>
-      <SubjectExportCSV
+      {/* <SubjectExportCSV
         data={data.result.results}
         fileName="Subject File"
-      ></SubjectExportCSV>
+      ></SubjectExportCSV> */}
 
       <TableComponent
         columns={columns}
@@ -130,6 +131,7 @@ const ShowAllSubjects: React.FC = () => {
         onEditClick={handleEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
+        fileName={fileName}
       />
 
       {openDeleteConfirmation && (

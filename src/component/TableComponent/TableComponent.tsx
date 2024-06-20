@@ -4,6 +4,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { LightTooltip } from "../theme/MuiSidebarTheme";
+
 import {
   Box,
   Button,
@@ -34,6 +36,7 @@ interface TableComponentProps {
   onEditClick: (selectedRowData: IData[]) => void;
   onViewClick: (selectedRowData: IData[]) => void;
   onDeleteClick: (selectedRowData: IData[]) => void;
+  fileName: string;
 }
 
 interface Query {
@@ -53,6 +56,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   onEditClick,
   onViewClick,
   onDeleteClick,
+  fileName,
 }) => {
   const [searchTerm, setSearchTerm] = useState(query.findQuery);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
@@ -163,6 +167,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
     {
       columns,
       data,
+      fileName,
       initialState: {
         pageIndex: query.page - 1,
         pageSize: query.limit,
@@ -188,21 +193,29 @@ const TableComponent: React.FC<TableComponentProps> = ({
           justifyContent: "space-between",
         }}
       >
-        <TextField
-          size="small"
-          variant="outlined"
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Stack display="flex" direction="row" spacing={2}>
+          <TextField
+            size="small"
+            variant="outlined"
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Box sx={{}}>
+            <SubjectExportCSV
+              data={data}
+              fileName={fileName}
+            ></SubjectExportCSV>
+          </Box>
+        </Stack>
         {selectedRows.size > 0 && (
           <Stack display="flex" direction="row" spacing={0.5}>
             <Button
@@ -258,14 +271,18 @@ const TableComponent: React.FC<TableComponentProps> = ({
                   </th>
 
                   {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                      style={{ width: column.width }}
-                      onClick={() => handleSort(column.id)}
-                    >
-                      {column.render("Header")}
-                      {renderSortIcon(column.id)}
-                    </th>
+                    <LightTooltip title="Download" placement="right">
+                      <th
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )}
+                        style={{ width: column.width }}
+                        onClick={() => handleSort(column.id)}
+                      >
+                        {column.render("Header")}
+                        {renderSortIcon(column.id)}
+                      </th>
+                    </LightTooltip>
                   ))}
                 </tr>
               ))}
