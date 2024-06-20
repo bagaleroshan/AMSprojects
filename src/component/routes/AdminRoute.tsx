@@ -1,9 +1,9 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminAttendance from "../mycomponents/admin/AdminAttendance";
-import AdminDashboard from "../mycomponents/admin/AdminDashboard";
-import AdminMessages from "../mycomponents/admin/AdminMessages";
-import AdminReport from "../mycomponents/admin/AdminReport";
-import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
+import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
+import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AdminMessages from "../MyComponents/Admin/AdminMessages";
+import AdminReport from "../MyComponents/Admin/AdminReport";
+import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import ReadSpecificGroup from "../group/ReadSpecificGroup";
@@ -15,7 +15,6 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 const AdminRoute = () => {
   return (
     <Routes>

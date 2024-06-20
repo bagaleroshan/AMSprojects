@@ -1,6 +1,5 @@
-import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Box, Button, Paper, Tab, Typography } from "@mui/material";
+import { Box, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
 import OngoingCourses from "../../../teacherComponent/teacherDashboard/OngoingCourses";
 
@@ -24,8 +23,8 @@ const TeacherDashboard = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
                   onChange={handleChange}
-                  textColor="secondary"
-                  indicatorColor="secondary"
+                  textColor="primary"
+                  indicatorColor="primary"
                 >
                   <Tab label="Ongoing Courses" value="1" />
                   <Tab label="Completed Courses" value="2" />
@@ -33,7 +32,6 @@ const TeacherDashboard = () => {
               </Box>
               <TabPanel value="1">
                 <OngoingCourses />
-                
               </TabPanel>
               <TabPanel value="2">Completed Courses</TabPanel>
             </TabContext>

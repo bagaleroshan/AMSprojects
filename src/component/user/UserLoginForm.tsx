@@ -40,7 +40,7 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
               <Container component="main" maxWidth="xs">
                 <Box
                   sx={{
-                    marginTop: 2,
+                    marginTop: 10,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
