@@ -59,7 +59,7 @@ const OngoingCourses = () => {
 
                 <Button
                   variant="contained"
-                  color="secondary"
+                  // color="secondary"
                   onClick={() => navigate(`/teachers/${value.id}`)}
                 >
                   Take Attendance
