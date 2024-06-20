@@ -106,12 +106,14 @@ const StudentTable: React.FC = () => {
     setOpenDeleteConfirmation(false);
     setSelectedStudentIds([]);
   };
+
+  const fileName="Student File"
   return (
     <div>
-      <StudentExportCSV
+      {/* <StudentExportCSV
         data={data.result.results}
         fileName="Student File"
-      ></StudentExportCSV>
+      ></StudentExportCSV> */}
 
       <TableComponent
         columns={columns}
@@ -123,6 +125,7 @@ const StudentTable: React.FC = () => {
         onEditClick={handleStudentEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
+        fileName={fileName}
       />
       {openDeleteConfirmation && (
         <DeleteConfirmation
