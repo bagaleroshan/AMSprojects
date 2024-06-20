@@ -122,11 +122,11 @@ export const AddStudentsToGroup = ({ id }) => {
                 onClick={handleClose}
                 fullWidth
                 type="submit"
+                color="error"
                 variant="contained"
                 sx={{
                   mt: 3,
                   mb: 2,
-                  background: "red",
                   "&:hover": { background: "#FF2E2E" },
                 }}
               >

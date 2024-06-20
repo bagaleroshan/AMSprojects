@@ -2,6 +2,7 @@ import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Button, Paper, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
+import OngoingCourses from "../../../teacherComponent/teacherDashboard/OngoingCourses";
 
 const TeacherDashboard = () => {
   const [value, setValue] = useState("1");
@@ -31,112 +32,8 @@ const TeacherDashboard = () => {
                 </TabList>
               </Box>
               <TabPanel value="1">
-                <Paper elevation={2} sx={{ borderRadius: "10px" }}>
-                  <Box sx={{ p: 2 }}>
-                    <div className="TDashboardOngoingCourses">
-                      <LocalLibraryOutlinedIcon
-                        color="success"
-                        fontSize="large"
-                      />
-                      <div className="TDashboardOngoingSubject">
-                        <Typography
-                          gutterBottom
-                          variant="h6"
-                          sx={{ familyWeight: "bold" }}
-                        >
-                          MERN-Full Stack MERN
-                        </Typography>
-                        <Box height={15} />
-                        <Typography
-                          variant="body2"
-                          sx={{ familyWeight: "bold" }}
-                        >
-                          Group Name:
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          sx={{ familyWeight: "bold" }}
-                        >
-                          Nitan.T_MERN_May_24_3_5_A1
-                        </Typography>
-                      </div>
-
-                      <Button variant="contained" color="secondary">
-                        Take Attendance
-                      </Button>
-                      <Typography
-                        variant="body1"
-                        sx={{ familyWeight: "bold", color: "#43a047" }}
-                      >
-                        Present:0
-                      </Typography>
-
-                      <Typography
-                        variant="body1"
-                        sx={{ familyWeight: "bold", color: "#e53935" }}
-                      >
-                        Absent:0
-                      </Typography>
-                      <Button variant="contained" color="error">
-                        Mark As Complete
-                      </Button>
-                    </div>
-                  </Box>
-                </Paper>
-
-                <Box height={10} />
-                <Paper elevation={2} sx={{ borderRadius: "10px" }}>
-                  <Box sx={{ p: 2 }}>
-                    <div className="TDashboardOngoingCourses">
-                      <LocalLibraryOutlinedIcon
-                        color="success"
-                        fontSize="large"
-                      />
-                      <div className="TDashboardOngoingSubject">
-                        <Typography
-                          gutterBottom
-                          variant="h6"
-                          sx={{ familyWeight: "bold" }}
-                        >
-                          MERN-Full Stack MERN
-                        </Typography>
-                        <Box height={15} />
-                        <Typography
-                          variant="body2"
-                          sx={{ familyWeight: "bold" }}
-                        >
-                          Group Name:
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          sx={{ familyWeight: "bold" }}
-                        >
-                          Nitan.T_MERN_May_24_3_5_A1
-                        </Typography>
-                      </div>
-
-                      <Button variant="contained" color="secondary">
-                        Take Attendance
-                      </Button>
-                      <Typography
-                        variant="body2"
-                        sx={{ familyWeight: "bold", color: "#43a047" }}
-                      >
-                        Present:0
-                      </Typography>
-
-                      <Typography
-                        variant="body2"
-                        sx={{ familyWeight: "bold", color: "#e53935" }}
-                      >
-                        Absent:0
-                      </Typography>
-                      <Button variant="contained" color="error">
-                        Mark As Complete
-                      </Button>
-                    </div>
-                  </Box>
-                </Paper>
+                <OngoingCourses />
+                
               </TabPanel>
               <TabPanel value="2">Completed Courses</TabPanel>
             </TabContext>
