@@ -72,7 +72,7 @@ const TeacherMessages = () => {
                 </div>
                 <Box height={40} />
                 <div className="TMbutton">
-                  <Button variant="contained" color="secondary">
+                  <Button variant="contained" >
                     Send
                   </Button>
                 </div>

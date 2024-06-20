@@ -37,13 +37,23 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
         {(formik) => {
           return (
             <Form>
-              <Container component="main" maxWidth="xs">
+              <Container
+                component="main"
+                maxWidth="xs"
+                sx={{
+                  height: "100vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Box
                   sx={{
-                    marginTop: 2,
+                    // marginTop: 10,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
@@ -52,7 +62,7 @@ const UserLoginForm: React.FC<IUserFormValues> = ({
                   <Typography component="h1" variant="h5">
                     Sign in
                   </Typography>
-                  <Box sx={{ mt: 2 }}>
+                  <Box sx={{ mt: 4 }}>
                     <Grid container spacing={1}>
                       <Grid item xs={12}>
                         <DwInput

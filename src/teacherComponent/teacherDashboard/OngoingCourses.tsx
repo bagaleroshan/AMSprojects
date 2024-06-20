@@ -36,6 +36,7 @@ const OngoingCourses = () => {
     <>
       {groups.map((value, i) => {
         return (
+          <Box mt={1}>
           <Paper elevation={2} sx={{ borderRadius: "10px", m: "2" }}>
             <Box sx={{ p: 2 }} key={i}>
               <div className="TDashboardOngoingCourses">
@@ -59,7 +60,7 @@ const OngoingCourses = () => {
 
                 <Button
                   variant="contained"
-                  color="secondary"
+                  // color="secondary"
                   onClick={() => navigate(`/teachers/${value.id}`)}
                 >
                   Take Attendance
@@ -83,6 +84,7 @@ const OngoingCourses = () => {
               </div>
             </Box>
           </Paper>
+          </Box>
         );
       })}
     </>
