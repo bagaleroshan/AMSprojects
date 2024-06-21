@@ -1,36 +1,48 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTable } from "react-table";
-import { useTakeAttendanceMutation } from "../../services/api/AttendanceSerice";
+import MuiLoadingButtonTheme from "../../component/theme/MuiLoadingButtonTheme";
+import { useTakeAttendanceMutation } from "../../services/api/AttendanceService";
 
 export const AttendanceTable = ({ students }) => {
+  console.log("students", students);
   const [takeAttendance] = useTakeAttendanceMutation();
-  const params = useParams();
+  const { id } = useParams();
   const [attendance, setAttendance] = useState(
-    students.map((student) => ({ ...student, present: false }))
+    students.map((student) => ({ ...student, present: "P" }))
   );
 
-  const toggleAttendance = (index) => {
-    const updatedAttendance = attendance.map((student, i) => {
-      if (i === index) {
-        return { ...student, present: !student.present };
-      }
-      return student;
-    });
-    setAttendance(updatedAttendance);
-  };
+  const prevDate = students[0].date;
+
+  // Memoize the toggleAttendance function
+  const toggleAttendance = useCallback(
+    (index) => {
+      setAttendance((prevAttendance) =>
+        prevAttendance.map((student, i) =>
+          i === index ? { ...student, present: "A" } : student
+        )
+      );
+    },
+    [setAttendance]
+  );
 
   const handleButtonClick = async () => {
     const currentDate = new Date().toISOString();
-    const results = attendance.map(student => ({
-      date: currentDate,
-      attendance: { student: student.id, present: student.present }
+    const attendanceData = attendance.map((student) => ({
+      studentId: student.id,
+      status: student.present,
     }));
-  
+
+    const results = {
+      date: currentDate,
+      attendance: attendanceData,
+    };
+    console.log("results*****", results);
+
     try {
-      await takeAttendance({ id: params.id, data: results });
+      await takeAttendance({ id: id, data: results });
     } catch (error) {
-      console.error('Error recording attendance:', error);
+      console.error("Error recording attendance:", error);
     }
   };
 
@@ -38,11 +50,12 @@ export const AttendanceTable = ({ students }) => {
     () => [
       {
         Header: "Student Name",
-        accessor: "name",
+        accessor: "fullName",
       },
       {
-        Header: "Student ID",
-        accessor: "id",
+        Header: prevDate,
+        accessor: "status",
+        Cell: ({ status }) => (status ? "P" : "A"),
       },
       {
         Header: "Present",
@@ -52,12 +65,20 @@ export const AttendanceTable = ({ students }) => {
             onClick={() => toggleAttendance(row.index)}
             style={{ cursor: "pointer" }}
           >
-            {row.original.present ? "✅" : "❌"}
+            {row.original.present}
           </span>
         ),
       },
+      {
+        Header: "Absent Days",
+        accessor: "absentDays",
+        Cell: ({ row }) => {
+          const absentDays = row.original.status === false ? 1 : 0;
+          return absentDays;
+        },
+      },
     ],
-    [attendance]
+    [toggleAttendance]
   );
 
   const data = useMemo(() => attendance, [attendance]);
@@ -90,7 +111,12 @@ export const AttendanceTable = ({ students }) => {
           })}
         </tbody>
       </table>
-      <button onClick={handleButtonClick}>Log Attendance</button>
+      <MuiLoadingButtonTheme
+        buttonName="Log Attendance"
+        isLoading={false}
+        onClick={handleButtonClick}
+      />
+      {/* <button onClick={handleButtonClick}>Log Attendance</button> */}
     </div>
   );
 };

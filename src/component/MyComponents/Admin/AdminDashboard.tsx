@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import DwMuiSelect from "../muiComponent/MuiSelect";
-import LineChart from "../chart/LineChart";
+import LineChart from "../Chart/LineChart";
 
 const AdminDashboard = () => {
   return (
