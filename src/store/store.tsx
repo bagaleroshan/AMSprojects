@@ -12,7 +12,7 @@ import { SubjectApi } from "../services/api/SubjectService";
 import { TeacherApi } from "../services/api/TeacherService";
 import { UserApi } from "../services/api/UserService";
 import attendanceSlice from "../features/attendanceSlice";
-import { AttendanceApi } from "../services/api/AttendanceSerice";
+import { AttendanceApi } from "../services/api/AttendanceService";
 
 // Configuration object for Redux Persist
 const persistConfig = {
