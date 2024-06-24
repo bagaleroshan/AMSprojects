@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 import {
   useDeleteGroupMutation,
   useReadGroupQuery,
@@ -11,7 +12,6 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
-import { IGroup } from "../interfaces/GroupInterface";
 
 interface Query {
   page: number;
@@ -67,9 +67,7 @@ const GroupTable: React.FC = () => {
 
   useEffect(() => {
     if (isSuccessDeletingData) {
-      toast.success(deleteGroupData.message, {
-        autoClose: 3000,
-      });
+      showSuccessToast(deleteGroupData.message);
     }
   }, [isSuccessDeletingData, deleteGroupData]);
 

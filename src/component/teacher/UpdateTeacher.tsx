@@ -14,6 +14,7 @@ import {
 } from "../../utils/utils";
 import { IUser } from "../interfaces/UserInterface";
 import UpdateTeacherForm from "./UpdateTeacherForm";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const UpdateTeacher = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
@@ -59,7 +60,7 @@ const UpdateTeacher = () => {
 
   useEffect(() => {
     if (isSuccessUpdateTeacher) {
-      toast.success("User Updated successfully", { autoClose: 3000 });
+      showSuccessToast("User Updated successfully");
       navigate("/admin/users");
     }
   }, [isSuccessUpdateTeacher, navigate]);

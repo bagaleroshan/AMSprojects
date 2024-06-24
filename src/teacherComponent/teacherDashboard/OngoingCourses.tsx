@@ -19,7 +19,7 @@ const OngoingCourses = () => {
     error: errorReadGroups,
   } = useReadGroupsByTeacherIdQuery({ active: true });
 
-  console.log("dataReadGroups*************", dataReadGroups?.result?.results);
+  // console.log("dataReadGroups*************", dataReadGroups?.result?.results);
 
   const groups = dataReadGroups?.result?.results || [];
 
@@ -36,6 +36,7 @@ const OngoingCourses = () => {
     <>
       {groups.length > 0 ? (
         groups.map((value, i) => {
+          // console.log("Value of Read Group By Teacher ID", value);
           return (
             <Box
               margin={1}
@@ -73,15 +74,15 @@ const OngoingCourses = () => {
                       variant="body1"
                       sx={{ fontWeight: "normal", color: "#43a047" }}
                     >
-                      Present:0
+                      Number of Days Left:0
                     </Typography>
 
-                    <Typography
+                    {/* <Typography
                       variant="body1"
                       sx={{ fontWeight: "normal", color: "#e53935" }}
                     >
                       Absent:0
-                    </Typography>
+                    </Typography> */}
                   </div>
                 </Box>
                 <Box height={15} />
