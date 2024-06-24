@@ -4,8 +4,6 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import { LightTooltip } from "../theme/MuiSidebarTheme";
-
 import {
   Box,
   Button,
@@ -18,9 +16,10 @@ import {
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
-import { Checkbox } from "../ReactTable/Checkbox";
-import "./table.css";
 import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
+import { Checkbox } from "../ReactTable/Checkbox";
+import { LightTooltip } from "../theme/MuiSidebarTheme";
+import "./table.css";
 
 export interface IData<T = any> {
   [key: string]: T;
@@ -210,10 +209,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
             }}
           />
           <Box sx={{}}>
-            <SubjectExportCSV
-              data={data}
-              fileName={fileName}
-            ></SubjectExportCSV>
+            <SubjectExportCSV data={data} fileName={fileName} />
           </Box>
         </Stack>
         {selectedRows.size > 0 && (

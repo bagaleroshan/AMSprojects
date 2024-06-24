@@ -8,13 +8,13 @@ export const TeacherApi = createApi({
 
   endpoints: (builder) => ({
     readGroupsByTeacherId: builder.query({
-      query: () => {
+      query: (query) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: "/groups/teacher",
+          url: `/groups/teacher?active=${query.active}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

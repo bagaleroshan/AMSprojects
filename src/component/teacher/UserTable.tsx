@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import DeleteConfirmation from "../../DeleteConfirmation";
 import {
   useDeleteUsersByIdMutation,
   useReadUsersQuery,
 } from "../../services/api/UserService";
-
-import UserExportCSV from "../ExportCSV/UserExportCSV";
-
-import DeleteConfirmation from "../../DeleteConfirmation";
-import TableComponent, { IData } from "../TableComponent/TableComponent";
-import { toast } from "react-toastify";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -31,21 +28,6 @@ const UserTable: React.FC = () => {
     {
       Header: "Contact",
       accessor: "phoneNumber",
-      width: "350px",
-    },
-    { Header: "Role", accessor: "role", width: "350px" },
-    { Header: "Hello", accessor: "hello", width: "350px" },
-    { Header: "World", accessor: "world", width: "350px" },
-    {
-      Header: "Science",
-      accessor: "science",
-      width: "350px",
-    },
-    { Header: "Math", accessor: "math", width: "350px" },
-    { Header: "Social", accessor: "social", width: "350px" },
-    {
-      Header: "Physics",
-      accessor: "physics",
       width: "350px",
     },
   ];
@@ -134,7 +116,7 @@ const UserTable: React.FC = () => {
     setOpenDeleteConfirmation(false);
     setSelectedUserIds([]);
   };
-  const fileName="User File"
+  const fileName = "User File";
   return (
     <div>
       {/* <UserExportCSV

@@ -22,8 +22,8 @@ const TeacherMessages = () => {
     <>
       <div className="teacherMessages">
         <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ flexGrow: 1, p: 5 }}>
-            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Send Messages
             </Typography>
             <Box height={30} />

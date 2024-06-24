@@ -1,14 +1,10 @@
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Avatar,
   Box,
-  Button,
-  Grid,
-  Paper,
-  Stack,
-  Typography,
+  Typography
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { LightTooltip } from "../../theme/MuiSidebarTheme";
 
 const UserProfile = () => {
   return (
@@ -17,7 +13,7 @@ const UserProfile = () => {
         <Box
           sx={{
             width: "50%",
-            height: "75vh",
+            height: "100vh",
             backgroundColor: "white",
             borderRadius: "10px",
             padding: "1.5rem",
@@ -33,11 +29,12 @@ const UserProfile = () => {
           >
             <Avatar
               src="/deerwalk.png"
-              sx={{ marginBottom: "0.5rem", width: "13%", height: "13%" }}
+              sx={{ marginBottom: "0.5rem", width: "20%", height: "20%" }}
             ></Avatar>
+            <Box height={20}/>
             <Typography variant="h5">Dikshya Bhandari</Typography>
           </Box>
-          <Box height={30} />
+          <Box height={10} />
           <Box
             sx={{
               width: "80%",
@@ -45,10 +42,10 @@ const UserProfile = () => {
               backgroundColor: "#EEF8FF",
               margin: "auto",
               borderRadius: "15px",
-              padding: "1rem",
-              display:'flex',
-              flexDirection:'column',
-              justifyContent:'space-between'
+              padding: "2rem",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
             <Box
@@ -56,7 +53,6 @@ const UserProfile = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-evenly",
-                height: "35vh",
                 marginLeft: "1rem",
               }}
             >
@@ -64,21 +60,12 @@ const UserProfile = () => {
               <Typography>Full Name: Dikshya Bhandari</Typography>
               <Typography>Phone Number: 9867185036</Typography>
               <Typography>Role: Admin</Typography>
-              </Box>
-              <Box sx={{display:'flex', justifyContent:'center'}}>
-              <Button
-                variant="contained"
-                startIcon={<EditIcon />}
-                sx={{ width: "100%" }}
-              >
-                Edit
-              </Button>
-             
             </Box>
-            {/* <Box height={40}/>
-          <Box sx={{display:'flex', justifyContent:'center', flexDirection:'row'}}>
-           <Button variant="contained" startIcon={<EditIcon/>}>Edit</Button>
-          </Box> */}
+            <Box>
+              <LightTooltip title="Edit" placement="right">
+                <EditIcon sx={{"&:hover":{color:'#1976D2'}}}/>
+              </LightTooltip>
+            </Box>
           </Box>
         </Box>
       </Box>

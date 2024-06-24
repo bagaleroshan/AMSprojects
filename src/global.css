@@ -17,7 +17,7 @@ body{
 .teacherDashboard{
 background: rgb(2,0,36);
 background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(239,249,255,1) 0%, rgba(237,248,255,1) 100%, rgba(0,212,255,1) 100%);
-min-height: 100vh;
+/* min-height: 100vh; */
 }
 .TDashboardOngoingCourses{
     display:flex;
@@ -30,7 +30,7 @@ min-height: 100vh;
 
 /* change password */
 .tChangePassword{
-    background: rgb(2,0,36);
+background: rgb(2,0,36);
 background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(239,249,255,1) 0%, rgba(237,248,255,1) 100%, rgba(0,212,255,1) 100%);
 }
 /* logout */
@@ -90,7 +90,7 @@ width:100%;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          height:80vh;
+          height:82.5vh;
 }
 
 

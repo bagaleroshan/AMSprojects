@@ -1,8 +1,7 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminAttendance from "../mycomponents/admin/AdminAttendance";
+import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 import AdminDashboard from "../mycomponents/admin/AdminDashboard";
 import AdminMessages from "../mycomponents/admin/AdminMessages";
-import AdminReport from "../mycomponents/admin/AdminReport";
 import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
@@ -15,18 +14,13 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
+import AdminReport from "../mycomponents/admin/AdminReport";
 const AdminRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<Outlet />}>
         <Route index element={<AdminDashboard />} />
-        <Route path="update-password" element={<UpdatePassword />} />
-        <Route path="my-profile" element={<MyProfile />} />
-        <Route path="update-profile" element={<UpdateProfile />} />
-        <Route path="attendance" element={<UseAttendanceTable />} />
-        <Route path="messages" element={<AdminMessages />} />
-        <Route path="report" element={<AdminReport />} />
+
         {/* ------------------- Users -------------------------------- */}
         <Route path="users" element={<Outlet />}>
           <Route
@@ -79,6 +73,12 @@ const AdminRoute = () => {
           <Route path="update/:id" element={<UpdateGroup />} />
           <Route path=":id" element={<ReadSpecificGroup />} />
         </Route>
+        <Route path="update-password" element={<UpdatePassword />} />
+        <Route path="my-profile" element={<MyProfile />} />
+        <Route path="update-profile" element={<UpdateProfile />} />
+        <Route path="attendance" element={<UseAttendanceTable />} />
+        <Route path="messages" element={<AdminMessages />} />
+        <Route path="report" element={<AdminReport />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>

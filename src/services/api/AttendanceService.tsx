@@ -8,8 +8,8 @@ export const AttendanceApi = createApi({
 
   endpoints: (builder) => ({
     takeAttendance: builder.mutation({
-      query: ({id,data}) => {
-        console.log(id,data)
+      query: ({ id, data }) => {
+        // console.log(id,data)
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
@@ -17,7 +17,22 @@ export const AttendanceApi = createApi({
         return {
           url: `/attendances/${id}`,
           method: "POST",
-          body:data,
+          body: data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    readAllAttendance: builder.query({
+      query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/attendances?groupId=${id}`,
+          method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -27,4 +42,5 @@ export const AttendanceApi = createApi({
   }),
 });
 
-export const { useTakeAttendanceMutation } = AttendanceApi;
+export const { useTakeAttendanceMutation, useReadAllAttendanceQuery } =
+  AttendanceApi;

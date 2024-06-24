@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { toast } from "react-toastify";
 import {
   useDeleteGroupMutation,
   useReadGroupQuery,
@@ -11,8 +10,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { toast } from "react-toastify";
-import GroupExportCSV from "../ExportCSV/GroupExportCSV";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { IGroup } from "../interfaces/GroupInterface";
 
 interface Query {
   page: number;
@@ -40,7 +39,10 @@ const GroupTable: React.FC = () => {
     ...query,
     sort: query.sort.join(",") || "",
   });
-  console.log(data);
+  // console.log("***********************", data?.result?.results);
+  const groupData = data?.result?.results;
+  // console.log("groupData*********************", groupData);
+
   const [
     deleteGroups,
     {
@@ -100,7 +102,8 @@ const GroupTable: React.FC = () => {
       replace: true,
     });
   };
- const fileName="Group File"
+
+  const fileName = "Group File";
   return (
     <div>
       {/* <GroupExportCSV
@@ -109,7 +112,7 @@ const GroupTable: React.FC = () => {
       ></GroupExportCSV> */}
       <TableComponent
         columns={columns}
-        data={data.result.results}
+        data={groupData}
         query={query}
         setQuery={setQuery}
         currentSort={query.sort}

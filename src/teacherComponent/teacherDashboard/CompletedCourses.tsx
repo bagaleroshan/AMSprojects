@@ -1,7 +1,6 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useReadGroupsByTeacherIdQuery } from "../../services/api/TeacherService";
 import {
@@ -10,16 +9,17 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 
-const OngoingCourses = () => {
-  const navigate = useNavigate();
-
+const CompletedCourses = () => {
   const {
     isError: isErrorReadGroups,
     data: dataReadGroups,
     error: errorReadGroups,
-  } = useReadGroupsByTeacherIdQuery({ active: true });
+  } = useReadGroupsByTeacherIdQuery({ active: false });
 
-  console.log("dataReadGroups*************", dataReadGroups?.result?.results);
+  console.log(
+    "Completed COurses*************",
+    dataReadGroups?.result?.results
+  );
 
   const groups = dataReadGroups?.result?.results || [];
 
@@ -37,17 +37,8 @@ const OngoingCourses = () => {
       {groups.length > 0 ? (
         groups.map((value, i) => {
           return (
-            <Box
-              margin={1}
-              key={i}
-              sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                },
-              }}
-              onClick={() => navigate(`/teachers/${value.id}`)}
-            >
-              <Paper elevation={4} sx={{ borderRadius: "10px", mt: "2" }}>
+            <Box margin={1} key={i}>
+              <Paper elevation={2} sx={{ borderRadius: "10px", mt: "2" }}>
                 <Box sx={{ p: 2 }}>
                   <div className="TDashboardOngoingCourses">
                     <LocalLibraryOutlinedIcon
@@ -58,17 +49,10 @@ const OngoingCourses = () => {
                       <Typography gutterBottom variant="h6">
                         {value.groupName}
                       </Typography>
-                      <Box height={15} />
                       <Typography variant="body2">{value.groupName}</Typography>
                       <Typography variant="body1">{value.teacher}</Typography>
                     </div>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => navigate(`/teachers/${value.id}`)}
-                    >
-                      Take Attendance
-                    </Button>
+
                     <Typography
                       variant="body1"
                       sx={{ fontWeight: "normal", color: "#43a047" }}
@@ -76,10 +60,7 @@ const OngoingCourses = () => {
                       Present:0
                     </Typography>
 
-                    <Typography
-                      variant="body1"
-                      sx={{ fontWeight: "normal", color: "#e53935" }}
-                    >
+                    <Typography variant="body1" sx={{ color: "#e53935" }}>
                       Absent:0
                     </Typography>
                   </div>
@@ -102,7 +83,7 @@ const OngoingCourses = () => {
             }}
           >
             <Typography color="primary" sx={{ color: "black" }}>
-              Not a single ongoing classes yet.
+              Not a single completed classes yet.
             </Typography>
           </Paper>
         </Box>
@@ -111,4 +92,4 @@ const OngoingCourses = () => {
   );
 };
 
-export default OngoingCourses;
+export default CompletedCourses;

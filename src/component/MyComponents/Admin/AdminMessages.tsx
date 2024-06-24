@@ -11,7 +11,7 @@ const AdminMessages = () => {
           </Box>
         </Box>
       </div> */}
-      <Typography variant="h4">New Student Requests</Typography>
+      <Typography variant="h4" sx={{ fontWeight: "bold" }}>New Student Requests</Typography>
       <Box height={60} />
       <Paper
         elevation={3}

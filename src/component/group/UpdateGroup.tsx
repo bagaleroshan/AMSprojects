@@ -35,12 +35,12 @@ const UpdateGroup = () => {
   } = useReadGroupByIdQuery(params.id);
 
   // const group = dataViewSpecific?.result;
-  console.log(dataViewSpecific?.result);
+  // console.log(dataViewSpecific?.result);
 
   const submitValue = async (values: IGroup) => {
     updateGroup({ id: params.id, body: values });
   };
-  /* Converitng string to date */
+  /* Converting string to date */
   useEffect(() => {
     if (dataViewSpecific?.result) {
       const groupWithDate = {

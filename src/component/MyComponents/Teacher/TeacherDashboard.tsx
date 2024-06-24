@@ -1,9 +1,9 @@
-import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Box, Button, Paper, Tab, Typography } from "@mui/material";
+import { Box, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
 import OngoingCourses from "../../../teacherComponent/teacherDashboard/OngoingCourses";
 import UserProfile from "./UserProfile";
+import CompletedCourses from "../../../teacherComponent/teacherDashboard/CompletedCourses";
 
 const TeacherDashboard = () => {
   const [value, setValue] = useState("1");
@@ -34,7 +34,9 @@ const TeacherDashboard = () => {
               <TabPanel value="1">
                 <OngoingCourses />
               </TabPanel>
-              <TabPanel value="2">Completed Courses</TabPanel>
+              <TabPanel value="2">
+                <CompletedCourses />
+              </TabPanel>
             </TabContext>
           </Box>
         </Box>
