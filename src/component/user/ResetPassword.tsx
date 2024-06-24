@@ -9,6 +9,7 @@ import {
 } from "../../utils/utils";
 import { IUser } from "../interfaces/UserInterface";
 import ResetPasswordForm from "./ResetPasswordForm";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -46,9 +47,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (isSuccessResetPassword) {
-      toast.success("Password reset completed Successfully", {
-        autoClose: 3000,
-      });
+      showSuccessToast("Password reset completed Successfully");
       localStorage.removeItem("token");
       navigate("/login");
     }

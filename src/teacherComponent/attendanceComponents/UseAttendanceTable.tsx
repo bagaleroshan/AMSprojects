@@ -8,7 +8,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { AttendanceTable } from "./AttendanceTableComponent";
+import AttendanceTable from "./AttendanceTableComponent";
 
 export const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -19,6 +19,7 @@ export const UseAttendanceTable = () => {
     error: errorViewSpecific,
   } = useReadGroupByIdQuery(id);
 
+  // console.log("Read Group BY ID***", dataViewSpecific);
   useEffect(() => {
     isErrorViewSpecific &&
       (isFetchBaseQueryError(errorViewSpecific)
@@ -31,28 +32,31 @@ export const UseAttendanceTable = () => {
   /* Api For Attendance Record */
   const { data: dataAttendance } = useReadAllAttendanceQuery(id);
   const attendanceData = dataAttendance?.result?.results || [];
-
   const studentsDetail = dataViewSpecific?.result?.students || [];
 
-  // console.log("Specific Group", studentsDetail);
+  // console.log("Students Group", studentsDetail);
   // console.log("attendance data", attendanceData);
 
-  const studentAttendanceDetail = studentsDetail.flatMap((studentInfo) => {
-    return attendanceData
-      .filter((attendanceInfo) => studentInfo.id === attendanceInfo.studentId)
-      .map((attendanceInfo) => ({
-        fullName: studentInfo.fullName,
-        id: attendanceInfo.studentId,
-        status: attendanceInfo.present,
-        date: attendanceInfo.date,
-      }));
-  });
-  // console.log("studentAttendanceDetail finallllllll", studentAttendanceDetail);
+  const studentAttendanceDetail =
+    attendanceData.length === 0
+      ? studentsDetail.map((studentsDetail) => ({
+          fullName: studentsDetail.fullName,
+          id: studentsDetail.id,
+        }))
+      : studentsDetail.flatMap((studentsDetail) => {
+          return attendanceData
+            .filter(
+              (attendanceData) => studentsDetail.id === attendanceData.studentId
+            )
+            .map((attendanceData) => ({
+              fullName: studentsDetail.fullName,
+              id: studentsDetail.id,
+              status: attendanceData.status,
+              date: new Date(attendanceData.date).toLocaleDateString(),
+            }));
+        });
 
-  const students =
-    dataViewSpecific?.result?.students.map((val) => {
-      return { id: val.id, name: val.fullName };
-    }) || [];
+  // console.log(studentAttendanceDetail);
 
   if (isLoading) {
     return <div>Loading...</div>;

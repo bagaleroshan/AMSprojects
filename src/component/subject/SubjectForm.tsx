@@ -108,7 +108,7 @@ const SubjectForm: React.FC<IFormValues> = ({
                         <Grid item>
                           <Button
                             color="inherit"
-                            href="/admin/forms/subjects"
+                            href="/admin/subjects"
                             sx={{
                               "&:hover": {
                                 color: "blue",

@@ -7,6 +7,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const DeleteSubject = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const DeleteSubject = () => {
 
   useEffect(() => {
     if (isSuccessDeleteSubject) {
-      toast.success("Subject deleted successfully");
+      showSuccessToast("Subject deleted successfully");
       navigate("/admin/forms/subjects");
     }
   });

@@ -12,6 +12,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const UpdateStudent = () => {
   const params = useParams();
@@ -50,7 +51,7 @@ const UpdateStudent = () => {
 
   useEffect(() => {
     if (isSuccessUpdateStudent) {
-      toast.success("Student Updated Successfully");
+      showSuccessToast("Student Updated Successfully");
       navigate("/admin/students");
       // navigate(-1);
     }

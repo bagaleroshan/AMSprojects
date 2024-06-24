@@ -10,6 +10,7 @@ import {
 } from "../../utils/utils";
 import { IUser } from "../interfaces/UserInterface";
 import ForgotPasswordForm from "./ForgotPasswordForm";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const ForgotPassword = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
@@ -40,9 +41,7 @@ const ForgotPassword = () => {
   useEffect(() => {
     if (isSuccessForgotPassword) {
       formikRef.current?.resetForm();
-      toast.success("Please check your email to reset-password.", {
-        autoClose: 5000,
-      });
+      showSuccessToast("Please check your email to reset-password.");
     }
   });
 

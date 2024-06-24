@@ -11,6 +11,7 @@ import {
 } from "../../utils/utils";
 import { IStudent } from "../interfaces/StudentInterface";
 import StudentForm from "./StudentForm";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const CreateStudent = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const CreateStudent = () => {
   useEffect(() => {
     if (isSuccessCreateStudent) {
       formikRef.current?.resetForm();
-      toast.success("Student created successfully");
+      showSuccessToast("Student created successfully");
       navigate("/admin/students");
     }
   });

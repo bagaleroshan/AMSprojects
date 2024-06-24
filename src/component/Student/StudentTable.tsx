@@ -14,6 +14,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 interface Query {
   page: number;
   limit: number;
@@ -61,9 +62,7 @@ const StudentTable: React.FC = () => {
 
   useEffect(() => {
     if (isSuccessDeleteStudent) {
-      toast.success(successDeleteStudent.message, {
-        autoClose: 3000,
-      });
+      showSuccessToast(successDeleteStudent.message);
     }
   }, [isSuccessDeleteStudent, successDeleteStudent]);
 
@@ -107,7 +106,7 @@ const StudentTable: React.FC = () => {
     setSelectedStudentIds([]);
   };
 
-  const fileName="Student File"
+  const fileName = "Student File";
   return (
     <div>
       {/* <StudentExportCSV
