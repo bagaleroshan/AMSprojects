@@ -36,7 +36,7 @@ const GroupForm: React.FC<IFormValues> = ({
 }) => {
   const [query] = useState<Query>({
     page: 1,
-    limit: 10,
+    limit: 0,
     role: "teacher",
     findQuery: "",
     sort: [],
@@ -55,6 +55,7 @@ const GroupForm: React.FC<IFormValues> = ({
   /* Subjects */
   const { data: dataReadSubjects } = useReadSubjectsQuery({
     ...query,
+    limit: 0,
     sort: query.sort?.join(","),
   });
   const subjects = (dataReadSubjects?.result?.results || []).map((value) => ({

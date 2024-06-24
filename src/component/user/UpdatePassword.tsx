@@ -11,6 +11,7 @@ import {
 } from "../../utils/utils";
 import { IUser } from "../interfaces/UserInterface";
 import UpdatePasswordForm from "./UpdatePasswordForm";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const UpdatePassword = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const UpdatePassword = () => {
 
   useEffect(() => {
     if (isSuccessUpdatePassword) {
-      toast.success("Password Updated Successfully", { autoClose: 2000 });
+      showSuccessToast("Password Updated Successfully");
       dispatch(clearToken());
       navigate("/login");
     }

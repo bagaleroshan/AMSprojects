@@ -12,6 +12,7 @@ import {
   useReadGroupByIdQuery,
   useUpdateGroupMutation,
 } from "../../services/api/GroupService";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const UpdateGroup = () => {
   const params = useParams();
@@ -67,7 +68,7 @@ const UpdateGroup = () => {
 
   useEffect(() => {
     if (isSuccessUpdateGroup) {
-      toast.success("Group Updated Successfully");
+      showSuccessToast("Group Updated Successfully");
       navigate("/admin/groups");
     }
   }, [isSuccessUpdateGroup, navigate]);

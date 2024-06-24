@@ -16,10 +16,10 @@ const CompletedCourses = () => {
     error: errorReadGroups,
   } = useReadGroupsByTeacherIdQuery({ active: false });
 
-  console.log(
-    "Completed COurses*************",
-    dataReadGroups?.result?.results
-  );
+  // console.log(
+  //   "Completed COurses*************",
+  //   dataReadGroups?.result?.results
+  // );
 
   const groups = dataReadGroups?.result?.results || [];
 
