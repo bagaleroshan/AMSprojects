@@ -23,11 +23,10 @@ const TeacherMessages = () => {
       <div className="teacherMessages">
         <Box sx={{ display: "flex" }}>
           <Box component="main" sx={{ flexGrow: 1, p: 5 }}>
-            <Box height={60} />
             <Typography variant="h5" sx={{ fontWeight: "bold" }}>
               Send Messages
             </Typography>
-            <Box height={60} />
+            <Box height={30} />
             {/* <Stack display="flex" direction="row" > */}
             <Card>
               <CardContent sx={{ width: "1100px", margin: "auto" }}>

@@ -37,56 +37,72 @@ const OngoingCourses = () => {
       {groups.map((value, i) => {
         return (
           <Box mt={1}>
-          <Paper elevation={2} sx={{ borderRadius: "10px", m: "2" }}>
-            <Box sx={{ p: 2 }} key={i}>
-              <div className="TDashboardOngoingCourses">
-                <LocalLibraryOutlinedIcon color="success" fontSize="large" />
-                <div className="TDashboardOngoingSubject">
-                  <Typography
-                    gutterBottom
-                    variant="h6"
-                    sx={{ familyWeight: "bold" }}
+            <Paper elevation={2} sx={{ borderRadius: "10px", m: "2" }}>
+              <Box sx={{ p: 2 }} key={i}>
+                <div className="TDashboardOngoingCourses">
+                  <LocalLibraryOutlinedIcon color="success" fontSize="large" />
+                  <div className="TDashboardOngoingSubject">
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      sx={{ familyWeight: "bold" }}
+                    >
+                      {value.groupName}
+                    </Typography>
+                    <Box height={15} />
+                    <Typography variant="body2" sx={{ familyWeight: "bold" }}>
+                      {value.groupName}
+                    </Typography>
+                    <Typography variant="body1" sx={{ familyWeight: "bold" }}>
+                      {value.teacher}
+                    </Typography>
+                  </div>
+
+                  <Button
+                    variant="contained"
+                    // color="secondary"
+                    onClick={() => navigate(`/teachers/${value.id}`)}
                   >
-                    {value.groupName}
+                    Take Attendance
+                  </Button>
+                  <Typography
+                    variant="body1"
+                    sx={{ familyWeight: "bold", color: "#43a047" }}
+                  >
+                    Present:0
                   </Typography>
-                  <Box height={15} />
-                  <Typography variant="body2" sx={{ familyWeight: "bold" }}>
-                    {value.groupName}
+
+                  <Typography
+                    variant="body1"
+                    sx={{ familyWeight: "bold", color: "#e53935" }}
+                  >
+                    Absent:0
                   </Typography>
-                  <Typography variant="body1" sx={{ familyWeight: "bold" }}>
-                    {value.teacher}
-                  </Typography>
+                  <Button variant="contained" color="error">
+                    Mark As Complete
+                  </Button>
                 </div>
-
-                <Button
-                  variant="contained"
-                  // color="secondary"
-                  onClick={() => navigate(`/teachers/${value.id}`)}
-                >
-                  Take Attendance
-                </Button>
-                <Typography
-                  variant="body1"
-                  sx={{ familyWeight: "bold", color: "#43a047" }}
-                >
-                  Present:0
-                </Typography>
-
-                <Typography
-                  variant="body1"
-                  sx={{ familyWeight: "bold", color: "#e53935" }}
-                >
-                  Absent:0
-                </Typography>
-                <Button variant="contained" color="error">
-                  Mark As Complete
-                </Button>
-              </div>
-            </Box>
-          </Paper>
+              </Box>
+            </Paper>
           </Box>
         );
       })}
+      <Box>
+        <Box height={30} />
+        <Paper
+          elevation={1}
+          sx={{
+            height: "10vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography color="primary">
+            You have not been assigned to any session
+          </Typography>
+        </Paper>
+      </Box>
     </>
   );
 };
