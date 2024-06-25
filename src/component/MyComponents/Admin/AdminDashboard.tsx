@@ -8,13 +8,22 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+import LineChart from "../chart/LineChart";
 import DwMuiSelect from "../muiComponent/MuiSelect";
-import LineChart from "../Chart/LineChart";
+import { RootState } from "../../../store/store";
 
 const AdminDashboard = () => {
+  const Role = useSelector((store: RootState) => store.user.role);
+  // console.log("Role9888886", Role);
   return (
     <>
-      <Typography variant="h4"> Admin Dashboard</Typography>
+      {Role === "superAdmin" ? (
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}> Super Admin Dashboard</Typography>
+      ) : (
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}> Admin Dashboard</Typography>
+      )}
+
       <Box height={30} />
       <Typography variant="h6">Overview</Typography>
       <Divider variant="inset" />

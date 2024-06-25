@@ -30,21 +30,6 @@ const UserTable: React.FC = () => {
       accessor: "phoneNumber",
       width: "350px",
     },
-    { Header: "Role", accessor: "role", width: "350px" },
-    { Header: "Hello", accessor: "hello", width: "350px" },
-    { Header: "World", accessor: "world", width: "350px" },
-    {
-      Header: "Science",
-      accessor: "science",
-      width: "350px",
-    },
-    { Header: "Math", accessor: "math", width: "350px" },
-    { Header: "Social", accessor: "social", width: "350px" },
-    {
-      Header: "Physics",
-      accessor: "physics",
-      width: "350px",
-    },
   ];
 
   const [query, setQuery] = useState<Query>({

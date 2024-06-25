@@ -2,6 +2,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
 import OngoingCourses from "../../../teacherComponent/teacherDashboard/OngoingCourses";
+import UserProfile from "./UserProfile";
 import CompletedCourses from "../../../teacherComponent/teacherDashboard/CompletedCourses";
 
 const TeacherDashboard = () => {
@@ -14,7 +15,6 @@ const TeacherDashboard = () => {
       <div className="teacherDashboard">
         <Box sx={{ display: "flex" }}>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            <Box height={60} />
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Teacher Dashboard
             </Typography>
