@@ -17,6 +17,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
+import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -38,9 +39,13 @@ export default function TeacherSideBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const handleClickAway = () => {
+    setOpen(false);
+  };
 
   return (
     <>
+     <ClickAwayListener onClickAway={handleClickAway}>
       <Box sx={{ display: "flex" }}>
         <AppBar position="fixed" open={open}>
           <Toolbar>
@@ -388,6 +393,7 @@ export default function TeacherSideBar() {
           <Divider />
         </Drawer>
       </Box>
+      </ClickAwayListener>
     </>
   );
 }

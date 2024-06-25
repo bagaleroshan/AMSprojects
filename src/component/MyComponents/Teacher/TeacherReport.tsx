@@ -22,11 +22,10 @@ const TeacherReport = () => {
       <div className="teacherReport">
         <Box sx={{ display: "flex" }}>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            <Box height={60} />
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Attendance Report
             </Typography>
-            <Box height={60} />
+            <Box height={30} />
             <Stack display="flex" direction="row" spacing={10}>
               <Typography variant="body2">Group</Typography>
               <FormControl sx={{ m: 1, minWidth: 400 }} size="small">

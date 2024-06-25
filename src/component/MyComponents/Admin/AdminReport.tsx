@@ -22,7 +22,6 @@ const AdminReport = () => {
       <div className="teacherReport">
         <Box sx={{ display: "flex" }}>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            <Box height={60} />
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Attendance Report
             </Typography>

@@ -86,7 +86,7 @@ const AttendanceTable11 = ({ students }) => {
     const currentDate = new Date().toISOString();
     const attendanceData = attendance.map((student) => ({
       studentId: student.id,
-      status: student.present,
+      present: student.present,
     }));
 
     const results = {
@@ -100,6 +100,8 @@ const AttendanceTable11 = ({ students }) => {
       console.error("Error recording attendance:", error);
     }
   };
+
+  console.log("Studentssss", students);
 
   const columns = useMemo(
     () => [
