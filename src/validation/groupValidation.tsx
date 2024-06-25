@@ -19,11 +19,11 @@ const groupValidationSchema = yup.object({
   duration: yup
     .number()
     .required("Duration is required.")
-    .min(0, "Duration must be at least 0 minutes.")
-    .oneOf(
-      [0, 60, 90, 120, 150, 180],
-      "Duration must be one of 0, 60, 90, 120, 150, or 180 minutes."
-    ),
+    .min(0, "Duration must be at least 0 minutes."),
+  // .oneOf(
+  //   [0, 60, 90, 120, 150, 180],
+  //   "Duration must be one of 0, 60, 90, 120, 150, or 180 minutes."
+  // )
   endTime: yup
     .date()
     .typeError("Invalid end time")

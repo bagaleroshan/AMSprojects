@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import LineChart from "../chart/LineChart";
+import LineChart from "../Chart/LineChart";
 import DwMuiSelect from "../muiComponent/MuiSelect";
 import { RootState } from "../../../store/store";
 
@@ -19,9 +19,15 @@ const AdminDashboard = () => {
   return (
     <>
       {Role === "superAdmin" ? (
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}> Super Admin Dashboard</Typography>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          {" "}
+          Super Admin Dashboard
+        </Typography>
       ) : (
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}> Admin Dashboard</Typography>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          {" "}
+          Admin Dashboard
+        </Typography>
       )}
 
       <Box height={30} />
