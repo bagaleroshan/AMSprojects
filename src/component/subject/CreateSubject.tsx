@@ -11,6 +11,7 @@ import {
 import SubjectForm from "./SubjectForm";
 import { ISubject } from "../interfaces/SubjectInterface";
 import { useNavigate } from "react-router-dom";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const CreateSubject = () => {
   const formikRef = useRef<FormikProps<ISubject> | null>(null);
@@ -32,7 +33,7 @@ const CreateSubject = () => {
   useEffect(() => {
     if (isSuccessCreateSubject) {
       formikRef.current?.resetForm();
-      toast.success("Subject created successfully");
+      showSuccessToast("Subject created successfully");
       navigate("/admin/subjects");
     }
   });

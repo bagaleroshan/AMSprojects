@@ -10,18 +10,15 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   TextField,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Column, usePagination, useSortBy, useTable } from "react-table";
+import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 import { Checkbox } from "../ReactTable/Checkbox";
+import { LightTooltip } from "../theme/MuiSidebarTheme";
 import "./table.css";
 
 export interface IData<T = any> {
@@ -38,6 +35,7 @@ interface TableComponentProps {
   onEditClick: (selectedRowData: IData[]) => void;
   onViewClick: (selectedRowData: IData[]) => void;
   onDeleteClick: (selectedRowData: IData[]) => void;
+  fileName: string;
 }
 
 interface Query {
@@ -57,6 +55,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   onEditClick,
   onViewClick,
   onDeleteClick,
+  fileName,
 }) => {
   const [searchTerm, setSearchTerm] = useState(query.findQuery);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
@@ -167,6 +166,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
     {
       columns,
       data,
+      fileName,
       initialState: {
         pageIndex: query.page - 1,
         pageSize: query.limit,
@@ -192,21 +192,26 @@ const TableComponent: React.FC<TableComponentProps> = ({
           justifyContent: "space-between",
         }}
       >
-        <TextField
-          size="small"
-          variant="outlined"
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Stack display="flex" direction="row" spacing={2}>
+          <TextField
+            size="small"
+            variant="outlined"
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Box sx={{}}>
+            <SubjectExportCSV data={data} fileName={fileName} />
+          </Box>
+        </Stack>
         {selectedRows.size > 0 && (
           <Stack display="flex" direction="row" spacing={0.5}>
             <Button
@@ -252,7 +257,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   <th
                     style={{
-                      width: "150px",
+                      width: "120px",
                       position: "sticky",
                       left: 0,
                       zIndex: 20,
@@ -262,14 +267,18 @@ const TableComponent: React.FC<TableComponentProps> = ({
                   </th>
 
                   {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                      style={{ width: column.width }}
-                      onClick={() => handleSort(column.id)}
-                    >
-                      {column.render("Header")}
-                      {renderSortIcon(column.id)}
-                    </th>
+                    <LightTooltip title="Download" placement="right">
+                      <th
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )}
+                        style={{ width: column.width }}
+                        onClick={() => handleSort(column.id)}
+                      >
+                        {column.render("Header")}
+                        {renderSortIcon(column.id)}
+                      </th>
+                    </LightTooltip>
                   ))}
                 </tr>
               ))}
@@ -282,7 +291,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                     {...row.getRowProps()}
                     onClick={() => handleRowClick(index)}
                   >
-                    <td>
+                    <td style={{ width: "120px", textAlign: "center" }}>
                       <Checkbox
                         checked={selectedRows.has(index)}
                         onChange={(e) => e.stopPropagation()} // prevent row click
@@ -293,7 +302,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                         {...cell.getCellProps()}
                         style={{ width: cell.column.width }}
                       >
-                        {cell.render("Cell")}
+                        <span className="ellipsis">{cell.render("Cell")}</span>
                       </td>
                     ))}
                   </tr>

@@ -12,6 +12,7 @@ import {
 } from "../../utils/utils";
 import { ISubject } from "../interfaces/SubjectInterface";
 import SubjectForm from "./SubjectForm";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const UpdateSubject = () => {
   const params = useParams();
@@ -50,7 +51,7 @@ const UpdateSubject = () => {
 
   useEffect(() => {
     if (isSuccessUpdateSubject) {
-      toast.success("Subject Updated Successfully");
+      showSuccessToast("Subject Updated Successfully");
       navigate(`/admin/subjects`);
     }
   });

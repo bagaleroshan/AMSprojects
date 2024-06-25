@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { Button, Grid, Modal as MuiModal, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { useReadStudentsQuery } from "../../services/api/StudentApi";
-import { useAddStudentGroupMutation } from "../../services/api/GroupService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { ModalContent, customStyles } from "../../muiModals/modalStyles";
+import { useAddStudentGroupMutation } from "../../services/api/GroupService";
+import { useReadStudentsQuery } from "../../services/api/StudentApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
@@ -17,61 +18,31 @@ interface Query {
   findQuery: string;
   sort: string[];
 }
-const customStyles = {
-  control: (provided) => ({
-    ...provided,
-    margin: "10px 0",
-  }),
-  multiValue: (provided) => ({
-    ...provided,
-    backgroundColor: "#ccc",
-  }),
-  multiValueLabel: (provided) => ({
-    ...provided,
-    color: "#333",
-  }),
-  multiValueRemove: (provided) => ({
-    ...provided,
-    color: "#666",
-    ":hover": {
-      backgroundColor: "#aaa",
-      color: "white",
-    },
-  }),
-};
 
 export const AddStudentsToGroup = ({ id }) => {
-  const [open, setOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const navigate = useNavigate();
   const [query, setQuery] = useState<Query>({
     page: 1,
     limit: 10,
     findQuery: "",
     sort: [],
   });
+
   const { data } = useReadStudentsQuery({
     ...query,
+    limit: 0,
     sort: query.sort.join(","),
   });
-  const handleOnClick = () => {
-    return setOpen(!open);
-  };
 
-  const students = (data?.result?.results || []).map((value) => {
-    // console.log(group.teacher?.fullName, "************name**************");
-
-    return {
-      value: value.id,
-      label: `${value.fullName} (${value.email})`,
-    };
-  });
+  const students = (data?.result?.results || []).map((value) => ({
+    value: value.id,
+    label: `${value.fullName} (${value.email})`,
+  }));
 
   const handleChange = (selected) => {
     setSelectedOptions(selected);
   };
 
-  /* Adding Student to a Group */
   const [
     addStudentGroup,
     {
@@ -88,10 +59,9 @@ export const AddStudentsToGroup = ({ id }) => {
       toast.success(dataAddStudentGroup.message, {
         autoClose: 3000,
       });
-      // formikRef.current?.resetForm();
-      // navigate("/admin/users");
+      setSelectedOptions([]);
     }
-  }, [isSuccessAddStudentGroup, dataAddStudentGroup, navigate]);
+  }, [isSuccessAddStudentGroup, dataAddStudentGroup]);
 
   useEffect(() => {
     if (isErrorAddStudentGroup) {
@@ -106,32 +76,74 @@ export const AddStudentsToGroup = ({ id }) => {
   }, [isErrorAddStudentGroup, errorAddingStudent]);
 
   const handleClick = () => {
-    const arrayStudents = selectedOptions.map((val) => {
-      return val.value;
-    });
-    // console.log(arrayStudents)
+    const arrayStudents = selectedOptions.map((val) => val?.value);
     addStudentGroup({ body: arrayStudents, id: id });
   };
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
-      {open && (
-        <>
-          <Select
-            isMulti
-            value={selectedOptions}
-            onChange={handleChange}
-            options={students}
-            styles={customStyles}
-          />
-          <MuiLoadingButtonTheme
-            buttonName="Add Student"
-            onClick={handleClick}
-            isLoading={isLoadingAddStudentGroup}
-          />
-        </>
-      )}
-      <button type="submit" onClick={handleOnClick}>
+      <MuiModal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        closeAfterTransition
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ModalContent sx={{ width: 600, height: 250 }}>
+          <Typography id="modal-title" variant="h6" component="h2">
+            Add Students to Group
+          </Typography>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid item xs={12}>
+              <Select
+                isMulti
+                value={selectedOptions}
+                onChange={handleChange}
+                options={students}
+                styles={customStyles}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                onClick={handleClose}
+                fullWidth
+                type="submit"
+                color="error"
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  "&:hover": { background: "#FF2E2E" },
+                }}
+              >
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <MuiLoadingButtonTheme
+                buttonName="Add Student"
+                onClick={handleClick}
+                isLoading={isLoadingAddStudentGroup}
+              />
+            </Grid>
+          </Grid>
+        </ModalContent>
+      </MuiModal>
+      <button type="submit" onClick={handleOpen}>
         Add
       </button>
     </div>

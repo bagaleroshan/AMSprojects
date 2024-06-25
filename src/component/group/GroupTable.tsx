@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { toast } from "react-toastify";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 import {
   useDeleteGroupMutation,
   useReadGroupQuery,
@@ -11,7 +11,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { toast } from "react-toastify";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 
 interface Query {
   page: number;
@@ -23,9 +23,9 @@ interface Query {
 const GroupTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Group Name", accessor: "groupName", width: "30%" },
-    { Header: "Subject Name", accessor: "subject.subjectName", width: "30%" },
-    { Header: "Teacher Name", accessor: "teacher.fullName", width: "20%" },
+    { Header: "Group Name", accessor: "groupName", width: "350px" },
+    { Header: "Subject Name", accessor: "subject.subjectCode", width: "350px" },
+    { Header: "Teacher Name", accessor: "teacher.fullName", width: "350px" },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -39,7 +39,10 @@ const GroupTable: React.FC = () => {
     ...query,
     sort: query.sort.join(",") || "",
   });
-  console.log(data);
+  // console.log("***********************", data?.result?.results);
+  const groupData = data?.result?.results;
+  // console.log("groupData*********************", groupData);
+
   const [
     deleteGroups,
     {
@@ -64,9 +67,7 @@ const GroupTable: React.FC = () => {
 
   useEffect(() => {
     if (isSuccessDeletingData) {
-      toast.success(deleteGroupData.message, {
-        autoClose: 3000,
-      });
+      showSuccessToast(deleteGroupData.message);
     }
   }, [isSuccessDeletingData, deleteGroupData]);
 
@@ -100,11 +101,16 @@ const GroupTable: React.FC = () => {
     });
   };
 
+  const fileName = "Group File";
   return (
     <div>
+      {/* <GroupExportCSV
+        data={data.result.results}
+        fileName="Group File"
+      ></GroupExportCSV> */}
       <TableComponent
         columns={columns}
-        data={data.result.results}
+        data={groupData}
         query={query}
         setQuery={setQuery}
         currentSort={query.sort}
@@ -112,6 +118,7 @@ const GroupTable: React.FC = () => {
         onEditClick={handleGroupEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
+        fileName={fileName}
       />
     </div>
   );

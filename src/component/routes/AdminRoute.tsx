@@ -1,5 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
+import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import AdminMessages from "../MyComponents/Admin/AdminMessages";
 import AdminReport from "../MyComponents/Admin/AdminReport";
@@ -23,7 +23,7 @@ const AdminRoute = () => {
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
-        <Route path="attendance" element={<AdminAttendance />} />
+        <Route path="attendance" element={<UseAttendanceTable />} />
         <Route path="messages" element={<AdminMessages />} />
         <Route path="report" element={<AdminReport />} />
         {/* ------------------- Users -------------------------------- */}

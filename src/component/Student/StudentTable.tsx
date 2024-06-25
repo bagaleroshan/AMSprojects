@@ -9,7 +9,12 @@ import TableComponent, { IData } from "../TableComponent/TableComponent";
 import DeleteConfirmation from "../../DeleteConfirmation";
 import StudentExportCSV from "../ExportCSV/StudentExportCSV";
 import { toast } from "react-toastify";
-import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../utils/utils";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../utils/utils";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 interface Query {
   page: number;
   limit: number;
@@ -33,7 +38,15 @@ const StudentTable: React.FC = () => {
     ...query,
     sort: query.sort.join(","),
   });
-  const [deleteStudents,{isError:isDeleteStudentError,error:errorDeleteStudent,isSuccess:isSuccessDeleteStudent,data:successDeleteStudent}] = useDeleteStudentMutation();
+  const [
+    deleteStudents,
+    {
+      isError: isDeleteStudentError,
+      error: errorDeleteStudent,
+      isSuccess: isSuccessDeleteStudent,
+      data: successDeleteStudent,
+    },
+  ] = useDeleteStudentMutation();
 
   useEffect(() => {
     if (isDeleteStudentError) {
@@ -46,12 +59,10 @@ const StudentTable: React.FC = () => {
       }
     }
   }, [isDeleteStudentError, errorDeleteStudent]);
-  
+
   useEffect(() => {
     if (isSuccessDeleteStudent) {
-      toast.success(successDeleteStudent.message, {
-        autoClose: 3000,
-      });
+      showSuccessToast(successDeleteStudent.message);
     }
   }, [isSuccessDeleteStudent, successDeleteStudent]);
 
@@ -94,12 +105,15 @@ const StudentTable: React.FC = () => {
     setOpenDeleteConfirmation(false);
     setSelectedStudentIds([]);
   };
+
+  const fileName = "Student File";
   return (
     <div>
-      <StudentExportCSV
+      {/* <StudentExportCSV
         data={data.result.results}
         fileName="Student File"
-      ></StudentExportCSV>
+      ></StudentExportCSV> */}
+
       <TableComponent
         columns={columns}
         data={data.result.results}
@@ -110,6 +124,7 @@ const StudentTable: React.FC = () => {
         onEditClick={handleStudentEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
+        fileName={fileName}
       />
       {openDeleteConfirmation && (
         <DeleteConfirmation

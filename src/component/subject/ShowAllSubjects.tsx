@@ -13,6 +13,7 @@ import {
 } from "../../utils/utils";
 import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
 import TableComponent, { IData } from "../TableComponent/TableComponent";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 interface Query {
   page: number;
@@ -64,9 +65,7 @@ const ShowAllSubjects: React.FC = () => {
 
   useEffect(() => {
     if (isSuccessDeleteSubject) {
-      toast.success(dataDeleteSubject.message, {
-        autoClose: 3000,
-      });
+      showSuccessToast(dataDeleteSubject.message);
     }
   }, [isSuccessDeleteSubject, dataDeleteSubject]);
 
@@ -113,12 +112,13 @@ const ShowAllSubjects: React.FC = () => {
     setOpenDeleteConfirmation(false);
     setSelectedSubjectIds([]);
   };
+  const fileName = "Subject File";
   return (
     <div>
-      <SubjectExportCSV
+      {/* <SubjectExportCSV
         data={data.result.results}
         fileName="Subject File"
-      ></SubjectExportCSV>
+      ></SubjectExportCSV> */}
 
       <TableComponent
         columns={columns}
@@ -130,6 +130,7 @@ const ShowAllSubjects: React.FC = () => {
         onEditClick={handleEditClick}
         onViewClick={handleViewClick}
         onDeleteClick={handleDeleteClick}
+        fileName={fileName}
       />
 
       {openDeleteConfirmation && (

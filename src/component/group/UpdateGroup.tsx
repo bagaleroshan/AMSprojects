@@ -12,6 +12,7 @@ import {
   useReadGroupByIdQuery,
   useUpdateGroupMutation,
 } from "../../services/api/GroupService";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const UpdateGroup = () => {
   const params = useParams();
@@ -35,12 +36,12 @@ const UpdateGroup = () => {
   } = useReadGroupByIdQuery(params.id);
 
   // const group = dataViewSpecific?.result;
-  console.log(dataViewSpecific?.result);
+  // console.log(dataViewSpecific?.result);
 
   const submitValue = async (values: IGroup) => {
     updateGroup({ id: params.id, body: values });
   };
-  /* Converitng string to date */
+  /* Converting string to date */
   useEffect(() => {
     if (dataViewSpecific?.result) {
       const groupWithDate = {
@@ -67,7 +68,7 @@ const UpdateGroup = () => {
 
   useEffect(() => {
     if (isSuccessUpdateGroup) {
-      toast.success("Group Updated Successfully");
+      showSuccessToast("Group Updated Successfully");
       navigate("/admin/groups");
     }
   }, [isSuccessUpdateGroup, navigate]);

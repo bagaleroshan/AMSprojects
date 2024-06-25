@@ -60,17 +60,17 @@ const TeacherReport = () => {
             </FormControl>
             <Box height={60} />
             <Stack display="flex" direction="row" spacing={10}>
-              <Button variant="contained" color="secondary">
+              <Button variant="contained">
                 Search
               </Button>
               <Button
                 variant="contained"
-                color="warning"
+                color="success"
                 startIcon={<DownloadIcon />}
               >
                 Download
               </Button>
-              <Button variant="contained" color="success">
+              <Button variant="contained" color="warning">
                 Reset Filters
               </Button>
             </Stack>

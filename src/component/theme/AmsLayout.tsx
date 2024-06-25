@@ -21,4 +21,3 @@ const AmsLayout = ({ children }) => {
 };
 
 export default AmsLayout;
-  

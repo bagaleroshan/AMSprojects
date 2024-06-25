@@ -11,6 +11,7 @@ import {
 import { IUser } from "../interfaces/UserInterface";
 import CreateUserForm from "./CreateUserForm";
 import { useNavigate } from "react-router-dom";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 
 const CreateUser = () => {
   const formikRef = useRef<FormikProps<IUser> | null>(null);
@@ -33,9 +34,7 @@ const CreateUser = () => {
 
   useEffect(() => {
     if (isSuccessCreateUser) {
-      toast.success(dataCreateUser.message, {
-        autoClose: 3000,
-      });
+      showSuccessToast(dataCreateUser.message);
       formikRef.current?.resetForm();
       navigate("/admin/users");
     }
@@ -66,4 +65,3 @@ const CreateUser = () => {
 };
 
 export default CreateUser;
-
