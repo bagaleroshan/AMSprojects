@@ -6,7 +6,7 @@ import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
-// import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
+import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
 
 const TeacherRoute = () => {
   return (
