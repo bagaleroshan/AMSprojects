@@ -267,18 +267,14 @@ const TableComponent: React.FC<TableComponentProps> = ({
                   </th>
 
                   {headerGroup.headers.map((column) => (
-                    <LightTooltip title="Download" placement="right">
-                      <th
-                        {...column.getHeaderProps(
-                          column.getSortByToggleProps()
-                        )}
-                        style={{ width: column.width }}
-                        onClick={() => handleSort(column.id)}
-                      >
-                        {column.render("Header")}
-                        {renderSortIcon(column.id)}
-                      </th>
-                    </LightTooltip>
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      style={{ width: column.width }}
+                      onClick={() => handleSort(column.id)}
+                    >
+                      {column.render("Header")}
+                      {renderSortIcon(column.id)}
+                    </th>
                   ))}
                 </tr>
               ))}
