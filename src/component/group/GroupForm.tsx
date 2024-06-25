@@ -67,8 +67,32 @@ const GroupForm: React.FC<IFormValues> = ({
     teacher: group.teacher?.id || "",
     groupName: group.groupName || "",
     startTime: group.startTime || "",
+    duration: group.duration || "",
     endTime: group.endTime || "",
   };
+
+  const handleDurationChange = (
+    formik: FormikProps<IGroup>,
+    duration: number,
+    startTime: Date
+  ) => {
+    if (startTime) {
+      const endTime = new Date(startTime.getTime() + duration * 60000); // Calculate endTime
+      formik.setFieldValue("duration", duration);
+      formik.setFieldValue("endTime", endTime);
+    }
+  };
+
+  const formatTime = (date: Date) => {
+    if (!date) return "";
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  };
+
   return (
     <div>
       <Formik
@@ -77,7 +101,7 @@ const GroupForm: React.FC<IFormValues> = ({
         onSubmit={onSubmit}
         enableReinitialize={true}
         validationSchema={groupValidationSchema}
-        validateOnBlur={false}
+        validateOnBlur={true}
       >
         {(formik: FormikProps<IGroup>) => {
           return (
@@ -137,23 +161,25 @@ const GroupForm: React.FC<IFormValues> = ({
                       <Grid item xs={6}>
                         <DatePicker
                           selected={formik.values.startTime}
-                          style={{ width: "100%" }}
                           onChange={(date: Date) => {
-                            console.log("Start Time", date);
                             formik.setFieldValue("startTime", date);
+                            handleDurationChange(
+                              formik,
+                              formik.values.duration,
+                              date
+                            );
                           }}
                           onBlur={() => {
-                            formik.setFieldTouched("startTime", true); // Mark startTime field as touched on blur
+                            formik.setFieldTouched("startTime", true);
                           }}
                           showTimeSelect
                           showTimeSelectOnly
-                          timeIntervals={15}
+                          timeIntervals={30}
                           timeCaption="Time"
                           dateFormat="h:mm aa"
                           customInput={
                             <TextField
                               fullWidth
-                              style={{ width: "100%" }}
                               label="Start Time"
                               error={
                                 formik.touched.startTime &&
@@ -170,33 +196,43 @@ const GroupForm: React.FC<IFormValues> = ({
                         />
                       </Grid>
                       <Grid item xs={6}>
-                        <DatePicker
-                          selected={formik.values.endTime}
-                          onChange={(date: Date) =>
-                            formik.setFieldValue("endTime", date)
-                          }
-                          onBlur={() => {
-                            formik.setFieldTouched("endTime", true); // Mark startTime field as touched on blur
+                        <DwSelect
+                          name="duration"
+                          label="Duration"
+                          onChange={(e) => {
+                            const duration = parseInt(e.target.value, 10);
+                            handleDurationChange(
+                              formik,
+                              duration,
+                              formik.values.startTime
+                            );
                           }}
-                          showTimeSelect
-                          showTimeSelectOnly
-                          timeIntervals={15}
-                          timeCaption="Time"
-                          dateFormat="h:mm aa"
-                          customInput={
-                            <TextField
-                              fullWidth
-                              label="End Time"
-                              error={
-                                formik.touched.endTime &&
-                                Boolean(formik.errors.endTime)
-                              }
-                              helperText={
-                                formik.touched.endTime && formik.errors.endTime
-                                  ? formik.errors.endTime
-                                  : ""
-                              }
-                            />
+                          selectLabels={[
+                            { value: 60, label: "1 hour" },
+                            { value: 90, label: "1.5 hours" },
+                            { value: 120, label: "2 hours" },
+                            { value: 150, label: "2.5 hours" },
+                            { value: 180, label: "3 hours" },
+                          ]}
+                          isLoading={isLoading}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          label="End Time"
+                          value={
+                            formik.values.endTime
+                              ? formatTime(new Date(formik.values.endTime))
+                              : ""
+                          }
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          helperText={
+                            formik.touched.endTime && formik.errors.endTime
+                              ? formik.errors.endTime
+                              : ""
                           }
                         />
                       </Grid>

@@ -5,41 +5,35 @@ const groupValidationSchema = yup.object({
   teacher: yup.string().required("Teacher is required."),
   groupName: yup
     .string()
-    .test(
-      "is-valid-group-name",
-      "Group name must contain only letters, numbers, and spaces.",
-      (value) => /^[a-zA-Z0-9 ]+$/.test(value || "")
+    .required("Group name is required.")
+    .matches(
+      /^[a-zA-Z0-9 ]+$/,
+      "Group name must contain only letters, numbers, and spaces."
     )
-    .test(
-      "is-correct-length",
-      "Group name must be between 3 and 50 characters long.",
-      (value) => (value && value.length >= 3 && value.length <= 50) || false
-    )
-    .required("Group name is required."),
+    .min(3, "Group name must be at least 3 characters long.")
+    .max(50, "Group name must be at most 50 characters long."),
   startTime: yup
     .date()
     .typeError("Invalid start time")
     .required("Start time is required."),
+  duration: yup
+    .number()
+    .required("Duration is required.")
+    .min(0, "Duration must be at least 0 minutes.")
+    .oneOf(
+      [0, 60, 90, 120, 150, 180],
+      "Duration must be one of 0, 60, 90, 120, 150, or 180 minutes."
+    ),
   endTime: yup
     .date()
     .typeError("Invalid end time")
-    .required("End time is required.")
-    .test(
-      "is-greater",
-      "End time must be later than start time.",
-      function (value) {
-        const { startTime } = this.parent;
-        return !startTime || !value || value > startTime;
+    .when("startTime", (startTime, schema) => {
+      if (startTime) {
+        return schema.min(startTime, "End time must be after start time.");
       }
-    )
-    .test(
-      "is-after-start",
-      "End time must be after start time.",
-      function (value) {
-        const { startTime } = this.parent;
-        return !startTime || !value || value > startTime;
-      }
-    ),
+      return schema;
+    })
+    .nullable(),
 });
 
 export default groupValidationSchema;
