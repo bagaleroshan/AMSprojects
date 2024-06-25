@@ -336,17 +336,17 @@ export default function AdminSidebar() {
                     color: "#0195CF",
                   },
                   backgroundColor:
-                    location.pathname === "/admin/class"
+                    location.pathname === "/admin/courses"
                       ? "rgba(239,249,255,1)"
                       : "default",
                   color:
-                    location.pathname === "/admin/messages"
+                    location.pathname === "/admin/courses"
                       ? "#0195CF"
                       : "default",
                 }}
-                onClick={() => handleNavigate("/admin/messages")}
+                onClick={() => handleNavigate("/admin/courses")}
               >
-                <LightTooltip title="Message" placement="right">
+                <LightTooltip title="Course" placement="right">
                   <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -363,7 +363,7 @@ export default function AdminSidebar() {
                           color: "#0195CF",
                         },
                         color:
-                          location.pathname === "/admin/messages"
+                          location.pathname === "/admin/class"
                             ? "#0195CF"
                             : "default",
                       }}
@@ -371,7 +371,7 @@ export default function AdminSidebar() {
                       <MenuBookOutlinedIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary="Message"
+                      primary="Course"
                       sx={{
                         opacity: open ? 1 : 0,
                         "&:hover": { color: "#0195CF" },

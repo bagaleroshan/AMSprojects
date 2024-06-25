@@ -15,6 +15,7 @@ import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import AdminReport from "../mycomponents/admin/AdminReport";
+import AdminCourse from "../mycomponents/admin/admincourse/AdminCourse";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -78,6 +79,7 @@ const AdminRoute = () => {
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="attendance" element={<UseAttendanceTable />} />
         <Route path="messages" element={<AdminMessages />} />
+        <Route path="courses" element={<AdminCourse />} />
         <Route path="report" element={<AdminReport />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
