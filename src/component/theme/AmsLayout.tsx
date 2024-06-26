@@ -11,7 +11,7 @@ const AmsLayout = ({ children }) => {
     <div className="admindashboard">
       <Box sx={{ display: "flex" }}>
         {adminToken ? <AdminSidebar /> : <TeacherSideBar />}
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
           <Box height={60} />
           {children}
         </Box>
