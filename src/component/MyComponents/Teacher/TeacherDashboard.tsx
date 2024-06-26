@@ -1,9 +1,8 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
-import OngoingCourses from "../../../teacherComponent/teacherDashboard/OngoingCourses";
-import UserProfile from "./UserProfile";
 import CompletedCourses from "../../../teacherComponent/teacherDashboard/CompletedCourses";
+import OngoingCourses from "../../../teacherComponent/teacherDashboard/OngoingCourses";
 
 const TeacherDashboard = () => {
   const [value, setValue] = useState("1");

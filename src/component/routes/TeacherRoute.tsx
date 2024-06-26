@@ -1,13 +1,14 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import TeacherDashboard from "../MyComponents/Teacher/TeacherDashboard";
-import TeacherMessages from "../MyComponents/Teacher/TeacherMessages";
-import TeacherReport from "../MyComponents/Teacher/TeacherReport";
+import TeacherDashboard from "../mycomponents/teacher/TeacherDashboard";
+import TeacherMessages from "../mycomponents/teacher/TeacherMessages";
+import TeacherReport from "../mycomponents/teacher/TeacherReport";
 import MyProfile from "../user/MyProfile";
-import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
-import TeacherChangePassword from "../MyComponents/Teacher/TeacherChangePassword";
+import TeacherChangePassword from "../mycomponents/teacher/TeacherChangePassword";
+import UpdatePassword from "../user/UpdatePassword";
+import TeacherFeedback from "../mycomponents/teacher/TeacherFeedback";
 
 const TeacherRoute = () => {
   return (
@@ -25,6 +26,7 @@ const TeacherRoute = () => {
 
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="messages" element={<TeacherMessages />} />
+        <Route path="feedback" element={<TeacherFeedback />} />
         <Route path="report" element={<TeacherReport />} />
         <Route path="*" element={<Navigate to="/teachers" replace />} />
       </Route>

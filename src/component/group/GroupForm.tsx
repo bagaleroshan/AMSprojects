@@ -78,7 +78,7 @@ const GroupForm: React.FC<IFormValues> = ({
     startTime: Date
   ) => {
     if (startTime) {
-      const endTime = new Date(startTime.getTime() + duration * 60000); // Calculate endTime
+      const endTime = new Date(startTime.getTime() + duration * 60000);
       formik.setFieldValue("duration", duration);
       formik.setFieldValue("endTime", endTime);
     }
@@ -214,6 +214,16 @@ const GroupForm: React.FC<IFormValues> = ({
                             { value: 120, label: "2 hours" },
                             { value: 150, label: "2.5 hours" },
                             { value: 180, label: "3 hours" },
+                            { value: 210, label: "3.5 hours" },
+                            { value: 240, label: "4 hours" },
+                            { value: 270, label: "4.5 hours" },
+                            { value: 300, label: "5 hours" },
+                            { value: 330, label: "5.5 hours" },
+                            { value: 360, label: "6 hours" },
+                            { value: 390, label: "6.5 hours" },
+                            { value: 420, label: "7 hours" },
+                            { value: 450, label: "7.5 hours" },
+                            { value: 480, label: "8 hours" },
                           ]}
                           isLoading={isLoading}
                         />
