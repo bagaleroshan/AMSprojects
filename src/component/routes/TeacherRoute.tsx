@@ -3,11 +3,11 @@ import TeacherDashboard from "../mycomponents/teacher/TeacherDashboard";
 import TeacherMessages from "../mycomponents/teacher/TeacherMessages";
 import TeacherReport from "../mycomponents/teacher/TeacherReport";
 import MyProfile from "../user/MyProfile";
-import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
 import TeacherChangePassword from "../mycomponents/teacher/TeacherChangePassword";
+import UpdatePassword from "../user/UpdatePassword";
 
 const TeacherRoute = () => {
   return (
