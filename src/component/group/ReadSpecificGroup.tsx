@@ -26,7 +26,7 @@ import { format, isValid } from "date-fns";
 const formatTime = (timeString: string) => {
   const date = new Date(timeString);
   if (!isValid(date)) {
-    return "Invalid time"; // Placeholder for invalid times
+    return "Invalid time";
   }
   return format(date, "hh:mm a");
 };

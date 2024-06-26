@@ -65,21 +65,17 @@ const AdminCompletedCourse = () => {
                       color="success"
                       fontSize="large"
                     />
-                    <div className="TDashboardOngoingSubject" style={{width:'15rem'}}>
+                    <div
+                      className="TDashboardOngoingSubject"
+                      style={{ width: "15rem" }}
+                    >
                       <Typography gutterBottom variant="h6" color="primary">
                         {group.subject.subjectName}
                       </Typography>
-<<<<<<< HEAD
-                      {/* <Box height={15} /> */}
-
-                      {/* <Typography variant="body2" color="primary">
-                        Nitan Thapa
-                      </Typography> */}
-=======
                       <Box height={5} />
                       <Typography variant="body2" color="primary">
+                        Teacher:{group.teacher.fullName}
                       </Typography>
->>>>>>> 3b7420909adb98aa1a9b5eb27d5b1109a4ab51ad
                       <Typography variant="body2" color="primary">
                         Group Name:
                       </Typography>
