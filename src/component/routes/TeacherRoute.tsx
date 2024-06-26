@@ -6,6 +6,7 @@ import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
 import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
+import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
 import TeacherChangePassword from "../mycomponents/teacher/TeacherChangePassword";
 
 const TeacherRoute = () => {
@@ -13,6 +14,9 @@ const TeacherRoute = () => {
     <Routes>
       <Route path="/" element={<Outlet />}>
         <Route index element={<TeacherDashboard />} />
+        {/* <Route path=":id" element={<UseAttendanceTable />} /> */}
+        <Route path=":id" element={<StudentAttendanceTable />} />
+        <Route path="update-password" element={<UpdatePassword />} />
         <Route path=":id" element={<UseAttendanceTable />} />
         {/* <Route path="update-password" element={<UpdatePassword />} /> */}
         <Route path="update-password" element={<TeacherChangePassword />} />

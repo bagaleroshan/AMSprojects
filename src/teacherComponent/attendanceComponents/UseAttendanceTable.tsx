@@ -38,7 +38,7 @@ export const UseAttendanceTable = () => {
   // console.log("attendance data", attendanceData);
 
   const studentAttendanceDetail =
-  !attendanceData || attendanceData===0
+    !attendanceData || attendanceData.length === 0
       ? studentsDetail.map((studentsDetail) => ({
           fullName: studentsDetail.fullName,
           id: studentsDetail.id,

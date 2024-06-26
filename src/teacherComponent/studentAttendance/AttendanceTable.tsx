@@ -11,7 +11,8 @@ import {
 import { toast } from "react-toastify";
 import { showSuccessToast } from "../../muiModals/toastConfig";
 
-const AttendanceTable11 = ({ students }) => {
+const AttendanceTable = ({ students }) => {
+  //   console.log("students*************", students);
   const { id } = useParams();
   const [attendance, setAttendance] = useState([]);
 
@@ -43,7 +44,7 @@ const AttendanceTable11 = ({ students }) => {
     }
   }, [isSuccessTakeAttendance, dataTakeAttendance]);
 
-  useEffect(() => {
+  useMemo(() => {
     if (students && students.length > 0) {
       setAttendance(students.map((student) => ({ ...student, present: "P" })));
     }
@@ -86,7 +87,7 @@ const AttendanceTable11 = ({ students }) => {
     const currentDate = new Date().toISOString();
     const attendanceData = attendance.map((student) => ({
       studentId: student.id,
-      present: student.present,
+      status: student.present,
     }));
 
     const results = {
@@ -97,11 +98,9 @@ const AttendanceTable11 = ({ students }) => {
     try {
       await takeAttendance({ id, data: results });
     } catch (error) {
-      console.error("Error recording attendance:", error);
+      toast.error("Error recording attendance:", error);
     }
   };
-
-  console.log("Studentssss", students);
 
   const columns = useMemo(
     () => [
@@ -179,7 +178,7 @@ const AttendanceTable11 = ({ students }) => {
   );
 };
 
-export default AttendanceTable11;
+export default AttendanceTable;
 
 // import { useCallback, useMemo, useState } from "react";
 // import { useParams } from "react-router-dom";
@@ -313,3 +312,5 @@ export default AttendanceTable11;
 //     </div>
 //   );
 // };
+
+// export default AttendanceTable;
