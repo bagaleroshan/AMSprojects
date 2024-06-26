@@ -3,14 +3,9 @@ import { Box, Paper, Typography } from "@mui/material";
 const AdminMessages = () => {
   return (
     <>
-      {/* <div className="TLogout">
-        <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ FlexGrow: 1, p: 3 }}>
-            <Box height={60} />
-            <Typography variant="h2">Admin Messages</Typography>
-          </Box>
-        </Box>
-      </div> */}
+      <div className="teacherDashboard">
+        <Box sx={{display:"flex"}}>
+          <Box component="main" sx={{flexGrow:1,p:3}}>
       <Typography variant="h4" sx={{ fontWeight: "bold" }}>New Student Requests</Typography>
       <Box height={60} />
       <Paper
@@ -38,6 +33,9 @@ const AdminMessages = () => {
           Maharjan
         </Typography>
       </Paper>
+      </Box>
+      </Box>
+      </div>
     </>
   );
 };

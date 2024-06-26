@@ -50,11 +50,14 @@ const AdminOngoingCourse = () => {
                       color="success"
                       fontSize="large"
                     />
-                    <div className="TDashboardOngoingSubject">
+                    <div className="TDashboardOngoingSubject" style={{width:'15rem'}}>
                       <Typography gutterBottom variant="h6" color="primary">
                         {group.subject.subjectName}
                       </Typography>
-                      <Box height={15} />
+                      <Box height={5} />
+                      <Typography variant="body2" color="primary">
+                        {group.fullName}
+                      </Typography>
                       <Typography variant="body2" color="primary">
                         Group Name:
                       </Typography>

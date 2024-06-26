@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import LineChart from "../Chart/LineChart";
+import LineChart from "../chart/LineChart";
 import DwMuiSelect from "../muiComponent/MuiSelect";
 import { RootState } from "../../../store/store";
 
@@ -18,14 +18,17 @@ const AdminDashboard = () => {
   // console.log("Role9888886", Role);
   return (
     <>
+    <div className="teacherDashboard">
+      <Box sx={{display:"flex"}}>
+        <Box component="main" sx={{flexGrow:1,p:3}}>
       {Role === "superAdmin" ? (
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          {" "}
+         
           Super Admin Dashboard
         </Typography>
       ) : (
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          {" "}
+          
           Admin Dashboard
         </Typography>
       )}
@@ -67,6 +70,10 @@ const AdminDashboard = () => {
 
       <Box height={50} />
       <Typography variant="h4">Recent Login</Typography>
+      </Box>
+      </Box>
+      </div>
+      
     </>
   );
 };

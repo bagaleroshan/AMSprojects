@@ -12,16 +12,15 @@ import {
 
 const OngoingCourses = () => {
   const navigate = useNavigate();
-
   const {
     isError: isErrorReadGroups,
     data: dataReadGroups,
     error: errorReadGroups,
   } = useReadGroupsByTeacherIdQuery({ active: true });
-
   // console.log("dataReadGroups*************", dataReadGroups?.result?.results);
-
   const groups = dataReadGroups?.result?.results || [];
+
+  
 
   useEffect(() => {
     isErrorReadGroups &&
