@@ -71,7 +71,7 @@ const MyProfile = () => {
       </Button> */}
       <div style={{ backgroundColor: "white", width: "100%" }}>
         <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3}}>
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               My Profile
             </Typography>
@@ -79,7 +79,7 @@ const MyProfile = () => {
             <Box className="user-profile-container">
               <Box
                 sx={{
-                  // width: "50%",
+                  width: "50%",
 
                   borderRadius: "10px",
                   padding: "1.5rem",

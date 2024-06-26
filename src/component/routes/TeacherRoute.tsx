@@ -8,6 +8,7 @@ import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/
 import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
 import TeacherChangePassword from "../MyComponents/Teacher/TeacherChangePassword";
 import UpdatePassword from "../user/UpdatePassword";
+import TeacherFeedback from "../mycomponents/teacher/TeacherFeedback";
 
 const TeacherRoute = () => {
   return (
@@ -25,6 +26,7 @@ const TeacherRoute = () => {
 
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="messages" element={<TeacherMessages />} />
+        <Route path="feedback" element={<TeacherFeedback />} />
         <Route path="report" element={<TeacherReport />} />
         <Route path="*" element={<Navigate to="/teachers" replace />} />
       </Route>
