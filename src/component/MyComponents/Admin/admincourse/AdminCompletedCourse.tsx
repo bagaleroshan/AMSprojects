@@ -69,7 +69,11 @@ const AdminCompletedCourse = () => {
                       <Typography gutterBottom variant="h6" color="primary">
                         {group.subject.subjectName}
                       </Typography>
-                      <Box height={15} />
+                      {/* <Box height={15} /> */}
+
+                      {/* <Typography variant="body2" color="primary">
+                        Nitan Thapa
+                      </Typography> */}
                       <Typography variant="body2" color="primary">
                         Group Name:
                       </Typography>
@@ -91,9 +95,9 @@ const AdminCompletedCourse = () => {
                     >
                       Absent: 0
                     </Typography>
-                    <Button variant="contained" color="success">
+                    {/* <Button variant="contained" color="success">
                       Mark As Complete
-                    </Button>
+                    </Button> */}
                   </div>
                 </Box>
                 <Box height={15} />

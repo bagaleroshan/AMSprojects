@@ -79,9 +79,9 @@ const AdminOngoingCourse = () => {
                     >
                       Absent: 0
                     </Typography>
-                    <Button variant="contained" color="error">
+                    {/* <Button variant="contained" color="error">
                       Mark As Complete
-                    </Button>
+                    </Button> */}
                   </div>
                 </Box>
                 <Box height={15} />
