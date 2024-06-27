@@ -1,8 +1,10 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
-import AdminDashboard from "../mycomponents/admin/AdminDashboard";
-import AdminMessages from "../mycomponents/admin/AdminMessages";
-import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
+import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AdminMessages from "../MyComponents/Admin/AdminMessages";
+import AdminReport from "../MyComponents/Admin/AdminReport";
+import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import AdminCourse from "../MyComponents/Admin/admincourse/AdminCourse";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import ReadSpecificGroup from "../group/ReadSpecificGroup";
@@ -14,8 +16,6 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import AdminReport from "../mycomponents/admin/AdminReport";
-import AdminCourse from "../mycomponents/admin/admincourse/AdminCourse";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -77,7 +77,7 @@ const AdminRoute = () => {
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
-        <Route path="attendance" element={<UseAttendanceTable />} />
+        {/* <Route path="attendance" element={<UseAttendanceTable />} /> */}
         <Route path="messages" element={<AdminMessages />} />
         <Route path="courses" element={<AdminCourse />} />
         <Route path="report" element={<AdminReport />} />
