@@ -18,8 +18,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-
+import FeedbackIcon from "@mui/icons-material/Feedback";
 import Toolbar from "@mui/material/Toolbar";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -83,6 +85,17 @@ export default function AdminSidebar() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 AMS
               </Typography>
+              <Box>
+                <ListItem onClick={() => navigate("/teachers/my-profile")}>
+                  <LightTooltip title="My Profile" placement="right">
+                    <ListItemButton>
+                      <AccountCircleIcon
+                        sx={{ height: "40px", width: "40px" }}
+                      />
+                    </ListItemButton>
+                  </LightTooltip>
+                </ListItem>
+              </Box>
             </Toolbar>
           </AppBar>
 
@@ -425,6 +438,59 @@ export default function AdminSidebar() {
                     </ListItemIcon>
                     <ListItemText
                       primary="Report"
+                      sx={{
+                        opacity: open ? 1 : 0,
+                        "&:hover": { color: "#0195CF" },
+                      }}
+                    />
+                  </ListItemButton>
+                </LightTooltip>
+              </ListItem>
+              {/* *--------Feedback-----------* */}
+              <ListItem
+                disablePadding
+                sx={{
+                  display: "block",
+                  "&:hover": {
+                    color: "#0195CF",
+                  },
+                  backgroundColor:
+                    location.pathname === "/admin/feedback"
+                      ? "rgba(239,249,255,1)"
+                      : "default",
+                  color:
+                    location.pathname === "/admin/feedback"
+                      ? "#0195CF"
+                      : "default",
+                }}
+                onClick={() => handleNavigate("/admin/feedback")}
+              >
+                <LightTooltip title="Feedback" placement="right">
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                        "&:hover": {
+                          color: "#0195CF",
+                        },
+                        color:
+                          location.pathname === "/admin/feedback"
+                            ? "#0195CF"
+                            : "default",
+                      }}
+                    >
+                      <FeedbackIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Feedback"
                       sx={{
                         opacity: open ? 1 : 0,
                         "&:hover": { color: "#0195CF" },

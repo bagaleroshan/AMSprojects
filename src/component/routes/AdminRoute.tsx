@@ -1,5 +1,4 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import AdminMessages from "../MyComponents/Admin/AdminMessages";
 import AdminReport from "../MyComponents/Admin/AdminReport";
@@ -16,6 +15,7 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+import AdminFeedback from "../MyComponents/Admin/AdminFeedback";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -81,6 +81,7 @@ const AdminRoute = () => {
         <Route path="messages" element={<AdminMessages />} />
         <Route path="courses" element={<AdminCourse />} />
         <Route path="report" element={<AdminReport />} />
+        <Route path="feedback" element={<AdminFeedback />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>

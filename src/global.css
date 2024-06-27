@@ -24,6 +24,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(239,249,255,1) 0%, rg
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap,
     
 }
 

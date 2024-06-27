@@ -5,6 +5,10 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useMyProfileQuery } from "../../services/api/UserService";
 import { RootState } from "../../store/store";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import PhoneIcon from "@mui/icons-material/Phone";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
@@ -65,76 +69,115 @@ const MyProfile = () => {
       <Button color="primary" variant="contained" href={href}>
         Edit Profile
       </Button> */}
-      <Box sx={{ display: "flex" }}>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-        My-Profile
-      </Typography>
-      <Box height={30} />
-      <Box className="user-profile-container">
-        <Box
-          sx={{
-            width: "50%",
-            height: "100vh",
-            backgroundColor: "white",
-            borderRadius: "10px",
-            padding: "1.5rem",
-          }}
-        >
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar
-              src="/deerwalk.png"
-              sx={{ marginBottom: "0.5rem", width: "20%", height: "20%" }}
-            ></Avatar>
-            <Box height={20} />
-            <Typography variant="h5">{profileData.fullName}</Typography>
-          </Box>
-          <Box height={10} />
-          <Box
-            sx={{
-              width: "80%",
-              height: "45vh",
-              backgroundColor: "#EEF8FF",
-              margin: "auto",
-              borderRadius: "15px",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-evenly",
-                marginLeft: "1rem",
-              }}
-            >
-              <Typography>Email: {profileData.email}</Typography>
-              <Typography>Full Name: {profileData.fullName}</Typography>
-              <Typography>Phone Number: {profileData.phoneNumber}</Typography>
-              <Typography>Role: {profileData.role}</Typography>
-            </Box>
-            <Box>
-              <LightTooltip title="Edit" placement="right">
-                <Button variant="text" href={href}>
-                  <EditIcon sx={{ "&:hover": { color: "#1976D2" } }} />
-                </Button>
-              </LightTooltip>
+      <div style={{ backgroundColor: "white", width: "100%" }}>
+        <Box sx={{ display: "flex" }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3}}>
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+              My Profile
+            </Typography>
+            {/* <Box height={10} /> */}
+            <Box className="user-profile-container">
+              <Box
+                sx={{
+                  width: "50%",
+
+                  borderRadius: "10px",
+                  padding: "1.5rem",
+                }}
+              >
+                <Box
+                  sx={{
+                    // width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar
+                    src="/deerwalk.png"
+                    sx={{ marginBottom: "0.5rem", width: "20%", height: "20%" }}
+                  ></Avatar>
+                  <Box height={20} />
+                  <Typography variant="h5">{profileData.fullName}</Typography>
+                </Box>
+                <Box height={5} />
+                <Box
+                  sx={{
+                    // width: "80%",
+                    height: "40vh",
+                    backgroundColor: "#EEF8FF",
+                    margin: "auto",
+                    borderRadius: "15px",
+                    padding: "2rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-evenly",
+                      marginLeft: "1rem",
+                    }}
+                  >
+                    
+                    <Box
+                      sx={{
+                        display: "flex",
+
+                        // width: "100%",
+                      }}
+                    >
+                      <Typography>
+                        <MailOutlineIcon />{" "}
+                      </Typography>
+                      <Typography sx={{ marginLeft: "30px" }}>
+                        {profileData.email}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+
+                        // width: "100%",
+                      }}
+                    >
+                      <Typography>
+                        <PhoneIcon />
+                      </Typography>
+                      <Typography sx={{ marginLeft: "30px" }}>
+                        {profileData.phoneNumber}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+
+                        // width: "100%",
+                      }}
+                    >
+                      <Typography>
+                        <AdminPanelSettingsIcon />
+                      </Typography>
+                      <Typography sx={{ marginLeft: "30px" }}>
+                        {profileData.role}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box>
+                    <LightTooltip title="Edit" placement="right">
+                      <Button variant="text" href={href}>
+                        <EditIcon sx={{ "&:hover": { color: "#1976D2" } }} />
+                      </Button>
+                    </LightTooltip>
+                  </Box>
+                </Box>
+              </Box>
             </Box>
           </Box>
         </Box>
-      </Box>
-      </Box>
-      </Box>
+      </div>
     </>
   );
 };
