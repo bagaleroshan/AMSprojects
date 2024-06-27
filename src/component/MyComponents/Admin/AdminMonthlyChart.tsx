@@ -9,6 +9,8 @@ const AdminMonthlyChart = () => {
     const [date,setDate]=useState("")
 const {data}= useReadMonthlyAttendanceReportQuery({id:groupId,month:date})
 console.log(data)
+//Process data
+
   return (
     <div>
       <LineChart   />

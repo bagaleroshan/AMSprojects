@@ -44,7 +44,7 @@ const AdminDashboard = () => {
           <Grid item xs={6}>
             <Card sx={{ height: 64 + "vh" }}>
               <CardContent>
-                <Box sx={{ width: "190px", margin: "auto" }}>
+                <Box sx={{ width: "50%", margin: "auto" , textAlign:'center'}}>
                   <Stack spacing={15} display="flex">
                     <Typography variant="h6" sx={{ color: "blue" }}>
                       Today's Class Count

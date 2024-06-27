@@ -56,7 +56,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
   }));
 
   const groupInitialValues = {
-    // groupName: group.groupName || "",
+    groupName: group.groupName || "",
     groups: "667ba81354acc6871dbcf0cf",
   };
 
