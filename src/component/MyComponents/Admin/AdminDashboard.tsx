@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import LineChart from "../chart/LineChart";
 import DwMuiSelect from "../muiComponent/MuiSelect";
 import { RootState } from "../../../store/store";
+import RoughMuiSelect from "../muiComponent/RoughMuiSelect";
+import AdminMonthlyChart from "./AdminMonthlyChart";
 
 const AdminDashboard = () => {
   const Role = useSelector((store: RootState) => store.user.role);
@@ -19,8 +21,8 @@ const AdminDashboard = () => {
   return (
     <>
     <div className="teacherDashboard">
-      <Box sx={{display:"flex"}}>
-        <Box component="main" sx={{flexGrow:1,p:3}}>
+      {/* <Box sx={{display:"flex"}}>
+        <Box component="main" sx={{flexGrow:1,p:3}}> */}
       {Role === "superAdmin" ? (
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
          
@@ -58,11 +60,10 @@ const AdminDashboard = () => {
           <Grid item xs={6}>
             <Card sx={{ height: 64 + "vh" }}>
               <CardContent>
-                <LineChart />
+                {/* <LineChart /> */}
+                <AdminMonthlyChart/>
               </CardContent>
-              <CardActions>
-                <DwMuiSelect />
-              </CardActions>
+              
             </Card>
           </Grid>
         </Grid>
@@ -70,8 +71,8 @@ const AdminDashboard = () => {
 
       <Box height={50} />
       <Typography variant="h4">Recent Login</Typography>
-      </Box>
-      </Box>
+      {/* </Box>
+      </Box> */}
       </div>
       
     </>

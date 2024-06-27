@@ -70,8 +70,8 @@ const MyProfile = () => {
         Edit Profile
       </Button> */}
       <div>
-        <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {/* <Box sx={{ display: "flex" }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               My Profile
             </Typography>
@@ -174,8 +174,8 @@ const MyProfile = () => {
                 </Box>
               </Box>
             </Box>
-          </Box>
-        </Box>
+          {/* </Box>
+        </Box> */}
       </div>
     </>
   );

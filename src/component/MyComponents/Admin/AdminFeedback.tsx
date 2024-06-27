@@ -10,7 +10,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const AdminFeedback = () => {
   return (
     <>
-      <Typography variant="h4">Feedback</Typography>
+      <Typography variant="h4" sx={{fontWeight:'bold'}}>Feedback</Typography>
       <Box height={30} />
       <Grid container spacing={2}>
         <Grid item xs={12}>

@@ -20,8 +20,8 @@ const TeacherReport = () => {
   return (
     <>
       <div className="teacherReport">
-        <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {/* <Box sx={{ display: "flex" }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Attendance Report
             </Typography>
@@ -73,8 +73,8 @@ const TeacherReport = () => {
                 Reset Filters
               </Button>
             </Stack>
-          </Box>
-        </Box>
+          {/* </Box>
+        </Box> */}
       </div>
     </>
   );
