@@ -9,9 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import LineChart from "../chart/LineChart";
-import DwMuiSelect from "../muiComponent/MuiSelect";
 import { RootState } from "../../../store/store";
+import LineChart from "../Chart/LineChart";
+import DwMuiSelect from "../muiComponent/MuiSelect";
 
 const AdminDashboard = () => {
   const Role = useSelector((store: RootState) => store.user.role);

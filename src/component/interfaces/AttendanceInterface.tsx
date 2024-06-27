@@ -1,7 +1,9 @@
+export interface IStudentAttendance {
+  studentId: string;
+  status: string | number;
+}
+
 export interface IAttendance {
-    date: string;
-    attendance: {
-        student:string,
-        present:string
-    };
+  date: string;
+  attendance: IStudentAttendance[];
 }
