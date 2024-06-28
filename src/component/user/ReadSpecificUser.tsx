@@ -1,8 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Typography
-} from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -101,6 +97,7 @@ const ReadSpecificUser = () => {
               <Typography>Email: {user.email}</Typography>
               <Typography>Full Name:{user.fullName}</Typography>
               <Typography>Phone Number: {user.phoneNumber}</Typography>
+              <Typography>Role: {user.role}</Typography>
             </Box>
           </Box>
         </Box>

@@ -20,7 +20,7 @@ import { FeedbackApi } from "../services/api/FeedbackApi";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "subject", "student", "group"], // only persist the user reducer
+  whitelist: ["user", "subject", "student", "group", "attendance"], // only persist the user reducer
 };
 
 // Combine all reducers

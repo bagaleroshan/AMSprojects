@@ -1,20 +1,45 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useTable } from "react-table";
+import { toast } from "react-toastify";
 import MuiLoadingButtonTheme from "../../component/theme/MuiLoadingButtonTheme";
+import { storeAttendance } from "../../features/attendanceSlice";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 import { useTakeAttendanceMutation } from "../../services/api/AttendanceService";
+import { useReadGroupByIdQuery } from "../../services/api/GroupService";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { toast } from "react-toastify";
-import { showSuccessToast } from "../../muiModals/toastConfig";
 
-const AttendanceTable = ({ students }) => {
-  //   console.log("students*************", students);
+type AttendanceRecord = {
+  date?: string;
+  groupId?: string;
+  studentId?: string;
+  status: string;
+  id?: number;
+};
+
+type StudentAttendance = {
+  studentId: string;
+  [key: string]: string | number;
+};
+
+const AttendanceTable = ({
+  attendanceRecord,
+}: {
+  attendanceRecord: AttendanceRecord[];
+}) => {
   const { id } = useParams();
-  const [attendance, setAttendance] = useState([]);
+  const [attendance, setAttendance] = useState<StudentAttendance[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAttendanceTaken, setIsAttendanceTaken] = useState(false);
+  const currentDate = new Date().toISOString().split("T")[0];
+  const dispatch = useDispatch();
+  const todaysAttendance = useSelector((store) => store.attendance);
+  // console.log("todayAttendance", todaysAttendance);
 
   const [
     takeAttendance,
@@ -44,39 +69,92 @@ const AttendanceTable = ({ students }) => {
     }
   }, [isSuccessTakeAttendance, dataTakeAttendance]);
 
-  useMemo(() => {
-    if (students && students.length > 0) {
-      setAttendance(students.map((student) => ({ ...student, present: "P" })));
+  const {
+    isError: isErrorReadGroupById,
+    data: GroupById,
+    error: errorReadGroupById,
+  } = useReadGroupByIdQuery(id);
+
+  useEffect(() => {
+    if (isErrorReadGroupById) {
+      if (isFetchBaseQueryError(errorReadGroupById)) {
+        toast.error(getErrorMessage(errorReadGroupById));
+      } else if (isSerializedError(errorReadGroupById)) {
+        toast.error(errorReadGroupById?.message);
+      } else {
+        toast.error("Unknown Error");
+      }
     }
-  }, [students]);
+  }, [isErrorReadGroupById, errorReadGroupById]);
 
-  // const prevDate = useMemo(() => {
-  //   return students && students.length > 0 ? students[0].date : "Previous Date";
-  // }, [students]);
-
-  const prevDate = useMemo(() => {
-    if (!students || students.length === 0) {
-      return "Previous Date";
+  /* to calculate previous three days */
+  const getLastNDays = (n: number) => {
+    const dates = [];
+    for (let i = 1; i <= n; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      dates.push(date.toISOString().split("T")[0]);
     }
+    return dates.reverse(); // Reverse the array to display latest date first
+  };
 
-    const dates = students
-      .map((student) => new Date(student.date))
-      .filter((date) => !isNaN(date));
+  const lastThreeDays = useMemo(() => getLastNDays(3), []);
 
-    const latestDate =
-      dates.length > 0 ? new Date(Math.max(...dates)) : "Previous Date";
-    return latestDate !== "Previous Date"
-      ? latestDate.toDateString()
-      : latestDate;
-  }, [students]);
+  /* creating an attendance data based on student ID */
+  const processAttendanceData = useCallback(
+    (records: AttendanceRecord[]) => {
+      const attendanceByStudent: { [key: string]: { [key: string]: string } } =
+        {};
+
+      records.forEach((record) => {
+        const { studentId, date, status } = record;
+        const formattedDate = new Date(date).toISOString().split("T")[0];
+
+        if (!attendanceByStudent[studentId]) {
+          attendanceByStudent[studentId] = {};
+        }
+        attendanceByStudent[studentId][formattedDate] = status;
+      });
+      // console.log("attendanceByStudent", attendanceByStudent);
+
+      return Object.keys(attendanceByStudent).map((studentId) => ({
+        studentId,
+        ...lastThreeDays.reduce((acc, date) => {
+          acc[date] = attendanceByStudent[studentId][date] || "N/A";
+          return acc;
+        }, {} as { [key: string]: string }),
+
+        // Calculate total absent days
+        absentDays: Object.values(attendanceByStudent[studentId]).filter(
+          (status) => status === "A"
+        ).length,
+      }));
+    },
+    [lastThreeDays]
+  );
+
+  useEffect(() => {
+    if (attendanceRecord && attendanceRecord.length > 0) {
+      const processedAttendance = processAttendanceData(attendanceRecord).map(
+        (attendanceData) => ({
+          ...attendanceData,
+          present: "P", // Set default value to 'P'
+        })
+      );
+      setAttendance(processedAttendance);
+    }
+  }, [attendanceRecord, processAttendanceData]);
 
   const toggleAttendance = useCallback(
     (index) => {
       setAttendance((prevAttendance) =>
-        prevAttendance.map((student, i) =>
+        prevAttendance.map((attendanceData, i) =>
           i === index
-            ? { ...student, present: student.present === "P" ? "A" : "P" }
-            : student
+            ? {
+                ...attendanceData,
+                present: attendanceData.present === "P" ? "A" : "P",
+              }
+            : attendanceData
         )
       );
     },
@@ -84,10 +162,10 @@ const AttendanceTable = ({ students }) => {
   );
 
   const handleButtonClick = async () => {
-    const currentDate = new Date().toISOString();
+    setIsLoading(true);
     const attendanceData = attendance.map((student) => ({
-      studentId: student.id,
-      status: student.present,
+      studentId: student.studentId,
+      status: student.present || "P",
     }));
 
     const results = {
@@ -97,52 +175,90 @@ const AttendanceTable = ({ students }) => {
 
     try {
       await takeAttendance({ id, data: results });
+      dispatch(storeAttendance({ data: results }));
+      setIsLoading(false);
     } catch (error) {
-      toast.error("Error recording attendance:", error);
+      setIsLoading(false);
+      toast.error(`Error recording attendance: ${error}`);
     }
   };
+
+  /* checking attendance status for today */
+  useMemo(() => {
+    if (!attendanceRecord || attendanceRecord.length === 0) {
+      setIsAttendanceTaken(false);
+    } else {
+      const isTaken = attendanceRecord.some(
+        (value) =>
+          new Date(value.date).toISOString().split("T")[0] === currentDate
+      );
+      setIsAttendanceTaken(isTaken);
+    }
+  }, [attendanceRecord, currentDate]);
+
+  // console.log("isAttendanceTakenForToday", isAttendanceTaken);
+  // console.log("AttendanceRecord", attendanceRecord);
+  // console.log("Attendance", attendance);
 
   const columns = useMemo(
     () => [
       {
         Header: "Student Name",
-        accessor: "fullName",
+        accessor: "studentId",
       },
-      {
-        Header: prevDate || "Status",
-        accessor: "status",
-      },
+      ...lastThreeDays.map((date) => ({
+        Header: date,
+        accessor: date,
+        Cell: ({ row }) => <span>{row.original[date]}</span>,
+      })),
       {
         Header: "Take Attendance",
         accessor: "present",
-        Cell: ({ row }) => (
-          <span
-            onClick={() => toggleAttendance(row.index)}
-            style={{ cursor: "pointer" }}
-          >
-            {row.original.present}
-          </span>
-        ),
+        Cell: ({ row }) => {
+          const handleClick = () => {
+            if (!isAttendanceTaken) {
+              toggleAttendance(row.index);
+            }
+          };
+
+          const attendanceStatus = isAttendanceTaken
+            ? todaysAttendance.attendance.find(
+                (value) => value.id === row.original.id
+              )?.status
+            : row.original.present;
+
+          return (
+            <span
+              onClick={handleClick}
+              style={{
+                cursor: !isAttendanceTaken ? "pointer" : "default",
+                // color: isAttendanceTaken ? "gray" : "black",
+                color: "black",
+              }}
+            >
+              {attendanceStatus}
+            </span>
+          );
+        },
       },
+
       {
         Header: "Absent Days",
         accessor: "absentDays",
-        Cell: ({ row }) => {
-          const status = row.original.status || [];
-          const absentDays = Array.isArray(status)
-            ? status.filter((s) => s === "A").length
-            : 0;
-          return absentDays;
-        },
+        Cell: ({ row }) => <span>{row.original.absentDays}</span>,
       },
     ],
-    [toggleAttendance, prevDate]
+    [lastThreeDays, toggleAttendance, isAttendanceTaken, todaysAttendance]
   );
 
   const data = useMemo(() => attendance, [attendance]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -171,7 +287,7 @@ const AttendanceTable = ({ students }) => {
       </table>
       <MuiLoadingButtonTheme
         buttonName="Log Attendance"
-        isLoading={false}
+        isLoading={isLoading}
         onClick={handleButtonClick}
       />
     </div>
@@ -179,138 +295,3 @@ const AttendanceTable = ({ students }) => {
 };
 
 export default AttendanceTable;
-
-// import { useCallback, useMemo, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { useTable } from "react-table";
-// import MuiLoadingButtonTheme from "../../component/theme/MuiLoadingButtonTheme";
-// import { useTakeAttendanceMutation } from "../../services/api/AttendanceService";
-
-// export const AttendanceTable = ({ students }) => {
-//   console.log("students", students);
-//   const [takeAttendance] = useTakeAttendanceMutation();
-//   const { id } = useParams();
-//   const [attendance, setAttendance] = useState(
-//     students.map((student) => ({ ...student, present: "P" }))
-//   );
-
-//   // const prevDate = students[-1].date || [];
-//   const prevDate = students.length > 0 ? students[0].date : students.date;
-//   // const prevDate = useMemo(() => {
-//   //   return students && students.length > 0 ? students[0].date : "Previous Date";
-//   // }, [students]);
-
-//   // Memoize the toggleAttendance function
-//   const toggleAttendance = useCallback(
-//     (index) => {
-//       setAttendance((prevAttendance) =>
-//         prevAttendance.map((student, i) =>
-//           i === index
-//             ? { ...student, present: student.present === "P" ? "A" : "P" }
-//             : student
-//         )
-//       );
-//     },
-//     [setAttendance]
-//   );
-
-//   const handleButtonClick = async () => {
-//     const currentDate = new Date().toISOString();
-//     const attendanceData = attendance.map((student) => ({
-//       studentId: student.id,
-//       status: student.present,
-//     }));
-
-//     const results = {
-//       date: currentDate,
-//       attendance: attendanceData,
-//     };
-//     // console.log("results*****", results);
-
-//     try {
-//       await takeAttendance({ id: id, data: results });
-//     } catch (error) {
-//       console.error("Error recording attendance:", error);
-//     }
-//   };
-
-//   const columns = useMemo(
-//     () => [
-//       {
-//         Header: "Student Name",
-//         accessor: "fullName",
-//       },
-//       {
-//         Header: prevDate || "Status",
-//         accessor: "status",
-//       },
-//       {
-//         Header: "Take Attendance",
-//         accessor: "present",
-//         Cell: ({ row }) => (
-//           <span
-//             onClick={() => toggleAttendance(row.index)}
-//             style={{ cursor: "pointer" }}
-//           >
-//             {row.original.present}
-//           </span>
-//         ),
-//       },
-//       {
-//         Header: "Absent Days",
-//         accessor: "absentDays",
-//         Cell: ({ row }) => {
-//           const attendanceStatus = Array.isArray(row.original.status)
-//             ? row.original.status
-//             : [];
-//           const count = attendanceStatus.reduce((prev, value) => {
-//             return value === "A" ? prev + 1 : prev;
-//           }, 0);
-//           return count;
-//         },
-//       },
-//     ],
-//     [toggleAttendance, prevDate]
-//   );
-
-//   const data = useMemo(() => attendance, [attendance]);
-
-//   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-//     useTable({ columns, data });
-
-//   return (
-//     <div>
-//       <table {...getTableProps()}>
-//         <thead>
-//           {headerGroups.map((headerGroup) => (
-//             <tr {...headerGroup.getHeaderGroupProps()}>
-//               {headerGroup.headers.map((column) => (
-//                 <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-//               ))}
-//             </tr>
-//           ))}
-//         </thead>
-//         <tbody {...getTableBodyProps()}>
-//           {rows.map((row) => {
-//             prepareRow(row);
-//             return (
-//               <tr {...row.getRowProps()}>
-//                 {row.cells.map((cell) => (
-//                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-//                 ))}
-//               </tr>
-//             );
-//           })}
-//         </tbody>
-//       </table>
-//       <MuiLoadingButtonTheme
-//         buttonName="Log Attendance"
-//         isLoading={false}
-//         onClick={handleButtonClick}
-//       />
-//       {/* <button onClick={handleButtonClick}>Log Attendance</button> */}
-//     </div>
-//   );
-// };
-
-// export default AttendanceTable;

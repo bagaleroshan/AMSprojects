@@ -78,7 +78,7 @@ const AdminRoute = () => {
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
-        <Route path="attendance" element={<UseAttendanceTable />} />
+        {/* <Route path="attendance" element={<UseAttendanceTable />} /> */}
         <Route path="messages" element={<AdminMessages />} />
         <Route path="courses" element={<AdminCourse />} />
         <Route path="report" element={<AdminReport />} />
