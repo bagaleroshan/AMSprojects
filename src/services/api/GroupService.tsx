@@ -107,7 +107,7 @@ export const GroupApi = createApi({
         return {
           url: `/groups/addStudent/${id}`,
           method: "PATCH",
-          body: {students:body},
+          body: { students: body },
           headers: {
             Authorization: `Bearer ${token}`,
           },

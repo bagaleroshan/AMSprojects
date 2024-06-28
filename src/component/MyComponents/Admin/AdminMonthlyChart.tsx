@@ -1,21 +1,48 @@
-import React, { useState } from "react";
-import LineChart from "../chart/LineChart";
+import React, { useEffect, useState } from "react";
 import RoughMuiSelect from "../muiComponent/RoughMuiSelect";
 import { Box } from "@mui/material";
 import { useReadMonthlyAttendanceReportQuery } from "../../../services/api/AttendanceService";
+import LineChart from "../Chart/LineChart";
 
 const AdminMonthlyChart = () => {
-    const [groupId,setGroupId]=useState("")
-    const [date,setDate]=useState("")
-const {data}= useReadMonthlyAttendanceReportQuery({id:groupId,month:date})
-console.log(data)
-//Process data
+  const [groupId, setGroupId] = useState("");
+  const [date, setDate] = useState("");
+  const [loading, setLoading] = useState(true);
+  const { data } = useReadMonthlyAttendanceReportQuery({
+    id: groupId,
+    month: date,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [data]);
+
+  const handleInitialGroupId = (id: string) => {
+    setGroupId(id);
+  };
 
   return (
     <div>
-      <LineChart   />
-      <Box height={5}/>
-      <RoughMuiSelect setGroupId={setGroupId} setDate={setDate} groupId={groupId} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : data ? (
+        <>
+          <LineChart data={data} />
+          <Box height={5} />
+        </>
+      ) : (
+        <div>No data available for the selected period.</div>
+      )}
+      <RoughMuiSelect
+        setGroupId={setGroupId}
+        setDate={setDate}
+        groupId={groupId}
+        setInitialGroupId={handleInitialGroupId}
+      />
     </div>
   );
 };

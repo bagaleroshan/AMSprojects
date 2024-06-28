@@ -10,10 +10,36 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import AdminMonthlyChart from "./AdminMonthlyChart";
+import { useReadGroupQuery } from "../../../services/api/GroupService";
 
 const AdminDashboard = () => {
   const Role = useSelector((store: RootState) => store.user.role);
   // console.log("Role9888886", Role);
+
+  const query = {
+    page: 0,
+    limit: 0,
+    findQuery: "",
+    sort: "",
+  };
+
+  const {
+    isError: isErrorViewAll,
+    data: dataViewAll,
+    error: errorViewAll,
+    isLoading: isLoadingViewAll,
+  } = useReadGroupQuery(query);
+
+  const resultsArray = dataViewAll?.result?.results || [];
+
+  if (isLoadingViewAll) {
+    return <div>Loading...</div>;
+  }
+
+  if (isErrorViewAll) {
+    return <div>Error: {errorViewAll.message}</div>;
+  }
+  console.log(dataViewAll);
   return (
     <>
       <div className="teacherDashboard">

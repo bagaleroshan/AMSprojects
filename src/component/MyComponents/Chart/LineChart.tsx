@@ -1,22 +1,22 @@
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 
-import Data from "../../../Data/realData.json";
 import "./lineChart.css";
 
 Chart.register(...registerables);
 
-const LineChart = () => {
+const LineChart = ({ data }) => {
   return (
     <>
       <div className="container">
         <Line
           data={{
-            labels: Data.map((value) => value.label),
+            labels: data.result.map((value) => value.day),
+
             datasets: [
               {
                 label: "presentees",
-                data: Data.map((data) => data.Presentees),
+                data: data.result.map((data) => data.presentees),
                 backgroundColor: "#5B8B7",
                 borderColor: "#5DB8B7",
               },

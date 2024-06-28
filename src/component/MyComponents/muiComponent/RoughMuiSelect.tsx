@@ -9,7 +9,7 @@ import {
   Stack,
 } from "@mui/material";
 import { Form, Formik, FormikProps } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useReadGroupQuery } from "../../../services/api/GroupService";
 import DwSelect from "../../dwComponents/DwSelect";
@@ -35,6 +35,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
   setGroupId = () => {},
   setDate = () => {},
   groupId = "",
+  setInitialGroupId = () => {},
 }) => {
   const [query] = useState<Query>({
     page: 1,
@@ -56,11 +57,17 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
   }));
 
   const groupInitialValues = {
-    groupName: group.groupName || "",
-    groups: "667ba81354acc6871dbcf0cf",
+    groups: SelectGroup.length > 0 ? SelectGroup[0].value : "",
   };
 
   const [month, setMonth] = React.useState(`${new Date().getMonth() + 1}`);
+
+  useEffect(() => {
+    setDate(joinYearMonth());
+    if (SelectGroup.length > 0) {
+      setInitialGroupId(SelectGroup[0].value);
+    }
+  }, [dataReadGroup]);
 
   const joinYearMonth = () => {
     let thisYear = new Date().getFullYear();

@@ -40,13 +40,13 @@ export const AttendanceApi = createApi({
       },
     }),
     readMonthlyAttendanceReport: builder.query({
-      query: ({id,month}) => {
+      query: ({ id, month }) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
-        console.log(id,month)
-        console.log(token)
+        console.log(month);
+        console.log(token);
         return {
           // {{url}}/attendances/monthly-report?groupId=667ba81354acc6871dbcf0cf&month=2024-06
           url: `/attendances/${id}/monthly-report?month=${month}`,
@@ -61,5 +61,8 @@ export const AttendanceApi = createApi({
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const { useTakeAttendanceMutation, useReadAllAttendanceQuery, useReadMonthlyAttendanceReportQuery } =
-  AttendanceApi;
+export const {
+  useTakeAttendanceMutation,
+  useReadAllAttendanceQuery,
+  useReadMonthlyAttendanceReportQuery,
+} = AttendanceApi;

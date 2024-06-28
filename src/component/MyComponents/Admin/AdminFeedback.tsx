@@ -39,7 +39,9 @@ const AdminFeedback = () => {
 
   return (
     <>
-      <Typography variant="h4" sx={{fontWeight:'bold'}}>Feedback</Typography>
+      <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+        Feedback
+      </Typography>
       <Box height={30} />
       <Grid container spacing={2}>
         {resultsArray.length === 0 ? (
