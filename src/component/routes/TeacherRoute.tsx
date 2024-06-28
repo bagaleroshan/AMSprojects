@@ -8,7 +8,7 @@ import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/
 import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
 import TeacherChangePassword from "../MyComponents/Teacher/TeacherChangePassword";
 import UpdatePassword from "../user/UpdatePassword";
-import TeacherFeedback from "../mycomponents/teacher/TeacherFeedback";
+import TeacherFeedback from "../MyComponents/Teacher/TeacherFeedback";
 
 const TeacherRoute = () => {
   return (

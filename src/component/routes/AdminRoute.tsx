@@ -16,8 +16,7 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import AdminReport from "../mycomponents/admin/AdminReport";
-import AdminCourse from "../mycomponents/admin/admincourse/AdminCourse";
+import AdminFeedback from "../MyComponents/Admin/AdminFeedback";
 const AdminRoute = () => {
   return (
     <Routes>

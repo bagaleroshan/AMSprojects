@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IFeedback } from "../../component/interfaces/FeedbackInterface";
 
 export interface IQuery {
   page: number;
@@ -79,7 +80,7 @@ export const FeedbackApi = createApi({
           },
         };
       },
-      providesTags: ["readFeedbacks"],
+      providesTags: ["readFeedbacksById"],
     }),
     deleteFeedback: builder.mutation({
       query: (id) => {
@@ -97,19 +98,19 @@ export const FeedbackApi = createApi({
       },
       invalidatesTags: ["readFeedbacks"],
     }),
-    addStudentFeedback: builder.mutation({
-      query: ({ body, id }) => {
-        console.log("body*------------", body);
+
+    requestFeedback: builder.mutation<void, IFeedback>({
+      query: (groupId) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: `/feedbacks/addStudent/${id}`,
-          method: "PATCH",
-          body: { students: body },
+          url: `/feedbacks/${groupId}`,
+          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         };
       },
@@ -118,12 +119,11 @@ export const FeedbackApi = createApi({
   }),
 });
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const {
   useCreateFeedbackMutation,
   useUpdateFeedbackMutation,
   useReadFeedbackByIdQuery,
   useDeleteFeedbackMutation,
   useReadFeedbackQuery,
-  useAddStudentFeedbackMutation,
+  useRequestFeedbackMutation,
 } = FeedbackApi;
