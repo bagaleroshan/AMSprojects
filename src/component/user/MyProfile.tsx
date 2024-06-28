@@ -69,9 +69,9 @@ const MyProfile = () => {
       <Button color="primary" variant="contained" href={href}>
         Edit Profile
       </Button> */}
-      <div style={{ backgroundColor: "white", width: "100%" }}>
-        <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ flexGrow: 1, p: 3}}>
+      <div>
+        {/* <Box sx={{ display: "flex" }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               My Profile
             </Typography>
@@ -105,7 +105,7 @@ const MyProfile = () => {
                   sx={{
                     // width: "80%",
                     height: "40vh",
-                    backgroundColor: "#EEF8FF",
+                    backgroundColor: "white",
                     margin: "auto",
                     borderRadius: "15px",
                     padding: "2rem",
@@ -121,7 +121,6 @@ const MyProfile = () => {
                       marginLeft: "1rem",
                     }}
                   >
-                    
                     <Box
                       sx={{
                         display: "flex",
@@ -175,8 +174,8 @@ const MyProfile = () => {
                 </Box>
               </Box>
             </Box>
-          </Box>
-        </Box>
+          {/* </Box>
+        </Box> */}
       </div>
     </>
   );

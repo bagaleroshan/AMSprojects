@@ -7,7 +7,6 @@ const AdminForm = ({ firstTab, secondTab }) => {
     <>
       <div>
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          {" "}
           Recording Detail
         </Typography>
         {/* <Box height={20} /> */}
