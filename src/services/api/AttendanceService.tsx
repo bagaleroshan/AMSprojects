@@ -39,9 +39,30 @@ export const AttendanceApi = createApi({
         };
       },
     }),
+    readMonthlyAttendanceReport: builder.query({
+      query: ({ id, month }) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        console.log(month);
+        console.log(token);
+        return {
+          // {{url}}/attendances/monthly-report?groupId=667ba81354acc6871dbcf0cf&month=2024-06
+          url: `/attendances/${id}/monthly-report?month=${month}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const { useTakeAttendanceMutation, useReadAllAttendanceQuery } =
-  AttendanceApi;
+export const {
+  useTakeAttendanceMutation,
+  useReadAllAttendanceQuery,
+  useReadMonthlyAttendanceReportQuery,
+} = AttendanceApi;

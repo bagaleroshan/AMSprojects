@@ -13,6 +13,8 @@ import { TeacherApi } from "../services/api/TeacherService";
 import { UserApi } from "../services/api/UserService";
 import attendanceSlice from "../features/attendanceSlice";
 import { AttendanceApi } from "../services/api/AttendanceService";
+import feedbackSlice from "../features/feedbackSlice";
+import { FeedbackApi } from "../services/api/FeedbackApi";
 
 // Configuration object for Redux Persist
 const persistConfig = {
@@ -29,12 +31,14 @@ const rootReducer = combineReducers({
   group: groupSlice,
   teacher: teacherSlice,
   attendance: attendanceSlice,
+  feedback: feedbackSlice,
   [UserApi.reducerPath]: UserApi.reducer,
   [SubjectApi.reducerPath]: SubjectApi.reducer,
   [StudentApi.reducerPath]: StudentApi.reducer,
   [GroupApi.reducerPath]: GroupApi.reducer,
   [TeacherApi.reducerPath]: TeacherApi.reducer,
   [AttendanceApi.reducerPath]: AttendanceApi.reducer,
+  [FeedbackApi.reducerPath]: FeedbackApi.reducer,
 });
 
 // Create a persisted reducer
@@ -54,7 +58,8 @@ export const store = configureStore({
       StudentApi.middleware,
       GroupApi.middleware,
       TeacherApi.middleware,
-      AttendanceApi.middleware
+      AttendanceApi.middleware,
+      FeedbackApi.middleware
     ),
 });
 

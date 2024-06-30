@@ -8,6 +8,7 @@ import {
   Stack,
 } from "@mui/material";
 import React from "react";
+import { useReadGroupQuery } from "../../../services/api/GroupService";
 
 const MuiSelect = () => {
   const [month, setMonth] = React.useState("3");
@@ -15,9 +16,11 @@ const MuiSelect = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setMonth(event.target.value as string);
   };
+  
+
   return (
     <>
-      <Stack display="flex" direction="row" spacing={25}>
+      <Stack display="flex" direction="row" spacing={15}>
         <Box sx={{ minWidth: 120 }} component="div">
           <FormControl fullWidth color="primary">
             <InputLabel id="demo-simple-select-label">Month</InputLabel>
@@ -44,7 +47,8 @@ const MuiSelect = () => {
           </FormControl>
         </Box>
 
-        <Box sx={{ minWidth: 120 }}>
+        {/* *****Group name ****** */}
+        <Box sx={{ minWidth: 120 }} component="div">
           <FormControl fullWidth color="primary">
             <InputLabel id="demo-simple-select-label">Month</InputLabel>
             <Select
@@ -69,9 +73,27 @@ const MuiSelect = () => {
             </Select>
           </FormControl>
         </Box>
+
       </Stack>
     </>
   );
 };
 
 export default MuiSelect;
+
+{
+  /* <Box sx={{ minWidth: 170 }}>
+          <FormControl fullWidth color="primary">
+            <InputLabel id="demo-simple-select-label">SelectGroup</InputLabel>
+            <DwSelect
+              name="Select Group"
+              label="Select Group"
+              onChange={(e) => {
+                formik.setFieldValue("subject", e.target.value);
+              }}
+              selectLabels={groups}
+              isLoading={isLoading}
+            />
+          </FormControl>
+        </Box> */
+}
