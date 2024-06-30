@@ -35,6 +35,11 @@ const UserTable: React.FC = () => {
       accessor: "role",
       width: "350px",
     },
+    {
+      Header: "Sciencne",
+      accessor: "science",
+      width: "350px",
+    },
   ];
 
   const [query, setQuery] = useState<Query>({

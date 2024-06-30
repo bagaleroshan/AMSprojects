@@ -21,8 +21,8 @@ const TeacherMessages = () => {
   return (
     <>
       <div className="teacherMessages">
-        <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {/* <Box sx={{ display: "flex" }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Send Messages
             </Typography>
@@ -77,8 +77,8 @@ const TeacherMessages = () => {
                 </div>
               </CardContent>
             </Card>
-          </Box>
-        </Box>
+          {/* </Box>
+        </Box> */}
       </div>
     </>
   );

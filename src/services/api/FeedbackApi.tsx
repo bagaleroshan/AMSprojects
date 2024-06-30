@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IFeedback } from "../../component/interfaces/FeedbackInterface";
 
 export interface IQuery {
   page: number;
@@ -7,38 +8,38 @@ export interface IQuery {
   sort: string;
 }
 
-export const GroupApi = createApi({
-  reducerPath: "GroupApi",
+export const FeedbackApi = createApi({
+  reducerPath: "FeedbackApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
   }),
-  tagTypes: ["readGroups", "readGroupsById"],
+  tagTypes: ["readFeedbacks", "readFeedbacksById"],
 
   endpoints: (builder) => ({
-    readGroup: builder.query({
+    readFeedback: builder.query({
       query: (query: IQuery) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: `/groups?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
+          url: `/feedbacks?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         };
       },
-      providesTags: ["readGroups"],
+      providesTags: ["readFeedbacks"],
     }),
-    createGroup: builder.mutation({
+    createFeedback: builder.mutation({
       query: (body) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: "/groups",
+          url: "/feedbacks",
           method: "POST",
           body: body,
           headers: {
@@ -46,16 +47,16 @@ export const GroupApi = createApi({
           },
         };
       },
-      invalidatesTags: ["readGroups"],
+      invalidatesTags: ["readFeedbacks"],
     }),
-    updateGroup: builder.mutation({
+    updateFeedback: builder.mutation({
       query: (data) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: `/groups/${data.id}`,
+          url: `/feedbacks/${data.id}`,
           method: "PATCH",
           body: data.body,
           headers: {
@@ -63,67 +64,66 @@ export const GroupApi = createApi({
           },
         };
       },
-      invalidatesTags: ["readGroups", "readGroupsById"],
+      invalidatesTags: ["readFeedbacks", "readFeedbacksById"],
     }),
-    readGroupById: builder.query({
+    readFeedbackById: builder.query({
       query: (id) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: `/groups/${id}`,
+          url: `/feedbacks/${id}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         };
       },
-      providesTags: ["readGroups"],
+      providesTags: ["readFeedbacksById"],
     }),
-    deleteGroup: builder.mutation({
+    deleteFeedback: builder.mutation({
       query: (id) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: `/groups/${id}`,
+          url: `/feedbacks/${id}`,
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         };
       },
-      invalidatesTags: ["readGroups"],
+      invalidatesTags: ["readFeedbacks"],
     }),
-    addStudentGroup: builder.mutation({
-      query: ({ body, id }) => {
-        console.log("body*------------", body);
+
+    requestFeedback: builder.mutation<void, IFeedback>({
+      query: (groupId) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
         }
         return {
-          url: `/groups/addStudent/${id}`,
-          method: "PATCH",
-          body: { students: body },
+          url: `/feedbacks/${groupId}`,
+          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         };
       },
-      invalidatesTags: ["readGroups"],
+      invalidatesTags: ["readFeedbacks"],
     }),
   }),
 });
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const {
-  useCreateGroupMutation,
-  useUpdateGroupMutation,
-  useReadGroupByIdQuery,
-  useDeleteGroupMutation,
-  useReadGroupQuery,
-  useAddStudentGroupMutation,
-} = GroupApi;
+  useCreateFeedbackMutation,
+  useUpdateFeedbackMutation,
+  useReadFeedbackByIdQuery,
+  useDeleteFeedbackMutation,
+  useReadFeedbackQuery,
+  useRequestFeedbackMutation,
+} = FeedbackApi;
