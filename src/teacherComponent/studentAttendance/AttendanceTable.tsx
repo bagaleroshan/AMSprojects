@@ -31,10 +31,20 @@ type StudentAttendance = {
   [key: string]: string | number;
 };
 
+const getStyles = (present) => {
+  if (present === "P") {
+    return { background: "green", color: "white", border: "1px solid white" };
+  } else if (present === "A") {
+    return { background: "red", color: "white", border: "1px solid white" };
+  } else {
+    return {}; // No additional styles in else condition
+  }
+};
+
 const AttendanceTable: React.FC<AttendanceTableProps> = ({
   attendanceRecord,
 }) => {
-  console.log("attendanceRecord*******", attendanceRecord);
+  // console.log("attendanceRecord*******", attendanceRecord);
   const { id } = useParams();
   const [attendance, setAttendance] = useState<StudentAttendance[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +84,10 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
 
   const getToday = () => {
     const date = new Date();
-    return date.toISOString().split("T")[0];
+    // return date.toISOString().split("T")[0];
+    return `${date.getDate()} ${date.toLocaleString("default", {
+      month: "short",
+    })}`;
   };
   const today = useMemo(() => getToday(), []);
 
@@ -83,7 +96,12 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
     for (let i = 1; i <= n; i++) {
       const date = new Date();
       date.setDate(date.getDate() - i);
-      dates.push(date.toISOString().split("T")[0]);
+      // dates.push(date.toISOString().split("T")[0]);
+      const formattedDate = `${date.getDate()} ${date.toLocaleString(
+        "default",
+        { month: "short" }
+      )}`;
+      dates.push(formattedDate);
     }
     return dates.reverse(); // Reverse the array to display latest date first
   };
@@ -97,15 +115,19 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
 
       records.forEach((record) => {
         const { studentId, date, status } = record;
-        const formattedDate = new Date(date).toISOString().split("T")[0];
+        const formattedDate = new Date(date);
+        // const isoDateString = formattedDate.toISOString().split("T")[0];
+        const formattedDateString = `${formattedDate.getDate()} ${formattedDate.toLocaleString(
+          "default",
+          { month: "short" }
+        )}`;
 
         if (!attendanceByStudent[studentId]) {
           attendanceByStudent[studentId] = {};
         }
-        attendanceByStudent[studentId][formattedDate] = status;
+        attendanceByStudent[studentId][formattedDateString] = status;
       });
-
-      const todayFormatted = new Date().toISOString().split("T")[0];
+      // console.log("attendanceByStudent", attendanceByStudent);
       return Object.keys(attendanceByStudent).map((studentId) => ({
         studentId,
         ...lastThreeDays.reduce((acc, date) => {
@@ -113,13 +135,14 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
           return acc;
         }, {} as { [key: string]: string }),
         present: "P",
+        // counting number of absent days
         absentDays: Object.values(attendanceByStudent[studentId]).filter(
           (status) => status === "A"
         ).length,
-        [todayFormatted]: attendanceByStudent[studentId][todayFormatted] || "-",
+        [today]: attendanceByStudent[studentId][today] || "-",
       }));
     },
-    [lastThreeDays]
+    [lastThreeDays, today]
   );
 
   useEffect(() => {
@@ -179,6 +202,8 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
     }
   }, [attendanceRecord, currentDate]);
 
+  // const backgroundColor = getBackgroundColor(row.original.present);
+  // console.log("Last 3 days", lastThreeDays);
   const columns = useMemo(() => {
     if (isAttendanceTaken) {
       return [
@@ -189,12 +214,36 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
         ...lastThreeDays.map((date) => ({
           Header: date,
           accessor: date,
-          Cell: ({ row }) => <span>{row.original[date]}</span>,
+          Cell: ({ row }) => {
+            const styles = getStyles(row.original[date]);
+            return (
+              <span
+                style={{
+                  padding: 5,
+                  ...styles,
+                }}
+              >
+                {row.original[date]}
+              </span>
+            );
+          },
         })),
         {
           Header: today,
           accessor: today,
-          Cell: ({ row }) => <span>{row.original[today]}</span>,
+          Cell: ({ row }) => {
+            const styles = getStyles(row.original[today]);
+            return (
+              <span
+                style={{
+                  padding: 5,
+                  ...styles,
+                }}
+              >
+                {row.original[today]}
+              </span>
+            );
+          },
         },
         {
           Header: "Absent Days",
@@ -211,7 +260,19 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
         ...lastThreeDays.map((date) => ({
           Header: date,
           accessor: date,
-          Cell: ({ row }) => <span>{row.original[date]}</span>,
+          Cell: ({ row }) => {
+            const styles = getStyles(row.original[date]);
+            return (
+              <span
+                style={{
+                  padding: 5,
+                  ...styles,
+                }}
+              >
+                {row.original[date]}
+              </span>
+            );
+          },
         })),
         {
           Header: "Take Attendance",
@@ -227,7 +288,7 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
                 onClick={handleClick}
                 style={{
                   cursor: !isAttendanceTaken ? "pointer" : "default",
-                  color: "black",
+                  color: row.original.present === "P" ? "green" : "red",
                 }}
               >
                 {row.original.present}
@@ -279,7 +340,9 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
         </tbody>
       </table>
       <MuiLoadingButtonTheme
-        buttonName={isAttendanceTaken ? "Attendance Recorded" : "Log Attendance"}
+        buttonName={
+          isAttendanceTaken ? "Attendance Recorded" : "Log Attendance"
+        }
         isLoading={isLoading}
         onClick={!isAttendanceTaken ? handleButtonClick : undefined}
         disabled={isAttendanceTaken}

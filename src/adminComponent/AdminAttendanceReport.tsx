@@ -29,7 +29,7 @@ const AdminAttendanceReport = () => {
                     label="Groups"
                     onChange={(e) => {
                       formik.setFieldValue("group", e.target.value);
-                      console.log(e.target.value);
+                      console.log("group", e.target.value);
                     }}
                     selectLabels={groups}
                     isLoading={isLoadingAllGroups}
