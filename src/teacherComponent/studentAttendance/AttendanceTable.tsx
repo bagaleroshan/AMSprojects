@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useTable } from "react-table";
@@ -7,39 +7,42 @@ import MuiLoadingButtonTheme from "../../component/theme/MuiLoadingButtonTheme";
 import { storeAttendance } from "../../features/attendanceSlice";
 import { showSuccessToast } from "../../muiModals/toastConfig";
 import { useTakeAttendanceMutation } from "../../services/api/AttendanceService";
-import { useReadGroupByIdQuery } from "../../services/api/GroupService";
+import { RootState } from "../../store/store";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
 
-type AttendanceRecord = {
+interface AttendanceRecord {
   date?: string;
   groupId?: string;
   studentId?: string;
   status: string;
   id?: number;
-};
+}
+
+interface AttendanceTableProps {
+  attendanceRecord: AttendanceRecord[];
+}
 
 type StudentAttendance = {
   studentId: string;
   [key: string]: string | number;
 };
 
-const AttendanceTable = ({
+const AttendanceTable: React.FC<AttendanceTableProps> = ({
   attendanceRecord,
-}: {
-  attendanceRecord: AttendanceRecord[];
 }) => {
+  console.log("attendanceRecord*******", attendanceRecord);
   const { id } = useParams();
   const [attendance, setAttendance] = useState<StudentAttendance[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isAttendanceTaken, setIsAttendanceTaken] = useState(false);
   const currentDate = new Date().toISOString().split("T")[0];
   const dispatch = useDispatch();
-  const todaysAttendance = useSelector((store) => store.attendance);
-  // console.log("todayAttendance", todaysAttendance);
+  const todaysAttendance = useSelector((store: RootState) => store.attendance);
+  console.log("todayAttendance", todaysAttendance);
 
   const [
     takeAttendance,
@@ -69,25 +72,12 @@ const AttendanceTable = ({
     }
   }, [isSuccessTakeAttendance, dataTakeAttendance]);
 
-  const {
-    isError: isErrorReadGroupById,
-    data: GroupById,
-    error: errorReadGroupById,
-  } = useReadGroupByIdQuery(id);
+  const getToday = () => {
+    const date = new Date();
+    return date.toISOString().split("T")[0];
+  };
+  const today = useMemo(() => getToday(), []);
 
-  useEffect(() => {
-    if (isErrorReadGroupById) {
-      if (isFetchBaseQueryError(errorReadGroupById)) {
-        toast.error(getErrorMessage(errorReadGroupById));
-      } else if (isSerializedError(errorReadGroupById)) {
-        toast.error(errorReadGroupById?.message);
-      } else {
-        toast.error("Unknown Error");
-      }
-    }
-  }, [isErrorReadGroupById, errorReadGroupById]);
-
-  /* to calculate previous three days */
   const getLastNDays = (n: number) => {
     const dates = [];
     for (let i = 1; i <= n; i++) {
@@ -100,7 +90,6 @@ const AttendanceTable = ({
 
   const lastThreeDays = useMemo(() => getLastNDays(3), []);
 
-  /* creating an attendance data based on student ID */
   const processAttendanceData = useCallback(
     (records: AttendanceRecord[]) => {
       const attendanceByStudent: { [key: string]: { [key: string]: string } } =
@@ -115,19 +104,19 @@ const AttendanceTable = ({
         }
         attendanceByStudent[studentId][formattedDate] = status;
       });
-      // console.log("attendanceByStudent", attendanceByStudent);
 
+      const todayFormatted = new Date().toISOString().split("T")[0];
       return Object.keys(attendanceByStudent).map((studentId) => ({
         studentId,
         ...lastThreeDays.reduce((acc, date) => {
-          acc[date] = attendanceByStudent[studentId][date] || "N/A";
+          acc[date] = attendanceByStudent[studentId][date] || "-";
           return acc;
         }, {} as { [key: string]: string }),
-
-        // Calculate total absent days
+        present: "P",
         absentDays: Object.values(attendanceByStudent[studentId]).filter(
           (status) => status === "A"
         ).length,
+        [todayFormatted]: attendanceByStudent[studentId][todayFormatted] || "-",
       }));
     },
     [lastThreeDays]
@@ -135,12 +124,7 @@ const AttendanceTable = ({
 
   useEffect(() => {
     if (attendanceRecord && attendanceRecord.length > 0) {
-      const processedAttendance = processAttendanceData(attendanceRecord).map(
-        (attendanceData) => ({
-          ...attendanceData,
-          present: "P", // Set default value to 'P'
-        })
-      );
+      const processedAttendance = processAttendanceData(attendanceRecord);
       setAttendance(processedAttendance);
     }
   }, [attendanceRecord, processAttendanceData]);
@@ -183,7 +167,6 @@ const AttendanceTable = ({
     }
   };
 
-  /* checking attendance status for today */
   useMemo(() => {
     if (!attendanceRecord || attendanceRecord.length === 0) {
       setIsAttendanceTaken(false);
@@ -196,60 +179,70 @@ const AttendanceTable = ({
     }
   }, [attendanceRecord, currentDate]);
 
-  // console.log("isAttendanceTakenForToday", isAttendanceTaken);
-  // console.log("AttendanceRecord", attendanceRecord);
-  // console.log("Attendance", attendance);
-
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Student Name",
-        accessor: "studentId",
-      },
-      ...lastThreeDays.map((date) => ({
-        Header: date,
-        accessor: date,
-        Cell: ({ row }) => <span>{row.original[date]}</span>,
-      })),
-      {
-        Header: "Take Attendance",
-        accessor: "present",
-        Cell: ({ row }) => {
-          const handleClick = () => {
-            if (!isAttendanceTaken) {
-              toggleAttendance(row.index);
-            }
-          };
-
-          const attendanceStatus = isAttendanceTaken
-            ? todaysAttendance.attendance.find(
-                (value) => value.id === row.original.id
-              )?.status
-            : row.original.present;
-
-          return (
-            <span
-              onClick={handleClick}
-              style={{
-                cursor: !isAttendanceTaken ? "pointer" : "default",
-                // color: isAttendanceTaken ? "gray" : "black",
-                color: "black",
-              }}
-            >
-              {attendanceStatus}
-            </span>
-          );
+  const columns = useMemo(() => {
+    if (isAttendanceTaken) {
+      return [
+        {
+          Header: "Student Name",
+          accessor: "studentId",
         },
-      },
-
-      {
-        Header: "Absent Days",
-        accessor: "absentDays",
-        Cell: ({ row }) => <span>{row.original.absentDays}</span>,
-      },
-    ],
-    [lastThreeDays, toggleAttendance, isAttendanceTaken, todaysAttendance]
-  );
+        ...lastThreeDays.map((date) => ({
+          Header: date,
+          accessor: date,
+          Cell: ({ row }) => <span>{row.original[date]}</span>,
+        })),
+        {
+          Header: today,
+          accessor: today,
+          Cell: ({ row }) => <span>{row.original[today]}</span>,
+        },
+        {
+          Header: "Absent Days",
+          accessor: "absentDays",
+          Cell: ({ row }) => <span>{row.original.absentDays}</span>,
+        },
+      ];
+    } else {
+      return [
+        {
+          Header: "Student Name",
+          accessor: "studentId",
+        },
+        ...lastThreeDays.map((date) => ({
+          Header: date,
+          accessor: date,
+          Cell: ({ row }) => <span>{row.original[date]}</span>,
+        })),
+        {
+          Header: "Take Attendance",
+          accessor: "present",
+          Cell: ({ row }) => {
+            const handleClick = () => {
+              if (!isAttendanceTaken) {
+                toggleAttendance(row.index);
+              }
+            };
+            return (
+              <span
+                onClick={handleClick}
+                style={{
+                  cursor: !isAttendanceTaken ? "pointer" : "default",
+                  color: "black",
+                }}
+              >
+                {row.original.present}
+              </span>
+            );
+          },
+        },
+        {
+          Header: "Absent Days",
+          accessor: "absentDays",
+          Cell: ({ row }) => <span>{row.original.absentDays}</span>,
+        },
+      ];
+    }
+  }, [lastThreeDays, toggleAttendance, isAttendanceTaken, todaysAttendance]);
 
   const data = useMemo(() => attendance, [attendance]);
 
@@ -286,9 +279,10 @@ const AttendanceTable = ({
         </tbody>
       </table>
       <MuiLoadingButtonTheme
-        buttonName="Log Attendance"
+        buttonName={isAttendanceTaken ? "Attendance Recorded" : "Log Attendance"}
         isLoading={isLoading}
-        onClick={handleButtonClick}
+        onClick={!isAttendanceTaken ? handleButtonClick : undefined}
+        disabled={isAttendanceTaken}
       />
     </div>
   );

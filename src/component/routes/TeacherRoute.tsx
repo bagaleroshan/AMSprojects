@@ -20,7 +20,7 @@ const TeacherRoute = () => {
         <Route path="messages" element={<TeacherMessages />} />
         <Route path="feedback" element={<TeacherFeedback />} />
         <Route path="report" element={<TeacherReport />} />
-        <Route path="*" element={<Navigate to="/teachers" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );
