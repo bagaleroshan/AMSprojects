@@ -1,307 +1,137 @@
-// import { useEffect } from "react";
-// import { useParams } from "react-router-dom";
-// import { toast } from "react-toastify";
-// import { useReadAllAttendanceQuery } from "../../services/api/AttendanceService";
-// import { useReadGroupByIdQuery } from "../../services/api/GroupService";
-// import {
-//   getErrorMessage,
-//   isFetchBaseQueryError,
-//   isSerializedError,
-// } from "../../utils/utils";
-// import AttendanceTable from "./AttendanceTableComponent";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useReadAllAttendanceQuery, useReadAttendanceForGroupQuery, useTakeAttendanceMutation } from '../../services/api/AttendanceService';
+import AttendanceTableComponent from './AttendanceTableComponent';
+import { useReadGroupByIdQuery } from '../../services/api/GroupService';
 
-// export const UseAttendanceTable = () => {
-//   const { id } = useParams();
-//   const {
-//     isError: isErrorViewSpecific,
-//     isLoading,
-//     data: dataViewSpecific,
-//     error: errorViewSpecific,
-//   } = useReadGroupByIdQuery(id);
+const UseAttendanceTable = () => {
+  const { id } = useParams();
+  const { data: attendanceData, isLoading: attendanceDataIsLoading, isError: attendanceDataIsError } = useReadAllAttendanceQuery(id);
+  const { data: groupData, isLoading: groupDataIsLoading, isError: groupDataIsError } = useReadGroupByIdQuery(id);
+  const { data: attendanceDataForThisGroup, isLoading: attendanceForGroupIsLoading, isError: attendanceForGroupIsError } = useReadAttendanceForGroupQuery(id);
+  const [takeAttendance] = useTakeAttendanceMutation();
+  const groupDataStudents = groupData?.result?.students || [];
+  const [attendanceStatus, setAttendanceStatus] = useState({});
+  const [todaysAttendanceExists, setTodaysAttendanceExists] = useState(false);
 
-//   // console.log("Read Group BY ID***", dataViewSpecific);
-//   useEffect(() => {
-//     isErrorViewSpecific &&
-//       (isFetchBaseQueryError(errorViewSpecific)
-//         ? toast.error(getErrorMessage(errorViewSpecific))
-//         : isSerializedError(errorViewSpecific)
-//         ? toast.error(errorViewSpecific?.message)
-//         : "Unknown Error");
-//   }, [isErrorViewSpecific, errorViewSpecific]);
+  useEffect(() => {
+    if (attendanceData?.result) {
+      const initialAttendanceStatus = groupDataStudents.reduce((acc, student) => {
+        acc[student._id] = 'P'; // Default to 'P' for Present
+        return acc;
+      }, {});
+      attendanceData.result.forEach(student => {
+        student.attendance.forEach(record => {
+          if (new Date(record.date).toDateString() === new Date().toDateString()) {
+            initialAttendanceStatus[student._id || student.studentId] = record.status;
+          }
+        });
+      });
+      setAttendanceStatus(initialAttendanceStatus);
+    }
+  }, [attendanceData, groupDataStudents]);
 
-//   /* Api For Attendance Record */
-//   const { data: dataAttendance } = useReadAllAttendanceQuery(id);
-//   const attendanceData = dataAttendance?.result?.results || [];
-//   const studentsDetail = dataViewSpecific?.result?.students || [];
+  useEffect(() => {
+    if (attendanceDataForThisGroup?.result?.results.length > 0) {
+      const today = new Date().toISOString().split('T')[0];
+      const todayAttendance = attendanceDataForThisGroup.result.results.some(record => record.date.split('T')[0] === today);
+      setTodaysAttendanceExists(todayAttendance);
+    }
+  }, [attendanceDataForThisGroup]);
 
-//   // console.log("Students Group", studentsDetail);
-//   // console.log("attendance data", attendanceData);
+  if (attendanceDataIsLoading || groupDataIsLoading || attendanceForGroupIsLoading) {
+    return <div>Loading...</div>;
+  }
 
-//   const studentAttendanceDetail =
-//     !attendanceData || attendanceData.length === 0
-//       ? studentsDetail.map((studentsDetail) => ({
-//           fullName: studentsDetail.fullName,
-//           id: studentsDetail.id,
-//         }))
-//       : studentsDetail.flatMap((studentsDetail) => {
-//           return attendanceData
-//             .filter(
-//               (attendanceData) => studentsDetail.id === attendanceData.studentId
-//             )
-//             .map((attendanceData) => ({
-//               fullName: studentsDetail.fullName,
-//               id: studentsDetail.id,
-//               status: attendanceData.status,
-//               date: new Date(attendanceData.date).toLocaleDateString(),
-//             }));
-//         });
+  if (attendanceDataIsError || groupDataIsError || attendanceForGroupIsError) {
+    return <div>Error loading data.</div>;
+  }
 
-//   // console.log(studentAttendanceDetail);
+  const today = new Date();
+  const lastThreeDays = Array.from({ length: 3 }, (_, index) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() - index - 1);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  });
 
-//   if (isLoading) {
-//     return <div>Loading...</div>;
-//   }
+  const attendanceByStudent = groupDataStudents.reduce((acc, student) => {
+    const { fullName, _id } = student;
+    acc[_id] = { studentId: _id, studentName: fullName, attendance: {} };
+    return acc;
+  }, {});
 
-//   return (
-//     <div>
-//       <h1>Attendance</h1>
-//       <AttendanceTable students={studentAttendanceDetail} />
-//     </div>
-//   );
-// };
+  if (attendanceData?.result) {
+    attendanceData.result.forEach(student => {
+      const { _id, studentId, attendance } = student;
+      const idToUse = _id || studentId; // Use _id if available, otherwise use studentId
+      if (attendanceByStudent[idToUse]) {
+        attendance.forEach(record => {
+          const formattedDate = new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          attendanceByStudent[idToUse].attendance[formattedDate] = record.status;
+        });
+      }
+    });
+  }
 
-// import React, { useCallback, useEffect, useMemo, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { useTable } from "react-table";
-// import { toast } from "react-toastify";
-// import MuiLoadingButtonTheme from "../../component/theme/MuiLoadingButtonTheme";
-// import { showSuccessToast } from "../../muiModals/toastConfig";
-// import { useTakeAttendanceMutation } from "../../services/api/AttendanceService";
-// import { useReadGroupByIdQuery } from "../../services/api/GroupService";
-// import {
-//   getErrorMessage,
-//   isFetchBaseQueryError,
-//   isSerializedError,
-// } from "../../utils/utils";
+  const todayFormatted = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-// type AttendanceRecord = {
-//   date: string;
-//   groupId: string;
-//   studentId: string;
-//   status: string;
-// };
+  const columns = [
+    { Header: 'Student Name', accessor: 'studentName' },
+    ...lastThreeDays.map(date => ({
+      Header: date,
+      accessor: date,
+      Cell: ({ value }) => value || '-',
+    })),
+    {
+      Header: todaysAttendanceExists ? todayFormatted : 'Take Attendance',
+      accessor: 'takeAttendance',
+      Cell: ({ row }) => (
+        <span
+          style={{ cursor: 'pointer' }}
+          onClick={() => toggleAttendance(row.original.studentId)}
+        >
+          {todaysAttendanceExists ? attendanceByStudent[row.original.studentId]?.attendance[todayFormatted] || '-' : attendanceStatus[row.original.studentId] || 'P'}
+        </span>
+      ),
+    },
+  ];
 
-// type StudentAttendance = {
-//   studentId: string;
-//   attendance: Array<{ date: string; status: string }>;
-// };
+  const toggleAttendance = (studentId) => {
+    if (!todaysAttendanceExists) {
+      setAttendanceStatus(prev => ({
+        ...prev,
+        [studentId]: prev[studentId] === 'A' ? 'P' : 'A'
+      }));
+    }
+  };
 
-// const AttendanceTable = ({
-//   attendanceRecord,
-// }: {
-//   attendanceRecord: AttendanceRecord[];
-// }) => {
-//   console.log("AttendanceRecord*************", attendanceRecord);
-//   const { id } = useParams();
-//   const [attendance, setAttendance] = useState<any[]>([]);
-//   const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const filteredTableData = Object.entries(attendanceByStudent).map(([studentId, data]) => ({
+    studentId,
+    studentName: data.studentName,
+    ...lastThreeDays.reduce((acc, date) => {
+      acc[date] = data.attendance[date] || '-';
+      return acc;
+    }, {}),
+  }));
 
-//   const [
-//     takeAttendance,
-//     {
-//       isError: isErrorTakeAttendance,
-//       error: errorTakeAttendance,
-//       isSuccess: isSuccessTakeAttendance,
-//       data: dataTakeAttendance,
-//     },
-//   ] = useTakeAttendanceMutation();
+  const currentDate = new Date().toISOString();
+  const logAttendance = () => {
+    const attendanceDataToLog = Object.entries(attendanceStatus).map(([studentId, status]) => ({
+      studentId,
+      status,
+    }));
 
-//   useEffect(() => {
-//     if (isErrorTakeAttendance) {
-//       if (isFetchBaseQueryError(errorTakeAttendance)) {
-//         toast.error(getErrorMessage(errorTakeAttendance), { autoClose: 5000 });
-//       } else if (isSerializedError(errorTakeAttendance)) {
-//         toast.error(errorTakeAttendance?.message, { autoClose: 5000 });
-//       } else {
-//         toast.error("Unknown Error", { autoClose: 5000 });
-//       }
-//     }
-//   }, [isErrorTakeAttendance, errorTakeAttendance]);
+    const data = { date: currentDate, attendance: attendanceDataToLog };
+    takeAttendance({ id, data });
+  };
 
-//   useEffect(() => {
-//     if (isSuccessTakeAttendance) {
-//       showSuccessToast(dataTakeAttendance.message);
-//     }
-//   }, [isSuccessTakeAttendance, dataTakeAttendance]);
+  return (
+    <div>
+      <h1>Attendance Table</h1>
+      <AttendanceTableComponent columns={columns} data={filteredTableData} />
+      {!todaysAttendanceExists && <button onClick={logAttendance}>Log Attendance</button>}
+    </div>
+  );
+};
 
-//   const {
-//     isError: isErrorReadGroupById,
-//     data: GroupById,
-//     error: errorReadGroupById,
-//   } = useReadGroupByIdQuery(id);
-
-//   useEffect(() => {
-//     if (isErrorReadGroupById) {
-//       if (isFetchBaseQueryError(errorReadGroupById)) {
-//         toast.error(getErrorMessage(errorReadGroupById));
-//       } else if (isSerializedError(errorReadGroupById)) {
-//         toast.error(errorReadGroupById?.message);
-//       } else {
-//         toast.error("Unknown Error");
-//       }
-//     }
-//   }, [isErrorReadGroupById, errorReadGroupById]);
-
-//   const getLastNDays = (n: number) => {
-//     const dates = [];
-//     for (let i = 0; i < n; i++) {
-//       const date = new Date();
-//       date.setDate(date.getDate() - i);
-//       dates.push(date.toISOString().split("T")[0]);
-//     }
-//     return dates;
-//   };
-
-//   const lastThreeDays = useMemo(() => getLastNDays(3), []);
-
-//   const processAttendanceData = useCallback(
-//     (records: AttendanceRecord[]) => {
-//       const attendanceByStudent: { [key: string]: { [key: string]: string } } =
-//         {};
-
-//       records.forEach((record) => {
-//         const { studentId, date, status } = record;
-//         const formattedDate = new Date(date).toISOString().split("T")[0];
-
-//         if (!attendanceByStudent[studentId]) {
-//           attendanceByStudent[studentId] = {};
-//         }
-//         attendanceByStudent[studentId][formattedDate] = status;
-//       });
-
-//       return Object.keys(attendanceByStudent).map((studentId) => ({
-//         studentId,
-//         ...lastThreeDays.reduce((acc, date) => {
-//           acc[date] = attendanceByStudent[studentId][date] || "N/A";
-//           return acc;
-//         }, {} as { [key: string]: string }),
-//       }));
-//     },
-//     [lastThreeDays]
-//   );
-
-//   useEffect(() => {
-//     if (attendanceRecord && attendanceRecord.length > 0) {
-//       setAttendance(processAttendanceData(attendanceRecord));
-//     }
-//   }, [attendanceRecord, processAttendanceData]);
-
-//   const toggleAttendance = useCallback((studentId: string, date: string) => {
-//     setAttendance((prevAttendance) =>
-//       prevAttendance.map((student) =>
-//         student.studentId === studentId
-//           ? {
-//               ...student,
-//               [date]: student[date] === "P" ? "A" : "P", // Toggle 'P' (Present) to 'A' (Absent) and vice versa
-//             }
-//           : student
-//       )
-//     );
-//   }, []);
-
-//   const handleTakeAttendance = async () => {
-//     setIsLoading(true);
-//     const currentDate = new Date().toISOString().split("T")[0];
-//     const attendanceData = attendance.map((student) => ({
-//       studentId: student.studentId,
-//       status: student[currentDate] || "P", // Default status 'P' (Present)
-//     }));
-
-//     const results = {
-//       date: currentDate,
-//       attendance: attendanceData,
-//     };
-
-//     try {
-//       await takeAttendance({ id, data: results });
-//       setIsLoading(false);
-//       showSuccessToast("Attendance recorded successfully!");
-//     } catch (error) {
-//       setIsLoading(false);
-//       toast.error("Error recording attendance:", error);
-//     }
-//   };
-
-//   const columns = useMemo(
-//     () => [
-//       {
-//         Header: "Student ID",
-//         accessor: "studentId",
-//       },
-//       ...lastThreeDays.map((date) => ({
-//         Header: date,
-//         accessor: date,
-//       })),
-//       {
-//         Header: "Take Attendance",
-//         accessor: "present",
-//         Cell: ({ row }) => (
-//           <span
-//             onClick={() =>
-//               toggleAttendance(row.original.studentId, lastThreeDays[0])
-//             } // Assuming toggling today's attendance for the first date in lastThreeDays
-//             style={{ cursor: "pointer" }}
-//           >
-//             {row.original[lastThreeDays[0]]}{" "}
-//             {/* Display status for today's date */}
-//           </span>
-//         ),
-//       },
-//     ],
-//     [lastThreeDays, toggleAttendance]
-//   );
-
-//   const data = useMemo(() => attendance, [attendance]);
-
-//   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-//     useTable({ columns, data });
-
-//   if (isLoading) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div>
-//       <table {...getTableProps()}>
-//         <thead>
-//           {headerGroups.map((headerGroup) => (
-//             <tr {...headerGroup.getHeaderGroupProps()}>
-//               {headerGroup.headers.map((column) => (
-//                 <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-//               ))}
-//             </tr>
-//           ))}
-//         </thead>
-//         <tbody {...getTableBodyProps()}>
-//           {rows.map((row) => {
-//             prepareRow(row);
-//             return (
-//               <tr {...row.getRowProps()}>
-//                 {row.cells.map((cell) => (
-//                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-//                 ))}
-//               </tr>
-//             );
-//           })}
-//         </tbody>
-//       </table>
-//       <MuiLoadingButtonTheme
-//         buttonName="Log Attendance"
-//         isLoading={false}
-//         onClick={handleTakeAttendance}
-//       />
-//     </div>
-//   );
-// };
-
-// export default AttendanceTable;
+export default UseAttendanceTable;

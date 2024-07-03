@@ -9,6 +9,7 @@ export const AttendanceApi = createApi({
   endpoints: (builder) => ({
     takeAttendance: builder.mutation({
       query: ({ id, data }) => {
+        console.log(id,data,"*******************")
         // console.log(id,data)
         const token = localStorage.getItem("token");
         if (!token) {
@@ -31,7 +32,22 @@ export const AttendanceApi = createApi({
           throw new Error("No token available");
         }
         return {
-          url: `/attendances?groupId=${id}`,
+          url: `/attendances/${id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    readAttendanceForGroup: builder.query({
+      query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/attendances?groupId=${id}&limit=0`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,4 +81,5 @@ export const {
   useTakeAttendanceMutation,
   useReadAllAttendanceQuery,
   useReadMonthlyAttendanceReportQuery,
+  useReadAttendanceForGroupQuery,
 } = AttendanceApi;
