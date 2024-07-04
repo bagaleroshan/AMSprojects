@@ -44,7 +44,6 @@ const getStyles = (present) => {
 const AttendanceTable: React.FC<AttendanceTableProps> = ({
   attendanceRecord,
 }) => {
-  // console.log("attendanceRecord*******", attendanceRecord);
   const { id } = useParams();
   const [attendance, setAttendance] = useState<StudentAttendance[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +51,6 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
   const currentDate = new Date().toISOString().split("T")[0];
   const dispatch = useDispatch();
   const todaysAttendance = useSelector((store: RootState) => store.attendance);
-  console.log("todayAttendance", todaysAttendance);
 
   const [
     takeAttendance,
@@ -84,7 +82,6 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
 
   const getToday = () => {
     const date = new Date();
-    // return date.toISOString().split("T")[0];
     return `${date.getDate()} ${date.toLocaleString("default", {
       month: "short",
     })}`;
@@ -96,14 +93,13 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
     for (let i = 1; i <= n; i++) {
       const date = new Date();
       date.setDate(date.getDate() - i);
-      // dates.push(date.toISOString().split("T")[0]);
       const formattedDate = `${date.getDate()} ${date.toLocaleString(
         "default",
         { month: "short" }
       )}`;
       dates.push(formattedDate);
     }
-    return dates.reverse(); // Reverse the array to display latest date first
+    return dates.reverse();
   };
 
   const lastThreeDays = useMemo(() => getLastNDays(3), []);
@@ -116,7 +112,6 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
       records.forEach((record) => {
         const { studentId, date, status } = record;
         const formattedDate = new Date(date);
-        // const isoDateString = formattedDate.toISOString().split("T")[0];
         const formattedDateString = `${formattedDate.getDate()} ${formattedDate.toLocaleString(
           "default",
           { month: "short" }
@@ -127,7 +122,6 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
         }
         attendanceByStudent[studentId][formattedDateString] = status;
       });
-      // console.log("attendanceByStudent", attendanceByStudent);
       return Object.keys(attendanceByStudent).map((studentId) => ({
         studentId,
         ...lastThreeDays.reduce((acc, date) => {
@@ -135,7 +129,6 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
           return acc;
         }, {} as { [key: string]: string }),
         present: "P",
-        // counting number of absent days
         absentDays: Object.values(attendanceByStudent[studentId]).filter(
           (status) => status === "A"
         ).length,
@@ -189,21 +182,20 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
       toast.error(`Error recording attendance: ${error}`);
     }
   };
-
+  console.log(attendanceRecord,"jenis")
   useMemo(() => {
+    
     if (!attendanceRecord || attendanceRecord.length === 0) {
       setIsAttendanceTaken(false);
     } else {
       const isTaken = attendanceRecord.some(
         (value) =>
-          new Date(value.date).toISOString().split("T")[0] === currentDate
+          new Date(value.attendance.map((date)=>{date.date})).toISOString().split("T")[0] === currentDate
       );
       setIsAttendanceTaken(isTaken);
     }
   }, [attendanceRecord, currentDate]);
 
-  // const backgroundColor = getBackgroundColor(row.original.present);
-  // console.log("Last 3 days", lastThreeDays);
   const columns = useMemo(() => {
     if (isAttendanceTaken) {
       return [

@@ -10,9 +10,9 @@ const StudentAttendanceTable = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  const attendanceRecord = dataattendanceRecord?.result?.results;
+  const attendanceRecord = dataattendanceRecord?.result;
   // console.log("Attendance Record***", attendanceRecord);
-
+  console.log(dataattendanceRecord,"**************")
   return (
     <div>
       <h1>Attendance</h1>
