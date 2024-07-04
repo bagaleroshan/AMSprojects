@@ -1,19 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 export interface IQuery {
   page: number;
   limit: number;
   findQuery: string;
   sort: string;
 }
-
 export const GroupApi = createApi({
   reducerPath: "GroupApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
   }),
   tagTypes: ["readGroups", "readGroupsById"],
-
   endpoints: (builder) => ({
     readGroup: builder.query({
       query: (query: IQuery) => {
@@ -23,6 +20,22 @@ export const GroupApi = createApi({
         }
         return {
           url: `/groups?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      providesTags: ["readGroups"],
+    }),
+    readActiveGroup: builder.query({
+      query: (ActiveQuery: string) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/groups?active=${ActiveQuery}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -118,7 +131,6 @@ export const GroupApi = createApi({
     }),
   }),
 });
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const {
   useCreateGroupMutation,
@@ -127,4 +139,5 @@ export const {
   useDeleteGroupMutation,
   useReadGroupQuery,
   useAddStudentGroupMutation,
+  useReadActiveGroupQuery,
 } = GroupApi;
