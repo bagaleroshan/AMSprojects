@@ -1,14 +1,16 @@
 import { FormControl, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import DwSelect from "../component/dwComponents/DwSelect";
 import { useReadGroupQuery } from "../services/api/GroupService";
 
 const AdminAttendanceReport = () => {
+  const [groupId, setGroupId] = useState("");
   const query = { page: 0, limit: 0, findQuery: "", sort: "" };
   const { data: dataAllGroups, isLoading: isLoadingAllGroups } =
     useReadGroupQuery(query);
 
-  console.log("dataAllGroups******", dataAllGroups?.result?.results);
+  // console.log("dataAllGroups******", dataAllGroups?.result?.results);
 
   const allGroups = dataAllGroups?.result?.results || [];
   const groups = allGroups.map((value) => ({
@@ -29,7 +31,8 @@ const AdminAttendanceReport = () => {
                     label="Groups"
                     onChange={(e) => {
                       formik.setFieldValue("group", e.target.value);
-                      console.log("group", e.target.value);
+                      setGroupId(e.target.value);
+                      console.log("groupId*************", e.target.value);
                     }}
                     selectLabels={groups}
                     isLoading={isLoadingAllGroups}
