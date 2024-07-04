@@ -2,6 +2,7 @@ import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { Box, Button, Grid, Paper, Typography, styled } from "@mui/material";
 import { useReadGroupQuery } from "../../../services/api/GroupService";
 import RequestFeedback from "../../feedback/RequestFeedback";
+import ViewFeedback from "../../feedback/ViewFeedback";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -105,9 +106,7 @@ const AdminFeedback = () => {
                             display: "grid",
                             placeItems: "center",
                           }}
-                        >
-                          <Button variant="contained">Feedback View</Button>
-                        </Grid>
+                        ></Grid>
                       </Grid>
                     </Item>
                   </Grid>

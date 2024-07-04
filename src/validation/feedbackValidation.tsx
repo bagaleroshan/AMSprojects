@@ -37,4 +37,7 @@ export const feedbackValidationSchema = Yup.object().shape({
     .required("feelChangeOnYourself field is required")
     .min(1, "Please rate this field")
     .max(5, "Please rate this field"),
+  thoughts: Yup.string()
+    .required("Please provide your thoughts")
+    .min(10, "Thoughts must be at least 10 characters"),
 });

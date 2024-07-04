@@ -45,11 +45,25 @@ export const AttendanceApi = createApi({
         if (!token) {
           throw new Error("No token available");
         }
-        console.log(month);
-        console.log(token);
         return {
           // {{url}}/attendances/monthly-report?groupId=667ba81354acc6871dbcf0cf&month=2024-06
-          url: `/attendances/${id}/monthly-report?month=${month}`,
+          url: `/attendances/monthly-report?groupId=${id}&month=${month}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    getTodayAttendance: builder.query({
+      query: () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          // {{url}}/attendances/attendance-taken-groups
+          url: `/attendances/attendance-taken-groups`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,4 +79,5 @@ export const {
   useTakeAttendanceMutation,
   useReadAllAttendanceQuery,
   useReadMonthlyAttendanceReportQuery,
+  useGetTodayAttendanceQuery,
 } = AttendanceApi;

@@ -21,9 +21,11 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import { useRequestFeedbackMutation } from "../../services/api/FeedbackApi";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const FeedbackForm: React.FC = () => {
-  const initialFormValues = {
+  const initialFormValues: IFeedback = {
     onTime: 0,
     hasDeliveryPower: 0,
     hasSkills: 0,
@@ -33,6 +35,7 @@ const FeedbackForm: React.FC = () => {
     hasClearConversation: 0,
     doesInternetWork: 0,
     feelChangeOnYourself: 0,
+    thoughts: "",
   };
 
   const [
@@ -93,6 +96,15 @@ const FeedbackForm: React.FC = () => {
               <Typography component="h1" variant="h5">
                 Feedback Form
               </Typography>
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "4px",
+                  backgroundColor: "blue",
+                  marginTop: 2,
+                  marginBottom: 3,
+                }}
+              />
               <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   {[
@@ -151,6 +163,30 @@ const FeedbackForm: React.FC = () => {
                       </FormControl>
                     </Grid>
                   ))}
+                  <Grid item xs={12}>
+                    <FormControl
+                      fullWidth
+                      error={
+                        formik.touched.thoughts &&
+                        Boolean(formik.errors.thoughts)
+                      }
+                    >
+                      <FormLabel>Your Thoughts</FormLabel>
+                      <ReactQuill
+                        value={formik.values.thoughts}
+                        onChange={(content) =>
+                          formik.setFieldValue("thoughts", content)
+                        }
+                        onBlur={() => formik.setFieldTouched("thoughts", true)}
+                        theme="snow"
+                      />
+                      {formik.touched.thoughts && formik.errors.thoughts && (
+                        <FormHelperText>
+                          {formik.errors.thoughts}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
                   <Grid item xs={12}>
                     <Box textAlign="center">
                       <Button

@@ -10,36 +10,35 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import AdminMonthlyChart from "./AdminMonthlyChart";
-import { useReadGroupQuery } from "../../../services/api/GroupService";
-
+import {
+  useReadActiveGroupQuery,
+  useReadGroupQuery,
+} from "../../../services/api/GroupService";
+import { useGetTodayAttendanceQuery } from "../../../services/api/AttendanceService";
 const AdminDashboard = () => {
+  const { data: dataCount } = useReadActiveGroupQuery("true");
+  const { data: completedCount } = useGetTodayAttendanceQuery("");
   const Role = useSelector((store: RootState) => store.user.role);
-  // console.log("Role9888886", Role);
-
   const query = {
     page: 0,
     limit: 0,
     findQuery: "",
     sort: "",
   };
-
   const {
     isError: isErrorViewAll,
     data: dataViewAll,
     error: errorViewAll,
     isLoading: isLoadingViewAll,
   } = useReadGroupQuery(query);
-
   const resultsArray = dataViewAll?.result?.results || [];
-
   if (isLoadingViewAll) {
     return <div>Loading...</div>;
   }
-
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll.message}</div>;
   }
-  console.log(dataViewAll);
+  console.log(dataCount.result.results.length);
   return (
     <>
       <div className="teacherDashboard">
@@ -54,7 +53,6 @@ const AdminDashboard = () => {
             Admin Dashboard
           </Typography>
         )}
-
         <Box height={30} />
         <Typography variant="h6">Overview</Typography>
         <Divider variant="inset" />
@@ -72,7 +70,8 @@ const AdminDashboard = () => {
                         Today's Class Count
                       </Typography>
                       <Typography variant="h3" sx={{ color: "blue" }}>
-                        7/26
+                        {completedCount.result.count}/
+                        {dataCount.result.results.length}
                       </Typography>
                     </Stack>
                   </Box>
@@ -89,14 +88,12 @@ const AdminDashboard = () => {
             </Grid>
           </Grid>
         </Box>
-
         <Box height={50} />
-        <Typography variant="h4">Recent Login</Typography>
+        {/* <Typography variant="h4">Recent Login</Typography> */}
         {/* </Box>
       </Box> */}
       </div>
     </>
   );
 };
-
 export default AdminDashboard;
