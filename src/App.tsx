@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import WelcomePage from "./component/WelcomePage";
 import AdminRoute from "./component/routes/AdminRoute";
+// import StudentRoute from "./component/routes/StudentRoute";
 import TeacherRoute from "./component/routes/TeacherRoute";
 import AmsLayout from "./component/theme/AmsLayout";
 import ForgotPassword from "./component/user/ForgotPassword";
@@ -9,7 +10,7 @@ import ResetPassword from "./component/user/ResetPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import { RootState } from "./store/store";
-import FeedbackForm from "./component/feedback/FeedBackForm";
+import FeedbackForm from "./feedback/FeedBackForm";
 
 const App = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
@@ -25,7 +26,6 @@ const App = () => {
           element={
             <AmsLayout>
               <AdminRoute />
-              {/* <DikshyaAdminRoute /> */}
             </AmsLayout>
           }
         />
@@ -44,9 +44,13 @@ const App = () => {
           <Route path="login" element={<UserLogin />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
-          <Route path="feedback-form" element={<FeedbackForm />} />
+          {/* <Route path="feedback-form" element={<FeedbackForm />} /> */}
         </Route>
       )}
+
+      <Route path="feedback-form" element={<FeedbackForm />} />
+
+      {/* <Route path="student/*" element={<StudentRoute />} /> */}
       <Route path="logout" element={<UserLogout />} />
 
       {/* Catch-all route */}

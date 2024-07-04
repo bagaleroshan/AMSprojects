@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
-import { useRequestFeedbackMutation } from "../../services/api/FeedbackApi";
-import { showSuccessToast } from "../../muiModals/toastConfig";
+import { useRequestFeedbackMutation } from "../services/api/FeedbackApi";
+import { showSuccessToast } from "../muiModals/toastConfig";
 
 interface RequestFeedbackProps {
   groupId: string;

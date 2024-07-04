@@ -1,10 +1,10 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { UseAttendanceTable } from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
-import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
-import AdminCourse from "../MyComponents/Admin/admincourse/AdminCourse";
 import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
+import AdminFeedback from "../MyComponents/Admin/AdminFeedback";
 import AdminMessages from "../MyComponents/Admin/AdminMessages";
 import AdminReport from "../MyComponents/Admin/AdminReport";
+import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
+import AdminCourse from "../MyComponents/Admin/admincourse/AdminCourse";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import ReadSpecificGroup from "../group/ReadSpecificGroup";
@@ -16,7 +16,6 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import AdminFeedback from "../MyComponents/Admin/AdminFeedback";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -75,14 +74,15 @@ const AdminRoute = () => {
           <Route path="update/:id" element={<UpdateGroup />} />
           <Route path=":id" element={<ReadSpecificGroup />} />
         </Route>
+        <Route path="feedback" element={<Outlet />}>
+          <Route index element={<AdminFeedback />} />
+        </Route>
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
-        {/* <Route path="attendance" element={<UseAttendanceTable />} /> */}
         <Route path="messages" element={<AdminMessages />} />
         <Route path="courses" element={<AdminCourse />} />
         <Route path="report" element={<AdminReport />} />
-        <Route path="feedback" element={<AdminFeedback />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>
