@@ -24,10 +24,6 @@ import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
-} from "../../utils/utils";
-import { useRequestFeedbackMutation } from "../../services/api/FeedbackApi";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
 
