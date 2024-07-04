@@ -1,5 +1,4 @@
-import DownloadIcon from "@mui/icons-material/Download";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import AdminAttendanceReport from "../../../adminComponent/AdminAttendanceReport";
 
 const AdminReport = () => {
@@ -45,19 +44,7 @@ const AdminReport = () => {
               </Select>
             </FormControl> */}
         <Box height={60} />
-        <Stack display="flex" direction="row" spacing={10}>
-          <Button variant="contained">Search</Button>
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<DownloadIcon />}
-          >
-            Download
-          </Button>
-          <Button variant="contained" color="warning">
-            Reset Filters
-          </Button>
-        </Stack>
+        
         {/* </Box> */}
         {/* </Box> */}
       </div>
