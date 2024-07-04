@@ -5,10 +5,12 @@ export const AttendanceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
   }),
+  tagTypes: ["readAllAttendance"],
 
   endpoints: (builder) => ({
     takeAttendance: builder.mutation({
       query: ({ id, data }) => {
+        console.log(id,data,"*******************")
         // console.log(id,data)
         const token = localStorage.getItem("token");
         if (!token) {
@@ -23,6 +25,8 @@ export const AttendanceApi = createApi({
           },
         };
       },
+      invalidatesTags: ["readAllAttendance"],
+
     }),
     readAllAttendance: builder.query({
       query: (id) => {
@@ -31,7 +35,23 @@ export const AttendanceApi = createApi({
           throw new Error("No token available");
         }
         return {
-          url: `/attendances?groupId=${id}`,
+          url: `/attendances/${id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      providesTags: ["readAllAttendance"],
+    }),
+    readAttendanceForGroup: builder.query({
+      query: (id) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/attendances?groupId=${id}&limit=0`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -79,5 +99,9 @@ export const {
   useTakeAttendanceMutation,
   useReadAllAttendanceQuery,
   useReadMonthlyAttendanceReportQuery,
+<<<<<<< HEAD
   useGetTodayAttendanceQuery,
+=======
+  useReadAttendanceForGroupQuery,
+>>>>>>> 40e9c183c16c544b1522762b1fe20e539b2d4ffe
 } = AttendanceApi;

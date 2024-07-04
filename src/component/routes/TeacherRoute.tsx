@@ -1,5 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import StudentAttendanceTable from "../../teacherComponent/studentAttendance/StudentAttendanceTable";
+import UseAttendance from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 import TeacherDashboard from "../MyComponents/Teacher/TeacherDashboard";
 import TeacherFeedback from "../MyComponents/Teacher/TeacherFeedback";
 import TeacherMessages from "../MyComponents/Teacher/TeacherMessages";
@@ -13,7 +13,7 @@ const TeacherRoute = () => {
     <Routes>
       <Route path="/" element={<Outlet />}>
         <Route index element={<TeacherDashboard />} />
-        <Route path=":id" element={<StudentAttendanceTable />} />
+        <Route path=":id" element={<UseAttendance/>} />
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />

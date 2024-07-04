@@ -92,7 +92,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
               <Stack display="flex" direction="row" spacing={5}>
                 <Box sx={{ minWidth: 200 }} component="div">
                   <FormControl fullWidth color="primary">
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <InputLabel id="demo-simple-select-label" />
                     <DwSelect
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
