@@ -67,6 +67,7 @@ export const GroupApi = createApi({
     }),
     readGroupById: builder.query({
       query: (id) => {
+        console.log("id", id);
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");

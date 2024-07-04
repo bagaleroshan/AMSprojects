@@ -295,7 +295,7 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
         },
       ];
     }
-  }, [lastThreeDays, toggleAttendance, isAttendanceTaken, todaysAttendance]);
+  }, [lastThreeDays, toggleAttendance, isAttendanceTaken, today]);
 
   const data = useMemo(() => attendance, [attendance]);
 

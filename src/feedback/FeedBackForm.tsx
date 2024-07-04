@@ -1,26 +1,31 @@
-import React, { useEffect } from "react";
-import { toast } from "react-toastify";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
   Avatar,
   Box,
+  Button,
   Container,
+  FormControl,
+  FormHelperText,
+  FormLabel,
   Grid,
   Typography,
-  Button,
 } from "@mui/material";
-import { Form, Formik, FormikProps } from "formik";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Rating from "@mui/material/Rating";
-import { FormControl, FormHelperText, FormLabel } from "@mui/material";
-import { IFeedback } from "../interfaces/FeedbackInterface";
-import { feedbackValidationSchema } from "../../validation/feedbackValidation";
-import { showSuccessToast } from "../../muiModals/toastConfig";
+import { Form, Formik, FormikProps } from "formik";
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
+import { IFeedback } from "../component/interfaces/FeedbackInterface";
+import { showSuccessToast } from "../muiModals/toastConfig";
+import {
+  useCreateFeedbackMutation,
+  useRequestFeedbackMutation,
+} from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
-} from "../../utils/utils";
-import { useRequestFeedbackMutation } from "../../services/api/FeedbackApi";
+} from "../utils/utils";
+import { feedbackValidationSchema } from "../validation/feedbackValidation";
 
 const FeedbackForm: React.FC = () => {
   const initialFormValues = {
@@ -36,21 +41,17 @@ const FeedbackForm: React.FC = () => {
   };
 
   const [
-    submitFeedback,
+    createFeedback,
     {
       isError: isErrorSubmitFeedback,
       isSuccess: isSuccessSubmitFeedback,
       isLoading: isLoadingSubmitFeedback,
       error: errorSubmitFeedback,
     },
-  ] = useRequestFeedbackMutation();
+  ] = useCreateFeedbackMutation();
 
   const handleSubmit = async (values: IFeedback) => {
-    try {
-      await submitFeedback(values).unwrap();
-    } catch (error) {
-      // Handle errors if necessary
-    }
+    createFeedback(values);
   };
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const FeedbackForm: React.FC = () => {
                     { name: "hasInteraction", label: "Has Interaction" },
                     { name: "isClassFretful", label: "Is Class Fretful" },
                     {
-                      name: "isClassComfortable",
+                      name: "isClassRoomComfortable",
                       label: "Is Class Comfortable",
                     },
                     {
@@ -137,6 +138,11 @@ const FeedbackForm: React.FC = () => {
                             name={item.name}
                             value={formik.values[item.name as keyof IFeedback]}
                             onChange={(event, newValue) => {
+                              console.log(
+                                "item.name",
+                                item.name + "Value",
+                                newValue
+                              );
                               formik.setFieldValue(item.name, newValue);
                             }}
                             precision={1}

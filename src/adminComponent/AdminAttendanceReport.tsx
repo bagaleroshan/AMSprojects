@@ -1,5 +1,6 @@
 import { Button, FormControl, Stack } from "@mui/material";
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import DwSelect from "../component/dwComponents/DwSelect";
 import { useReadGroupQuery } from "../services/api/GroupService";
 import { useState } from "react";
@@ -9,11 +10,17 @@ import { Margin } from "@mui/icons-material";
 
 
 const AdminAttendanceReport = () => {
+  const [groupId, setGroupId] = useState("");
   const query = { page: 0, limit: 0, findQuery: "", sort: "" };
   const { data: dataAllGroups, isLoading: isLoadingAllGroups } =
     useReadGroupQuery(query);
+<<<<<<< HEAD
+
+  // console.log("dataAllGroups******", dataAllGroups?.result?.results);
+=======
   console.log("dataAllGroups******", dataAllGroups?.result?.results);
   const [selectedGroupId,setSelectedGroupId] = useState("")
+>>>>>>> c65230f164636b521b5f831a6bfc23a911cc677d
 
   const allGroups = dataAllGroups?.result?.results || [];
   const groups = allGroups.map((value) => ({
@@ -36,7 +43,12 @@ const AdminAttendanceReport = () => {
                     label="Groups"
                     onChange={(e) => {
                       formik.setFieldValue("group", e.target.value);
+<<<<<<< HEAD
+                      setGroupId(e.target.value);
+                      console.log("groupId*************", e.target.value);
+=======
                       setSelectedGroupId(e.target.value)
+>>>>>>> c65230f164636b521b5f831a6bfc23a911cc677d
                     }}
                     selectLabels={groups}
                     isLoading={isLoadingAllGroups}
