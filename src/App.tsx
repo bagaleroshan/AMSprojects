@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import WelcomePage from "./component/WelcomePage";
 import AdminRoute from "./component/routes/AdminRoute";
-// import StudentRoute from "./component/routes/StudentRoute";
 import TeacherRoute from "./component/routes/TeacherRoute";
 import AmsLayout from "./component/theme/AmsLayout";
 import ForgotPassword from "./component/user/ForgotPassword";
@@ -44,13 +43,10 @@ const App = () => {
           <Route path="login" element={<UserLogin />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password" element={<ResetPassword />} />
-          {/* <Route path="feedback-form" element={<FeedbackForm />} /> */}
         </Route>
       )}
 
       <Route path="feedback-form" element={<FeedbackForm />} />
-
-      {/* <Route path="student/*" element={<StudentRoute />} /> */}
       <Route path="logout" element={<UserLogout />} />
 
       {/* Catch-all route */}

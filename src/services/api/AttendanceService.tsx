@@ -5,6 +5,7 @@ export const AttendanceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
   }),
+  tagTypes: ["readAllAttendance"],
 
   endpoints: (builder) => ({
     takeAttendance: builder.mutation({
@@ -24,6 +25,8 @@ export const AttendanceApi = createApi({
           },
         };
       },
+      invalidatesTags: ["readAllAttendance"],
+
     }),
     readAllAttendance: builder.query({
       query: (id) => {
@@ -39,6 +42,7 @@ export const AttendanceApi = createApi({
           },
         };
       },
+      providesTags: ["readAllAttendance"],
     }),
     readAttendanceForGroup: builder.query({
       query: (id) => {

@@ -3,16 +3,40 @@ import { useParams } from 'react-router-dom';
 import { useReadAllAttendanceQuery, useReadAttendanceForGroupQuery, useTakeAttendanceMutation } from '../../services/api/AttendanceService';
 import AttendanceTableComponent from './AttendanceTableComponent';
 import { useReadGroupByIdQuery } from '../../services/api/GroupService';
+import { toast } from 'react-toastify';
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
   const { data: attendanceData, isLoading: attendanceDataIsLoading, isError: attendanceDataIsError } = useReadAllAttendanceQuery(id);
   const { data: groupData, isLoading: groupDataIsLoading, isError: groupDataIsError } = useReadGroupByIdQuery(id);
   const { data: attendanceDataForThisGroup, isLoading: attendanceForGroupIsLoading, isError: attendanceForGroupIsError } = useReadAttendanceForGroupQuery(id);
-  const [takeAttendance] = useTakeAttendanceMutation();
+  const [takeAttendance,{isSuccess:isSuccessAttendance,isError:isErrorAttendance}] = useTakeAttendanceMutation();
   const groupDataStudents = groupData?.result?.students || [];
   const [attendanceStatus, setAttendanceStatus] = useState({});
   const [todaysAttendanceExists, setTodaysAttendanceExists] = useState(false);
+
+
+  useEffect(()=>{
+    if(isSuccessAttendance)
+      {
+        toast.success("successful")
+
+        setTimeout(()=>{
+        window.location.reload(true)
+
+
+        },4000)
+
+      }
+
+  },[isSuccessAttendance])
+  useEffect(()=>{
+    if(isErrorAttendance)
+      {
+        toast.error("failuer")
+      }
+
+  },[isSuccessAttendance])
 
   useEffect(() => {
     if (attendanceData?.result) {
@@ -105,6 +129,8 @@ const UseAttendanceTable = () => {
     }
   };
 
+
+
   const filteredTableData = Object.entries(attendanceByStudent).map(([studentId, data]) => ({
     studentId,
     studentName: data.studentName,
@@ -123,7 +149,9 @@ const UseAttendanceTable = () => {
 
     const data = { date: currentDate, attendance: attendanceDataToLog };
     takeAttendance({ id, data });
-  };
+  
+  }
+ 
 
   return (
     <div>
