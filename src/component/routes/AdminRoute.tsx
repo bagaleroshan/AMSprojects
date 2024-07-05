@@ -1,10 +1,10 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
-import AdminFeedback from "../MyComponents/Admin/AdminFeedback";
-import AdminMessages from "../MyComponents/Admin/AdminMessages";
-import AdminReport from "../MyComponents/Admin/AdminReport";
-import AdminForm from "../MyComponents/Admin/adminForm/AdminForm";
-import AdminCourse from "../MyComponents/Admin/admincourse/AdminCourse";
+import AdminDashboard from "../mycomponents/admin/AdminDashboard";
+import AdminFeedback from "../mycomponents/admin/AdminFeedback";
+import AdminMessages from "../mycomponents/admin/AdminMessages";
+import AdminReport from "../mycomponents/admin/AdminReport";
+import AdminForm from "../mycomponents/admin/adminForm/AdminForm";
+import AdminCourse from "../mycomponents/admin/admincourse/AdminCourse";
 import ReadSpecificStudent from "../Student/ReadSpecificStudent";
 import UpdateStudent from "../Student/UpdateStudent";
 import ReadSpecificGroup from "../group/ReadSpecificGroup";

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useReadMonthlyAttendanceReportQuery } from "../../../services/api/AttendanceService";
-import LineChart from "../Chart/LineChart";
+import LineChart from "../chart/LineChart";
 import RoughMuiSelect from "../muiComponent/RoughMuiSelect";
 
 const AdminMonthlyChart = () => {
