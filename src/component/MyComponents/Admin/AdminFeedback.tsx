@@ -105,9 +105,7 @@ const AdminFeedback = () => {
                             display: "grid",
                             placeItems: "center",
                           }}
-                        >
-                          <Button variant="contained">Feedback View</Button>
-                        </Grid>
+                        ></Grid>
                       </Grid>
                     </Item>
                   </Grid>
