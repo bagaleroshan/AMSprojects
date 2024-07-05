@@ -1,7 +1,6 @@
-import { Box, FormControl, Stack, Typography } from "@mui/material";
-import { Formik } from "formik";
+import { Box, FormControl, Stack, Typography, CircularProgress } from "@mui/material";
+import { Formik, Form } from "formik";
 import { useState } from "react";
-import { Form } from "react-router-dom";
 import AdminGroupReport from "../../../adminComponent/AdminGroupReport";
 import { useReadGroupQuery } from "../../../services/api/GroupService";
 import DwSelect from "../../dwComponents/DwSelect";
@@ -12,69 +11,48 @@ const AdminReport = () => {
   const { data: dataAllGroups, isLoading: isLoadingAllGroups } =
     useReadGroupQuery(query);
 
-  // console.log("dataAllGroups******", dataAllGroups?.result?.results);
-
   const allGroups = dataAllGroups?.result?.results || [];
   const groups = allGroups.map((value) => ({
     value: value.id,
     label: value.groupName,
   }));
-  return (
-    <>
-      <div className="teacherReport">
-        {/* <Box sx={{ display: "flex" }}> */}
-        {/* <Box sx={{ display: "flex" }}> */}
-        {/* <Box sx={{ display: "flex" }}> */}
-        {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Attendance Report
-        </Typography>
-        <Box height={60} />
-        {/* <AdminAttendanceReport /> */}
-        <Formik initialValues={{ groupName: groups.groupName || "" }}>
-          {(formik) => {
-            return (
-              <Form>
-                <Stack display="flex" direction="row" spacing={10}>
-                  <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
-                    <DwSelect
-                      name="group"
-                      label="Groups"
-                      onChange={(e) => {
-                        formik.setFieldValue("group", e.target.value);
-                        setGroupId(e.target.value);
-                        // console.log("groupId*************", e.target.value);
-                      }}
-                      selectLabels={groups}
-                      isLoading={isLoadingAllGroups}
-                    />
-                  </FormControl>
-                </Stack>
-              </Form>
-            );
-          }}
-        </Formik>
-        <Box height={60} />
-        {/* <FormControl sx={{ m: 1, width: "100%" }} size="small">
-              <Select value={age} onChange={handleChange} displayEmpty>
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Addition Report Filters</MenuItem>
-                <MenuItem value={20}>Nitan D1</MenuItem>
-                <MenuItem value={30}>Nitan E1</MenuItem>
-                <MenuItem value={30}>Nitan E12</MenuItem>
-              </Select>
-            </FormControl> */}
-        <Box height={60} />
 
-        {/* </Box> */}
-        {/* </Box> */}
-        <Box height={60} />
-        {/* <Box>Hello</Box> */}
-        <AdminGroupReport groupId={groupId} />
-      </div>
-    </>
+  return (
+    <div className="teacherReport">
+      <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+        Attendance Report
+      </Typography>
+      <Box height={60} />
+
+      <Formik initialValues={{ group: groups.groupName }}>
+        {(formik) => (
+          <Form>
+            <Stack display="flex" direction="row" spacing={10}>
+              <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
+                {isLoadingAllGroups ? (
+                  <CircularProgress />
+                ) : (
+                  <DwSelect
+                    name="group"
+                    label="Groups"
+                    onChange={(e) => {
+                      formik.setFieldValue("group", e.target.value);
+                      setGroupId(e.target.value);
+                    }}
+                    selectLabels={groups}
+                    isLoading={isLoadingAllGroups}
+                  />
+                )}
+              </FormControl>
+            </Stack>
+          </Form>
+        )}
+      </Formik>
+
+      <Box height={60} />
+      <AdminGroupReport groupId={groupId||"dasoidh"} />
+    </div>
   );
 };
+
 export default AdminReport;
