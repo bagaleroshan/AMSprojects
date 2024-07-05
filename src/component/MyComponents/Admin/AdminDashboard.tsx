@@ -39,7 +39,7 @@ const AdminDashboard = () => {
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll?.message}</div>;
   }
-  // console.log(dataCount?.result?.results?.length);
+  console.log(dataCount?.result?.results?.length);
   return (
     <>
       <div className="teacherDashboard">
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
                         Today's Class Count
                       </Typography>
                       <Typography variant="h3" sx={{ color: "blue" }}>
-                        {completedCount?.result?.count}/
+                        {completedCount?.result.count}/
                         {dataCount?.result?.results?.length}
                       </Typography>
                     </Stack>

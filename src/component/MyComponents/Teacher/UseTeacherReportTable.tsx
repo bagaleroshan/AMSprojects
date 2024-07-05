@@ -1,13 +1,11 @@
-import React, { useMemo } from 'react';
-import AttendanceTableComponent from '../teacherComponent/attendanceComponents/AttendanceTableComponent';
-import { useReadAllAttendanceQuery } from '../services/api/AttendanceService';
+import React, { useMemo } from 'react'
+import { useReadAllAttendanceQuery } from '../../../services/api/AttendanceService';
+import AttendanceTableComponent from '../../../teacherComponent/attendanceComponents/AttendanceTableComponent';
 
-const ReportTable = ({ id }) => {
-    const groupId = id?.selectedGroupId || "abc";
-    const { data } = useReadAllAttendanceQuery(groupId);
-
+const UseTeacherReportTable = (groupId) => {
+    const { data } = useReadAllAttendanceQuery(groupId?.groupId);
     const attendanceData = data?.result || [];
-    console.log(attendanceData)
+    console.log(attendanceData,"data")
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const options = { month: 'long', day: 'numeric' };
@@ -41,6 +39,6 @@ const ReportTable = ({ id }) => {
             <AttendanceTableComponent columns={columns} data={formattedData} />
         </div>
     );
-};
+}
 
-export default ReportTable;
+export default UseTeacherReportTable
