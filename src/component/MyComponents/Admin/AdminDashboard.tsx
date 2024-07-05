@@ -32,11 +32,12 @@ const AdminDashboard = () => {
     isLoading: isLoadingViewAll,
   } = useReadGroupQuery(query);
   const resultsArray = dataViewAll?.result?.results || [];
+  console.log(resultsArray);
   if (isLoadingViewAll) {
     return <div>Loading...</div>;
   }
   if (isErrorViewAll) {
-    return <div>Error: {errorViewAll.message}</div>;
+    return <div>Error: {errorViewAll?.message}</div>;
   }
   console.log(dataCount?.result?.results?.length);
   return (

@@ -29,24 +29,6 @@ const ReadSpecificUser = () => {
 
   return (
     <>
-      {/* <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Contact</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>{user.fullName}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>{user.phoneNumber} </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer> */}
       <Box className="user-profile-container">
         <Box
           sx={{
