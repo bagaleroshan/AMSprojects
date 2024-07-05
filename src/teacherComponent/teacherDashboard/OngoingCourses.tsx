@@ -16,7 +16,7 @@ const OngoingCourses = () => {
     isError: isErrorReadGroups,
     data: dataReadGroups,
     error: errorReadGroups,
-  } = useReadGroupsByTeacherIdQuery({ active: true });
+  } = useReadGroupsByTeacherIdQuery( "active=true" );
   // console.log("dataReadGroups*************", dataReadGroups?.result?.results);
   const groups = dataReadGroups?.result?.results || [];
 

@@ -23,8 +23,14 @@ const theme = createTheme({
 const MuiLoadingButtonTheme: React.FC<{
   isLoading?: boolean;
   buttonName?: string;
+  type?: "button" | "submit";
   onClick?: () => void;
-}> = ({ isLoading = true, buttonName = "Submit", onClick = () => {} }) => {
+}> = ({
+  isLoading = true,
+  type = "submit",
+  buttonName = "Submit",
+  onClick = () => {},
+}) => {
   return (
     <ThemeProvider theme={theme}>
       {isLoading ? (
@@ -32,7 +38,7 @@ const MuiLoadingButtonTheme: React.FC<{
           loading
           endIcon={<SendIcon />}
           loadingPosition="end"
-          type="submit"
+          type={type}
           sx={{
             backgroundColor: "primary.main",
             color: "white",
@@ -51,7 +57,7 @@ const MuiLoadingButtonTheme: React.FC<{
         </LoadingButton>
       ) : (
         <Button
-          type="submit"
+          type={type}
           fullWidth
           variant="contained"
           color="primary"

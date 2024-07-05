@@ -5,11 +5,12 @@ export interface IFeedback {
   hasDeliveryPower: number;
   hasSkills: number;
   hasInteraction: number;
-  isClassFretful: number;
-  isClassComfortable: number;
+  isClassFruitful: number;
+  isClassRoomComfortable: number;
   hasClearConversation: number;
   doesInternetWork: number;
   feelChangeOnYourself: number;
+  description: string;
 }
 export interface IFormValues {
   buttonName: string;
