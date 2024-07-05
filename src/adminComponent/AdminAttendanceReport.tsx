@@ -44,18 +44,17 @@ const AdminAttendanceReport = () => {
                 </FormControl>
               </Stack>
               <Stack display="flex" direction="row" spacing={10}>
-          <Button variant="contained">Search</Button>
-          <Button
+          
+          
+
+        </Stack>
+        <Button
             variant="contained"
             color="success"
             startIcon={<DownloadIcon />}
           >
             Download
           </Button>
-          <Button variant="contained" color="warning">
-            Reset Filters
-          </Button>
-        </Stack>
             </Form>
           );
         }}

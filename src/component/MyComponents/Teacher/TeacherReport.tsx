@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import TeacherReportTable from "./TeacherReportTable";
 
 const TeacherReport = () => {
   const [age, setAge] = React.useState("");
@@ -28,7 +29,7 @@ const TeacherReport = () => {
             <Box height={30} />
             <Stack display="flex" direction="row" spacing={10}>
               <Typography variant="body2">Group</Typography>
-              <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
+              {/* <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
                 <Select
                   value={age}
                   onChange={handleChange}
@@ -43,10 +44,10 @@ const TeacherReport = () => {
                   <MenuItem value={30}>Nitan E1</MenuItem>
                   <MenuItem value={30}>Nitan E12</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
             </Stack>
             <Box height={60} />
-            <FormControl sx={{ m: 1, width: "100%" }} size="small">
+            {/* <FormControl sx={{ m: 1, width: "100%" }} size="small">
               <Select value={age} onChange={handleChange} displayEmpty>
                 <MenuItem value="">
                   <em>None</em>
@@ -56,25 +57,18 @@ const TeacherReport = () => {
                 <MenuItem value={30}>Nitan E1</MenuItem>
                 <MenuItem value={30}>Nitan E12</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
             <Box height={60} />
             <Stack display="flex" direction="row" spacing={10}>
               <Button variant="contained">
                 Search
               </Button>
-              <Button
-                variant="contained"
-                color="success"
-                startIcon={<DownloadIcon />}
-              >
-                Download
-              </Button>
-              <Button variant="contained" color="warning">
-                Reset Filters
-              </Button>
+             
+             
             </Stack>
           {/* </Box>
         </Box> */}
+        <TeacherReportTable></TeacherReportTable>
       </div>
     </>
   );
