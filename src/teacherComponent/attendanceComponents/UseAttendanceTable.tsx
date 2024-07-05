@@ -33,7 +33,7 @@ const UseAttendanceTable = () => {
   useEffect(()=>{
     if(isErrorAttendance)
       {
-        toast.error("failuer")
+        toast.error("failiuer")
       }
 
   },[isSuccessAttendance])

@@ -3,7 +3,7 @@ import { useTable } from 'react-table';
 
 const AttendanceTableComponent = ({ columns, data }) => {
   const tableInstance = useTable({ columns, data });
-
+  console.log(data)
   const {
     getTableProps,
     getTableBodyProps,

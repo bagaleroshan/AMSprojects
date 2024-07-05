@@ -14,7 +14,7 @@ const CompletedCourses = () => {
     isError: isErrorReadGroups,
     data: dataReadGroups,
     error: errorReadGroups,
-  } = useReadGroupsByTeacherIdQuery({ active: false });
+  } = useReadGroupsByTeacherIdQuery("active=false");
 
   // console.log(
   //   "Completed COurses*************",

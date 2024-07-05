@@ -1,75 +1,69 @@
-import React, { useEffect } from "react";
-import { toast } from "react-toastify";
-import { useReadGroupByIdQuery } from "../services/api/GroupService";
-import {
-  getErrorMessage,
-  isFetchBaseQueryError,
-  isSerializedError,
-} from "../utils/utils";
+import React, { useMemo, useEffect } from 'react';
+import { useReadAllAttendanceQuery } from '../services/api/AttendanceService';
+import AttendanceTableComponent from '../teacherComponent/attendanceComponents/AttendanceTableComponent';
+import { CircularProgress, Box, Typography } from '@mui/material';
 
-const AdminGroupReport: React.FC = ({ groupId }) => {
-  console.log("groupId-----", groupId);
-  const columns = [
-    { Header: "Group Name", accessor: "groupName", width: "350px" },
-    { Header: "Subject Name", accessor: "subject.subjectCode", width: "350px" },
-    { Header: "Teacher Name", accessor: "teacher.fullName", width: "350px" },
-  ];
+const AdminGroupReport = ({ groupId }) => {
+    const { data, isLoading, error, refetch } = useReadAllAttendanceQuery(groupId);
 
-  const {
-    data: dataReadGroupById,
-    isLoading: isLoadingDataReadGroupsById,
-    isError: isErrorDataReadGroupsById,
-    error: errorReadGroupsById,
-    refetch,
-  } = useReadGroupByIdQuery(groupId, { skip: !groupId });
+    useEffect(() => {
+        // Trigger refetch when groupId changes or on initial load
+        refetch();
+    }, [groupId, refetch]);
 
-  const groupData = dataReadGroupById?.result;
-  console.log("groupBy  Jnie Id Data*********************", groupData);
+    const attendanceData = data?.result || [];
 
-  // const specificGroup = useMemo(() =>{
-  //   return specificGroup.map((value) => )
-  // });
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    };
 
-  useEffect(() => {
-    isErrorDataReadGroupsById &&
-      (isFetchBaseQueryError(errorReadGroupsById)
-        ? toast.error(getErrorMessage(errorReadGroupsById))
-        : isSerializedError(errorReadGroupsById)
-        ? toast.error(errorReadGroupsById?.message)
-        : "Unknown Error");
-  }, [isErrorDataReadGroupsById, errorReadGroupsById]);
+    const columns = useMemo(() => {
+        if (attendanceData.length === 0 || !attendanceData[0].attendance) return [];
 
-  useEffect(() => {
-    if (groupId) {
-      refetch();
+        const dateColumns = attendanceData[0].attendance.map((att, index) => ({
+            Header: formatDate(att.date), // Format date here
+            accessor: `attendance[${index}].status`
+        }));
+
+        return [
+            { Header: 'Student Name', accessor: 'studentName' },
+            ...dateColumns
+        ];
+    }, [attendanceData]);
+
+    const formattedData = useMemo(() => {
+        return attendanceData.map(student => ({
+            _id: student._id,
+            studentName: student.studentName,
+            attendance: student.attendance || []
+        }));
+    }, [attendanceData]);
+
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                <CircularProgress />
+            </Box>
+        );
     }
-  }, [groupId, refetch]);
 
-  if (isLoadingDataReadGroupsById) {
-    return <div>Loading...</div>;
-  }
+    if (error) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                <Typography variant="h6" color="error">
+                    Select Group to Load Data
+                </Typography>
+            </Box>
+        );
+    }
 
-  return (
-    <div>
-      {/* <GroupExportCSV
-        data={data.result.results}
-        fileName="Group File"
-      ></GroupExportCSV> */}
-      {/* <TableComponent
-        columns={columns}
-        data={groupData}
-        query={query}
-        setQuery={setQuery}
-        currentSort={query.sort}
-        totalData={data.result.totalDataInWholePage}
-        onEditClick={handleGroupEditClick}
-        onViewClick={handleViewClick}
-        onDeleteClick={handleDeleteClick}
-        fileName={fileName}
-      /> */}
-      Table Table
-    </div>
-  );
-};
+    return (
+        <div>
+            <AttendanceTableComponent columns={columns} data={formattedData} />
+        </div>
+    );
+}
 
 export default AdminGroupReport;

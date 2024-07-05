@@ -14,7 +14,7 @@ export const TeacherApi = createApi({
           throw new Error("No token available");
         }
         return {
-          url: `/groups/teacher?active=${query.active}`,
+          url: `/groups/teacher?${query}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
