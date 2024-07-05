@@ -46,7 +46,9 @@ const App = () => {
         </Route>
       )}
 
-      <Route path="feedback-form" element={<FeedbackForm />} />
+      <Route path="student" element={<Outlet />}>
+        <Route path="feedback" element={<FeedbackForm />} />
+      </Route>
       <Route path="logout" element={<UserLogout />} />
 
       {/* Catch-all route */}

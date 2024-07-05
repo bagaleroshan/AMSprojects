@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-import DownloadIcon from "@mui/icons-material/Download";
-import { Box, Button, FormControl, Stack, Typography } from "@mui/material";
-import { Form, Formik } from "formik";
-import { useState } from "react";
+import { Box, FormControl, Stack, Typography } from "@mui/material";
+import { Formik } from "formik";
+import { Form } from "react-router-dom";
 import AdminGroupReport from "../../../adminComponent/AdminGroupReport";
-import { useReadGroupQuery } from "../../../services/api/GroupService";
 import DwSelect from "../../dwComponents/DwSelect";
-=======
-import { Box, Typography } from "@mui/material";
-import AdminAttendanceReport from "../../../adminComponent/AdminAttendanceReport";
->>>>>>> c65230f164636b521b5f831a6bfc23a911cc677d
+import { useReadGroupQuery } from "../../../services/api/GroupService";   
+import { useState } from "react";
 
 const AdminReport = () => {
   const [groupId, setGroupId] = useState("");
@@ -71,7 +66,7 @@ const AdminReport = () => {
               </Select>
             </FormControl> */}
         <Box height={60} />
-        
+
         {/* </Box> */}
         {/* </Box> */}
         <Box height={60} />
