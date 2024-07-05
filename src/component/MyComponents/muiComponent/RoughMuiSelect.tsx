@@ -1,11 +1,10 @@
 import {
   Box,
-  Container,
   FormControl,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Stack,
 } from "@mui/material";
 import { Form, Formik, FormikProps } from "formik";
@@ -14,9 +13,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useReadGroupQuery } from "../../../services/api/GroupService";
 import DwSelect from "../../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../../interfaces/GroupInterface";
-// import groupValidationSchema from "../../validation/groupValidation";
-// import DwSelect from "../dwComponents/DwSelect";
-// import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 
 interface Query {
   page?: number;
@@ -55,17 +51,18 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
     value: value.id,
     label: value.groupName,
   }));
+  const newSelectGroup = [...SelectGroup, { label: "All", value: "" }];
 
   const groupInitialValues = {
-    groups: SelectGroup.length > 0 ? SelectGroup[0].value : "",
+    groups: newSelectGroup.length > 0 ? newSelectGroup[0].value : "",
   };
 
   const [month, setMonth] = React.useState(`${new Date().getMonth() + 1}`);
 
   useEffect(() => {
     setDate(joinYearMonth());
-    if (SelectGroup.length > 0) {
-      setInitialGroupId(SelectGroup[0].value);
+    if (newSelectGroup.length > 0) {
+      setInitialGroupId(newSelectGroup[0].value);
     }
   }, [dataReadGroup]);
 
@@ -78,6 +75,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
   const handleChange = (event: SelectChangeEvent) => {
     setMonth(event.target.value as string);
   };
+  console.log(newSelectGroup);
 
   return (
     <div>
@@ -94,7 +92,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
               <Stack display="flex" direction="row" spacing={5}>
                 <Box sx={{ minWidth: 200 }} component="div">
                   <FormControl fullWidth color="primary">
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <InputLabel id="demo-simple-select-label" />
                     <DwSelect
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -104,7 +102,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
                         formik.setFieldValue("groups", e.target.value);
                         setGroupId(e.target.value);
                       }}
-                      selectLabels={SelectGroup}
+                      selectLabels={newSelectGroup}
                       isLoading={isLoading}
                     />
                   </FormControl>
