@@ -87,7 +87,7 @@ export const FeedbackApi = createApi({
     // particular group feedback
     readFeedbackByGroupId: builder.query({
       query: (id) => {
-        console.log("group_id", id);
+        // console.log("group_id", id);
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
