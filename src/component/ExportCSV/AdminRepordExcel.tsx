@@ -23,13 +23,15 @@ interface UserExportCSVProps {
 const AdminReportExcel: FC<UserExportCSVProps> = ({
   data,
   fileName,
-  groupName,
+  // groupName,
 }) => {
   const handleDownload = async () => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Admin Report");
 
-    const titleRow = worksheet.addRow([`Attendance Report-${groupName}`]);
+    // const titleRow = worksheet.addRow([`Attendance Report-${groupName}`]);
+    const titleRow = worksheet.addRow([`Attendance Report`]);
+
     titleRow.font = { name: "Arial", size: 20, bold: true };
     worksheet.mergeCells("A1", "B1");
     titleRow.alignment = { vertical: "middle", horizontal: "center" };

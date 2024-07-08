@@ -76,7 +76,7 @@ const AdminGroupReport = ({ groupId }) => {
         data={data?.result}
         fileName="Attendance Report"
         // attendanceData={data?.result}
-        groupName={groupId}
+        // groupName={groupId}
       ></AdminReportExcel>
       <AttendanceTableComponent columns={columns} data={formattedData} />
     </div>

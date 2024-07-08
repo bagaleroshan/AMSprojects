@@ -39,7 +39,7 @@ const AdminDashboard = () => {
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll?.message}</div>;
   }
-  console.log(dataCount?.result?.results?.length);
+  // console.log(dataCount?.result?.results?.length);
   return (
     <>
       <div className="teacherDashboard">

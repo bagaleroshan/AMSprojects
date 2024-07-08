@@ -100,5 +100,4 @@ export const {
   useReadMonthlyAttendanceReportQuery,
   useReadAttendanceForGroupQuery,
   useGetTodayAttendanceQuery,
-  // useReadAttendanceForGroupQuery,
 } = AttendanceApi;
