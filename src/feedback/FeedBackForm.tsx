@@ -27,6 +27,9 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import MuiLoadingButtonTheme from "../component/theme/MuiLoadingButtonTheme";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 const FeedbackForm: React.FC = () => {
   const initialFormValues: IFeedback = {
     onTime: 0,
