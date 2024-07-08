@@ -189,6 +189,7 @@ const ShowGroupFeedback = () => {
   } = useReadFeedbackByGroupIdQuery(id);
 
   const feedbacks = dataReadFeedbackById?.result?.results || [];
+  console.log("feedbacks", feedbacks);
 
   // Filter feedbacks based on search query
   const filteredFeedbacks = feedbacks.filter((feedback) =>
