@@ -7,36 +7,27 @@ import { toast } from 'react-toastify';
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
-  const { data: attendanceData, isLoading: attendanceDataIsLoading, isError: attendanceDataIsError } = useReadAllAttendanceQuery(id);
   const { data: groupData, isLoading: groupDataIsLoading, isError: groupDataIsError } = useReadGroupByIdQuery(id);
-  const { data: attendanceDataForThisGroup, isLoading: attendanceForGroupIsLoading, isError: attendanceForGroupIsError } = useReadAttendanceForGroupQuery(id);
-  const [takeAttendance,{isSuccess:isSuccessAttendance,isError:isErrorAttendance}] = useTakeAttendanceMutation();
+  const { data: attendanceData, refetch: refetchAttendanceData, isLoading: attendanceDataIsLoading, isError: attendanceDataIsError } = useReadAllAttendanceQuery(id);
+  const { data: attendanceDataForThisGroup, refetch: refetchAttendanceDataForGroup, isLoading: attendanceForGroupIsLoading, isError: attendanceForGroupIsError } = useReadAttendanceForGroupQuery(id);
+  const [takeAttendance, { isSuccess: isSuccessAttendance, isError: isErrorAttendance }] = useTakeAttendanceMutation();
   const groupDataStudents = groupData?.result?.students || [];
   const [attendanceStatus, setAttendanceStatus] = useState({});
   const [todaysAttendanceExists, setTodaysAttendanceExists] = useState(false);
 
+  useEffect(() => {
+    if (isSuccessAttendance) {
+      toast.success("Successful");
+      refetchAttendanceData();
+      refetchAttendanceDataForGroup();
+    }
+  }, [isSuccessAttendance, refetchAttendanceData, refetchAttendanceDataForGroup]);
 
-  useEffect(()=>{
-    if(isSuccessAttendance)
-      {
-        toast.success("successful")
-
-        setTimeout(()=>{
-        window.location.reload(true)
-
-
-        },4000)
-
-      }
-
-  },[isSuccessAttendance])
-  useEffect(()=>{
-    if(isErrorAttendance)
-      {
-        toast.error("failiuer")
-      }
-
-  },[isSuccessAttendance])
+  useEffect(() => {
+    if (isErrorAttendance) {
+      toast.error("Failure");
+    }
+  }, [isErrorAttendance]);
 
   useEffect(() => {
     if (attendanceData?.result) {
@@ -129,8 +120,6 @@ const UseAttendanceTable = () => {
     }
   };
 
-
-
   const filteredTableData = Object.entries(attendanceByStudent).map(([studentId, data]) => ({
     studentId,
     studentName: data.studentName,
@@ -149,9 +138,7 @@ const UseAttendanceTable = () => {
 
     const data = { date: currentDate, attendance: attendanceDataToLog };
     takeAttendance({ id, data });
-  
   }
- 
 
   return (
     <div>
