@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useReadAllAttendanceQuery, useReadAttendanceForGroupQuery, useTakeAttendanceMutation } from '../../services/api/AttendanceService';
-import AttendanceTableComponent from './AttendanceTableComponent';
-import { useReadGroupByIdQuery } from '../../services/api/GroupService';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import {
+  useReadAllAttendanceQuery,
+  useReadAttendanceForGroupQuery,
+  useTakeAttendanceMutation,
+} from "../../services/api/AttendanceService";
+import AttendanceTableComponent from "./AttendanceTableComponent";
+import { useReadGroupByIdQuery } from "../../services/api/GroupService";
+import { toast } from "react-toastify";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -31,14 +35,20 @@ const UseAttendanceTable = () => {
 
   useEffect(() => {
     if (attendanceData?.result) {
-      const initialAttendanceStatus = groupDataStudents.reduce((acc, student) => {
-        acc[student._id] = 'P'; // Default to 'P' for Present
-        return acc;
-      }, {});
-      attendanceData.result.forEach(student => {
-        student.attendance.forEach(record => {
-          if (new Date(record.date).toDateString() === new Date().toDateString()) {
-            initialAttendanceStatus[student._id || student.studentId] = record.status;
+      const initialAttendanceStatus = groupDataStudents.reduce(
+        (acc, student) => {
+          acc[student._id] = "P"; // Default to 'P' for Present
+          return acc;
+        },
+        {}
+      );
+      attendanceData.result.forEach((student) => {
+        student.attendance.forEach((record) => {
+          if (
+            new Date(record.date).toDateString() === new Date().toDateString()
+          ) {
+            initialAttendanceStatus[student._id || student.studentId] =
+              record.status;
           }
         });
       });
@@ -48,13 +58,19 @@ const UseAttendanceTable = () => {
 
   useEffect(() => {
     if (attendanceDataForThisGroup?.result?.results.length > 0) {
-      const today = new Date().toISOString().split('T')[0];
-      const todayAttendance = attendanceDataForThisGroup.result.results.some(record => record.date.split('T')[0] === today);
+      const today = new Date().toISOString().split("T")[0];
+      const todayAttendance = attendanceDataForThisGroup.result.results.some(
+        (record) => record.date.split("T")[0] === today
+      );
       setTodaysAttendanceExists(todayAttendance);
     }
   }, [attendanceDataForThisGroup]);
 
-  if (attendanceDataIsLoading || groupDataIsLoading || attendanceForGroupIsLoading) {
+  if (
+    attendanceDataIsLoading ||
+    groupDataIsLoading ||
+    attendanceForGroupIsLoading
+  ) {
     return <div>Loading...</div>;
   }
 
@@ -66,7 +82,7 @@ const UseAttendanceTable = () => {
   const lastThreeDays = Array.from({ length: 3 }, (_, index) => {
     const date = new Date(today);
     date.setDate(today.getDate() - index - 1);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   });
 
   const attendanceByStudent = groupDataStudents.reduce((acc, student) => {
@@ -76,36 +92,47 @@ const UseAttendanceTable = () => {
   }, {});
 
   if (attendanceData?.result) {
-    attendanceData.result.forEach(student => {
+    attendanceData.result.forEach((student) => {
       const { _id, studentId, attendance } = student;
       const idToUse = _id || studentId; // Use _id if available, otherwise use studentId
       if (attendanceByStudent[idToUse]) {
-        attendance.forEach(record => {
-          const formattedDate = new Date(record.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-          attendanceByStudent[idToUse].attendance[formattedDate] = record.status;
+        attendance.forEach((record) => {
+          const formattedDate = new Date(record.date).toLocaleDateString(
+            "en-US",
+            { month: "short", day: "numeric" }
+          );
+          attendanceByStudent[idToUse].attendance[formattedDate] =
+            record.status;
         });
       }
     });
   }
 
-  const todayFormatted = today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const todayFormatted = today.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
 
   const columns = [
-    { Header: 'Student Name', accessor: 'studentName' },
-    ...lastThreeDays.map(date => ({
+    { Header: "Student Name", accessor: "studentName" },
+    ...lastThreeDays.map((date) => ({
       Header: date,
       accessor: date,
-      Cell: ({ value }) => value || '-',
+      Cell: ({ value }) => value || "-",
     })),
     {
-      Header: todaysAttendanceExists ? todayFormatted : 'Take Attendance',
-      accessor: 'takeAttendance',
+      Header: todaysAttendanceExists ? todayFormatted : "Take Attendance",
+      accessor: "takeAttendance",
       Cell: ({ row }) => (
         <span
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
           onClick={() => toggleAttendance(row.original.studentId)}
         >
-          {todaysAttendanceExists ? attendanceByStudent[row.original.studentId]?.attendance[todayFormatted] || '-' : attendanceStatus[row.original.studentId] || 'P'}
+          {todaysAttendanceExists
+            ? attendanceByStudent[row.original.studentId]?.attendance[
+                todayFormatted
+              ] || "-"
+            : attendanceStatus[row.original.studentId] || "P"}
         </span>
       ),
     },
@@ -113,9 +140,9 @@ const UseAttendanceTable = () => {
 
   const toggleAttendance = (studentId) => {
     if (!todaysAttendanceExists) {
-      setAttendanceStatus(prev => ({
+      setAttendanceStatus((prev) => ({
         ...prev,
-        [studentId]: prev[studentId] === 'A' ? 'P' : 'A'
+        [studentId]: prev[studentId] === "A" ? "P" : "A",
       }));
     }
   };
@@ -131,10 +158,12 @@ const UseAttendanceTable = () => {
 
   const currentDate = new Date().toISOString();
   const logAttendance = () => {
-    const attendanceDataToLog = Object.entries(attendanceStatus).map(([studentId, status]) => ({
-      studentId,
-      status,
-    }));
+    const attendanceDataToLog = Object.entries(attendanceStatus).map(
+      ([studentId, status]) => ({
+        studentId,
+        status,
+      })
+    );
 
     const data = { date: currentDate, attendance: attendanceDataToLog };
     takeAttendance({ id, data });
@@ -144,7 +173,9 @@ const UseAttendanceTable = () => {
     <div>
       <h1>Attendance Table</h1>
       <AttendanceTableComponent columns={columns} data={filteredTableData} />
-      {!todaysAttendanceExists && <button onClick={logAttendance}>Log Attendance</button>}
+      {!todaysAttendanceExists && (
+        <button onClick={logAttendance}>Log Attendance</button>
+      )}
     </div>
   );
 };

@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
-import { useReadGroupsByTeacherIdQuery } from '../../../services/api/TeacherService';
-import { Form, Formik } from 'formik';
-import { Button, FormControl, Stack, CircularProgress, Typography } from '@mui/material';
-import DwSelect from '../../dwComponents/DwSelect';
-import UseTeacherReportTable from './UseTeacherReportTable';
+import React, { useState } from "react";
+import { useReadGroupsByTeacherIdQuery } from "../../../services/api/TeacherService";
+import { Form, Formik } from "formik";
+import {
+  Button,
+  FormControl,
+  Stack,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
+import DwSelect from "../../dwComponents/DwSelect";
+import UseTeacherReportTable from "./UseTeacherReportTable";
 
 const TeacherReportTable = () => {
-  const { data, isLoading: isLoadingAllGroups, error } = useReadGroupsByTeacherIdQuery("");
-  const [selectedGroupId, setSelectedGroupId] = useState("");
-  
+  const {
+    data,
+    isLoading: isLoadingAllGroups,
+    error,
+  } = useReadGroupsByTeacherIdQuery("");
+  const [selectedGroupId, setSelectedGroupId] = useState("jsjadgsa");
+
   const teachersGroups = data?.result?.results;
   const options = teachersGroups?.map((value) => ({
     label: value.groupName,
-    value: value.id
+    value: value.id,
   }));
 
   if (isLoadingAllGroups) {

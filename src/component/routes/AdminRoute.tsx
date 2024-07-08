@@ -16,6 +16,8 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+import ShowGroupFeedback from "../../feedback/ShowGroupFeedback";
+import RoughRough from "../../feedback/rough";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -74,9 +76,14 @@ const AdminRoute = () => {
           <Route path="update/:id" element={<UpdateGroup />} />
           <Route path=":id" element={<ReadSpecificGroup />} />
         </Route>
+        {/* ------------------------ Feedbacks-------------------------- */}
         <Route path="feedback" element={<Outlet />}>
           <Route index element={<AdminFeedback />} />
+          <Route path=":id" element={<ShowGroupFeedback />} />
         </Route>
+        <Route path="rough" element={<RoughRough />} />
+
+        {/* --------------------------Others------------------------------- */}
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />

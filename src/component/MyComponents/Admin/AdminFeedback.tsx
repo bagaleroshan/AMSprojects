@@ -1,7 +1,9 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { Box, Button, Grid, Paper, Typography, styled } from "@mui/material";
-import { useReadGroupQuery } from "../../../services/api/GroupService";
 import RequestFeedback from "../../../feedback/RequestFeedback";
+import { useReadGroupQuery } from "../../../services/api/GroupService";
+import ShowGroupFeedback from "../../../feedback/ShowGroupFeedback";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,7 +20,7 @@ const AdminFeedback = () => {
     findQuery: "",
     sort: "",
   };
-
+  const navigate = useNavigate();
   const {
     isError: isErrorViewAll,
     data: dataViewAll,
@@ -35,80 +37,141 @@ const AdminFeedback = () => {
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll.message}</div>;
   }
-  console.log(dataViewAll);
+  // console.log(dataViewAll);
 
   return (
     <>
-      <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+      <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
         Feedback
       </Typography>
-      <Box height={30} />
       <Grid container spacing={2}>
-        {resultsArray.length === 0 ? (
-          <p>No groups found.</p>
+        {isLoadingViewAll ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
+              sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
+                "&:hover": {
+                  cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
+              <Typography color="primary" sx={{ color: "black" }}>
+                Loading...
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : resultsArray.length === 0 ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
+              sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
+                "&:hover": {
+                  cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
+              <Typography color="primary" sx={{ color: "black" }}>
+                No classes found.
+              </Typography>
+            </Paper>
+          </Grid>
         ) : (
           resultsArray.map(
             (group, index) =>
-              group.active === true && (
-                <Grid container spacing={2} key={index}>
-                  <Grid item xs={12}>
-                    <Item>
-                      <Grid container>
-                        <Grid
-                          item
-                          xs={2}
-                          sx={{
-                            display: "grid",
-                            placeItems: "center",
-                          }}
-                        >
-                          <LocalLibraryOutlinedIcon
-                            color="success"
-                            fontSize="large"
-                          />
-                        </Grid>
-                        <Grid
-                          item
-                          xs={4}
-                          sx={{
-                            display: "grid",
-                          }}
-                        >
-                          <Typography gutterBottom variant="h6" color="primary">
-                            {group.subject.subjectName}
-                          </Typography>
-                          <Box height={5} />
-                          <Typography variant="body2" color="primary">
-                            Teacher: {group.teacher.fullName}
-                          </Typography>
-                          <Typography variant="body2" color="primary">
-                            Group Name:
-                          </Typography>
-                          <Typography variant="body1" color="primary">
-                            {group.groupName}
-                          </Typography>
-                        </Grid>
-                        <Grid
-                          item
-                          xs={3}
-                          sx={{
-                            display: "grid",
-                            placeItems: "center",
-                          }}
-                        >
-                          <RequestFeedback groupId={group.id} />
-                        </Grid>
-                        <Grid
-                          item
-                          xs={3}
-                          sx={{
-                            display: "grid",
-                            placeItems: "center",
-                          }}
-                        ></Grid>
+              group.active && (
+                <Grid
+                  item
+                  xs={12}
+                  key={index}
+                  onClick={() => navigate(`/admin/feedback/${group.id}`)}
+                >
+                  <Paper
+                    elevation={3}
+                    sx={{
+                      p: 2,
+                      transition: "box-shadow 0.2s ease-in-out",
+                      "&:hover": {
+                        cursor: "pointer",
+                        boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                        transform: "scale(1.01)",
+                      },
+                    }}
+                    // onClick={() => navigate(`/admin/feedback/${group.id}`)}
+                  >
+                    <Grid container spacing={2} alignItems="center">
+                      <Grid
+                        item
+                        xs={2}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <LocalLibraryOutlinedIcon
+                          color="primary"
+                          fontSize="large"
+                        />
                       </Grid>
-                    </Item>
-                  </Grid>
+                      <Grid item xs={4}>
+                        <Typography variant="h6" color="primary" gutterBottom>
+                          {group.subject.subjectName}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          gutterBottom
+                        >
+                          Teacher: {group.teacher.fullName}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          Group Name: {group.groupName}
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={3}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <RequestFeedback groupId={group.id} />
+                      </Grid>
+                      <Grid
+                        item
+                        xs={3}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Button
+                          onClick={() =>
+                            navigate(`/admin/feedback/${group.id}`)
+                          }
+                          color="primary"
+                          variant="contained"
+                        >
+                          Feedbacks
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Paper>
                 </Grid>
               )
           )

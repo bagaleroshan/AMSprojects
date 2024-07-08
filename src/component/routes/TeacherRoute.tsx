@@ -13,7 +13,7 @@ const TeacherRoute = () => {
     <Routes>
       <Route path="/" element={<Outlet />}>
         <Route index element={<TeacherDashboard />} />
-        <Route path=":id" element={<UseAttendance/>} />
+        <Route path=":id" element={<UseAttendance />} />
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />

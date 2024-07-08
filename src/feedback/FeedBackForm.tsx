@@ -16,16 +16,16 @@ import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
 import { showSuccessToast } from "../muiModals/toastConfig";
-import {
-  useCreateFeedbackMutation,
-  useRequestFeedbackMutation,
-} from "../services/api/FeedbackApi";
+import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import MuiLoadingButtonTheme from "../component/theme/MuiLoadingButtonTheme";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -36,12 +36,12 @@ const FeedbackForm: React.FC = () => {
     hasDeliveryPower: 0,
     hasSkills: 0,
     hasInteraction: 0,
-    isClassFretful: 0,
-    isClassComfortable: 0,
+    isClassFruitful: 0,
+    isClassRoomComfortable: 0,
     hasClearConversation: 0,
     doesInternetWork: 0,
     feelChangeOnYourself: 0,
-    thoughts: "",
+    description: "",
   };
 
   const [
@@ -54,7 +54,8 @@ const FeedbackForm: React.FC = () => {
     },
   ] = useCreateFeedbackMutation();
 
-  const handleSubmit = async (values: IFeedback) => {
+  const handleSubmit = (values: IFeedback) => {
+    console.log("values", values);
     createFeedback(values);
   };
 
@@ -79,7 +80,7 @@ const FeedbackForm: React.FC = () => {
       initialValues={initialFormValues}
       onSubmit={handleSubmit}
       validationSchema={feedbackValidationSchema}
-      validateOnBlur={true}
+      // validateOnBlur={true}
     >
       {(formik: FormikProps<IFeedback>) => (
         <Form>
@@ -114,7 +115,7 @@ const FeedbackForm: React.FC = () => {
                     { name: "hasDeliveryPower", label: "Has Delivery Power" },
                     { name: "hasSkills", label: "Has Skills" },
                     { name: "hasInteraction", label: "Has Interaction" },
-                    { name: "isClassFretful", label: "Is Class Fretful" },
+                    { name: "isClassFruitful", label: "Is Class Fruitful" },
                     {
                       name: "isClassRoomComfortable",
                       label: "Is Class Comfortable",
@@ -152,8 +153,8 @@ const FeedbackForm: React.FC = () => {
                             value={formik.values[item.name as keyof IFeedback]}
                             onChange={(event, newValue) => {
                               console.log(
-                                "item.name",
-                                item.name + "Value",
+                                "Item Name:",
+                                item.name + " and Value:",
                                 newValue
                               );
                               formik.setFieldValue(item.name, newValue);
@@ -174,38 +175,38 @@ const FeedbackForm: React.FC = () => {
                     <FormControl
                       fullWidth
                       error={
-                        formik.touched.thoughts &&
-                        Boolean(formik.errors.thoughts)
+                        formik.touched.description &&
+                        Boolean(formik.errors.description)
                       }
                     >
                       <FormLabel>Your Thoughts</FormLabel>
                       <ReactQuill
-                        value={formik.values.thoughts}
-                        onChange={(content) =>
-                          formik.setFieldValue("thoughts", content)
+                        value={formik.values.description}
+                        onChange={(content) => {
+                          formik.setFieldValue("description", content);
+                        }}
+                        onBlur={() =>
+                          formik.setFieldTouched("description", true)
                         }
-                        onBlur={() => formik.setFieldTouched("thoughts", true)}
                         theme="snow"
                       />
-                      {formik.touched.thoughts && formik.errors.thoughts && (
-                        <FormHelperText>
-                          {formik.errors.thoughts}
-                        </FormHelperText>
-                      )}
+                      {formik.touched.description &&
+                        formik.errors.description && (
+                          <FormHelperText>
+                            {formik.errors.description}
+                          </FormHelperText>
+                        )}
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
+                    {/* <MuiLoadingButtonTheme
+                      type="submit"
+                      onClick={handleSubmit}
+                      buttonName="Submit"
+                      isLoading={isLoadingSubmitFeedback}
+                    /> */}
                     <Box textAlign="center">
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={
-                          !formik.isValid ||
-                          formik.isSubmitting ||
-                          isLoadingSubmitFeedback
-                        }
-                      >
+                      <Button type="submit" variant="contained" color="primary">
                         {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
                       </Button>
                     </Box>
@@ -221,3 +222,20 @@ const FeedbackForm: React.FC = () => {
 };
 
 export default FeedbackForm;
+
+/* 
+<Box textAlign="center">
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={
+                          !formik.isValid ||
+                          formik.isSubmitting ||
+                          isLoadingSubmitFeedback
+                        }
+                      >
+                        {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
+                      </Button>
+                    </Box>
+*/

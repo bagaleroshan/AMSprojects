@@ -31,7 +31,8 @@ const RequestFeedback: React.FC<RequestFeedbackProps> = ({ groupId }) => {
     }
   }, [isErrorRequestFeedback, errorRequestFeedback]);
 
-  const handleRequestFeedback = () => {
+  const handleRequestFeedback = (e) => {
+    e.stopPropagation(); // Stop event propagation to parent elements
     requestFeedback(groupId);
   };
 
