@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import {
   useReadAllAttendanceQuery,
   useReadAttendanceForGroupQuery,
   useTakeAttendanceMutation,
 } from "../../services/api/AttendanceService";
-import { useReadGroupByIdQuery } from "../../services/api/GroupService";
 import AttendanceTableComponent from "./AttendanceTableComponent";
+import { useReadGroupByIdQuery } from "../../services/api/GroupService";
+import { toast } from "react-toastify";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -33,12 +33,6 @@ const UseAttendanceTable = () => {
   const groupDataStudents = groupData?.result?.students || [];
   const [attendanceStatus, setAttendanceStatus] = useState({});
   const [todaysAttendanceExists, setTodaysAttendanceExists] = useState(false);
-
-  useEffect(() => {
-    if (isSuccessAttendance) {
-      toast.success("successful");
-    }
-  });
 
   useEffect(() => {
     if (isSuccessAttendance) {
