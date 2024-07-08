@@ -66,8 +66,10 @@ export const FeedbackApi = createApi({
       },
       invalidatesTags: ["readFeedbacks", "readFeedbacksById"],
     }),
+    // particular feedback
     readFeedbackById: builder.query({
       query: (id) => {
+        // console.log("id", id);
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
@@ -81,6 +83,23 @@ export const FeedbackApi = createApi({
         };
       },
       providesTags: ["readFeedbacksById"],
+    }),
+    // particular group feedback
+    readFeedbackByGroupId: builder.query({
+      query: (id) => {
+        // console.log("group_id", id);
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/feedbacks?groupId=${id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
     }),
     deleteFeedback: builder.mutation({
       query: (id) => {
@@ -123,6 +142,7 @@ export const {
   useCreateFeedbackMutation,
   useUpdateFeedbackMutation,
   useReadFeedbackByIdQuery,
+  useReadFeedbackByGroupIdQuery,
   useDeleteFeedbackMutation,
   useReadFeedbackQuery,
   useRequestFeedbackMutation,

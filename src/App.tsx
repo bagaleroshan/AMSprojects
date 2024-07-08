@@ -8,8 +8,8 @@ import ForgotPassword from "./component/user/ForgotPassword";
 import ResetPassword from "./component/user/ResetPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
-import { RootState } from "./store/store";
 import FeedbackForm from "./feedback/FeedBackForm";
+import { RootState } from "./store/store";
 
 const App = () => {
   const adminToken = useSelector((store: RootState) => store.user.adminToken);
@@ -45,7 +45,6 @@ const App = () => {
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>
       )}
-
       <Route path="feedback-form" element={<FeedbackForm />} />
       <Route path="logout" element={<UserLogout />} />
 

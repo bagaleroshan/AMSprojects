@@ -37,6 +37,12 @@ const UseAttendanceTable = () => {
   useEffect(() => {
     if (isSuccessAttendance) {
       toast.success("successful");
+    }
+  });
+
+  useEffect(() => {
+    if (isSuccessAttendance) {
+      toast.success("successful");
 
       setTimeout(() => {
         window.location.reload(true);

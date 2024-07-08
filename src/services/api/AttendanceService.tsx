@@ -98,6 +98,7 @@ export const {
   useTakeAttendanceMutation,
   useReadAllAttendanceQuery,
   useReadMonthlyAttendanceReportQuery,
+  useReadAttendanceForGroupQuery,
   useGetTodayAttendanceQuery,
   useReadAttendanceForGroupQuery,
 } = AttendanceApi;

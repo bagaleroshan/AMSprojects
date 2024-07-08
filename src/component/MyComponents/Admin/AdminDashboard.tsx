@@ -32,13 +32,15 @@ const AdminDashboard = () => {
     isLoading: isLoadingViewAll,
   } = useReadGroupQuery(query);
   const resultsArray = dataViewAll?.result?.results || [];
+  console.log(resultsArray);
   if (isLoadingViewAll) {
     return <div>Loading...</div>;
   }
   if (isErrorViewAll) {
-    return <div>Error: {errorViewAll.message}</div>;
+    return <div>Error: {errorViewAll?.message}</div>;
   }
   // console.log(dataCount.result.results.length);
+  // console.log(dataCount?.result?.results?.length);
   return (
     <>
       <div className="teacherDashboard">
@@ -70,8 +72,8 @@ const AdminDashboard = () => {
                         Today's Class Count
                       </Typography>
                       <Typography variant="h3" sx={{ color: "blue" }}>
-                        {completedCount.result.count}/
-                        {dataCount.result.results.length}
+                        {completedCount?.result.count}/
+                        {dataCount?.result?.results?.length}
                       </Typography>
                     </Stack>
                   </Box>
