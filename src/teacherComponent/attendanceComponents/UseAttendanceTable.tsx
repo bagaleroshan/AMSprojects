@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   useReadAllAttendanceQuery,
   useReadAttendanceForGroupQuery,
   useTakeAttendanceMutation,
 } from "../../services/api/AttendanceService";
-import AttendanceTableComponent from "./AttendanceTableComponent";
 import { useReadGroupByIdQuery } from "../../services/api/GroupService";
-import { toast } from "react-toastify";
+import AttendanceTableComponent from "./AttendanceTableComponent";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -37,6 +37,12 @@ const UseAttendanceTable = () => {
   useEffect(() => {
     if (isSuccessAttendance) {
       toast.success("successful");
+    }
+  });
+
+  useEffect(() => {
+    if (isSuccessAttendance) {
+      toast.success("successful");
 
       setTimeout(() => {
         window.location.reload(true);
@@ -45,7 +51,7 @@ const UseAttendanceTable = () => {
   }, [isSuccessAttendance]);
   useEffect(() => {
     if (isErrorAttendance) {
-      toast.error("failuer");
+      toast.error("failiuer");
     }
   }, [isSuccessAttendance]);
 

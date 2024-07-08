@@ -1,7 +1,9 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { Box, Button, Grid, Paper, Typography, styled } from "@mui/material";
-import { useReadGroupQuery } from "../../../services/api/GroupService";
 import RequestFeedback from "../../../feedback/RequestFeedback";
+import { useReadGroupQuery } from "../../../services/api/GroupService";
+import ShowGroupFeedback from "../../../feedback/ShowGroupFeedback";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,7 +20,7 @@ const AdminFeedback = () => {
     findQuery: "",
     sort: "",
   };
-
+  const navigate = useNavigate();
   const {
     isError: isErrorViewAll,
     data: dataViewAll,
@@ -45,7 +47,22 @@ const AdminFeedback = () => {
       <Box height={30} />
       <Grid container spacing={2}>
         {resultsArray.length === 0 ? (
-          <p>No groups found.</p>
+          <Box>
+            <Box height={30} />
+            <Paper
+              elevation={1}
+              sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography color="primary" sx={{ color: "black" }}>
+                Not a single classes yet.
+              </Typography>
+            </Paper>
+          </Box>
         ) : (
           resultsArray.map(
             (group, index) =>
@@ -105,7 +122,17 @@ const AdminFeedback = () => {
                             display: "grid",
                             placeItems: "center",
                           }}
-                        ></Grid>
+                        >
+                          <Button
+                            onClick={() =>
+                              navigate(`/admin/feedback/${group.id}`)
+                            }
+                            color="primary"
+                            variant="contained"
+                          >
+                            Feedbacks
+                          </Button>
+                        </Grid>
                       </Grid>
                     </Item>
                   </Grid>
