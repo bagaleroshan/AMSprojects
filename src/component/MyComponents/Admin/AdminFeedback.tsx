@@ -103,7 +103,7 @@ const AdminFeedback = () => {
                         transform: "scale(1.01)",
                       },
                     }}
-                    onClick={() => navigate(`/admin/feedback/${group.id}`)}
+                    // onClick={() => navigate(`/admin/feedback/${group.id}`)}
                   >
                     <Grid container spacing={2} alignItems="center">
                       <Grid
