@@ -1,5 +1,5 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Box, Button, Grid, Paper, Typography, styled } from "@mui/material";
+import { Box, Grid, Paper, Typography, styled } from "@mui/material";
 import { useReadGroupQuery } from "../../../services/api/GroupService";
 import RequestFeedback from "../../../feedback/RequestFeedback";
 

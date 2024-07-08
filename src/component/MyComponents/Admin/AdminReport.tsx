@@ -1,10 +1,7 @@
-import { Box, FormControl, Stack, Typography } from "@mui/material";
-import { Formik } from "formik";
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import { Form } from "react-router-dom";
 import AdminGroupReport from "../../../adminComponent/AdminGroupReport";
 import { useReadGroupQuery } from "../../../services/api/GroupService";
-import DwSelect from "../../dwComponents/DwSelect";
 
 const AdminReport = () => {
   const [groupId, setGroupId] = useState("");
@@ -30,7 +27,7 @@ const AdminReport = () => {
         </Typography>
         <Box height={60} />
         {/* <AdminAttendanceReport /> */}
-        <Formik initialValues={{ groupName: groups.groupName || "" }}>
+        {/* <Formik initialValues={{ groupName: groups.groupName || "" }}>
           {(formik) => {
             return (
               <Form>
@@ -52,7 +49,7 @@ const AdminReport = () => {
               </Form>
             );
           }}
-        </Formik>
+        </Formik> */}
         <Box height={60} />
         {/* <FormControl sx={{ m: 1, width: "100%" }} size="small">
               <Select value={age} onChange={handleChange} displayEmpty>
