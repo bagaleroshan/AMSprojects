@@ -8,56 +8,74 @@ import {
 import AttendanceTableComponent from "./AttendanceTableComponent";
 import { useReadGroupByIdQuery } from "../../services/api/GroupService";
 import { toast } from "react-toastify";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../utils/utils";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
   const {
+    data: groupData,
+    isLoading: groupDataIsLoading,
+    isError: groupDataIsError,
+    error: groupError,
+  } = useReadGroupByIdQuery(id);
+  const {
     data: attendanceData,
+    refetch: refetchAttendanceData,
     isLoading: attendanceDataIsLoading,
     isError: attendanceDataIsError,
   } = useReadAllAttendanceQuery(id);
   const {
-    data: groupData,
-    isLoading: groupDataIsLoading,
-    isError: groupDataIsError,
-  } = useReadGroupByIdQuery(id);
-  const {
     data: attendanceDataForThisGroup,
+    refetch: refetchAttendanceDataForGroup,
     isLoading: attendanceForGroupIsLoading,
     isError: attendanceForGroupIsError,
   } = useReadAttendanceForGroupQuery(id);
   const [
     takeAttendance,
-    { isSuccess: isSuccessAttendance, isError: isErrorAttendance },
+    {
+      isSuccess: isSuccessAttendance,
+      isError: isErrorAttendance,
+      error: takeAttendanceError,
+      data: isSuccessTakeAttendance,
+    },
   ] = useTakeAttendanceMutation();
   const groupDataStudents = groupData?.result?.students || [];
   const [attendanceStatus, setAttendanceStatus] = useState({});
   const [todaysAttendanceExists, setTodaysAttendanceExists] = useState(false);
 
   useEffect(() => {
-    if (isSuccessAttendance) {
-      toast.success("successful");
-
-      setTimeout(() => {
-        window.location.reload(true);
-      }, 4000);
-    }
-  }, [isSuccessAttendance]);
-  useEffect(() => {
     if (isErrorAttendance) {
-      toast.error("failiuer");
+      if (isFetchBaseQueryError(takeAttendanceError)) {
+        toast.error(getErrorMessage(takeAttendanceError), { autoClose: 5000 });
+      } else if (isSerializedError(takeAttendanceError)) {
+        toast.error(takeAttendanceError?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
     }
-  }, [isSuccessAttendance]);
+  }, [isErrorAttendance, takeAttendanceError]);
+
+  useEffect(() => {
+    if (isSuccessAttendance) {
+      toast.success(isSuccessTakeAttendance.message, {
+        autoClose: 3000,
+      });
+      // Refetch attendance data
+      refetchAttendanceData();
+      refetchAttendanceDataForGroup();
+    }
+  }, [isSuccessAttendance, isSuccessTakeAttendance, refetchAttendanceData, refetchAttendanceDataForGroup]);
 
   useEffect(() => {
     if (attendanceData?.result) {
-      const initialAttendanceStatus = groupDataStudents.reduce(
-        (acc, student) => {
-          acc[student._id] = "P"; // Default to 'P' for Present
-          return acc;
-        },
-        {}
-      );
+      const initialAttendanceStatus = groupDataStudents.reduce((acc, student) => {
+        acc[student._id] = "P"; // Default to 'P' for Present
+        return acc;
+      }, {});
       attendanceData.result.forEach((student) => {
         student.attendance.forEach((record) => {
           if (
@@ -140,7 +158,7 @@ const UseAttendanceTable = () => {
       Header: todaysAttendanceExists ? todayFormatted : "Take Attendance",
       accessor: "takeAttendance",
       Cell: ({ row }) => (
-        <span
+        <div
           style={{ cursor: "pointer" }}
           onClick={() => toggleAttendance(row.original.studentId)}
         >
@@ -149,7 +167,7 @@ const UseAttendanceTable = () => {
                 todayFormatted
               ] || "-"
             : attendanceStatus[row.original.studentId] || "P"}
-        </span>
+        </div>
       ),
     },
   ];

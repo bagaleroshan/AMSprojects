@@ -98,7 +98,7 @@ export const AddStudentsToGroup = ({ id }) => {
           justifyContent: "center",
         }}
       >
-        <ModalContent sx={{ width: 600, height: 250 }}>
+        <ModalContent sx={{ width: 800, minHeight:600,maxHeight:'90%',overflowY:'auto' }}>
           <Typography id="modal-title" variant="h6" component="h2">
             Add Students to Group
           </Typography>
@@ -143,9 +143,7 @@ export const AddStudentsToGroup = ({ id }) => {
           </Grid>
         </ModalContent>
       </MuiModal>
-      <button type="submit" onClick={handleOpen}>
-        Add
-      </button>
+      <MuiLoadingButtonTheme buttonName="Add" onClick={handleOpen} isLoading={false} ></MuiLoadingButtonTheme>
     </div>
   );
 };
