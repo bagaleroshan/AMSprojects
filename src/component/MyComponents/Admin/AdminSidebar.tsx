@@ -233,7 +233,9 @@ export default function AdminSidebar() {
                     location.pathname === "/admin/students" ||
                     location.pathname === "/admin/students/create" ||
                     location.pathname === "/admin/subjects" ||
-                    location.pathname === "/admin/subjects/create"
+                    location.pathname === "/admin/subjects/create" ||
+                    location.pathname === "/admin/groups" ||
+                    location.pathname === "/admin/groups/create"
                       ? "rgba(239,249,255,1)"
                       : "default",
                   color:
@@ -242,7 +244,9 @@ export default function AdminSidebar() {
                     location.pathname === "/admin/subjects" ||
                     location.pathname === "/admin/subjects/create" ||
                     location.pathname === "/admin/students" ||
-                    location.pathname === "/admin/students/create"
+                    location.pathname === "/admin/students/create" ||
+                    location.pathname === "/admin/groups" ||
+                    location.pathname === "/admin/groups/create"
                       ? "#0195CF"
                       : "default",
                 }}
@@ -270,7 +274,9 @@ export default function AdminSidebar() {
                           location.pathname === "/admin/subjects" ||
                           location.pathname === "/admin/subjects/create" ||
                           location.pathname === "/admin/students" ||
-                          location.pathname === "/admin/students/create"
+                          location.pathname === "/admin/students/create" ||
+                          location.pathname === "/admin/groups" ||
+                          location.pathname === "/admin/groups/create"
                             ? "#0195CF"
                             : "default",
                       }}
@@ -376,7 +382,7 @@ export default function AdminSidebar() {
                           color: "#0195CF",
                         },
                         color:
-                          location.pathname === "/admin/class"
+                          location.pathname === "/admin/courses"
                             ? "#0195CF"
                             : "default",
                       }}
