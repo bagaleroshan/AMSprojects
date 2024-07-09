@@ -98,7 +98,7 @@ export const AddStudentsToGroup = ({ id }) => {
           justifyContent: "center",
         }}
       >
-        <ModalContent sx={{ width: 600, height: 250 }}>
+        <ModalContent sx={{ width: 800, height:'90%' }}>
           <Typography id="modal-title" variant="h6" component="h2">
             Add Students to Group
           </Typography>

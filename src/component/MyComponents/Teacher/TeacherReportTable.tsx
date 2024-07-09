@@ -17,7 +17,7 @@ const TeacherReportTable = () => {
     isLoading: isLoadingAllGroups,
     error,
   } = useReadGroupsByTeacherIdQuery("");
-  const [selectedGroupId, setSelectedGroupId] = useState("hello");
+  const [selectedGroupId, setSelectedGroupId] = useState("jsjadgsa");
 
   const teachersGroups = data?.result?.results;
   const options = teachersGroups?.map((value) => ({

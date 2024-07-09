@@ -38,7 +38,7 @@ const AdminFeedback = () => {
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll.message}</div>;
   }
-  console.log(dataViewAll);
+  // console.log(dataViewAll);
 
   return (
     <>
@@ -92,7 +92,12 @@ const AdminFeedback = () => {
           resultsArray.map(
             (group, index) =>
               group.active && (
-                <Grid item xs={12} key={index}>
+                <Grid
+                  item
+                  xs={12}
+                  key={index}
+                  onClick={() => navigate(`/admin/feedback/${group.id}`)}
+                >
                   <Paper
                     elevation={3}
                     sx={{
@@ -104,7 +109,7 @@ const AdminFeedback = () => {
                         transform: "scale(1.01)",
                       },
                     }}
-                    onClick={() => navigate(`/admin/feedback/${group.id}`)}
+                    // onClick={() => navigate(`/admin/feedback/${group.id}`)}
                   >
                     <Grid container spacing={2} alignItems="center">
                       <Grid

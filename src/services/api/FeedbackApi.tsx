@@ -93,7 +93,7 @@ export const FeedbackApi = createApi({
           throw new Error("No token available");
         }
         return {
-          url: `/feedbacks?groupId=${id}`,
+          url: `/feedbacks/group/${id}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

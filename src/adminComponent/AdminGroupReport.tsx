@@ -1,7 +1,8 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useReadAllAttendanceQuery } from "../services/api/AttendanceService";
 import AttendanceTableComponent from "../teacherComponent/attendanceComponents/AttendanceTableComponent";
+import { CircularProgress, Box, Typography } from "@mui/material";
+import AdminReportExcel from "../component/ExportCSV/AdminRepordExcel";
 
 const AdminGroupReport = ({ groupId }) => {
   const { data, isLoading, error, refetch } =
@@ -72,6 +73,12 @@ const AdminGroupReport = ({ groupId }) => {
 
   return (
     <div>
+      <AdminReportExcel
+        data={data?.result}
+        fileName="Attendance Report"
+        // attendanceData={data?.result}
+        // groupName={groupId}
+      ></AdminReportExcel>
       <AttendanceTableComponent columns={columns} data={formattedData} />
     </div>
   );

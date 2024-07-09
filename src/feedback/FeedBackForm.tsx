@@ -12,8 +12,6 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
-import React, { useEffect } from "react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
@@ -25,6 +23,8 @@ import {
   isSerializedError,
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const FeedbackForm: React.FC = () => {
   const initialFormValues: IFeedback = {
