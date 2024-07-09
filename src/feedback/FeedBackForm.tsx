@@ -13,8 +13,13 @@ import {
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
 import React, { useEffect } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
+import { clearToken, setRole, setToken } from "../features/userSlice";
 import { showSuccessToast } from "../muiModals/toastConfig";
 import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
@@ -23,9 +28,6 @@ import {
   isSerializedError,
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
-import MuiLoadingButtonTheme from "../component/theme/MuiLoadingButtonTheme";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const FeedbackForm: React.FC = () => {
   const initialFormValues: IFeedback = {
@@ -51,16 +53,24 @@ const FeedbackForm: React.FC = () => {
     },
   ] = useCreateFeedbackMutation();
 
+  const dispatch = useDispatch();
+  dispatch(setRole("student"));
+  const [data] = useSearchParams();
+  const token = data.get("token") || "";
+  // console.log("token****", data.get("token"));
+  dispatch(setToken(token));
+
   const handleSubmit = (values: IFeedback) => {
-    console.log("values", values);
+    // console.log("values", values);
     createFeedback(values);
   };
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
       showSuccessToast("Feedback submitted successfully.");
+      dispatch(clearToken());
     }
-  }, [isSuccessSubmitFeedback]);
+  }, [isSuccessSubmitFeedback, dispatch]);
 
   useEffect(() => {
     if (isErrorSubmitFeedback) {
@@ -148,12 +158,12 @@ const FeedbackForm: React.FC = () => {
                           <Rating
                             name={item.name}
                             value={formik.values[item.name as keyof IFeedback]}
-                            onChange={(event, newValue) => {
-                              console.log(
-                                "Item Name:",
-                                item.name + " and Value:",
-                                newValue
-                              );
+                            onChange={(newValue) => {
+                              // console.log(
+                              //   "Item Name:",
+                              //   item.name + " and Value:",
+                              //   newValue
+                              // );
                               formik.setFieldValue(item.name, newValue);
                             }}
                             precision={1}
