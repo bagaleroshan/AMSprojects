@@ -102,8 +102,14 @@ const TableComponent: React.FC<TableComponentProps> = ({
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     const selectedPage = selectedItem.selected + 1;
+    
+    // Clear selected rows and data
+    setSelectedRows(new Set());
+    setSelectedRowData([]);
+
     handleQueryChange({ page: selectedPage });
   };
+
   const handleEditClick = () => {
     onEditClick(selectedRowData);
   };
@@ -123,7 +129,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
   const renderSortIcon = (accessor: string) => {
     const sortField = currentSort.find((sort) => sort.includes(accessor));
     if (sortField) {
-      // return sortField.startsWith("-") ? "↓" : "↑";
       return sortField.startsWith("-") ? (
         <ArrowDownwardIcon style={{ fontSize: "16px" }} className="sort-icon" />
       ) : (
@@ -208,9 +213,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
               ),
             }}
           />
-          <Box sx={{}}>
-            <SubjectExportCSV data={data} fileName={fileName} />
-          </Box>
+         
         </Stack>
         {selectedRows.size > 0 && (
           <Stack display="flex" direction="row" spacing={0.5}>
@@ -309,48 +312,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
         </div>
       </div>
 
-      {/* <Table {...getTableProps()}>
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              <TableCell>Select</TableCell>
-              {headerGroup.headers.map((column) => (
-                <TableCell
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  style={{ width: column.width || "auto" }}
-                  onClick={() => handleSort(column.id)}
-                >
-                  {column.render("Header")}
-                  {renderSortIcon(column.id)}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody {...getTableBodyProps()}>
-          {page.map((row, index) => {
-            prepareRow(row);
-            return (
-              <TableRow
-                {...row.getRowProps()}
-                onClick={() => handleRowClick(index)}
-              >
-                <TableCell>
-                  <Checkbox
-                    checked={selectedRows.has(index)}
-                    onChange={(e) => e.stopPropagation()} // prevent row click
-                  />
-                </TableCell>
-                {row.cells.map((cell) => (
-                  <TableCell {...cell.getCellProps()}>
-                    {cell.render("Cell")}
-                  </TableCell>
-                ))}
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table> */}
       <div>
         <Box height={15} />
         {data.length === 0 ? (
