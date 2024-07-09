@@ -1,59 +1,37 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import {
   useReadAllAttendanceQuery,
   useReadAttendanceForGroupQuery,
   useTakeAttendanceMutation,
 } from "../../services/api/AttendanceService";
-import { useReadGroupByIdQuery } from "../../services/api/GroupService";
 import AttendanceTableComponent from "./AttendanceTableComponent";
+import { useReadGroupByIdQuery } from "../../services/api/GroupService";
+import { toast } from "react-toastify";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
-  const {
-    data: attendanceData,
-    isLoading: attendanceDataIsLoading,
-    isError: attendanceDataIsError,
-  } = useReadAllAttendanceQuery(id);
-  const {
-    data: groupData,
-    isLoading: groupDataIsLoading,
-    isError: groupDataIsError,
-  } = useReadGroupByIdQuery(id);
-  const {
-    data: attendanceDataForThisGroup,
-    isLoading: attendanceForGroupIsLoading,
-    isError: attendanceForGroupIsError,
-  } = useReadAttendanceForGroupQuery(id);
-  const [
-    takeAttendance,
-    { isSuccess: isSuccessAttendance, isError: isErrorAttendance },
-  ] = useTakeAttendanceMutation();
+  const { data: groupData, isLoading: groupDataIsLoading, isError: groupDataIsError } = useReadGroupByIdQuery(id);
+  const { data: attendanceData, refetch: refetchAttendanceData, isLoading: attendanceDataIsLoading, isError: attendanceDataIsError } = useReadAllAttendanceQuery(id);
+  const { data: attendanceDataForThisGroup, refetch: refetchAttendanceDataForGroup, isLoading: attendanceForGroupIsLoading, isError: attendanceForGroupIsError } = useReadAttendanceForGroupQuery(id);
+  const [takeAttendance, { isSuccess: isSuccessAttendance, isError: isErrorAttendance }] = useTakeAttendanceMutation();
   const groupDataStudents = groupData?.result?.students || [];
   const [attendanceStatus, setAttendanceStatus] = useState({});
   const [todaysAttendanceExists, setTodaysAttendanceExists] = useState(false);
 
   useEffect(() => {
     if (isSuccessAttendance) {
-      toast.success("successful");
+      toast.success("Successful");
+      refetchAttendanceData();
+      refetchAttendanceDataForGroup();
     }
-  });
+  }, [isSuccessAttendance, refetchAttendanceData, refetchAttendanceDataForGroup]);
 
-  useEffect(() => {
-    if (isSuccessAttendance) {
-      toast.success("successful");
-
-      setTimeout(() => {
-        window.location.reload(true);
-      }, 4000);
-    }
-  }, [isSuccessAttendance]);
   useEffect(() => {
     if (isErrorAttendance) {
-      toast.error("failiuer");
+      toast.error("Failure");
     }
-  }, [isSuccessAttendance]);
+  }, [isErrorAttendance]);
 
   useEffect(() => {
     if (attendanceData?.result) {
@@ -169,16 +147,14 @@ const UseAttendanceTable = () => {
     }
   };
 
-  const filteredTableData = Object.entries(attendanceByStudent).map(
-    ([studentId, data]) => ({
-      studentId,
-      studentName: data.studentName,
-      ...lastThreeDays.reduce((acc, date) => {
-        acc[date] = data.attendance[date] || "-";
-        return acc;
-      }, {}),
-    })
-  );
+  const filteredTableData = Object.entries(attendanceByStudent).map(([studentId, data]) => ({
+    studentId,
+    studentName: data.studentName,
+    ...lastThreeDays.reduce((acc, date) => {
+      acc[date] = data.attendance[date] || '-';
+      return acc;
+    }, {}),
+  }));
 
   const currentDate = new Date().toISOString();
   const logAttendance = () => {
@@ -191,7 +167,7 @@ const UseAttendanceTable = () => {
 
     const data = { date: currentDate, attendance: attendanceDataToLog };
     takeAttendance({ id, data });
-  };
+  }
 
   return (
     <div>

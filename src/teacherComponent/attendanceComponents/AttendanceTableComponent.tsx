@@ -1,4 +1,3 @@
-import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 
 const AttendanceTableComponent = ({ columns, data }) => {

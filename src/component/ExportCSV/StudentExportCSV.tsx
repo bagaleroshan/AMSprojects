@@ -6,10 +6,10 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { LightTooltip } from "../theme/MuiSidebarTheme";
 
 interface DataItem {
-  id: string;
-  fullName: string;
-  email: string;
-  phoneNumber: string;
+  studentName: string;
+  // fullName: string;
+  // email: string;
+  // phoneNumber: string;
 }
 
 interface UserExportCSVProps {
@@ -23,10 +23,10 @@ const StudentExportCSV: FC<UserExportCSVProps> = ({ data, fileName }) => {
     const worksheet = workbook.addWorksheet("Subjects");
 
     const columns = [
-      { header: "Id", key: "id" },
-      { header: "Name", key: "fullName" },
-      { header: "Email", key: "email" },
-      { header: "PhoneNumber", key: "phoneNumber" },
+      { header: "Student Name", key: "studentName" },
+      // { header: "Name", key: "fullName" },
+      // { header: "Email", key: "email" },
+      // { header: "PhoneNumber", key: "phoneNumber" },
     ];
 
     worksheet.columns = columns.map((col) => ({
