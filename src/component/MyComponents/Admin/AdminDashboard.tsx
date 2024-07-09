@@ -82,7 +82,6 @@ const AdminDashboard = () => {
             <Grid item xs={6}>
               <Card sx={{ height: 64 + "vh" }}>
                 <CardContent>
-                  {/* <LineChart /> */}
                   <AdminMonthlyChart />
                 </CardContent>
               </Card>

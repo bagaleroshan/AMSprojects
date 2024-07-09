@@ -51,7 +51,8 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
     value: value.id,
     label: value.groupName,
   }));
-  const newSelectGroup = [...SelectGroup, { label: "All", value: "" }];
+  let all = ""
+  const newSelectGroup = [...SelectGroup, { value: 'All', label: "All" }];
 
   const groupInitialValues = {
     groups: newSelectGroup.length > 0 ? newSelectGroup[0].value : "",
@@ -100,7 +101,12 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
                       label="Group"
                       onChange={(e) => {
                         formik.setFieldValue("groups", e.target.value);
+                        if(e.target.value==="All"){
+                          setGroupId("")
+                        }else {
                         setGroupId(e.target.value);
+
+                        }
                       }}
                       selectLabels={newSelectGroup}
                       isLoading={isLoading}
