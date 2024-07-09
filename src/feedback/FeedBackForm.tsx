@@ -23,7 +23,7 @@ import {
   isSerializedError,
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import MuiLoadingButtonTheme from "../component/theme/MuiLoadingButtonTheme";
 
