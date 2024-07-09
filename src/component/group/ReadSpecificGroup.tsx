@@ -90,12 +90,12 @@ const ReadSpecificGroup = () => {
               </React.Fragment>
             </Paper>
           </Grid>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+          <Grid item xs={4}>
+            {/* <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}> */}
               <Link color="primary" sx={{ mt: 3 }}>
                 <AddStudentsToGroup id={id} />
               </Link>
-            </Paper>
+            {/* </Paper> */}
           </Grid>
           <Grid item xs={12}>
             <StudentsInGroup id={id} />
