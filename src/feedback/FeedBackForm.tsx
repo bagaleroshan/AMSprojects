@@ -12,11 +12,12 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
+import { useEffect, useRef } from "react";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
-import { clearToken, setRole, setToken } from "../features/userSlice";
-import { showSuccessToast } from "../muiModals/toastConfig";
 import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
@@ -24,9 +25,6 @@ import {
   isSerializedError,
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { useEffect, useRef } from "react";
 
 const FeedbackForm: React.FC = () => {
   const initialFormValues: IFeedback = {
@@ -52,12 +50,13 @@ const FeedbackForm: React.FC = () => {
     },
   ] = useCreateFeedbackMutation();
 
-  const dispatch = useDispatch();
-  dispatch(setRole("student"));
+  const navigate = useNavigate();
+
   const [data] = useSearchParams();
   const token = data.get("token") || "";
+  // localStorage.setItem("studenttoken", token);
+  sessionStorage.setItem("studenttoken", token);
   // console.log("token****", data.get("token"));
-  dispatch(setToken(token));
 
   const handleSubmit = (values: IFeedback) => {
     // console.log("values", values);
@@ -66,10 +65,11 @@ const FeedbackForm: React.FC = () => {
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
-      showSuccessToast("Feedback submitted successfully.");
-      dispatch(clearToken());
+      // showSuccessToast("Feedback submitted successfully.");
+      navigate("/feedback-taken");
+      sessionStorage.removeItem("token");
     }
-  }, [isSuccessSubmitFeedback, dispatch]);
+  }, [isSuccessSubmitFeedback, navigate]);
 
   useEffect(() => {
     if (isErrorSubmitFeedback) {

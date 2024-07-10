@@ -9,6 +9,7 @@ import ResetPassword from "./component/user/ResetPassword";
 import UserLogin from "./component/user/UserLogin";
 import UserLogout from "./component/user/UserLogout";
 import FeedbackForm from "./feedback/FeedBackForm";
+import FeedbackTaken from "./feedback/FeedbackTaken";
 import { RootState } from "./store/store";
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
         </Route>
       )}
       <Route path="feedback-form" element={<FeedbackForm />} />
+      <Route path="feedback-taken" element={<FeedbackTaken />} />
       <Route path="logout" element={<UserLogout />} />
 
       {/* Catch-all route */}
