@@ -1,4 +1,4 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LockResetIcon from "@mui/icons-material/LockReset";
 import {
   Avatar,
   Box,
@@ -14,7 +14,6 @@ import {
   IUserFormValues,
   updatePassInitialValue,
 } from "../interfaces/UserInterface";
-import LockResetIcon from "@mui/icons-material/LockReset";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
 
 const UpdatePasswordForm: React.FC<IUserFormValues> = ({

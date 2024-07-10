@@ -12,15 +12,12 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
-import { clearToken, setRole, setToken } from "../features/userSlice";
-import { showSuccessToast } from "../muiModals/toastConfig";
 import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
@@ -53,24 +50,26 @@ const FeedbackForm: React.FC = () => {
     },
   ] = useCreateFeedbackMutation();
 
-  const dispatch = useDispatch();
-  dispatch(setRole("student"));
+  const navigate = useNavigate();
+
   const [data] = useSearchParams();
   const token = data.get("token") || "";
+  // localStorage.setItem("studenttoken", token);
+  sessionStorage.setItem("studenttoken", token);
   // console.log("token****", data.get("token"));
-  dispatch(setToken(token));
 
   const handleSubmit = (values: IFeedback) => {
-    // console.log("values", values);
+    console.log("values", values);
     createFeedback(values);
   };
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
-      showSuccessToast("Feedback submitted successfully.");
-      dispatch(clearToken());
+      // showSuccessToast("Feedback submitted successfully.");
+      navigate("/feedback-taken");
+      sessionStorage.removeItem("token");
     }
-  }, [isSuccessSubmitFeedback, dispatch]);
+  }, [isSuccessSubmitFeedback, navigate]);
 
   useEffect(() => {
     if (isErrorSubmitFeedback) {
@@ -87,7 +86,6 @@ const FeedbackForm: React.FC = () => {
       initialValues={initialFormValues}
       onSubmit={handleSubmit}
       validationSchema={feedbackValidationSchema}
-      // validateOnBlur={true}
     >
       {(formik: FormikProps<IFeedback>) => (
         <Form>
@@ -158,12 +156,12 @@ const FeedbackForm: React.FC = () => {
                           <Rating
                             name={item.name}
                             value={formik.values[item.name as keyof IFeedback]}
-                            onChange={(newValue) => {
-                              // console.log(
-                              //   "Item Name:",
-                              //   item.name + " and Value:",
-                              //   newValue
-                              // );
+                            onChange={(event, newValue) => {
+                              console.log(
+                                "Item Name:",
+                                item.name + " and Value:",
+                                newValue
+                              );
                               formik.setFieldValue(item.name, newValue);
                             }}
                             precision={1}
@@ -196,6 +194,7 @@ const FeedbackForm: React.FC = () => {
                           formik.setFieldTouched("description", true)
                         }
                         theme="snow"
+                        placeholder="Don’t mention name and info in here......"
                       />
                       {formik.touched.description &&
                         formik.errors.description && (
@@ -206,12 +205,6 @@ const FeedbackForm: React.FC = () => {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
-                    {/* <MuiLoadingButtonTheme
-                      type="submit"
-                      onClick={handleSubmit}
-                      buttonName="Submit"
-                      isLoading={isLoadingSubmitFeedback}
-                    /> */}
                     <Box textAlign="center">
                       <Button type="submit" variant="contained" color="primary">
                         {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
@@ -229,20 +222,3 @@ const FeedbackForm: React.FC = () => {
 };
 
 export default FeedbackForm;
-
-/* 
-<Box textAlign="center">
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={
-                          !formik.isValid ||
-                          formik.isSubmitting ||
-                          isLoadingSubmitFeedback
-                        }
-                      >
-                        {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
-                      </Button>
-                    </Box>
-*/
