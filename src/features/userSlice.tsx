@@ -23,10 +23,12 @@ export const userSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       if (state.role === "admin" || state.role === "superAdmin") {
         state.adminToken = action.payload;
+        // localStorage.setItem("admin token", action.payload);
       } else {
         state.teachersToken = action.payload;
+        // localStorage.setItem("teachertoken", action.payload);
       }
-      state.token = action.payload;
+      // state.token = action.payload;
       localStorage.setItem("token", action.payload);
     },
 

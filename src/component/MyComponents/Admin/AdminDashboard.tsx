@@ -39,6 +39,7 @@ const AdminDashboard = () => {
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll?.message}</div>;
   }
+  // console.log(dataCount.result.results.length);
   // console.log(dataCount?.result?.results?.length);
   return (
     <>
@@ -82,7 +83,6 @@ const AdminDashboard = () => {
             <Grid item xs={6}>
               <Card sx={{ height: 64 + "vh" }}>
                 <CardContent>
-                  {/* <LineChart /> */}
                   <AdminMonthlyChart />
                 </CardContent>
               </Card>

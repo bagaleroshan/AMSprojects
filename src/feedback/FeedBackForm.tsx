@@ -12,15 +12,12 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
-import React, { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
-import { clearToken, setRole, setToken } from "../features/userSlice";
-import { showSuccessToast } from "../muiModals/toastConfig";
 import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
@@ -53,13 +50,14 @@ const FeedbackForm: React.FC = () => {
     },
   ] = useCreateFeedbackMutation();
 
-  const dispatch = useDispatch();
-  dispatch(setRole("student"));
+  const navigate = useNavigate();
+
   const [data] = useSearchParams();
   const token = data.get("token") || "";
+  // localStorage.setItem("studenttoken", token);
+  sessionStorage.setItem("studenttoken", token);
   // console.log("token****", data.get("token"));
-  dispatch(setToken(token));
-  const navigate = useNavigate();
+
   const handleSubmit = (values: IFeedback) => {
     // console.log("values", values);
     createFeedback(values);
@@ -68,10 +66,10 @@ const FeedbackForm: React.FC = () => {
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
       // showSuccessToast("Feedback submitted successfully.");
-      dispatch(clearToken());
       navigate("/feedback-taken");
+      sessionStorage.removeItem("token");
     }
-  }, [isSuccessSubmitFeedback, dispatch, navigate]);
+  }, [isSuccessSubmitFeedback, navigate]);
 
   useEffect(() => {
     if (isErrorSubmitFeedback) {
@@ -83,12 +81,21 @@ const FeedbackForm: React.FC = () => {
     }
   }, [isErrorSubmitFeedback, errorSubmitFeedback]);
 
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      editor.root.dataset.placeholder =
+        "Don't mention any name and info in here.......... ";
+    }
+  }, []);
+
   return (
     <Formik
       initialValues={initialFormValues}
       onSubmit={handleSubmit}
       validationSchema={feedbackValidationSchema}
-      // validateOnBlur={true}
     >
       {(formik: FormikProps<IFeedback>) => (
         <Form>
@@ -189,6 +196,7 @@ const FeedbackForm: React.FC = () => {
                     >
                       <FormLabel>Your Thoughts</FormLabel>
                       <ReactQuill
+                        ref={quillRef}
                         value={formik.values.description}
                         onChange={(content) => {
                           formik.setFieldValue("description", content);
@@ -207,12 +215,6 @@ const FeedbackForm: React.FC = () => {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
-                    {/* <MuiLoadingButtonTheme
-                      type="submit"
-                      onClick={handleSubmit}
-                      buttonName="Submit"
-                      isLoading={isLoadingSubmitFeedback}
-                    /> */}
                     <Box textAlign="center">
                       <Button type="submit" variant="contained" color="primary">
                         {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
@@ -230,20 +232,3 @@ const FeedbackForm: React.FC = () => {
 };
 
 export default FeedbackForm;
-
-/* 
-<Box textAlign="center">
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={
-                          !formik.isValid ||
-                          formik.isSubmitting ||
-                          isLoadingSubmitFeedback
-                        }
-                      >
-                        {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
-                      </Button>
-                    </Box>
-*/
