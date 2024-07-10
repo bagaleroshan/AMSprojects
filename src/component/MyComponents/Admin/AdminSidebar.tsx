@@ -85,7 +85,7 @@ export default function AdminSidebar() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 AMS
               </Typography>
-              <Box>
+              {/* <Box>
                 <ListItem onClick={() => navigate("/teachers/my-profile")}>
                   <LightTooltip title="My Profile" placement="right">
                     <ListItemButton>
@@ -95,7 +95,7 @@ export default function AdminSidebar() {
                     </ListItemButton>
                   </LightTooltip>
                 </ListItem>
-              </Box>
+              </Box> */}
             </Toolbar>
           </AppBar>
 
@@ -167,7 +167,7 @@ export default function AdminSidebar() {
                 </LightTooltip>
               </ListItem>
               {/* ----Attendance----- */}
-              <ListItem
+              {/* <ListItem
                 disablePadding
                 sx={{
                   display: "block",
@@ -218,7 +218,7 @@ export default function AdminSidebar() {
                     />
                   </ListItemButton>
                 </LightTooltip>
-              </ListItem>
+              </ListItem> */}
               {/* ----Forms---- */}
               <ListItem
                 disablePadding
@@ -365,7 +365,7 @@ export default function AdminSidebar() {
                 }}
                 onClick={() => handleNavigate("/admin/courses")}
               >
-                <LightTooltip title="Course" placement="right">
+                <LightTooltip title="Attendance" placement="right">
                   <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -390,7 +390,7 @@ export default function AdminSidebar() {
                       <MenuBookOutlinedIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary="Course"
+                      primary="Attendance"
                       sx={{
                         opacity: open ? 1 : 0,
                         "&:hover": { color: "#0195CF" },

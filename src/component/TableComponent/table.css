@@ -3,6 +3,8 @@
 }
 .outer-wrapper{
   border-radius: 10px;
+  /* position: fixed; */
+  /* top:10%; */
 }
 .table-wrapper {
   overflow: auto;

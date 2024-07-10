@@ -13,6 +13,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { Box, Button, Stack } from "@mui/material";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -157,7 +158,6 @@ const UseAttendanceTable = () => {
 
   const columns = [
     { Header: "Student Name", accessor: "studentName" },
-    
 
     ...lastThreeDays.map((date) => ({
       Header: date,
@@ -221,7 +221,10 @@ const UseAttendanceTable = () => {
       <h1>Attendance Table</h1>
       <AttendanceTableComponent columns={columns} data={filteredTableData} />
       {!todaysAttendanceExists && (
-        <button onClick={logAttendance}>Log Attendance</button>
+        <Stack display="flex" flexDirection="row" justifyContent="flex-end">
+          <Box height={5}/>
+          <Button onClick={logAttendance}>Log Attendance</Button>
+        </Stack>
       )}
     </div>
   );

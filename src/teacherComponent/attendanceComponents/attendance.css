@@ -6,7 +6,7 @@ box-shadow: 0px 0px 3px whitesmoke;
 }
 .inner-div{
     width:100%;
-    max-height:320px;
+    /* max-height:320px; */
     overflow:auto;
 }
 .inner-div table{

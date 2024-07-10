@@ -75,17 +75,7 @@ export default function TeacherSideBar() {
                 AMS
               </Typography>
 
-              <Box>
-                <ListItem onClick={() => navigate("/teachers/my-profile")}>
-                  <LightTooltip title="My Profile" placement="right">
-                    <ListItemButton>
-                      <AccountCircleIcon
-                        sx={{ height: "40px", width: "40px" }}
-                      />
-                    </ListItemButton>
-                  </LightTooltip>
-                </ListItem>
-              </Box>
+              
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" open={open}>
