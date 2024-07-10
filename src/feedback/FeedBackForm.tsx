@@ -16,7 +16,7 @@ import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
 import { clearToken, setRole, setToken } from "../features/userSlice";
@@ -59,7 +59,7 @@ const FeedbackForm: React.FC = () => {
   const token = data.get("token") || "";
   // console.log("token****", data.get("token"));
   dispatch(setToken(token));
-
+  const navigate = useNavigate();
   const handleSubmit = (values: IFeedback) => {
     // console.log("values", values);
     createFeedback(values);
@@ -67,10 +67,11 @@ const FeedbackForm: React.FC = () => {
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
-      showSuccessToast("Feedback submitted successfully.");
+      // showSuccessToast("Feedback submitted successfully.");
       dispatch(clearToken());
+      navigate("/feedback-taken");
     }
-  }, [isSuccessSubmitFeedback, dispatch]);
+  }, [isSuccessSubmitFeedback, dispatch, navigate]);
 
   useEffect(() => {
     if (isErrorSubmitFeedback) {

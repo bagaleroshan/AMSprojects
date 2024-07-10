@@ -1,62 +1,37 @@
-import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Box, Button, Grid, Paper, Typography, styled } from "@mui/material";
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "left",
-  color: theme.palette.text.secondary,
-}));
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { Box, Tab, Typography } from "@mui/material";
+import React, { useState } from "react";
+import TeacherCompletedFeedback from "../../../teacherComponent/teacherFeedback/TeacherCompletedFeedback";
+import TeacherOngoingFeedback from "../../../teacherComponent/teacherFeedback/TeacherOngoingFeedback";
+
 const TeacherFeedback = () => {
+  const [value, setValue] = useState("1");
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
   return (
     <>
-      <Typography variant="h4" sx={{fontWeight:'bold'}}>Feedback</Typography>
-      <Box height={30} />
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Item>
-            <Grid container>
-              <Grid
-                item
-                xs={3}
-                sx={{
-                  display: "grid",
-                  placeItems:'center',
-                }}
-              >
-                <LocalLibraryOutlinedIcon
-                  color="success"
-                  fontSize="large"
-                  
-                />
-              </Grid>
-              <Grid
-                item
-                xs={5}
-                sx={{
-                  display: "grid",
-                }}
-              >
-                <Typography>
-                  Group Name hello i am the Lorem, ipsum dolor.
-                </Typography>
-                <Typography>Group Name</Typography>
-                <Typography>Group Name</Typography>
-              </Grid>
-             
-              <Grid
-                xs={4}
-                sx={{
-                  display:'grid',
-                  placeItems:'center',
-                }}
-              >
-                <Button variant="contained">Feedback View</Button>
-              </Grid>
-            </Grid>
-          </Item>
-        </Grid>
-      </Grid>
+      <div className="teacherDashboard">
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          Feedback
+        </Typography>
+        <Box height={30} />
+
+        <TabContext value={value}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <TabList onChange={handleChange}>
+              <Tab label="Ongoing Classes" value="1" />
+              <Tab label="Completed Classes" value="2" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <TeacherOngoingFeedback />
+          </TabPanel>
+          <TabPanel value="2">
+            <TeacherCompletedFeedback />
+          </TabPanel>
+        </TabContext>
+      </div>
     </>
   );
 };
