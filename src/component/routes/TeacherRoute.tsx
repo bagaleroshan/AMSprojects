@@ -1,10 +1,10 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import UseAttendance from "../../teacherComponent/attendanceComponents/UseAttendanceTable";
 import ShowTeacherFeedbacks from "../../teacherComponent/teacherFeedback/ShowTeacherFeedbacks";
-import TeacherDashboard from "../mycomponents/teacher/TeacherDashboard";
-import TeacherFeedback from "../mycomponents/teacher/TeacherFeedback";
-import TeacherMessages from "../mycomponents/teacher/TeacherMessages";
-import TeacherReport from "../mycomponents/teacher/TeacherReport";
+import TeacherDashboard from "../MyComponents/Teacher/TeacherDashboard";
+import TeacherFeedback from "../MyComponents/Teacher/TeacherFeedback";
+import TeacherMessages from "../MyComponents/Teacher/TeacherMessages";
+import TeacherReport from "../MyComponents/Teacher/TeacherReport";
 import MyProfile from "../user/MyProfile";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";

@@ -1,6 +1,7 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Box, Paper, Typography } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useReadGroupsByTeacherIdQuery } from "../../services/api/TeacherService";
 import {
@@ -14,6 +15,7 @@ const CompletedCourses = () => {
     isError: isErrorReadGroups,
     data: dataReadGroups,
     error: errorReadGroups,
+    isLoading: isLoadingReadGroups,
   } = useReadGroupsByTeacherIdQuery("active=false");
 
   // console.log(
@@ -31,63 +33,142 @@ const CompletedCourses = () => {
         ? toast.error(errorReadGroups?.message)
         : "Unknown Error");
   }, [isErrorReadGroups, errorReadGroups]);
+  const navigate = useNavigate();
 
   return (
     <>
-      {groups.length > 0 ? (
-        groups.map((value, i) => {
-          return (
-            <Box margin={1} key={i}>
-              <Paper elevation={2} sx={{ borderRadius: "10px", mt: "2" }}>
-                <Box sx={{ p: 2 }}>
-                  <div className="TDashboardOngoingCourses">
+      <Grid container spacing={2}>
+        {isLoadingReadGroups ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
+              sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
+                "&:hover": {
+                  cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
+              <Typography color="primary" sx={{ color: "black" }}>
+                Loading...
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : groups.length === 0 ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
+              sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
+                "&:hover": {
+                  cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
+              <Typography color="primary" sx={{ color: "black" }}>
+                No completed classes yet.
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : (
+          groups.map((group, index) => (
+            <Grid
+              item
+              xs={12}
+              key={index}
+              onClick={() => navigate(`/teachers/${group.id}`)}
+            >
+              <Paper
+                elevation={3}
+                sx={{
+                  p: 2,
+                  transition: "box-shadow 0.2s ease-in-out",
+                  "&:hover": {
+                    cursor: "pointer",
+                    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                    transform: "scale(1.01)",
+                  },
+                }}
+              >
+                <Grid container spacing={2} alignItems="center">
+                  <Grid
+                    item
+                    xs={2}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <LocalLibraryOutlinedIcon
-                      color="success"
+                      color="primary"
                       fontSize="large"
                     />
-                    <div className="TDashboardOngoingSubject">
-                      <Typography gutterBottom variant="h6">
-                        {value.groupName}
-                      </Typography>
-                      <Typography variant="body2">{value.groupName}</Typography>
-                      <Typography variant="body1">{value.teacher}</Typography>
-                    </div>
-
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography gutterBottom variant="h6">
+                      {group.groupName}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      {group.subject.subjectName}
+                    </Typography>
+                    {/* <Typography variant="body2" color="textSecondary">
+                      Group Name: {group.groupName}
+                    </Typography> */}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => navigate(`/teachers/${group.id}`)}
+                    >
+                      Attendance Detail
+                    </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <Typography
                       variant="body1"
                       sx={{ fontWeight: "normal", color: "#43a047" }}
                     >
-                      Present:0
+                      Number of Days Left:0
                     </Typography>
-
-                    <Typography variant="body1" sx={{ color: "#e53935" }}>
-                      Absent:0
-                    </Typography>
-                  </div>
-                </Box>
-                <Box height={15} />
+                  </Grid>
+                </Grid>
               </Paper>
-            </Box>
-          );
-        })
-      ) : (
-        <Box>
-          <Box height={30} />
-          <Paper
-            elevation={1}
-            sx={{
-              height: "10vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography color="primary" sx={{ color: "black" }}>
-              Not a single completed classes yet.
-            </Typography>
-          </Paper>
-        </Box>
-      )}
+            </Grid>
+          ))
+        )}
+      </Grid>
     </>
   );
 };

@@ -80,13 +80,7 @@ export const userLoginValidation = yup.object({
     .string()
     .email("Enter a valid email")
     .required("Email is required"),
-  password: yup
-    .string()
-    .matches(
-      passwordRegex,
-      "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character."
-    )
-    .required("Password is required"),
+  password: yup.string().required("Password is required"),
 });
 
 export const userUpdatePassValidation = yup.object({
