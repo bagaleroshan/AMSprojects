@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useReadGroupsByTeacherIdQuery } from "../../../services/api/TeacherService";
 import { Form, Formik } from "formik";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import {
   Button,
   FormControl,
   Stack,
   CircularProgress,
   Typography,
+  Box,
 } from "@mui/material";
 import DwSelect from "../../dwComponents/DwSelect";
 import UseTeacherReportTable from "./UseTeacherReportTable";
@@ -39,7 +41,11 @@ const TeacherReportTable = () => {
         <Formik initialValues={{ groupName: "" }}>
           {(formik) => (
             <Form>
-              <Stack display="flex" direction="row" spacing={10}>
+              <Stack
+                display="flex"
+                direction="row"
+                justifyContent="space-between"
+              >
                 <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
                   <DwSelect
                     name="group"
@@ -52,7 +58,9 @@ const TeacherReportTable = () => {
                     isLoading={isLoadingAllGroups}
                   />
                 </FormControl>
+                <Button variant="contained" sx={{height:'40px'}} startIcon={<ArrowDownwardIcon/>}>Download</Button>
               </Stack>
+              <Box height={5} />
               <Stack display="flex" direction="row" spacing={10}>
                 {/* Other form controls can go here */}
               </Stack>

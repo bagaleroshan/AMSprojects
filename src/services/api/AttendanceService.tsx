@@ -99,4 +99,5 @@ export const {
   useReadAllAttendanceQuery,
   useReadMonthlyAttendanceReportQuery,
   useGetTodayAttendanceQuery,
+  useReadAttendanceForGroupQuery
 } = AttendanceApi;

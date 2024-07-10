@@ -21,26 +21,25 @@ const TeacherReport = () => {
   return (
     <>
       <div className="teacherReport">
-       
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              Attendance Report
-            </Typography>
-            <Box height={30} />
-            <Stack display="flex" direction="row" spacing={10}>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          Attendance Report
+        </Typography>
+        <Box height={30} />
+        {/* <Stack display="flex" direction="row" spacing={10}>
               <Typography variant="body2">Group</Typography>
              
-            </Stack>
-            <Box height={60} />
-           
-            <Box height={60} />
-            <Stack display="flex" direction="row" spacing={10}>
-              <Button variant="contained">
-                Search
-              </Button>
-             
-             
-            </Stack>
-         
+            </Stack> */}
+
+        {/* <Stack
+          display="flex"
+          direction="row"
+          spacing={10}
+          justifyContent="flex-end"
+        >
+          <Button variant="contained">Download</Button>
+        </Stack> */}
+        <Box height={60} />
+
         <TeacherReportTable></TeacherReportTable>
       </div>
     </>

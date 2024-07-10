@@ -1,0 +1,73 @@
+.outer-div{
+max-width: fit-content;
+border:1px solid whitesmoke;
+box-shadow: 0px 0px 3px whitesmoke;
+
+}
+.inner-div{
+    width:100%;
+    max-height:320px;
+    overflow:auto;
+}
+.inner-div table{
+    border-spacing:0;
+    min-width: max-content;
+}
+.inner-div table th{
+    border:1px solid #ddd;
+   padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #1976D2;
+  color:white;
+  position:sticky;
+  top:0;
+  /* min-width: 25rem; */
+}
+
+.inner-div table tbody td{
+    border:1px solid #ddd;
+    padding:8px;
+    /* max-width: 20rem; */
+
+}
+.inner-div th:nth-child(1),
+.inner-div td:nth-child(1){
+position:sticky;
+left:0;
+}
+.inner-div th:nth-child(2),
+.inner-div td:nth-child(2){
+position:sticky;
+left:25rem;
+}
+
+
+.inner-div th:nth-child(1),
+.inner-div th:nth-child(2){
+    z-index:2;
+}
+
+.inner-div tr:nth-child(odd) td{
+    background-color: #edf8ff;
+}
+.inner-div tr:nth-child(even) td{
+    background-color:#f2f2f2;
+}
+.inner-div tr:hover td{
+    background-color: #ddd;
+}
+.inner-div th:first-child{
+    min-width:25rem;
+}
+.inner-div th:not(:first-child){
+    min-width:13.8rem;
+    /* min-width: 12rem; */
+    /* max-width:40%; */
+    
+}
+
+
+
+
+
