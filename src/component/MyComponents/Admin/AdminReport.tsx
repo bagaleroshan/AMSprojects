@@ -1,17 +1,14 @@
 import {
   Box,
-  FormControl,
-  Stack,
-  Typography,
   CircularProgress,
-  Button,
+  FormControl,
+  Stack
 } from "@mui/material";
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
 import { useState } from "react";
 import AdminGroupReport from "../../../adminComponent/AdminGroupReport";
-import DwSelect from "../../dwComponents/DwSelect";
 import { useReadGroupQuery } from "../../../services/api/GroupService";
-import StudentExportCSV from "../../ExportCSV/StudentExportCSV";
+import DwSelect from "../../dwComponents/DwSelect";
 
 const AdminReport = () => {
   const [groupId, setGroupId] = useState("asdada");
@@ -27,8 +24,8 @@ const AdminReport = () => {
 
   return (
     <div className="teacherReport">
+      <h1>Attendance Report</h1>
       <Box height={60} />
-
       <Formik initialValues={{ group: "" }}>
         {(formik) => (
           <Form>
@@ -50,13 +47,6 @@ const AdminReport = () => {
                 )}
               </FormControl>
             </Stack>
-            {/* <Stack display="flex" direction="row" spacing={10}>
-              <Button variant="contained">
-                Download
-              </Button>
-             
-             <StudentExportCSV data={data} fileName="ss.csv"></StudentExportCSV>
-            </Stack> */}
           </Form>
         )}
       </Formik>
