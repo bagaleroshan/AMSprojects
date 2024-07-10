@@ -12,11 +12,7 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
-import React, { useEffect } from "react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
 import { clearToken, setRole, setToken } from "../features/userSlice";
@@ -28,6 +24,9 @@ import {
   isSerializedError,
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { useEffect, useRef } from "react";
 
 const FeedbackForm: React.FC = () => {
   const initialFormValues: IFeedback = {
@@ -82,12 +81,21 @@ const FeedbackForm: React.FC = () => {
     }
   }, [isErrorSubmitFeedback, errorSubmitFeedback]);
 
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      editor.root.dataset.placeholder =
+        "Don't mention any name and info in here.......... ";
+    }
+  }, []);
+
   return (
     <Formik
       initialValues={initialFormValues}
       onSubmit={handleSubmit}
       validationSchema={feedbackValidationSchema}
-      // validateOnBlur={true}
     >
       {(formik: FormikProps<IFeedback>) => (
         <Form>
@@ -188,6 +196,7 @@ const FeedbackForm: React.FC = () => {
                     >
                       <FormLabel>Your Thoughts</FormLabel>
                       <ReactQuill
+                        ref={quillRef}
                         value={formik.values.description}
                         onChange={(content) => {
                           formik.setFieldValue("description", content);
@@ -206,12 +215,6 @@ const FeedbackForm: React.FC = () => {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12}>
-                    {/* <MuiLoadingButtonTheme
-                      type="submit"
-                      onClick={handleSubmit}
-                      buttonName="Submit"
-                      isLoading={isLoadingSubmitFeedback}
-                    /> */}
                     <Box textAlign="center">
                       <Button type="submit" variant="contained" color="primary">
                         {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
@@ -229,20 +232,3 @@ const FeedbackForm: React.FC = () => {
 };
 
 export default FeedbackForm;
-
-/* 
-<Box textAlign="center">
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={
-                          !formik.isValid ||
-                          formik.isSubmitting ||
-                          isLoadingSubmitFeedback
-                        }
-                      >
-                        {isLoadingSubmitFeedback ? "Submitting..." : "Submit"}
-                      </Button>
-                    </Box>
-*/

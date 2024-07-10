@@ -1,8 +1,8 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
-import { useEffect, useMemo } from "react";
-import AdminReportExcel from "../component/ExportCSV/AdminRepordExcel";
+import React, { useMemo, useEffect } from "react";
 import { useReadAllAttendanceQuery } from "../services/api/AttendanceService";
 import AttendanceTableComponent from "../teacherComponent/attendanceComponents/AttendanceTableComponent";
+import { CircularProgress, Box, Typography } from "@mui/material";
+import AdminReportExcel from "../component/ExportCSV/AdminRepordExcel";
 
 const AdminGroupReport = ({ groupId }) => {
   const { data, isLoading, error, refetch } =
@@ -12,6 +12,7 @@ const AdminGroupReport = ({ groupId }) => {
     // Trigger refetch when groupId changes or on initial load
     refetch();
   }, [groupId, refetch]);
+
   const attendanceData = data?.result || [];
 
   const formatDate = (dateString) => {

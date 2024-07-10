@@ -68,14 +68,22 @@ const UseAttendanceTable = () => {
       refetchAttendanceData();
       refetchAttendanceDataForGroup();
     }
-  }, [isSuccessAttendance, isSuccessTakeAttendance, refetchAttendanceData, refetchAttendanceDataForGroup]);
+  }, [
+    isSuccessAttendance,
+    isSuccessTakeAttendance,
+    refetchAttendanceData,
+    refetchAttendanceDataForGroup,
+  ]);
 
   useEffect(() => {
     if (attendanceData?.result) {
-      const initialAttendanceStatus = groupDataStudents.reduce((acc, student) => {
-        acc[student._id] = "P"; // Default to 'P' for Present
-        return acc;
-      }, {});
+      const initialAttendanceStatus = groupDataStudents.reduce(
+        (acc, student) => {
+          acc[student._id] = "P"; // Default to 'P' for Present
+          return acc;
+        },
+        {}
+      );
       attendanceData.result.forEach((student) => {
         student.attendance.forEach((record) => {
           if (

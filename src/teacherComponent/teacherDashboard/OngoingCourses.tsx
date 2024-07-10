@@ -16,11 +16,9 @@ const OngoingCourses = () => {
     isError: isErrorReadGroups,
     data: dataReadGroups,
     error: errorReadGroups,
-  } = useReadGroupsByTeacherIdQuery( "active=true" );
+  } = useReadGroupsByTeacherIdQuery("active=true");
   // console.log("dataReadGroups*************", dataReadGroups?.result?.results);
   const groups = dataReadGroups?.result?.results || [];
-
-  
 
   useEffect(() => {
     isErrorReadGroups &&
@@ -31,6 +29,7 @@ const OngoingCourses = () => {
         : "Unknown Error");
   }, [isErrorReadGroups, errorReadGroups]);
 
+  // console.log(dataReadGroups);
   return (
     <>
       {groups.length > 0 ? (
@@ -59,8 +58,10 @@ const OngoingCourses = () => {
                         {value.groupName}
                       </Typography>
                       <Box height={15} />
-                      <Typography variant="body2">{value.groupName}</Typography>
-                      <Typography variant="body1">{value.teacher}</Typography>
+                      {/* <Typography variant="body2">{value.groupName}</Typography> */}
+                      <Typography variant="body1">
+                        {value.subject.subjectName}
+                      </Typography>
                     </div>
                     <Button
                       variant="contained"

@@ -1,5 +1,8 @@
 import * as yup from "yup";
 
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 export const userValidation = yup.object().shape({
   fullName: yup
     .string()
@@ -18,7 +21,7 @@ export const userValidation = yup.object().shape({
     .string()
     .test("is-valid-email", "Invalid Email!!", (value): boolean => {
       if (value === undefined || value === null) {
-        return true; // Return true here so required check can handle empty values
+        return true;
       }
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
     })
@@ -79,7 +82,10 @@ export const userLoginValidation = yup.object({
     .required("Email is required"),
   password: yup
     .string()
-    .min(8, "Password should be of minimum 8 characters length")
+    .matches(
+      passwordRegex,
+      "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character."
+    )
     .required("Password is required"),
 });
 
@@ -87,7 +93,10 @@ export const userUpdatePassValidation = yup.object({
   oldPassword: yup.string().required("Old password is required"),
   newPassword: yup
     .string()
-    .min(8, "Password should be of minimum 8 characters length")
+    .matches(
+      passwordRegex,
+      "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character."
+    )
     .required("Please write your new password"),
   confirmPassword: yup
     .string()
@@ -107,7 +116,10 @@ export const userForgotPassValidation = yup.object({
 export const userResetPassValidation = yup.object({
   newPassword: yup
     .string()
-    .min(8, "Password should be of minimum 8 characters length")
+    .matches(
+      passwordRegex,
+      "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character."
+    )
     .required("Please write your new password"),
   confirmPassword: yup
     .string()
