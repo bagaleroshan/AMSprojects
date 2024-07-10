@@ -28,7 +28,7 @@ export const userSlice = createSlice({
         state.teachersToken = action.payload;
         // localStorage.setItem("teachertoken", action.payload);
       }
-      // state.token = action.payload;
+      state.token = action.payload;
       localStorage.setItem("token", action.payload);
     },
 
