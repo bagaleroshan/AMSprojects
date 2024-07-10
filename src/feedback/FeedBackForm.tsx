@@ -12,11 +12,12 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
+import { useEffect } from "react";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFeedback } from "../component/interfaces/FeedbackInterface";
-import { clearToken, setRole, setToken } from "../features/userSlice";
-import { showSuccessToast } from "../muiModals/toastConfig";
 import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
@@ -24,9 +25,6 @@ import {
   isSerializedError,
 } from "../utils/utils";
 import { feedbackValidationSchema } from "../validation/feedbackValidation";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { useEffect, useRef } from "react";
 
 const FeedbackForm: React.FC = () => {
   const initialFormValues: IFeedback = {
@@ -52,24 +50,26 @@ const FeedbackForm: React.FC = () => {
     },
   ] = useCreateFeedbackMutation();
 
-  const dispatch = useDispatch();
-  dispatch(setRole("student"));
+  const navigate = useNavigate();
+
   const [data] = useSearchParams();
   const token = data.get("token") || "";
+  // localStorage.setItem("studenttoken", token);
+  sessionStorage.setItem("studenttoken", token);
   // console.log("token****", data.get("token"));
-  dispatch(setToken(token));
 
   const handleSubmit = (values: IFeedback) => {
-    // console.log("values", values);
+    console.log("values", values);
     createFeedback(values);
   };
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
-      showSuccessToast("Feedback submitted successfully.");
-      dispatch(clearToken());
+      // showSuccessToast("Feedback submitted successfully.");
+      navigate("/feedback-taken");
+      sessionStorage.removeItem("token");
     }
-  }, [isSuccessSubmitFeedback, dispatch]);
+  }, [isSuccessSubmitFeedback, navigate]);
 
   useEffect(() => {
     if (isErrorSubmitFeedback) {
@@ -80,16 +80,6 @@ const FeedbackForm: React.FC = () => {
         : toast.error("Unknown Error");
     }
   }, [isErrorSubmitFeedback, errorSubmitFeedback]);
-
-  const quillRef = useRef<ReactQuill>(null);
-
-  useEffect(() => {
-    if (quillRef.current) {
-      const editor = quillRef.current.getEditor();
-      editor.root.dataset.placeholder =
-        "Don't mention any name and info in here.......... ";
-    }
-  }, []);
 
   return (
     <Formik
@@ -166,12 +156,12 @@ const FeedbackForm: React.FC = () => {
                           <Rating
                             name={item.name}
                             value={formik.values[item.name as keyof IFeedback]}
-                            onChange={(newValue) => {
-                              // console.log(
-                              //   "Item Name:",
-                              //   item.name + " and Value:",
-                              //   newValue
-                              // );
+                            onChange={(event, newValue) => {
+                              console.log(
+                                "Item Name:",
+                                item.name + " and Value:",
+                                newValue
+                              );
                               formik.setFieldValue(item.name, newValue);
                             }}
                             precision={1}
@@ -196,7 +186,6 @@ const FeedbackForm: React.FC = () => {
                     >
                       <FormLabel>Your Thoughts</FormLabel>
                       <ReactQuill
-                        ref={quillRef}
                         value={formik.values.description}
                         onChange={(content) => {
                           formik.setFieldValue("description", content);
@@ -205,6 +194,7 @@ const FeedbackForm: React.FC = () => {
                           formik.setFieldTouched("description", true)
                         }
                         theme="snow"
+                        placeholder="Don’t mention name and info in here......"
                       />
                       {formik.touched.description &&
                         formik.errors.description && (
