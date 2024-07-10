@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from "react";
 import { useReadAllAttendanceQuery } from "../services/api/AttendanceService";
 import AttendanceTableComponent from "../teacherComponent/attendanceComponents/AttendanceTableComponent";
-import { CircularProgress, Box, Typography } from "@mui/material";
+import { CircularProgress, Box, Typography, Stack } from "@mui/material";
 import AdminReportExcel from "../component/ExportCSV/AdminRepordExcel";
 
 const AdminGroupReport = ({ groupId }) => {
@@ -88,10 +88,13 @@ const AdminGroupReport = ({ groupId }) => {
 
   return (
     <div>
+      <Stack display='flex' flexDirection='row' justifyContent='flex-end'>
       <AdminReportExcel
         data={data?.result}
         fileName="Attendance Report"
       ></AdminReportExcel>
+      </Stack>
+      <Box height={10}/>
       <AttendanceTableComponent columns={columns} data={formattedData} />
     </div>
   );

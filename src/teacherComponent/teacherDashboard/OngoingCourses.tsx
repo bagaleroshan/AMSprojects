@@ -48,12 +48,12 @@ const OngoingCourses = () => {
             >
               <Paper elevation={4} sx={{ borderRadius: "10px", mt: "2" }}>
                 <Box sx={{ p: 2 }}>
-                  <div className="TDashboardOngoingCourses">
+                  <div className="TDashboardOngoingCourses" >
                     <LocalLibraryOutlinedIcon
                       color="success"
                       fontSize="large"
                     />
-                    <div className="TDashboardOngoingSubject">
+                    <div className="TDashboardOngoingSubject" style={{ width: "17rem" }}>
                       <Typography gutterBottom variant="h6">
                         {value.groupName}
                       </Typography>

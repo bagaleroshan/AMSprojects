@@ -3,6 +3,7 @@ import { saveAs } from "file-saver";
 import ExcelJS from "exceljs";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { LightTooltip } from "../theme/MuiSidebarTheme";
+import { Button } from "@mui/material";
 
 interface AttendanceItem {
   date: string;
@@ -97,11 +98,18 @@ const AdminReportExcel: FC<UserExportCSVProps> = ({
 
   return (
     <LightTooltip title="Download" placement="right">
-      <FileDownloadIcon
+      {/* <FileDownloadIcon
         color="primary"
         onClick={handleDownload}
         style={{ cursor: "pointer" }}
-      />
+      /> */}
+      <Button
+        variant="contained"
+        onClick={handleDownload}
+        style={{ cursor: "pointer" }}
+      >
+        Download
+      </Button>
     </LightTooltip>
   );
 };
