@@ -52,7 +52,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
     label: value.groupName,
   }));
   let all = ""
-  const newSelectGroup = [...SelectGroup, { value: 'All', label: "All" }];
+  const newSelectGroup = [ { value: 'All', label: "All" },...SelectGroup];
 
   const groupInitialValues = {
     groups: newSelectGroup.length > 0 ? newSelectGroup[0].value : "",
@@ -64,6 +64,8 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
     setDate(joinYearMonth());
     if (newSelectGroup.length > 0) {
       setInitialGroupId(newSelectGroup[0].value);
+    }{
+      setInitialGroupId("")
     }
   }, [dataReadGroup]);
 

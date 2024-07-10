@@ -64,8 +64,23 @@ const AdminGroupReport = ({ groupId }) => {
         alignItems="center"
         height="100%"
       >
-        <Typography variant="h6" color="error">
+        <Typography variant="h6" >
           Select Group to Load Data
+        </Typography>
+      </Box>
+    );
+  }
+
+  if (attendanceData.length === 0) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100%"
+      >
+        <Typography variant="h6">
+          No Data Available
         </Typography>
       </Box>
     );
@@ -76,8 +91,6 @@ const AdminGroupReport = ({ groupId }) => {
       <AdminReportExcel
         data={data?.result}
         fileName="Attendance Report"
-        // attendanceData={data?.result}
-        // groupName={groupId}
       ></AdminReportExcel>
       <AttendanceTableComponent columns={columns} data={formattedData} />
     </div>
