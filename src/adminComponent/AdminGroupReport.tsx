@@ -64,8 +64,8 @@ const AdminGroupReport = ({ groupId }) => {
         alignItems="center"
         height="100%"
       >
-        <Typography variant="h6" >
-          Select Group to Load Data
+        <Typography variant="h6">
+          Select Group to Load Group Attendance Data
         </Typography>
       </Box>
     );
@@ -79,22 +79,20 @@ const AdminGroupReport = ({ groupId }) => {
         alignItems="center"
         height="100%"
       >
-        <Typography variant="h6">
-          No Data Available
-        </Typography>
+        <Typography variant="h6">No Data Available</Typography>
       </Box>
     );
   }
 
   return (
     <div>
-      <Stack display='flex' flexDirection='row' justifyContent='flex-end'>
-      <AdminReportExcel
-        data={data?.result}
-        fileName="Attendance Report"
-      ></AdminReportExcel>
+      <Stack display="flex" flexDirection="row" justifyContent="flex-end">
+        <AdminReportExcel
+          data={data?.result}
+          fileName="Attendance Report"
+        ></AdminReportExcel>
       </Stack>
-      <Box height={10}/>
+      <Box height={10} />
       <AttendanceTableComponent columns={columns} data={formattedData} />
     </div>
   );

@@ -39,3 +39,18 @@ export function isFetchBaseQueryError(error: unknown): error is CustomFetchBaseQ
       return "An unknown error has occurred !"
     }
   }
+
+  /* ******************Functions************************ */
+
+ export function changeFirstName(fullName) {
+    if (!fullName) return "";
+    const names = fullName.split(" ");
+    if (names.length >= 1) {
+      for (let a = 0; a < names.length; a++) {
+        names[a] =
+          names[a].charAt(0).toUpperCase() + names[a].slice(1).toLowerCase();
+      }
+    }
+    return names.join(" ");
+  }
+  

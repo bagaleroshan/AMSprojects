@@ -74,8 +74,6 @@ export default function TeacherSideBar() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 AMS
               </Typography>
-
-              
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" open={open}>
@@ -194,8 +192,8 @@ export default function TeacherSideBar() {
                   </ListItemButton>
                 </LightTooltip>
               </ListItem>
-              {/* Messages */}
-              <ListItem
+              {/* ******************Messages*************** */}
+              {/* <ListItem
                 disablePadding
                 sx={{
                   display: "block",
@@ -244,8 +242,8 @@ export default function TeacherSideBar() {
                     />
                   </ListItemButton>
                 </LightTooltip>
-              </ListItem>
-              {/* Report */}
+              </ListItem> */}
+              {/* ***************Report**************** */}
               <ListItem
                 disablePadding
                 sx={{

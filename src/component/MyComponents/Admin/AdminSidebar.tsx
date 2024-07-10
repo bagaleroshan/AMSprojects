@@ -1,13 +1,15 @@
+import { ClickAwayListener } from "@mui/base/ClickAwayListener";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import EmailIcon from "@mui/icons-material/Email";
 import FeedIcon from "@mui/icons-material/Feed";
+import FeedbackIcon from "@mui/icons-material/Feedback";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import PasswordIcon from "@mui/icons-material/Password";
 import ReportIcon from "@mui/icons-material/Report";
-import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -16,12 +18,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { ClickAwayListener } from "@mui/base/ClickAwayListener";
-import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-import FeedbackIcon from "@mui/icons-material/Feedback";
 import Toolbar from "@mui/material/Toolbar";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
+import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -31,7 +30,6 @@ import {
   DrawerHeader,
   LightTooltip,
 } from "../../theme/MuiSidebarTheme";
-import { Typography } from "@mui/material";
 
 export default function AdminSidebar() {
   const theme = useTheme();
@@ -294,7 +292,7 @@ export default function AdminSidebar() {
                 </LightTooltip>
               </ListItem>
               {/* ---Messages--- */}
-              <ListItem
+              {/* <ListItem
                 disablePadding
                 sx={{
                   display: "block",
@@ -345,7 +343,7 @@ export default function AdminSidebar() {
                     />
                   </ListItemButton>
                 </LightTooltip>
-              </ListItem>
+              </ListItem> */}
               {/* ********Classes************ */}
               <ListItem
                 disablePadding

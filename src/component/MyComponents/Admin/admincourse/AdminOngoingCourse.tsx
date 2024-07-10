@@ -1,6 +1,8 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
+import { Button, Grid, Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useReadGroupQuery } from "../../../../services/api/GroupService";
+import { changeFirstName } from "../../../../utils/utils";
 
 const AdminOngoingCourse = () => {
   const query = {
@@ -9,6 +11,7 @@ const AdminOngoingCourse = () => {
     findQuery: "",
     sort: "",
   };
+  const navigate = useNavigate();
 
   const {
     isError: isErrorViewAll,
@@ -30,71 +33,138 @@ const AdminOngoingCourse = () => {
 
   return (
     <>
-      {resultsArray.length === 0 && <p>No groups found.</p>}
-      {resultsArray.map(
-        (group, index) =>
-          group.active === true && (
-            <Box
-              key={index}
-              margin={1}
+      <Grid container spacing={2}>
+        {isLoadingViewAll ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
               sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
                 "&:hover": {
                   cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
                 },
               }}
             >
-              <Paper elevation={4} sx={{ borderRadius: "10px", mt: 2 }}>
-                <Box sx={{ p: 2 }}>
-                  <div className="TDashboardOngoingCourses">
+              <Typography color="primary" sx={{ color: "black" }}>
+                Loading...
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : resultsArray.length === 0 ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
+              sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
+                "&:hover": {
+                  cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
+              <Typography color="primary" sx={{ color: "black" }}>
+                No classes found.
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : (
+          resultsArray.map((group, index) => (
+            <Grid
+              item
+              xs={12}
+              key={index}
+              onClick={() => navigate(`/teachers/${group.id}`)}
+            >
+              <Paper
+                elevation={3}
+                sx={{
+                  p: 2,
+                  transition: "box-shadow 0.2s ease-in-out",
+                  "&:hover": {
+                    cursor: "pointer",
+                    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                    transform: "scale(1.01)",
+                  },
+                }}
+              >
+                <Grid container spacing={2} alignItems="center">
+                  <Grid
+                    item
+                    xs={2}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <LocalLibraryOutlinedIcon
-                      color="success"
+                      color="primary"
                       fontSize="large"
                     />
-                    <div
-                      className="TDashboardOngoingSubject"
-                      style={{ width: "15rem" }}
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography gutterBottom variant="h6">
+                      {group.groupName}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      gutterBottom
                     >
-                      <Typography gutterBottom variant="h6" color="primary">
-                        {group.subject.subjectName}
-                      </Typography>
-                      <Box height={5} />
-                      <Typography variant="body2" color="primary">
-                        Teacher:{group.teacher.fullName}
-                      </Typography>
-                      <Typography variant="body2" color="primary">
-                        Group Name:
-                      </Typography>
-                      <Typography variant="body1" color="primary">
-                        {group.groupName}
-                      </Typography>
-                    </div>
-                    <Button variant="contained" color="primary">
+                      Subject: {group.subject.subjectName}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Teacher: {changeFirstName(group.teacher.fullName)}
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => navigate(`/teachers/${group.id}`)}
+                    >
                       Take Attendance
                     </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <Typography
                       variant="body1"
-                      color="success"
-                      sx={{ fontWeight: "normal", color: "green" }}
+                      sx={{ fontWeight: "normal", color: "#43a047" }}
                     >
-                      Present: 0
+                      Number of Days Left:0
                     </Typography>
-                    <Typography
-                      variant="body1"
-                      color="error"
-                      sx={{ fontWeight: "normal" }}
-                    >
-                      Absent: 0
-                    </Typography>
-                    {/* <Button variant="contained" color="error">
-                      Mark As Complete
-                    </Button> */}
-                  </div>
-                </Box>
-                <Box height={15} />
+                  </Grid>
+                </Grid>
               </Paper>
-            </Box>
-          )
-      )}
+            </Grid>
+          ))
+        )}
+      </Grid>
     </>
   );
 };

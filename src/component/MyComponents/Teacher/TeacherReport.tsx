@@ -1,8 +1,4 @@
-import {
-  Box,
-  Stack,
-  Typography
-} from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import TeacherReportTable from "./TeacherReportTable";
 
 const TeacherReport = () => {
@@ -18,7 +14,7 @@ const TeacherReport = () => {
         <Box height={60} />
         <Stack display="flex" direction="row" spacing={10}></Stack>
 
-        <TeacherReportTable></TeacherReportTable>
+        <TeacherReportTable />
       </div>
     </>
   );
