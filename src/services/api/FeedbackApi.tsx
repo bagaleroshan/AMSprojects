@@ -34,7 +34,7 @@ export const FeedbackApi = createApi({
     }),
     createFeedback: builder.mutation({
       query: (body) => {
-        const token = localStorage.getItem("studenttoken");
+        const token = sessionStorage.getItem("studenttoken");
         if (!token) {
           throw new Error("No token available");
         }

@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Form, Formik, FormikProps } from "formik";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -59,7 +59,7 @@ const FeedbackForm: React.FC = () => {
   // console.log("token****", data.get("token"));
 
   const handleSubmit = (values: IFeedback) => {
-    // console.log("values", values);
+    console.log("values", values);
     createFeedback(values);
   };
 
@@ -80,16 +80,6 @@ const FeedbackForm: React.FC = () => {
         : toast.error("Unknown Error");
     }
   }, [isErrorSubmitFeedback, errorSubmitFeedback]);
-
-  const quillRef = useRef<ReactQuill>(null);
-
-  useEffect(() => {
-    if (quillRef.current) {
-      const editor = quillRef.current.getEditor();
-      editor.root.dataset.placeholder =
-        "Don't mention any name and info in here.......... ";
-    }
-  }, []);
 
   return (
     <Formik
@@ -166,12 +156,12 @@ const FeedbackForm: React.FC = () => {
                           <Rating
                             name={item.name}
                             value={formik.values[item.name as keyof IFeedback]}
-                            onChange={(newValue) => {
-                              // console.log(
-                              //   "Item Name:",
-                              //   item.name + " and Value:",
-                              //   newValue
-                              // );
+                            onChange={(event, newValue) => {
+                              console.log(
+                                "Item Name:",
+                                item.name + " and Value:",
+                                newValue
+                              );
                               formik.setFieldValue(item.name, newValue);
                             }}
                             precision={1}
@@ -196,7 +186,6 @@ const FeedbackForm: React.FC = () => {
                     >
                       <FormLabel>Your Thoughts</FormLabel>
                       <ReactQuill
-                        ref={quillRef}
                         value={formik.values.description}
                         onChange={(content) => {
                           formik.setFieldValue("description", content);
@@ -205,6 +194,7 @@ const FeedbackForm: React.FC = () => {
                           formik.setFieldTouched("description", true)
                         }
                         theme="snow"
+                        placeholder="Don’t mention name and info in here......"
                       />
                       {formik.touched.description &&
                         formik.errors.description && (
