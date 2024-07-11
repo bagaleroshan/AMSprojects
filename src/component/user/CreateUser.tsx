@@ -54,7 +54,7 @@ const CreateUser = () => {
 
   return (
     <>
-      <CreateUserForm
+      <CreateUs erForm
         buttonName="CREATE USER"
         isLoading={isLoadingCreateUser}
         formikRef={formikRef}
