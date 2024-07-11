@@ -113,7 +113,6 @@ export const GroupApi = createApi({
     }),
     addStudentGroup: builder.mutation({
       query: ({ body, id }) => {
-        console.log("body*------------", body);
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");

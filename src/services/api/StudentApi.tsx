@@ -88,6 +88,22 @@ export const StudentApi = createApi({
       },
       providesTags: ["readStudents"],
     }),
+    readStudentByGroupId: builder.query({
+      query: ({id,query}) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/students?groups=${id}&query=${query.findQuery}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      providesTags: ["readStudents"],
+    }),
 
     deleteStudent: builder.mutation({
       query: (id) => {
@@ -114,5 +130,6 @@ export const {
   useUpdateStudentMutation,
   useReadStudentsQuery,
   useReadStudentByIdQuery,
+  useReadStudentByGroupIdQuery,
   useDeleteStudentMutation,
 } = StudentApi;

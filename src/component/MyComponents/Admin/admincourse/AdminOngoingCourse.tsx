@@ -82,7 +82,7 @@ const AdminOngoingCourse = () => {
               item
               xs={12}
               key={index}
-              onClick={() => navigate(`/teachers/${group.id}`)}
+              onClick={() => navigate(`/admin/courses/${group.id}`)}
             >
               <Paper
                 elevation={3}
@@ -138,7 +138,7 @@ const AdminOngoingCourse = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => navigate(`/teachers/${group.id}`)}
+                      onClick={() => navigate(`/admin/courses/${group.id}`)}
                     >
                       Take Attendance
                     </Button>
