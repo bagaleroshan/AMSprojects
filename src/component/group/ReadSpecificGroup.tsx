@@ -68,7 +68,7 @@ const ReadSpecificGroup = () => {
                 <TableContainer>
                   <Table size="medium">
                     <TableHead>
-                      <TableRow>
+                      <TableRow sx={{ backgroundColor: "lightblue" }}>
                         <TableCell>Group Name</TableCell>
                         <TableCell>Subject</TableCell>
                         <TableCell>Teacher</TableCell>
@@ -92,9 +92,9 @@ const ReadSpecificGroup = () => {
           </Grid>
           <Grid item xs={4}>
             {/* <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}> */}
-              <Link color="primary" sx={{ mt: 3 }}>
-                <AddStudentsToGroup id={id} />
-              </Link>
+            <Link color="primary" sx={{ mt: 3 }}>
+              <AddStudentsToGroup id={id} />
+            </Link>
             {/* </Paper> */}
           </Grid>
           <Grid item xs={12}>

@@ -11,7 +11,7 @@ const AdminAttendanceReport = () => {
   const query = { page: 0, limit: 0, findQuery: "", sort: "" };
   const { data: dataAllGroups, isLoading: isLoadingAllGroups } =
     useReadGroupQuery(query);
-  console.log("dataAllGroups******", dataAllGroups?.result?.results);
+  // console.log("dataAllGroups******", dataAllGroups?.result?.results);
   const [selectedGroupId, setSelectedGroupId] = useState("");
 
   const allGroups = dataAllGroups?.result?.results || [];

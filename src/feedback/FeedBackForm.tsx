@@ -49,25 +49,21 @@ const FeedbackForm: React.FC = () => {
       error: errorSubmitFeedback,
     },
   ] = useCreateFeedbackMutation();
-
   const navigate = useNavigate();
 
   const [data] = useSearchParams();
   const token = data.get("token") || "";
-  // localStorage.setItem("studenttoken", token);
-  sessionStorage.setItem("studenttoken", token);
   // console.log("token****", data.get("token"));
 
   const handleSubmit = (values: IFeedback) => {
     // console.log("values", values);
-    createFeedback(values);
+    createFeedback({ body: values, token: token });
   };
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
       // showSuccessToast("Feedback submitted successfully.");
       navigate("/feedback-taken");
-      sessionStorage.removeItem("token");
     }
   }, [isSuccessSubmitFeedback, navigate]);
 

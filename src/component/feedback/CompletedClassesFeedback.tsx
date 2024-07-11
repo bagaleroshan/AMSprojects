@@ -24,7 +24,7 @@ const CompletedClassesFeedback = () => {
   console.log("Completed CLasses", dataReadCompletedGroups);
 
   const resultsArray = dataReadCompletedGroups?.result?.results || [];
-  // console.log("resultsArray****", resultsArray);
+  console.log("resultsArray****", resultsArray);
 
   useEffect(() => {
     isErrorReadCompletedGroups &&
