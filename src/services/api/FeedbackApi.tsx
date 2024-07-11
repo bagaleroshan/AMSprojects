@@ -34,16 +34,16 @@ export const FeedbackApi = createApi({
     }),
     createFeedback: builder.mutation({
       query: (body) => {
-        const token = sessionStorage.getItem("studenttoken");
-        if (!token) {
+        // console.log("value***", body);
+        if (!body.token) {
           throw new Error("No token available");
         }
         return {
           url: "/feedbacks",
           method: "POST",
-          body: body,
+          body: body.body,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${body.token}`,
           },
         };
       },

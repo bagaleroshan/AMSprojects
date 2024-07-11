@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import DeleteConfirmation from "../../DeleteConfirmation";
+import { showSuccessToast } from "../../muiModals/toastConfig";
 import {
   useDeleteStudentMutation,
   useReadStudentsQuery,
 } from "../../services/api/StudentApi";
-import TableComponent, { IData } from "../TableComponent/TableComponent";
-
-import DeleteConfirmation from "../../DeleteConfirmation";
-import StudentExportCSV from "../ExportCSV/StudentExportCSV";
-import { toast } from "react-toastify";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { showSuccessToast } from "../../muiModals/toastConfig";
+import TableComponent, { IData } from "../TableComponent/TableComponent";
 interface Query {
   page: number;
   limit: number;
@@ -72,6 +70,7 @@ const StudentTable: React.FC = () => {
   useEffect(() => {
     refetch();
   }, [query, refetch]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
