@@ -102,7 +102,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     const selectedPage = selectedItem.selected + 1;
-    
+
     // Clear selected rows and data
     setSelectedRows(new Set());
     setSelectedRowData([]);
@@ -213,7 +213,6 @@ const TableComponent: React.FC<TableComponentProps> = ({
               ),
             }}
           />
-         
         </Stack>
         {selectedRows.size > 0 && (
           <Stack display="flex" direction="row" spacing={0.5}>

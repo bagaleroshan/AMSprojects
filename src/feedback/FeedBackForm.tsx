@@ -194,7 +194,7 @@ const FeedbackForm: React.FC = () => {
                           formik.setFieldTouched("description", true)
                         }
                         theme="snow"
-                        placeholder="Don’t mention name and info in here......"
+                        placeholder="Don't mention your name and info in here......"
                       />
                       {formik.touched.description &&
                         formik.errors.description && (

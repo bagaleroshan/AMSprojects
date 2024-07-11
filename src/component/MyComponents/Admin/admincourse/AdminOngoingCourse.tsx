@@ -55,17 +55,17 @@ const AdminOngoingCourse = () => {
                       style={{ width: "15rem" }}
                     >
                       <Typography gutterBottom variant="h6" color="primary">
-                        {group.subject.subjectName}
+                        {group.groupName}
                       </Typography>
                       <Box height={5} />
                       <Typography variant="body2" color="primary">
                         Teacher:{group.teacher.fullName}
                       </Typography>
                       <Typography variant="body2" color="primary">
-                        Group Name:
+                        Subject Name:
                       </Typography>
                       <Typography variant="body1" color="primary">
-                        {group.groupName}
+                        {group.subject.subjectName}
                       </Typography>
                     </div>
                     <Button variant="contained" color="primary">
