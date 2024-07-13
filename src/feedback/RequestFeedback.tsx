@@ -3,10 +3,7 @@ import { toast } from "react-toastify";
 import { Button } from "@mui/material";
 import { useRequestFeedbackMutation } from "../services/api/FeedbackApi";
 import { showSuccessToast } from "../muiModals/toastConfig";
-
-interface RequestFeedbackProps {
-  groupId: string;
-}
+import { RequestFeedbackProps } from "../component/interfaces/FeedbackInterface";
 
 const RequestFeedback: React.FC<RequestFeedbackProps> = ({ groupId }) => {
   const [
@@ -31,9 +28,9 @@ const RequestFeedback: React.FC<RequestFeedbackProps> = ({ groupId }) => {
     }
   }, [isErrorRequestFeedback, errorRequestFeedback]);
 
-  const handleRequestFeedback = (e) => {
+  const handleRequestFeedback = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Stop event propagation to parent elements
-    requestFeedback(groupId);
+    requestFeedback({ groupId });
   };
 
   return (

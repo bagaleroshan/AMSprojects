@@ -151,14 +151,23 @@ const FeedbackForm: React.FC = () => {
                           </FormLabel>
                           <Rating
                             name={item.name}
-                            value={formik.values[item.name as keyof IFeedback]}
-                            onChange={(event, newValue) => {
-                              console.log(
-                                "Item Name:",
-                                item.name + " and Value:",
-                                newValue
-                              );
-                              formik.setFieldValue(item.name, newValue);
+                            value={
+                              formik.values[
+                                item.name as keyof IFeedback
+                              ] as number
+                            }
+                            // onChange={(newValue) => {
+                            //   // console.log(
+                            //   //   "Item Name:",
+                            //   //   item.name + " and Value:",
+                            //   //   newValue
+                            //   // );
+                            //   formik.setFieldValue(item.name, newValue);
+                            // }}
+                            onChange={(_, newValue: number | null) => {
+                              if (newValue !== null) {
+                                formik.setFieldValue(item.name, newValue);
+                              }
                             }}
                             precision={1}
                           />

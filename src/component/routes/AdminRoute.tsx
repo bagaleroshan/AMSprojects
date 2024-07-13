@@ -84,9 +84,9 @@ const AdminRoute = () => {
         {/* <Route path="rough" element={<RoughRough />} /> */}
 
         {/* ********************* Attendance Course**************** */}
-        <Route path="courses" element={<Outlet />} >
-<         Route index element={<AdminCourse />} />
-<         Route path =":id" element={<AdminAttendance />} />
+        <Route path="courses" element={<Outlet />}>
+          <Route index element={<AdminCourse />} />
+          <Route path=":id" element={<AdminAttendance />} />
         </Route>
 
         {/* --------------------------Others------------------------------- */}

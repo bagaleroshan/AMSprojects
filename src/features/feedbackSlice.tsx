@@ -6,11 +6,12 @@ const initialState: IFeedback = {
   hasDeliveryPower: 0,
   hasSkills: 0,
   hasInteraction: 0,
-  isClassFretful: 0,
-  isClassComfortable: 0,
+  isClassFruitful: 0,
+  isClassRoomComfortable: 0,
   hasClearConversation: 0,
   doesInternetWork: 0,
   feelChangeOnYourself: 0,
+  description: "",
 };
 
 export const feedbackSlice = createSlice({

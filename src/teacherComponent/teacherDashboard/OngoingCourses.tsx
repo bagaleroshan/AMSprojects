@@ -9,6 +9,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { Group } from "../../component/interfaces/FeedbackInterface";
 
 const OngoingCourses = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const OngoingCourses = () => {
     isLoading: isLoadingReadGroups,
   } = useReadGroupsByTeacherIdQuery("active=true");
   console.log("dataReadGroups*************", dataReadGroups?.result?.results);
-  const groups = dataReadGroups?.result?.results || [];
+  const groups: Group[] = dataReadGroups?.result?.results || [];
 
   useEffect(() => {
     isErrorReadGroups &&

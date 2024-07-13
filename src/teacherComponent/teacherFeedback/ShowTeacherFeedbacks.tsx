@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Feedback } from "../../component/interfaces/FeedbackInterface";
 import { useReadFeedbackByGroupIdQuery } from "../../services/api/FeedbackApi";
 import {
   getErrorMessage,
@@ -19,21 +20,19 @@ import {
 
 const ShowTeacherFeedbacks = () => {
   const { id } = useParams();
-
   /* State for search query */
   const [searchQuery, setSearchQuery] = useState<string>("");
-
   const {
     isError: isErrorReadFeedbackById,
     error: errorReadFeedbackById,
     data: dataReadFeedbackById,
   } = useReadFeedbackByGroupIdQuery(id);
 
-  const feedbacks = dataReadFeedbackById?.result?.results || [];
-  console.log("feedbacks", feedbacks);
+  const feedbacks: Feedback[] = dataReadFeedbackById?.result?.results || [];
+  // console.log("feedbacks", feedbacks);
 
   // Filter feedbacks based on search query
-  const filteredFeedbacks = feedbacks.filter((feedback) =>
+  const filteredFeedbacks = feedbacks.filter((feedback: Feedback) =>
     feedback.student.fullName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 

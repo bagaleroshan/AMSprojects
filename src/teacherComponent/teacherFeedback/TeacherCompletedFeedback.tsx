@@ -3,6 +3,7 @@ import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Group } from "../../component/interfaces/FeedbackInterface";
 import { useReadGroupsByTeacherIdQuery } from "../../services/api/TeacherService";
 import {
   getErrorMessage,
@@ -19,7 +20,7 @@ const TeacherCompletedFeedback = () => {
     isLoading: isLoadingReadCompletedGroups,
   } = useReadGroupsByTeacherIdQuery("active=false");
 
-  const resultsArray = dataReadGroups?.result?.results || [];
+  const resultsArray: Group[] = dataReadGroups?.result?.results || [];
   // console.log("resultsArray****", resultsArray);
 
   useEffect(() => {
