@@ -17,10 +17,4 @@ export const teacherSlice = createSlice({
   reducers: {},
 });
 
-// export const {} = teacherSlice.actions;
-
-// export const selectToken = createSelector(
-//   (state: RootState) => state.user.token,
-//   (token) => token
-// );
 export default teacherSlice.reducer;

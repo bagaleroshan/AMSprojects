@@ -42,7 +42,7 @@ export function isFetchBaseQueryError(error: unknown): error is CustomFetchBaseQ
 
   /* ******************Functions************************ */
 
- export function changeFirstName(fullName) {
+ export function changeFirstName(fullName: string) {
     if (!fullName) return "";
     const names = fullName.split(" ");
     if (names.length >= 1) {

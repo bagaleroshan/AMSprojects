@@ -11,6 +11,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { Group } from "../interfaces/FeedbackInterface";
 
 const CompletedClassesFeedback = () => {
   const navigate = useNavigate();
@@ -21,10 +22,8 @@ const CompletedClassesFeedback = () => {
     error: errorReadCompletedGroups,
   } = useReadActiveGroupQuery("false");
 
-  console.log("Completed CLasses", dataReadCompletedGroups);
-
   const resultsArray = dataReadCompletedGroups?.result?.results || [];
-  console.log("resultsArray****", resultsArray);
+  // console.log("resultsArray****", resultsArray);
 
   useEffect(() => {
     isErrorReadCompletedGroups &&
@@ -85,7 +84,7 @@ const CompletedClassesFeedback = () => {
             </Paper>
           </Grid>
         ) : (
-          resultsArray.map((group, index) => (
+          resultsArray.map((group: Group, index: number) => (
             <Grid
               item
               xs={12}
@@ -103,7 +102,6 @@ const CompletedClassesFeedback = () => {
                     transform: "scale(1.01)",
                   },
                 }}
-                // onClick={() => navigate(`/admin/feedback/${group.id}`)}
               >
                 <Grid container spacing={2} alignItems="center">
                   <Grid
@@ -129,7 +127,7 @@ const CompletedClassesFeedback = () => {
                       color="textSecondary"
                       gutterBottom
                     >
-                      Teacher: {changeFirstName(group.teacher.fullName)}
+                      Teacher: {changeFirstName(group?.teacher?.fullName)}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
                       Subject Name: {group.subject.subjectName}
