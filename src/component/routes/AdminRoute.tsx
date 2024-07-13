@@ -81,7 +81,6 @@ const AdminRoute = () => {
           <Route index element={<AdminFeedback />} />
           <Route path=":id" element={<ShowGroupFeedback />} />
         </Route>
-        {/* <Route path="rough" element={<RoughRough />} /> */}
 
         {/* ********************* Attendance Course**************** */}
         <Route path="courses" element={<Outlet />}>
