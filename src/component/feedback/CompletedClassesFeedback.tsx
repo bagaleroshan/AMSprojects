@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import RequestFeedback from "../../feedback/RequestFeedback";
 import { useReadActiveGroupQuery } from "../../services/api/GroupService";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -23,7 +24,7 @@ const CompletedClassesFeedback = () => {
   console.log("Completed CLasses", dataReadCompletedGroups);
 
   const resultsArray = dataReadCompletedGroups?.result?.results || [];
-  console.log("resultsArray****", resultsArray);
+  // console.log("resultsArray****", resultsArray);
 
   useEffect(() => {
     isErrorReadCompletedGroups &&
@@ -121,17 +122,17 @@ const CompletedClassesFeedback = () => {
                   </Grid>
                   <Grid item xs={4}>
                     <Typography variant="h6" color="primary" gutterBottom>
-                      {group.subject.subjectName}
+                      {group.groupName}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="textSecondary"
                       gutterBottom
                     >
-                      Teacher: {group.teacher.fullName}
+                      Teacher: {changeFirstName(group.teacher.fullName)}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Group Name: {group.groupName}
+                      Subject Name: {group.subject.subjectName}
                     </Typography>
                   </Grid>
                   <Grid
@@ -159,7 +160,7 @@ const CompletedClassesFeedback = () => {
                       color="primary"
                       variant="contained"
                     >
-                      Feedbacks
+                      View Feedbacks
                     </Button>
                   </Grid>
                 </Grid>

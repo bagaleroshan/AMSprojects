@@ -68,7 +68,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchTerm(value);
-    debouncedSetQuery({ findQuery: value });
+    debouncedSetQuery({ findQuery: value,page:1 });
   };
 
   const handleQueryChange = (newQuery: Partial<Query>) => {

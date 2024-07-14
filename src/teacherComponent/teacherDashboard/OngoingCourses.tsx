@@ -1,5 +1,5 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,8 +16,9 @@ const OngoingCourses = () => {
     isError: isErrorReadGroups,
     data: dataReadGroups,
     error: errorReadGroups,
+    isLoading: isLoadingReadGroups,
   } = useReadGroupsByTeacherIdQuery("active=true");
-  // console.log("dataReadGroups*************", dataReadGroups?.result?.results);
+  console.log("dataReadGroups*************", dataReadGroups?.result?.results);
   const groups = dataReadGroups?.result?.results || [];
 
   useEffect(() => {
@@ -32,82 +33,138 @@ const OngoingCourses = () => {
   // console.log(dataReadGroups);
   return (
     <>
-      {groups.length > 0 ? (
-        groups.map((value, i) => {
-          // console.log("Value of Read Group By Teacher ID", value);
-          return (
-            <Box
-              margin={1}
-              key={i}
+      <Grid container spacing={2}>
+        {isLoadingReadGroups ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
               sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
                 "&:hover": {
                   cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
                 },
               }}
-              onClick={() => navigate(`/teachers/${value.id}`)}
             >
-              <Paper elevation={4} sx={{ borderRadius: "10px", mt: "2" }}>
-                <Box sx={{ p: 2 }}>
-                  <div className="TDashboardOngoingCourses">
+              <Typography color="primary" sx={{ color: "black" }}>
+                Loading...
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : groups.length === 0 ? (
+          <Grid item xs={12}>
+            <Paper
+              elevation={1}
+              sx={{
+                height: "10vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "box-shadow 0.3s",
+                "&:hover": {
+                  cursor: "pointer",
+                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                },
+              }}
+            >
+              <Typography color="primary" sx={{ color: "black" }}>
+                No classes found.
+              </Typography>
+            </Paper>
+          </Grid>
+        ) : (
+          groups.map((group, index) => (
+            <Grid
+              item
+              xs={12}
+              key={index}
+              onClick={() => navigate(`/teachers/${group.id}`)}
+            >
+              <Paper
+                elevation={3}
+                sx={{
+                  p: 2,
+                  transition: "box-shadow 0.2s ease-in-out",
+                  "&:hover": {
+                    cursor: "pointer",
+                    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
+                    transform: "scale(1.01)",
+                  },
+                }}
+              >
+                <Grid container spacing={2} alignItems="center">
+                  <Grid
+                    item
+                    xs={2}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <LocalLibraryOutlinedIcon
-                      color="success"
+                      color="primary"
                       fontSize="large"
                     />
-                    <div className="TDashboardOngoingSubject">
-                      <Typography gutterBottom variant="h6">
-                        {value.groupName}
-                      </Typography>
-                      <Box height={15} />
-                      {/* <Typography variant="body2">{value.groupName}</Typography> */}
-                      <Typography variant="body1">
-                        {value.subject.subjectName}
-                      </Typography>
-                    </div>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography gutterBottom variant="h6">
+                      {group.groupName}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      gutterBottom
+                    >
+                      {group.subject.subjectName}
+                    </Typography>
+                    {/* <Typography variant="body2" color="textSecondary">
+                      Group Name: {group.groupName}
+                    </Typography> */}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => navigate(`/teachers/${value.id}`)}
+                      onClick={() => navigate(`/teachers/${group.id}`)}
                     >
                       Take Attendance
                     </Button>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <Typography
                       variant="body1"
                       sx={{ fontWeight: "normal", color: "#43a047" }}
                     >
                       Number of Days Left:0
                     </Typography>
-
-                    {/* <Typography
-                      variant="body1"
-                      sx={{ fontWeight: "normal", color: "#e53935" }}
-                    >
-                      Absent:0
-                    </Typography> */}
-                  </div>
-                </Box>
-                <Box height={15} />
+                  </Grid>
+                </Grid>
               </Paper>
-            </Box>
-          );
-        })
-      ) : (
-        <Box>
-          <Box height={30} />
-          <Paper
-            elevation={1}
-            sx={{
-              height: "10vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography color="primary" sx={{ color: "black" }}>
-              Not a single ongoing classes yet.
-            </Typography>
-          </Paper>
-        </Box>
-      )}
+            </Grid>
+          ))
+        )}
+      </Grid>
     </>
   );
 };

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import RequestFeedback from "../../feedback/RequestFeedback";
 import { useReadActiveGroupQuery } from "../../services/api/GroupService";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -20,7 +21,7 @@ const OngoingClassesFeedback = () => {
     error: errorReadActiveGroups,
   } = useReadActiveGroupQuery("true");
 
-  console.log("dataReadActiveGroups**********", dataReadActiveGroups);
+  // console.log("dataReadActiveGroups**********", dataReadActiveGroups);
 
   const resultsArray = dataReadActiveGroups?.result?.results || [];
 
@@ -101,7 +102,6 @@ const OngoingClassesFeedback = () => {
                     transform: "scale(1.01)",
                   },
                 }}
-                // onClick={() => navigate(`/admin/feedback/${group.id}`)}
               >
                 <Grid container spacing={2} alignItems="center">
                   <Grid
@@ -120,17 +120,17 @@ const OngoingClassesFeedback = () => {
                   </Grid>
                   <Grid item xs={4}>
                     <Typography variant="h6" color="primary" gutterBottom>
-                      {group.subject.subjectName}
+                      {group.groupName}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="textSecondary"
                       gutterBottom
                     >
-                      Teacher: {group.teacher.fullName}
+                      Teacher: {changeFirstName(group.teacher.fullName)}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Group Name: {group.groupName}
+                      Subject Name: {group.subject.subjectName}
                     </Typography>
                   </Grid>
                   <Grid
@@ -158,7 +158,7 @@ const OngoingClassesFeedback = () => {
                       color="primary"
                       variant="contained"
                     >
-                      Feedbacks
+                      View Feedbacks
                     </Button>
                   </Grid>
                 </Grid>

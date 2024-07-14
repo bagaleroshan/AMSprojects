@@ -74,18 +74,6 @@ export default function TeacherSideBar() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 AMS
               </Typography>
-
-              <Box>
-                <ListItem onClick={() => navigate("/teachers/my-profile")}>
-                  <LightTooltip title="My Profile" placement="right">
-                    <ListItemButton>
-                      <AccountCircleIcon
-                        sx={{ height: "40px", width: "40px" }}
-                      />
-                    </ListItemButton>
-                  </LightTooltip>
-                </ListItem>
-              </Box>
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" open={open}>
@@ -204,8 +192,8 @@ export default function TeacherSideBar() {
                   </ListItemButton>
                 </LightTooltip>
               </ListItem>
-              {/* Messages */}
-              <ListItem
+              {/* ******************Messages*************** */}
+              {/* <ListItem
                 disablePadding
                 sx={{
                   display: "block",
@@ -254,8 +242,8 @@ export default function TeacherSideBar() {
                     />
                   </ListItemButton>
                 </LightTooltip>
-              </ListItem>
-              {/* Report */}
+              </ListItem> */}
+              {/* ***************Report**************** */}
               <ListItem
                 disablePadding
                 sx={{

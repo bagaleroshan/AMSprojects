@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useReadGroupsByTeacherIdQuery } from "../../../services/api/TeacherService";
 import { Form, Formik } from "formik";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import {
   Button,
   FormControl,
   Stack,
   CircularProgress,
   Typography,
+  Box,
+  Grid,
+  Paper,
 } from "@mui/material";
 import DwSelect from "../../dwComponents/DwSelect";
 import UseTeacherReportTable from "./UseTeacherReportTable";
@@ -17,9 +21,10 @@ const TeacherReportTable = () => {
     isLoading: isLoadingAllGroups,
     error,
   } = useReadGroupsByTeacherIdQuery("");
-  const [selectedGroupId, setSelectedGroupId] = useState("jsjadgsa");
+  const [selectedGroupId, setSelectedGroupId] = useState("");
 
   const teachersGroups = data?.result?.results;
+
   const options = teachersGroups?.map((value) => ({
     label: value.groupName,
     value: value.id,
@@ -39,7 +44,11 @@ const TeacherReportTable = () => {
         <Formik initialValues={{ groupName: "" }}>
           {(formik) => (
             <Form>
-              <Stack display="flex" direction="row" spacing={10}>
+              <Stack
+                display="flex"
+                direction="row"
+                justifyContent="space-between"
+              >
                 <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
                   <DwSelect
                     name="group"
@@ -52,7 +61,15 @@ const TeacherReportTable = () => {
                     isLoading={isLoadingAllGroups}
                   />
                 </FormControl>
+                <Button
+                  variant="contained"
+                  sx={{ height: "40px" }}
+                  startIcon={<ArrowDownwardIcon />}
+                >
+                  Download
+                </Button>
               </Stack>
+              <Box height={5} />
               <Stack display="flex" direction="row" spacing={10}>
                 {/* Other form controls can go here */}
               </Stack>
@@ -64,7 +81,26 @@ const TeacherReportTable = () => {
         {selectedGroupId ? (
           <UseTeacherReportTable groupId={selectedGroupId} />
         ) : (
-          <Typography>Select a group to view the report</Typography>
+          <Grid item xs={12}>
+            <Box
+              mt={15}
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h5"
+                color="textSecondary"
+                sx={{ fontStyle: "italic" }}
+              >
+                Select a group to view the report
+              </Typography>
+            </Box>
+          </Grid>
         )}
       </div>
     </>
