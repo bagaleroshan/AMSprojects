@@ -9,6 +9,7 @@ const AdminCourse = () => {
   const [value, setValue] = useState("1");
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+    console.log("Jenisssssssssssssssss")
   };
   return (
     <>
@@ -36,8 +37,6 @@ const AdminCourse = () => {
                 <AdminCompletedCourse/>
               </TabPanel>
             </TabContext>
-          {/* </Box>
-        </Box> */}
       </div>
     </>
   )

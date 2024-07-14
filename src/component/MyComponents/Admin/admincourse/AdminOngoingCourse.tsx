@@ -60,7 +60,7 @@ const AdminOngoingCourse = () => {
               item
               xs={12}
               key={index}
-              onClick={() => navigate(`/teachers/${group.id}`)}
+              onClick={() => navigate(`/admin/courses/${group.id}`)}
             >
               <Paper
                 elevation={3}
@@ -101,7 +101,7 @@ const AdminOngoingCourse = () => {
                       Subject: {group.subject.subjectName}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Teacher: {changeFirstName(group.teacher.fullName)}
+                      Teacher: {changeFirstName(group?.teacher?.fullName)}
                     </Typography>
                   </Grid>
                   <Grid
@@ -116,10 +116,7 @@ const AdminOngoingCourse = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(`/teachers/${group.id}`);
-                      }}
+                      onClick={() => navigate(`/admin/courses/${group.id}`)}
                     >
                       Take Attendance
                     </Button>

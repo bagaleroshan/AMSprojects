@@ -1,4 +1,4 @@
-import { Button, Grid, Modal as MuiModal, Typography } from "@mui/material";
+import { Box, Button, Grid, Modal as MuiModal, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
@@ -143,7 +143,14 @@ export const AddStudentsToGroup = ({ id }) => {
           </Grid>
         </ModalContent>
       </MuiModal>
-      <MuiLoadingButtonTheme buttonName="Add" onClick={handleOpen} isLoading={false} ></MuiLoadingButtonTheme>
+      <Grid container>
+      <Grid item xs={2} sx={{ gridTemplateRows: 'repeat(3, 1fr)'}}>
+      <MuiLoadingButtonTheme buttonName="Add" onClick={handleOpen} isLoading={false} />
+      </Grid>
+      </Grid>
+      
+      
+     
     </div>
   );
 };

@@ -11,6 +11,7 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { Group } from "../interfaces/FeedbackInterface";
 
 const OngoingClassesFeedback = () => {
   const navigate = useNavigate();
@@ -21,9 +22,8 @@ const OngoingClassesFeedback = () => {
     error: errorReadActiveGroups,
   } = useReadActiveGroupQuery("true");
 
-  // console.log("dataReadActiveGroups**********", dataReadActiveGroups);
-
   const resultsArray = dataReadActiveGroups?.result?.results || [];
+  // console.log("dataReadActiveGroups**********", resultsArray);
 
   useEffect(() => {
     isErrorReadActiveGroups &&
@@ -84,7 +84,7 @@ const OngoingClassesFeedback = () => {
             </Paper>
           </Grid>
         ) : (
-          resultsArray.map((group, index) => (
+          resultsArray.map((group: Group, index: number) => (
             <Grid
               item
               xs={12}
@@ -127,7 +127,7 @@ const OngoingClassesFeedback = () => {
                       color="textSecondary"
                       gutterBottom
                     >
-                      Teacher: {changeFirstName(group.teacher.fullName)}
+                      Teacher: {changeFirstName(group?.teacher?.fullName)}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
                       Subject Name: {group.subject.subjectName}

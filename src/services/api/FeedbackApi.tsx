@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IFeedback } from "../../component/interfaces/FeedbackInterface";
+import { RequestFeedbackProps } from "../../component/interfaces/FeedbackInterface";
 
 export interface IQuery {
   page: number;
@@ -34,16 +34,16 @@ export const FeedbackApi = createApi({
     }),
     createFeedback: builder.mutation({
       query: (body) => {
-        const token = sessionStorage.getItem("studenttoken");
-        if (!token) {
+        // console.log("value***", body);
+        if (!body.token) {
           throw new Error("No token available");
         }
         return {
           url: "/feedbacks",
           method: "POST",
-          body: body,
+          body: body.body,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${body.token}`,
           },
         };
       },
@@ -118,8 +118,8 @@ export const FeedbackApi = createApi({
       invalidatesTags: ["readFeedbacks"],
     }),
 
-    requestFeedback: builder.mutation<void, IFeedback>({
-      query: (groupId) => {
+    requestFeedback: builder.mutation<void, RequestFeedbackProps>({
+      query: ({ groupId }) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
@@ -129,7 +129,7 @@ export const FeedbackApi = createApi({
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
           },
         };
       },
@@ -138,6 +138,7 @@ export const FeedbackApi = createApi({
   }),
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const {
   useCreateFeedbackMutation,
   useUpdateFeedbackMutation,

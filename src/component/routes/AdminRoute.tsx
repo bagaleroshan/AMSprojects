@@ -1,4 +1,6 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import ShowGroupFeedback from "../../feedback/ShowGroupFeedback";
+import AdminAttendance from "../MyComponents/Admin/AdminAttendance";
 import AdminDashboard from "../MyComponents/Admin/AdminDashboard";
 import AdminFeedback from "../MyComponents/Admin/AdminFeedback";
 import AdminMessages from "../MyComponents/Admin/AdminMessages";
@@ -16,8 +18,6 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
-import ShowGroupFeedback from "../../feedback/ShowGroupFeedback";
-import RoughRough from "../../feedback/rough";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -81,14 +81,18 @@ const AdminRoute = () => {
           <Route index element={<AdminFeedback />} />
           <Route path=":id" element={<ShowGroupFeedback />} />
         </Route>
-        <Route path="rough" element={<RoughRough />} />
+
+        {/* ********************* Attendance Course**************** */}
+        <Route path="courses" element={<Outlet />}>
+          <Route index element={<AdminCourse />} />
+          <Route path=":id" element={<AdminAttendance />} />
+        </Route>
 
         {/* --------------------------Others------------------------------- */}
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
         <Route path="messages" element={<AdminMessages />} />
-        <Route path="courses" element={<AdminCourse />} />
         <Route path="report" element={<AdminReport />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>

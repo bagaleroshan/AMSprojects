@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DeleteConfirmation from "../../DeleteConfirmation";
-import { useDeleteStudentMutation } from "../../services/api/StudentApi";
+import { useDeleteStudentMutation, useReadStudentByGroupIdQuery, useReadStudentByIdQuery } from "../../services/api/StudentApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
@@ -34,7 +34,8 @@ const StudentsInGroup: React.FC = (id) => {
     sort: [],
   });
   const { data, isLoading, isError, refetch } = useReadGroupByIdQuery(id.id);
-  // console.log("Data jsahdjasdasa", data);
+  const { data:studentData, isLoading:studentIsLoading, isError:studentIsError, refetch:refetchStudents } = useReadStudentByGroupIdQuery({id:id.id,query:query});
+  console.log(studentData?.result?.results)
   const [
     deleteStudents,
     {
@@ -108,12 +109,6 @@ const StudentsInGroup: React.FC = (id) => {
   return (
     <div>
       <Grid container>
-        {/* <Grid item xs={4}>
-          <StudentExportCSV
-            data={data.result.results}
-            fileName="Student File"
-          />
-        </Grid> */}
         <Grid item xs={6}>
           <Typography component="h2" variant="h6" gutterBottom>
             Students in this group...
@@ -123,7 +118,7 @@ const StudentsInGroup: React.FC = (id) => {
 
       <TableComponent
         columns={columns}
-        data={data.result.students}
+        data={studentData?.result?.results}
         query={query}
         setQuery={setQuery}
         currentSort={query.sort}

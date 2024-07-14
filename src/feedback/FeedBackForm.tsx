@@ -49,25 +49,21 @@ const FeedbackForm: React.FC = () => {
       error: errorSubmitFeedback,
     },
   ] = useCreateFeedbackMutation();
-
   const navigate = useNavigate();
 
   const [data] = useSearchParams();
   const token = data.get("token") || "";
-  // localStorage.setItem("studenttoken", token);
-  sessionStorage.setItem("studenttoken", token);
   // console.log("token****", data.get("token"));
 
   const handleSubmit = (values: IFeedback) => {
     // console.log("values", values);
-    createFeedback(values);
+    createFeedback({ body: values, token: token });
   };
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
       // showSuccessToast("Feedback submitted successfully.");
       navigate("/feedback-taken");
-      sessionStorage.removeItem("token");
     }
   }, [isSuccessSubmitFeedback, navigate]);
 
@@ -155,14 +151,23 @@ const FeedbackForm: React.FC = () => {
                           </FormLabel>
                           <Rating
                             name={item.name}
-                            value={formik.values[item.name as keyof IFeedback]}
-                            onChange={(event, newValue) => {
-                              console.log(
-                                "Item Name:",
-                                item.name + " and Value:",
-                                newValue
-                              );
-                              formik.setFieldValue(item.name, newValue);
+                            value={
+                              formik.values[
+                                item.name as keyof IFeedback
+                              ] as number
+                            }
+                            // onChange={(newValue) => {
+                            //   // console.log(
+                            //   //   "Item Name:",
+                            //   //   item.name + " and Value:",
+                            //   //   newValue
+                            //   // );
+                            //   formik.setFieldValue(item.name, newValue);
+                            // }}
+                            onChange={(_, newValue: number | null) => {
+                              if (newValue !== null) {
+                                formik.setFieldValue(item.name, newValue);
+                              }
                             }}
                             precision={1}
                           />
