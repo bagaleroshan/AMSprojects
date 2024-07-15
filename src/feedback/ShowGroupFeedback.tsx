@@ -1,6 +1,7 @@
 import { AccountCircle } from "@mui/icons-material";
 import {
   Box,
+  Divider,
   Grid,
   IconButton,
   Paper,
@@ -17,7 +18,9 @@ import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
+  stripHtmlTags,
 } from "../utils/utils";
+import DOMPurify from "dompurify";
 
 const ShowGroupFeedback = () => {
   const { id } = useParams();
@@ -35,7 +38,7 @@ const ShowGroupFeedback = () => {
 
   // Filter feedbacks based on search query
   const filteredFeedbacks: Feedback[] = feedbacks.filter((feedback: Feedback) =>
-    feedback.student.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+    feedback.student?.fullName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {
@@ -98,8 +101,11 @@ const ShowGroupFeedback = () => {
                   >
                     Phone No.: {value.student.phoneNumber}
                   </Typography>
+                  <Divider
+                    sx={{ my: 2, borderColor: "black", borderWidth: 2 }}
+                  />
                   <Typography variant="body1" gutterBottom>
-                    Feedback:
+                    Feedbacks:
                   </Typography>
                   <Typography>On Time: {value.onTime}</Typography>
                   <Typography gutterBottom>
@@ -131,10 +137,18 @@ const ShowGroupFeedback = () => {
                       wordBreak: "break-word",
                     }}
                   >
-                    Thoughts: {value.description}
+                    Thoughts:{" "}
+                    <Box
+                      component="span"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          stripHtmlTags(value.description)
+                        ),
+                      }}
+                    />
                   </Typography>
                 </Box>
-                <Box mt={2} display="flex" alignItems="center">
+                <Box mt={1} display="flex" alignItems="center">
                   <IconButton>
                     <AccountCircle color="primary" />
                   </IconButton>

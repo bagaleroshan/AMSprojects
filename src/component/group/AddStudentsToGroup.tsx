@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { ModalContent, customStyles } from "../../muiModals/modalStyles";
-import { useAddStudentGroupMutation } from "../../services/api/GroupService";
-import { useReadStudentsQuery } from "../../services/api/StudentApi";
+import {
+  useAddStudentGroupMutation,
+  useReadStudentsQuery,
+} from "../../services/api/StudentApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
