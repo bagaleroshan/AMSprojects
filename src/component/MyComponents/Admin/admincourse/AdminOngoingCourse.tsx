@@ -21,6 +21,7 @@ const AdminOngoingCourse = () => {
   } = useReadGroupQuery(query);
 
   const resultsArray = dataViewAll?.result?.results || [];
+  console.log("resultsArray*******************", resultsArray);
 
   if (isLoadingViewAll) {
     return <div>Loading...</div>;
@@ -29,7 +30,7 @@ const AdminOngoingCourse = () => {
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll.message}</div>;
   }
-  console.log(dataViewAll);
+  // console.log(dataViewAll);
 
   return (
     <>
@@ -123,7 +124,7 @@ const AdminOngoingCourse = () => {
                       Subject: {group.subject.subjectName}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Teacher: {changeFirstName(group.teacher.fullName)}
+                      Teacher: {changeFirstName(group?.teacher?.fullName)}
                     </Typography>
                   </Grid>
                   <Grid

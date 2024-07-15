@@ -10,7 +10,7 @@ export const AttendanceApi = createApi({
   endpoints: (builder) => ({
     takeAttendance: builder.mutation({
       query: ({ id, data }) => {
-        console.log(id, data, "*******************");
+        // console.log(id, data, "*******************");
         // console.log(id,data)
         const token = localStorage.getItem("token");
         if (!token) {
@@ -99,5 +99,5 @@ export const {
   useReadAllAttendanceQuery,
   useReadMonthlyAttendanceReportQuery,
   useGetTodayAttendanceQuery,
-  useReadAttendanceForGroupQuery
+  useReadAttendanceForGroupQuery,
 } = AttendanceApi;

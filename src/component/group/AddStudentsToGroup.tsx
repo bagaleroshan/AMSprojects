@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Modal as MuiModal, Typography } from "@mui/material";
+import { Button, Grid, Modal as MuiModal, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
@@ -10,14 +10,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { Query } from "../interfaces/TableInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-
-interface Query {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort: string[];
-}
 
 export const AddStudentsToGroup = ({ id }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -98,7 +92,14 @@ export const AddStudentsToGroup = ({ id }) => {
           justifyContent: "center",
         }}
       >
-        <ModalContent sx={{ width: 800, minHeight:600,maxHeight:'90%',overflowY:'auto' }}>
+        <ModalContent
+          sx={{
+            width: 800,
+            minHeight: 600,
+            maxHeight: "90%",
+            overflowY: "auto",
+          }}
+        >
           <Typography id="modal-title" variant="h6" component="h2">
             Add Students to Group
           </Typography>
@@ -144,13 +145,14 @@ export const AddStudentsToGroup = ({ id }) => {
         </ModalContent>
       </MuiModal>
       <Grid container>
-      <Grid item xs={2} sx={{ gridTemplateRows: 'repeat(3, 1fr)'}}>
-      <MuiLoadingButtonTheme buttonName="Add" onClick={handleOpen} isLoading={false} />
+        <Grid item xs={2} sx={{ gridTemplateRows: "repeat(3, 1fr)" }}>
+          <MuiLoadingButtonTheme
+            buttonName="Add"
+            onClick={handleOpen}
+            isLoading={false}
+          />
+        </Grid>
       </Grid>
-      </Grid>
-      
-      
-     
     </div>
   );
 };
