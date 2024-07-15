@@ -1,24 +1,21 @@
+import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DeleteConfirmation from "../../DeleteConfirmation";
-import { useDeleteStudentMutation, useReadStudentByGroupIdQuery, useReadStudentByIdQuery } from "../../services/api/StudentApi";
+import { useReadGroupByIdQuery } from "../../services/api/GroupService";
+import {
+  useReadStudentByGroupIdQuery,
+  useRemoveStudentFromGroupMutation,
+} from "../../services/api/StudentApi";
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-// import StudentExportCSV from "../ExportCSV/StudentExportCSV";
-import { Grid, Typography } from "@mui/material";
-import { useReadGroupByIdQuery } from "../../services/api/GroupService";
-import TableComponent, { IData } from "../TableComponent/TableComponent";
+import TableComponent from "../TableComponent/TableComponent";
+import { IData, Query } from "../interfaces/TableInterface";
 
-interface Query {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort: string[];
-}
 const StudentsInGroup: React.FC = (id) => {
   const navigate = useNavigate();
   const columns = [
@@ -33,18 +30,37 @@ const StudentsInGroup: React.FC = (id) => {
     findQuery: "",
     sort: [],
   });
-  const { data, isLoading, isError, refetch } = useReadGroupByIdQuery(id.id);
-  const { data:studentData, isLoading:studentIsLoading, isError:studentIsError, refetch:refetchStudents } = useReadStudentByGroupIdQuery({id:id.id,query:query});
-  console.log(studentData?.result?.results)
+  const { data, isLoading, isError } = useReadGroupByIdQuery(id.id);
+  const {
+    data: studentData,
+    isLoading: studentIsLoading,
+    isError: isErrorStudentData,
+    error: errorStudentData,
+    refetch: refetchStudents,
+  } = useReadStudentByGroupIdQuery({ id: id.id, query: query });
+  // console.log(studentData?.result?.results);
+
+  useEffect(() => {
+    if (isErrorStudentData) {
+      if (isFetchBaseQueryError(errorStudentData)) {
+        toast.error(getErrorMessage(errorStudentData), { autoClose: 5000 });
+      } else if (isSerializedError(errorStudentData)) {
+        toast.error(errorStudentData?.message, { autoClose: 5000 });
+      } else {
+        toast.error("Unknown Error", { autoClose: 5000 });
+      }
+    }
+  }, [isErrorStudentData, errorStudentData]);
+
   const [
-    deleteStudents,
+    removeStudentsFromGroup,
     {
       isError: isDeleteStudentError,
       error: errorDeleteStudent,
       isSuccess: isSuccessDeleteStudent,
       data: successDeleteStudent,
     },
-  ] = useDeleteStudentMutation();
+  ] = useRemoveStudentFromGroupMutation();
 
   useEffect(() => {
     if (isDeleteStudentError) {
@@ -63,18 +79,22 @@ const StudentsInGroup: React.FC = (id) => {
       toast.success(successDeleteStudent.message, {
         autoClose: 3000,
       });
+      refetchStudents();
     }
-  }, [isSuccessDeleteStudent, successDeleteStudent]);
+  }, [isSuccessDeleteStudent, successDeleteStudent, refetchStudents]);
 
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
 
-  useEffect(() => {
-    refetch();
-  }, [query, refetch]);
+  // useEffect(() => {
+  //   refetchStudents();
+  // }, [query, refetchStudents]);
 
   if (isLoading) {
     return <div>Loading...</div>;
+  }
+  if (studentIsLoading) {
+    return <div>Loading Students in this group...</div>;
   }
   if (isError || !data || !data.result) {
     return <div>Error loading data.</div>;
@@ -95,17 +115,30 @@ const StudentsInGroup: React.FC = (id) => {
     setOpenDeleteConfirmation(true);
   };
 
+  // const handleConfirmDelete = async () => {
+  //   await Promise.all(
+  //     selectedStudentIds.map((studentId) =>
+  //       deleteStudentsFromGroup({ studentId: studentId, groupId: id.id })
+  //     )
+  //   );
+  //   setOpenDeleteConfirmation(false);
+  //   setSelectedStudentIds([]);
+  //   refetchStudents();
+  // };
   const handleConfirmDelete = async () => {
-    await Promise.all(selectedStudentIds.map((id) => deleteStudents(id)));
+    const studentId = selectedStudentIds.map((val) => val);
+    removeStudentsFromGroup({ studentId: studentId, groupId: id.id });
+
     setOpenDeleteConfirmation(false);
     setSelectedStudentIds([]);
-    refetch();
+    refetchStudents();
   };
 
   const handleCancelDelete = () => {
     setOpenDeleteConfirmation(false);
     setSelectedStudentIds([]);
   };
+
   return (
     <div>
       <Grid container>

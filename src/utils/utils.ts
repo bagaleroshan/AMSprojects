@@ -1,5 +1,6 @@
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { format, isValid } from "date-fns";
 
 interface ErrorData {
   message?: string;
@@ -54,3 +55,13 @@ export function isFetchBaseQueryError(error: unknown): error is CustomFetchBaseQ
     return names.join(" ");
   }
   
+
+  /* ***********Format Time*************************** */
+
+ export const formatTime = (timeString: string) => {
+    const date = new Date(timeString);
+    if (!isValid(date)) {
+      return "Invalid time";
+    }
+    return format(date, "hh:mm a");
+  };

@@ -89,7 +89,7 @@ export const StudentApi = createApi({
       providesTags: ["readStudents"],
     }),
     readStudentByGroupId: builder.query({
-      query: ({id,query}) => {
+      query: ({ id, query }) => {
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
@@ -121,6 +121,25 @@ export const StudentApi = createApi({
       },
       invalidatesTags: ["readStudents"],
     }),
+    /* Delete Student from Particular Group */
+    removeStudentFromGroup: builder.mutation({
+      query: (data) => {
+        // console.log("data**************", data);
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token available");
+        }
+        return {
+          url: `/groups/removeStudent/${data.groupId}`,
+          method: "PATCH",
+          body: { students: data.studentId },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      invalidatesTags: ["readStudents"],
+    }),
   }),
 });
 
@@ -132,4 +151,5 @@ export const {
   useReadStudentByIdQuery,
   useReadStudentByGroupIdQuery,
   useDeleteStudentMutation,
+  useRemoveStudentFromGroupMutation,
 } = StudentApi;

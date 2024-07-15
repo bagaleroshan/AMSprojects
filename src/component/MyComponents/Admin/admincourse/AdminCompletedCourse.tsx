@@ -138,7 +138,7 @@ const AdminCompletedCourse = () => {
                       Subject: {group.subject.subjectName}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      Teacher: {changeFirstName(group.teacher.fullName)}
+                      Teacher: {changeFirstName(group?.teacher?.fullName)}
                     </Typography>
                   </Grid>
                   <Grid
