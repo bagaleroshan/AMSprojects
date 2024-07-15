@@ -102,7 +102,7 @@ export default function AdminTabs({ firstTab, secondTab }: AdminTabsProps) {
     navigate(`/admin/${tabTypes[newValue]}`);
   };
 
-  console.log("--------", firstTab, secondTab);
+  // console.log("--------", firstTab, secondTab);
 
   const value = tabTypes.indexOf(firstTab);
   return (

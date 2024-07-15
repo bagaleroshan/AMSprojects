@@ -97,6 +97,7 @@ export const GroupApi = createApi({
     }),
     deleteGroup: builder.mutation({
       query: (id) => {
+        console.log(id)
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
@@ -104,23 +105,6 @@ export const GroupApi = createApi({
         return {
           url: `/groups/${id}`,
           method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-      },
-      invalidatesTags: ["readGroups"],
-    }),
-    addStudentGroup: builder.mutation({
-      query: ({ body, id }) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("No token available");
-        }
-        return {
-          url: `/groups/addStudent/${id}`,
-          method: "PATCH",
-          body: { students: body },
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -137,6 +121,5 @@ export const {
   useReadGroupByIdQuery,
   useDeleteGroupMutation,
   useReadGroupQuery,
-  useAddStudentGroupMutation,
   useReadActiveGroupQuery,
 } = GroupApi;

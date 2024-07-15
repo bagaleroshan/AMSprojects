@@ -7,23 +7,23 @@ import {
   useReadUsersQuery,
 } from "../../services/api/UserService";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import TableComponent, { IData } from "../TableComponent/TableComponent";
-
-interface Query {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort: string[];
-}
+import TableComponent from "../TableComponent/TableComponent";
+import { IData, Query } from "../interfaces/TableInterface";
 
 const UserTable: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName", width: "350px" },
+    {
+      Header: "Name",
+      accessor: "fullName",
+      Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      width: "350px",
+    },
     { Header: "Email", accessor: "email", width: "350px" },
     {
       Header: "Contact",

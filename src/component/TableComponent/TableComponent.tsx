@@ -16,7 +16,11 @@ import {
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { usePagination, useSortBy, useTable } from "react-table";
-import { IData, Query, TableComponentProps } from "../interfaces/TableInterface";
+import {
+  IData,
+  Query,
+  TableComponentProps,
+} from "../interfaces/TableInterface";
 import { Checkbox } from "../ReactTable/Checkbox";
 import "./table.css";
 
@@ -98,7 +102,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
 
   const handleViewClick = () => {
     onViewClick(selectedRowData);
-    console.log("View action triggered", selectedRowData);
+    // console.log("View action triggered", selectedRowData);
   };
 
   const renderSortIcon = (accessor: string) => {
