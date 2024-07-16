@@ -15,21 +15,13 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useReadGroupByIdQuery } from "../../services/api/GroupService";
 import {
+  formatTime,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
 import { AddStudentsToGroup } from "./AddStudentsToGroup";
 import StudentsInGroup from "./StudentsInGroup";
-import { format, isValid } from "date-fns";
-
-const formatTime = (timeString: string) => {
-  const date = new Date(timeString);
-  if (!isValid(date)) {
-    return "Invalid time";
-  }
-  return format(date, "hh:mm a");
-};
 
 const ReadSpecificGroup = () => {
   const { id } = useParams();
@@ -51,7 +43,7 @@ const ReadSpecificGroup = () => {
       }
     }
   }, [isErrorViewSpecific, errorViewSpecific]);
-  console.log(dataViewSpecific);
+  // console.log(dataViewSpecific);
   return (
     <Box>
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -81,8 +73,8 @@ const ReadSpecificGroup = () => {
                         <TableCell>{group.groupName}</TableCell>
                         <TableCell>{group.subject?.subjectName}</TableCell>
                         <TableCell>{group.teacher?.fullName}</TableCell>
-                        <TableCell>{formatTime(group.startTime)}</TableCell>
-                        <TableCell>{formatTime(group.endTime)}</TableCell>
+                        <TableCell>{formatTime(group?.startTime)}</TableCell>
+                        <TableCell>{formatTime(group?.endTime)}</TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
@@ -91,14 +83,14 @@ const ReadSpecificGroup = () => {
             </Paper>
           </Grid>
           <Grid item xs={4}>
-            {/* <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}> */}
             <Link color="primary" sx={{ mt: 3 }}>
               <AddStudentsToGroup id={id} />
             </Link>
-            {/* </Paper> */}
           </Grid>
           <Grid item xs={12}>
-            <StudentsInGroup id={id} />
+            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+              <StudentsInGroup id={id} />
+            </Paper>
           </Grid>
         </Grid>
       </Container>

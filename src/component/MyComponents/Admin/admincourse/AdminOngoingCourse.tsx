@@ -1,5 +1,5 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Button, Grid, Paper, Typography, Box } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useReadGroupQuery } from "../../../../services/api/GroupService";
 import { changeFirstName } from "../../../../utils/utils";
@@ -21,6 +21,7 @@ const AdminOngoingCourse = () => {
   } = useReadGroupQuery(query);
 
   const resultsArray = dataViewAll?.result?.results || [];
+  console.log("resultsArray*******************", resultsArray);
 
   if (isLoadingViewAll) {
     return <div>Loading...</div>;
@@ -29,6 +30,7 @@ const AdminOngoingCourse = () => {
   if (isErrorViewAll) {
     return <div>Error: {errorViewAll.message}</div>;
   }
+  // console.log(dataViewAll);
 
   return (
     <>

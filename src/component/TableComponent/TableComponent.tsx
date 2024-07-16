@@ -15,35 +15,10 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Column, usePagination, useSortBy, useTable } from "react-table";
-import SubjectExportCSV from "../ExportCSV/SubjectExportCSV";
+import { usePagination, useSortBy, useTable } from "react-table";
+import { IData, Query, TableComponentProps } from "../interfaces/TableInterface";
 import { Checkbox } from "../ReactTable/Checkbox";
-import { LightTooltip } from "../theme/MuiSidebarTheme";
 import "./table.css";
-
-export interface IData<T = any> {
-  [key: string]: T;
-}
-
-interface TableComponentProps {
-  columns: Column<IData>[];
-  data: IData[];
-  query: Query;
-  setQuery: React.Dispatch<React.SetStateAction<Query>>;
-  currentSort: string[];
-  totalData: number;
-  onEditClick: (selectedRowData: IData[]) => void;
-  onViewClick: (selectedRowData: IData[]) => void;
-  onDeleteClick: (selectedRowData: IData[]) => void;
-  fileName: string;
-}
-
-interface Query {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort: string[];
-}
 
 const TableComponent: React.FC<TableComponentProps> = ({
   columns,
@@ -68,7 +43,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchTerm(value);
-    debouncedSetQuery({ findQuery: value,page:1 });
+    debouncedSetQuery({ findQuery: value, page: 1 });
   };
 
   const handleQueryChange = (newQuery: Partial<Query>) => {

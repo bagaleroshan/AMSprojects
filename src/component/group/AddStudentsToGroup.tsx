@@ -10,14 +10,8 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import { Query } from "../interfaces/TableInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
-
-interface Query {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort: string[];
-}
 
 export const AddStudentsToGroup = ({ id }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
