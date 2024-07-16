@@ -1,8 +1,8 @@
 import { ClickAwayListener } from "@mui/base/ClickAwayListener";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import EmailIcon from "@mui/icons-material/Email";
 import FeedIcon from "@mui/icons-material/Feed";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import PasswordIcon from "@mui/icons-material/Password";
 import ReportIcon from "@mui/icons-material/Report";
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -18,10 +19,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Toolbar from "@mui/material/Toolbar";
-
-import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -84,7 +83,7 @@ export default function AdminSidebar() {
                 AMS
               </Typography>
               {/* <Box>
-                <ListItem onClick={() => navigate("/teachers/my-profile")}>
+                <ListItem onClick={() => navigate("/admin/my-profile")}>
                   <LightTooltip title="My Profile" placement="right">
                     <ListItemButton>
                       <AccountCircleIcon
@@ -164,8 +163,8 @@ export default function AdminSidebar() {
                   </ListItemButton>
                 </LightTooltip>
               </ListItem>
-              {/* ----Attendance----- */}
-              {/* <ListItem
+              {/* Profile */}
+              <ListItem
                 disablePadding
                 sx={{
                   display: "block",
@@ -173,17 +172,17 @@ export default function AdminSidebar() {
                     color: "#0195CF",
                   },
                   backgroundColor:
-                    location.pathname === "/admin/attendance"
+                    location.pathname === "/admin/my-profile"
                       ? "rgba(239,249,255,1)"
                       : "default",
                   color:
-                    location.pathname === "/admin/attendance"
+                    location.pathname === "/admin/my-profile"
                       ? "#0195CF"
                       : "default",
                 }}
-                onClick={() => handleNavigate("/admin/attendance")}
+                onClick={() => navigate("/admin/my-profile")}
               >
-                <LightTooltip title="Attendance" placement="right">
+                <LightTooltip title="My Profile" placement="right">
                   <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -196,19 +195,17 @@ export default function AdminSidebar() {
                         minWidth: 0,
                         mr: open ? 3 : "auto",
                         justifyContent: "center",
-                        "&:hover": {
-                          color: "#0195CF",
-                        },
+                        "&:hover": { color: "#0195CF" },
                         color:
-                          location.pathname === "/admin/attendance"
+                          location.pathname === "/admin/my-profile"
                             ? "#0195CF"
                             : "default",
                       }}
                     >
-                      <SpeakerNotesIcon />
+                      <AccountCircleIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary="Attendance"
+                      primary="Profile"
                       sx={{
                         opacity: open ? 1 : 0,
                         "&:hover": { color: "#0195CF" },
@@ -216,7 +213,7 @@ export default function AdminSidebar() {
                     />
                   </ListItemButton>
                 </LightTooltip>
-              </ListItem> */}
+              </ListItem>
               {/* ----Forms---- */}
               <ListItem
                 disablePadding

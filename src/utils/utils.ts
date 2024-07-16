@@ -65,3 +65,10 @@ export function isFetchBaseQueryError(error: unknown): error is CustomFetchBaseQ
     }
     return format(date, "hh:mm a");
   };
+
+
+  // Function to strip HTML tags
+export const stripHtmlTags = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+  };

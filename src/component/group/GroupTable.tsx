@@ -7,23 +7,27 @@ import {
   useReadGroupQuery,
 } from "../../services/api/GroupService";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import TableComponent, { IData } from "../TableComponent/TableComponent";
-
-interface Query {
-  page: number;
-  limit: number;
-  findQuery: string;
-  sort: string[];
-}
+import TableComponent from "../TableComponent/TableComponent";
+import { IData, Query } from "../interfaces/TableInterface";
+import CustomDialog from "../../DeleteConfirmation";
 
 const GroupTable: React.FC = () => {
   const navigate = useNavigate();
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
+
   const columns = [
-    { Header: "Group Name", accessor: "groupName", width: "350px" },
+    {
+      Header: "Group Name",
+      accessor: "groupName",
+      Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      width: "350px",
+    },
     { Header: "Subject Name", accessor: "subject.subjectCode", width: "350px" },
     { Header: "Teacher Name", accessor: "teacher.fullName", width: "350px" },
   ];
@@ -39,7 +43,6 @@ const GroupTable: React.FC = () => {
     ...query,
     sort: query.sort.join(",") || "",
   });
-  // console.log("***********************", data?.result?.results);
   const groupData = data?.result?.results;
   // console.log("groupData*********************", groupData);
 
@@ -89,12 +92,34 @@ const GroupTable: React.FC = () => {
     });
   };
 
+  // const handleDeleteClick = (selectedRowData: IData[]) => {
+  //   selectedRowData.forEach((value: IData) => {
+  //     deleteGroups(value.id);
+  //     refetch();
+  //   });
+  // };
+
   const handleDeleteClick = (selectedRowData: IData[]) => {
-    selectedRowData.forEach((value: IData) => {
-      deleteGroups(value.id);
-      refetch();
-    });
+    setSelectedStudentIds(selectedRowData.map((value: IData) => value.id));
+    setOpenDeleteConfirmation(true);
   };
+
+  const handleConfirmDelete = async () => {
+    selectedStudentIds.forEach((val) => {
+      // console.log("val**************", val);
+      deleteGroups(val);
+    });
+
+    setOpenDeleteConfirmation(false);
+    setSelectedStudentIds([]);
+    refetch();
+  };
+
+  const handleCancelDelete = () => {
+    setOpenDeleteConfirmation(false);
+    setSelectedStudentIds([]);
+  };
+
   const handleViewClick = (selectedRowData: IData[]) => {
     navigate(`/admin/groups/${selectedRowData[0].id}`, {
       replace: true,
@@ -120,6 +145,13 @@ const GroupTable: React.FC = () => {
         onDeleteClick={handleDeleteClick}
         fileName={fileName}
       />
+      {openDeleteConfirmation && (
+        <CustomDialog
+          open={openDeleteConfirmation}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
     </div>
   );
 };
