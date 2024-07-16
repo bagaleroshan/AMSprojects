@@ -35,28 +35,7 @@ const AdminOngoingCourse = () => {
   return (
     <>
       <Grid container spacing={2}>
-        {isLoadingViewAll ? (
-          <Grid item xs={12}>
-            <Paper
-              elevation={1}
-              sx={{
-                height: "10vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                transition: "box-shadow 0.3s",
-                "&:hover": {
-                  cursor: "pointer",
-                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-                },
-              }}
-            >
-              <Typography color="primary" sx={{ color: "black" }}>
-                Loading...
-              </Typography>
-            </Paper>
-          </Grid>
-        ) : resultsArray.length === 0 ? (
+        {resultsArray.length === 0 ? (
           <Grid item xs={12}>
             <Paper
               elevation={1}
@@ -157,7 +136,7 @@ const AdminOngoingCourse = () => {
                       variant="body1"
                       sx={{ fontWeight: "normal", color: "#43a047" }}
                     >
-                      Number of Days Left:0
+                      Number of Days Left: 0
                     </Typography>
                   </Grid>
                 </Grid>

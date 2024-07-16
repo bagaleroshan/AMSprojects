@@ -104,7 +104,7 @@ const StudentForm: React.FC<IFormValues> = ({
 
                       <Grid container justifyContent="center">
                         <Grid item>
-                          <Button
+                          {/* <Button
                             color="inherit"
                             href="/admin/forms/students"
                             sx={{
@@ -115,7 +115,7 @@ const StudentForm: React.FC<IFormValues> = ({
                             }}
                           >
                             Go back?
-                          </Button>
+                          </Button> */}
                         </Grid>
                       </Grid>
                     </Grid>

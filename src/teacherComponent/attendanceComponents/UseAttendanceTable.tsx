@@ -222,8 +222,8 @@ const UseAttendanceTable = () => {
       <AttendanceTableComponent columns={columns} data={filteredTableData} />
       {!todaysAttendanceExists && (
         <Stack display="flex" flexDirection="row" justifyContent="flex-end">
-          <Box height={5}/>
-          <Button onClick={logAttendance}>Log Attendance</Button>
+          <Box height={5} />
+          <Button onClick={logAttendance}>Take Attendance</Button>
         </Stack>
       )}
     </div>

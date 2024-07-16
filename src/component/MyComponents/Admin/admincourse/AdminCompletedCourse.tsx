@@ -1,5 +1,5 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { useReadGroupQuery } from "../../../../services/api/GroupService";
 import { changeFirstName } from "../../../../utils/utils";
 import { useNavigate } from "react-router-dom";
@@ -125,10 +125,30 @@ const AdminCompletedCourse = () => {
                       color="primary"
                       fontSize="large"
                     />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography gutterBottom variant="h6">
-                      {group.groupName}
+                    <div
+                      className="TDashboardOngoingSubject"
+                      style={{ width: "15rem" }}
+                    >
+                      <Typography gutterBottom variant="h6" color="primary">
+                        {group.groupName}
+                      </Typography>
+                      <Box height={5} />
+                      <Typography variant="body2" color="primary">
+                        Teacher:{group.teacher.fullName}
+                      </Typography>
+                      <Typography variant="body2" color="primary">
+                        Subject Name:
+                      </Typography>
+                      <Typography variant="body1" color="primary">
+                        {group.subject.subjectName}
+                      </Typography>
+                    </div>
+                    <Typography
+                      variant="body1"
+                      color="success"
+                      sx={{ fontWeight: "normal", color: "green" }}
+                    >
+                      Present: 0
                     </Typography>
                     <Typography
                       variant="body2"

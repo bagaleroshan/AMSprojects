@@ -28,15 +28,15 @@ import { feedbackValidationSchema } from "../validation/feedbackValidation";
 
 const FeedbackForm: React.FC = () => {
   const initialFormValues: IFeedback = {
-    onTime: 0,
-    hasDeliveryPower: 0,
-    hasSkills: 0,
-    hasInteraction: 0,
-    isClassFruitful: 0,
-    isClassRoomComfortable: 0,
-    hasClearConversation: 0,
-    doesInternetWork: 0,
-    feelChangeOnYourself: 0,
+    onTime: 5,
+    hasDeliveryPower: 5,
+    hasSkills: 5,
+    hasInteraction: 5,
+    isClassFruitful: 5,
+    isClassRoomComfortable: 5,
+    hasClearConversation: 5,
+    doesInternetWork: 5,
+    feelChangeOnYourself: 5,
     description: "",
   };
 
@@ -53,16 +53,13 @@ const FeedbackForm: React.FC = () => {
 
   const [data] = useSearchParams();
   const token = data.get("token") || "";
-  // console.log("token****", data.get("token"));
 
   const handleSubmit = (values: IFeedback) => {
-    // console.log("values", values);
-    createFeedback({ body: values, token: token });
+    createFeedback({ body: values, token });
   };
 
   useEffect(() => {
     if (isSuccessSubmitFeedback) {
-      // showSuccessToast("Feedback submitted successfully.");
       navigate("/feedback-taken");
     }
   }, [isSuccessSubmitFeedback, navigate]);
@@ -156,14 +153,6 @@ const FeedbackForm: React.FC = () => {
                                 item.name as keyof IFeedback
                               ] as number
                             }
-                            // onChange={(newValue) => {
-                            //   // console.log(
-                            //   //   "Item Name:",
-                            //   //   item.name + " and Value:",
-                            //   //   newValue
-                            //   // );
-                            //   formik.setFieldValue(item.name, newValue);
-                            // }}
                             onChange={(_, newValue: number | null) => {
                               if (newValue !== null) {
                                 formik.setFieldValue(item.name, newValue);
@@ -199,7 +188,7 @@ const FeedbackForm: React.FC = () => {
                           formik.setFieldTouched("description", true)
                         }
                         theme="snow"
-                        placeholder="Don’t mention name and info in here......"
+                        placeholder="Don't mention your name and info in here......"
                       />
                       {formik.touched.description &&
                         formik.errors.description && (

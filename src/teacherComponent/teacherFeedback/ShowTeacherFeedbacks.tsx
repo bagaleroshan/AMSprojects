@@ -51,17 +51,13 @@ const ShowTeacherFeedbacks = () => {
   return (
     <>
       <Box height={50} />
-      {feedbacks.length > 0 && (
-        <Box mb={3}>
-          <TextField
-            label="Search by Student Name"
-            variant="outlined"
-            size="small"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </Box>
-      )}
+      <Typography
+        color="primary"
+        sx={{ color: "black", fontSize: 44, fontWeight: "bold" }}
+      >
+        Feedback
+      </Typography>
+      {feedbacks.length > 0 && <Box mb={3}></Box>}
       <Grid container spacing={2}>
         {filteredFeedbacks.length > 0 ? (
           filteredFeedbacks.map((value, i) => (
@@ -126,9 +122,6 @@ const ShowTeacherFeedbacks = () => {
                   <IconButton>
                     <AccountCircle color="primary" />
                   </IconButton>
-                  {/* <Typography variant="body2" color="textSecondary">
-                    Submitted by {value.student.fullName}
-                  </Typography> */}
                 </Box>
               </Paper>
             </Grid>
