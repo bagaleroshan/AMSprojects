@@ -61,13 +61,6 @@ const TeacherReportTable = () => {
                     isLoading={isLoadingAllGroups}
                   />
                 </FormControl>
-                <Button
-                  variant="contained"
-                  sx={{ height: "40px" }}
-                  startIcon={<ArrowDownwardIcon />}
-                >
-                  Download
-                </Button>
               </Stack>
               <Box height={5} />
               <Stack display="flex" direction="row" spacing={10}>

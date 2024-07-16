@@ -147,7 +147,7 @@ const TeacherOngoingFeedback = () => {
                       color="primary"
                       variant="contained"
                     >
-                      Show Feedbacks
+                      View Feedbacks
                     </Button>
                   </Grid>
                   {/* <Grid

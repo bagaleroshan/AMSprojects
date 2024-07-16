@@ -158,7 +158,7 @@ const CompletedClassesFeedback = () => {
                       color="primary"
                       variant="contained"
                     >
-                      Feedbacks
+                      View Feedbacks
                     </Button>
                   </Grid>
                 </Grid>
