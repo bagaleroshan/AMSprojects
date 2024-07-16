@@ -5,6 +5,7 @@ export interface IQuery {
   limit?: number;
   findQuery?: string;
   sort?: string;
+  role?:string;
 }
 
 export const StudentApi = createApi({

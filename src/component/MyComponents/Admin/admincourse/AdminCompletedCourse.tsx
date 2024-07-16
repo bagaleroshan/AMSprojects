@@ -134,13 +134,13 @@ const AdminCompletedCourse = () => {
                       </Typography>
                       <Box height={5} />
                       <Typography variant="body2" color="primary">
-                        Teacher:{group.teacher.fullName}
+                        Teacher:{group?.teacher?.fullName}
                       </Typography>
                       <Typography variant="body2" color="primary">
                         Subject Name:
                       </Typography>
                       <Typography variant="body1" color="primary">
-                        {group.subject.subjectName}
+                        {group?.subject?.subjectName}
                       </Typography>
                     </div>
                     <Typography
@@ -178,22 +178,7 @@ const AdminCompletedCourse = () => {
                       Attendance Detail
                     </Button>
                   </Grid>
-                  {/* <Grid
-                    item
-                    xs={3}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography
-                      variant="body1"
-                      sx={{ fontWeight: "normal", color: "#43a047" }}
-                    >
-                      Number of Days Left:0
-                    </Typography>
-                  </Grid> */}
+                
                 </Grid>
               </Paper>
             </Grid>

@@ -126,7 +126,7 @@ export const UserApi = createApi({
           throw new Error("No token available");
         }
         return {
-          url: `/users?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}`,
+          url: `/users?page=${query.page}&limit=${query.limit}&query=${query.findQuery}&sort=${query.sort}&${query.role}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
