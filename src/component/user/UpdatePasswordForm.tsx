@@ -92,7 +92,7 @@ const UpdatePasswordForm: React.FC<IUserFormValues> = ({
                     </Grid>
                     <Grid container spacing={6} direction="row">
                       <Grid item>
-                        <Button
+                        {/* <Button
                           color="inherit"
                           href="/login"
                           sx={{
@@ -104,7 +104,7 @@ const UpdatePasswordForm: React.FC<IUserFormValues> = ({
                           }}
                         >
                           Go back?
-                        </Button>
+                        </Button> */}
                       </Grid>
                     </Grid>
                   </Box>

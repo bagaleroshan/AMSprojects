@@ -99,7 +99,7 @@ const UpdateProfileForm: React.FC<IUserFormValues> = ({
 
                       <Grid container justifyContent="center">
                         <Grid item>
-                          <Button
+                          {/* <Button
                             color="inherit"
                             href={href}
                             sx={{
@@ -110,7 +110,7 @@ const UpdateProfileForm: React.FC<IUserFormValues> = ({
                             }}
                           >
                             Go Back?
-                          </Button>
+                          </Button> */}
                         </Grid>
                       </Grid>
                     </Grid>

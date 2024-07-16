@@ -8,6 +8,10 @@ import {
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
+import EmailIcon from "@mui/icons-material/Email";
+import PersonIcon from "@mui/icons-material/Person";
+import PhoneIcon from "@mui/icons-material/Phone";
+import WorkIcon from "@mui/icons-material/Work";
 
 const ReadSpecificUser = () => {
   const { id } = useParams();
@@ -76,10 +80,22 @@ const ReadSpecificUser = () => {
                 marginLeft: "1rem",
               }}
             >
-              <Typography>Email: {user.email}</Typography>
-              <Typography>Full Name:{user.fullName}</Typography>
-              <Typography>Phone Number: {user.phoneNumber}</Typography>
-              <Typography>Role: {user.role}</Typography>
+              <Typography>
+                <EmailIcon sx={{ marginRight: "0.5rem" }} />
+                Email: {user.email}
+              </Typography>
+              <Typography>
+                <PersonIcon sx={{ marginRight: "0.5rem" }} />
+                Full Name: {user.fullName}
+              </Typography>
+              <Typography>
+                <PhoneIcon sx={{ marginRight: "0.5rem" }} />
+                Phone Number: {user.phoneNumber}
+              </Typography>
+              <Typography>
+                <WorkIcon sx={{ marginRight: "0.5rem" }} />
+                Role: {user.role}
+              </Typography>
             </Box>
           </Box>
         </Box>

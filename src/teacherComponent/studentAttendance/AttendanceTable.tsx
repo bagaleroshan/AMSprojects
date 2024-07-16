@@ -182,15 +182,20 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
       toast.error(`Error recording attendance: ${error}`);
     }
   };
-  console.log(attendanceRecord,"jenis")
+  console.log(attendanceRecord, "jenis");
   useMemo(() => {
-    
     if (!attendanceRecord || attendanceRecord.length === 0) {
       setIsAttendanceTaken(false);
     } else {
       const isTaken = attendanceRecord.some(
         (value) =>
-          new Date(value.attendance.map((date)=>{date.date})).toISOString().split("T")[0] === currentDate
+          new Date(
+            value.attendance.map((date) => {
+              date.date;
+            })
+          )
+            .toISOString()
+            .split("T")[0] === currentDate
       );
       setIsAttendanceTaken(isTaken);
     }
@@ -333,7 +338,7 @@ const AttendanceTable: React.FC<AttendanceTableProps> = ({
       </table>
       <MuiLoadingButtonTheme
         buttonName={
-          isAttendanceTaken ? "Attendance Recorded" : "Log Attendance"
+          isAttendanceTaken ? "Attendance Recorded" : "Take Attendance"
         }
         isLoading={isLoading}
         onClick={!isAttendanceTaken ? handleButtonClick : undefined}

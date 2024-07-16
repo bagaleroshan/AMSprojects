@@ -226,6 +226,10 @@ const GroupForm: React.FC<IFormValues> = ({
                             { value: 420, label: "7 hours" },
                             { value: 450, label: "7.5 hours" },
                             { value: 480, label: "8 hours" },
+                            { value: 510, label: "8.5 hours" },
+                            { value: 540, label: "9 hours" },
+                            { value: 570, label: "9.5 hours" },
+                            { value: 600, label: "10 hours" },
                           ]}
                           isLoading={isLoading}
                         />
