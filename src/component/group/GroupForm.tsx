@@ -48,7 +48,6 @@ const GroupForm: React.FC<IFormValues> = ({
     sort: query.sort?.join(",") || "",
   });
   const teachers = (dataReadTeachers?.result?.results || [])
-    .filter((value) => value.role === "teacher")
     .map((value) => ({
       value: value.id,
       label: value.fullName,

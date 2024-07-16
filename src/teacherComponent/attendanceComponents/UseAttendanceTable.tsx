@@ -219,13 +219,18 @@ const UseAttendanceTable = () => {
   return (
     <div>
       <h1>Attendance Table</h1>
+      <Box width={"79%"}>
+
+      
       <AttendanceTableComponent columns={columns} data={filteredTableData} />
       {!todaysAttendanceExists && (
         <Stack display="flex" flexDirection="row" justifyContent="flex-end">
-          <Box height={5} />
-          <Button onClick={logAttendance}>Take Attendance</Button>
+          <Box height={5} >
+          <Button onClick={logAttendance} sx={{border:"solid lightblue", backgroundColor:"lightblue", margin:'20px 20px'}}>Take Attendance</Button>
+          </Box>
         </Stack>
       )}
+      </Box>
     </div>
   );
 };
