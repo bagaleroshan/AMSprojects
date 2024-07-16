@@ -22,4 +22,5 @@ export interface Query {
   limit: number;
   findQuery: string;
   sort: string[];
+  role:string
 }

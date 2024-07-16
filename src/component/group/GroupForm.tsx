@@ -37,7 +37,7 @@ const GroupForm: React.FC<IFormValues> = ({
   const [query] = useState<Query>({
     page: 1,
     limit: 0,
-    role: "teacher",
+    role: "role=teacher",
     findQuery: "",
     sort: [],
   });
