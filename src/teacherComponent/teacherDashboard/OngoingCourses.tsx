@@ -83,7 +83,9 @@ const OngoingCourses = () => {
               item
               xs={12}
               key={index}
-              onClick={() => navigate(`/teachers/${group.id}`)}
+              onClick={() =>
+                navigate(`/teachers/attendance/report/${group.id}`)
+              }
             >
               <Paper
                 elevation={3}
@@ -139,7 +141,10 @@ const OngoingCourses = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => navigate(`/teachers/${group.id}`)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/teachers/attendance/${group.id}`);
+                      }}
                     >
                       Take Attendance
                     </Button>

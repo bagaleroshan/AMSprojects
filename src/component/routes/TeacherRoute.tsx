@@ -27,8 +27,8 @@ const TeacherRoute = () => {
         </Route>
         {/* ------------------------ Attendances-------------------------- */}
         <Route path="attendance" element={<Outlet />}>
-          <Route path="report/:id" element={<AttendanceDetail />} />
           <Route path=":id" element={<UseAttendance />} />
+          <Route path="report/:id" element={<AttendanceDetail />} />
         </Route>
 
         <Route path="report" element={<TeacherReport />} />
