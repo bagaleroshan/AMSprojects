@@ -138,7 +138,9 @@ const CompletedCourses = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => navigate(`/teachers/${group.id}`)}
+                      onClick={() =>
+                        navigate(`/teachers/attendance/report/${group.id}`)
+                      }
                     >
                       Attendance Detail
                     </Button>

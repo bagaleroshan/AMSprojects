@@ -8,7 +8,6 @@ const AttendanceTableComponent = ({ columns, data }) => {
     tableInstance;
 
   return (
-  
     <>
       <div className="outer-div">
         <div className="inner-div">

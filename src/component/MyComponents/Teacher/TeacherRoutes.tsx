@@ -1,9 +1,4 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import TDashboard from "./TeacherDashboard";
-import TMessages from "./TeacherMessages";
-import TReport from "./TeacherReport";
-import TeacherChangePassword from "./TeacherChangePassword";
-import TeacherLogout from "./TeacherLogout";
 
 const TeacherRoutes = () => {
   return (
