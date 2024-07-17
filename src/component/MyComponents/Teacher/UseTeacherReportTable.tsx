@@ -22,8 +22,6 @@ const UseTeacherReportTable = (groupId) => {
 
     return [
       { Header: "Student Name", accessor: "studentName" },
-    //   { Header: "Address Name", accessor: "addressName" },
-    // { Header: "City Name", accessor: "cityName" },
       ...dateColumns,
     ];
   }, [attendanceData]);

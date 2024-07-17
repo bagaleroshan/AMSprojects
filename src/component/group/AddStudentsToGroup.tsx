@@ -50,12 +50,17 @@ export const AddStudentsToGroup = ({ id }) => {
     },
   ] = useAddStudentGroupMutation();
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     if (isSuccessAddStudentGroup) {
       toast.success(dataAddStudentGroup.message, {
         autoClose: 3000,
       });
       setSelectedOptions([]);
+      handleClose(); // Close the modal on success
     }
   }, [isSuccessAddStudentGroup, dataAddStudentGroup]);
 
@@ -75,10 +80,6 @@ export const AddStudentsToGroup = ({ id }) => {
     const arrayStudents = selectedOptions.map((val) => val?.value);
     addStudentGroup({ body: arrayStudents, id: id });
   };
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   return (
     <div>
