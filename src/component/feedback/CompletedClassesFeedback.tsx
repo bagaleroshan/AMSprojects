@@ -23,7 +23,6 @@ const CompletedClassesFeedback = () => {
   } = useReadActiveGroupQuery("false");
 
   const resultsArray = dataReadCompletedGroups?.result?.results || [];
-  // console.log("resultsArray****", resultsArray);
 
   useEffect(() => {
     isErrorReadCompletedGroups &&

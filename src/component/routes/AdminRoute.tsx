@@ -18,6 +18,7 @@ import MyProfile from "../user/MyProfile";
 import ReadSpecificUser from "../user/ReadSpecificUser";
 import UpdatePassword from "../user/UpdatePassword";
 import UpdateProfile from "../user/UpdateProfile";
+import AttendanceDetail from "../../teacherComponent/attendanceComponents/AttendanceDetail";
 const AdminRoute = () => {
   return (
     <Routes>
@@ -85,6 +86,7 @@ const AdminRoute = () => {
         {/* ********************* Attendance Course**************** */}
         <Route path="courses" element={<Outlet />}>
           <Route index element={<AdminCourse />} />
+          <Route path="report/:id" element={<AttendanceDetail />} />
           <Route path=":id" element={<AdminAttendance />} />
         </Route>
 

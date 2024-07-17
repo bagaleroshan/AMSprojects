@@ -27,6 +27,10 @@ const AdminGroupReport = ({ groupId }) => {
     const dateColumns = attendanceData[0].attendance.map((att, index) => ({
       Header: formatDate(att.date), // Format date here
       accessor: `attendance[${index}].status`,
+      // Cell rendering with conditional styling
+      Cell: ({ value }) => (
+        <div style={{ color: getColorForAttendance(value) }}>{value}</div>
+      ),
     }));
 
     return [
@@ -42,6 +46,18 @@ const AdminGroupReport = ({ groupId }) => {
       attendance: student.attendance || [],
     }));
   }, [attendanceData]);
+
+  // Function to determine cell color based on attendance status
+  const getColorForAttendance = (status) => {
+    switch (status) {
+      case "P":
+        return "green"; // Green for Present
+      case "A":
+        return "red"; // Red for Absent
+      default:
+        return "black"; // Default color for other statuses
+    }
+  };
 
   if (isLoading) {
     return (

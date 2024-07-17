@@ -35,7 +35,7 @@ export const GroupApi = createApi({
           throw new Error("No token available");
         }
         return {
-          url: `/groups?active=${ActiveQuery}`,
+          url: `/groups?active=${ActiveQuery}&limit=0`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -80,7 +80,6 @@ export const GroupApi = createApi({
     }),
     readGroupById: builder.query({
       query: (id) => {
-        // console.log("id", id);
         const token = localStorage.getItem("token");
         if (!token) {
           throw new Error("No token available");
@@ -95,6 +94,7 @@ export const GroupApi = createApi({
       },
       providesTags: ["readGroups"],
     }),
+    
     deleteGroup: builder.mutation({
       query: (id) => {
         console.log(id)
@@ -121,5 +121,6 @@ export const {
   useReadGroupByIdQuery,
   useDeleteGroupMutation,
   useReadGroupQuery,
+  useDaysLeftQuery,
   useReadActiveGroupQuery,
 } = GroupApi;

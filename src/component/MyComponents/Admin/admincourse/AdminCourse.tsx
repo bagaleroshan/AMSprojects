@@ -1,45 +1,64 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { Box, Tab, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import AdminOngoingCourse from './AdminOngoingCourse';
-import AdminCompletedCourse from './AdminCompletedCourse';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormControl,
+  Stack
+} from "@mui/material";
+import { Form, Formik } from "formik";
+import { useState } from "react";
+import DwSelect from "../../../dwComponents/DwSelect";
+import AdminGroupReport from "../../../../adminComponent/AdminGroupReport";
+import { useReadGroupQuery } from "../../../../services/api/GroupService";
+import AdminAttendance from "../AdminAttendance";
+
+const AdminReport = () => {
+  const [groupId, setGroupId] = useState("asdada");
+  const query = { page: 0, limit: 0, findQuery: "", sort: "" };
+  const { data: dataAllGroups, isLoading: isLoadingAllGroups } =
+    useReadGroupQuery(query);
+
+  const allGroups = dataAllGroups?.result?.results || [];
+  const groups = allGroups.map((value) => ({
+    value: value.id,
+    label: value.groupName,
+  }));
+   
 
 
-const AdminCourse = () => {
-  const [value, setValue] = useState("1");
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-    console.log("Jenisssssssssssssssss")
-  };
   return (
-    <>
-      <div className="teacherDashboard">
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              Attendance
-            </Typography>
-            <Box height={30} />
+    <div className="teacherReport">
+      <h1>Attendance </h1>
+      <Box height={60} />
+      <Formik initialValues={{ group: "" }}>
+        {(formik) => (
+          <Form>
+            <Stack display="flex" direction="row" spacing={10}>
+              <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
+                {isLoadingAllGroups ? (
+                  <CircularProgress />
+                ) : (
+                  <DwSelect
+                    name="group"
+                    label="Groups"
+                    onChange={(e) => {
+                      formik.setFieldValue("group", e.target.value);
+                      setGroupId(e.target.value);
+                    }}
+                    selectLabels={groups}
+                    isLoading={isLoadingAllGroups}
+                  />
+                )}
+              </FormControl>
+            </Stack>
+          </Form>
+        )}
+      </Formik>
 
-            <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList
-                  onChange={handleChange}
-                  // textColor="secondary"
-                  // indicatorColor="secondary"
-                >
-                  <Tab label="Ongoing Courses" value="1" />
-                  <Tab label="Completed Courses" value="2" />
-                </TabList>
-              </Box>
-              <TabPanel value="1">
-                <AdminOngoingCourse/>
-              </TabPanel>
-              <TabPanel value="2">
-                <AdminCompletedCourse/>
-              </TabPanel>
-            </TabContext>
-      </div>
-    </>
-  )
-}
+      <Box height={60} />
+      <AdminAttendance id={groupId} />
+    </div>
+  );
+};
 
-export default AdminCourse
+export default AdminReport;
