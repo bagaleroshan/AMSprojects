@@ -3,13 +3,17 @@
 }
 .outer-wrapper{
   border-radius: 10px;
-  /* position: fixed; */
-  /* top:10%; */
+  
 }
 .table-wrapper {
   overflow: auto;
+ 
   /* width: 1000px; */
   /* width:100%; */
+}
+.table-wrapper table{
+  position:fixed;
+  top:15%;
 }
 
 
@@ -21,6 +25,7 @@
   table-layout: fixed;
   position: relative;
 }
+
 
 .table-wrapper table th {
   border: 1px solid #ddd;
@@ -207,6 +212,11 @@ td .ellipsis{
 .table-container th .sort-icon {
   position: absolute;
   right: 20px;
+}
+
+.table-wrapper table {
+  position:sticky;
+  top:20%
 }
 
 
