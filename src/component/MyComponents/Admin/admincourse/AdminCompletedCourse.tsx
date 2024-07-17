@@ -97,7 +97,7 @@ const AdminCompletedCourse = () => {
               item
               xs={12}
               key={index}
-              onClick={() => navigate(`/teachers/${group.id}`)}
+              onClick={() => navigate(`/admin/courses/${group.id}`)}
             >
               <Paper
                 elevation={3}
@@ -173,12 +173,13 @@ const AdminCompletedCourse = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => navigate(`/teachers/${group.id}`)}
+                      onClick={() =>
+                        navigate(`/admin/courses/report/${group.id}`)
+                      }
                     >
                       Attendance Detail
                     </Button>
                   </Grid>
-                
                 </Grid>
               </Paper>
             </Grid>

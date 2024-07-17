@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const AdminAttendance = () => {
-  return (
-    <div>AdminAttendance</div>
-  )
-}
+  return <div>AdminAttendance</div>;
+};
 
-export default AdminAttendance
+export default AdminAttendance;

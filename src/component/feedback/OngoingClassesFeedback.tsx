@@ -23,7 +23,6 @@ const OngoingClassesFeedback = () => {
   } = useReadActiveGroupQuery("true");
 
   const resultsArray = dataReadActiveGroups?.result?.results || [];
-  // console.log("dataReadActiveGroups**********", resultsArray);
 
   useEffect(() => {
     isErrorReadActiveGroups &&
