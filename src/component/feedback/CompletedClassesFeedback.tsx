@@ -1,6 +1,6 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { Button, Grid, Paper, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import RequestFeedback from "../../feedback/RequestFeedback";
@@ -14,15 +14,27 @@ import {
 import { Group } from "../interfaces/FeedbackInterface";
 
 const CompletedClassesFeedback = () => {
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
   const navigate = useNavigate();
   const {
     isError: isErrorReadCompletedGroups,
     data: dataReadCompletedGroups,
     isLoading: isLoadingReadCompletedGroups,
     error: errorReadCompletedGroups,
-  } = useReadActiveGroupQuery("false");
+  } = useReadActiveGroupQuery({activeQuery:"false",findQuery:debouncedQuery});
 
   const resultsArray = dataReadCompletedGroups?.result?.results || [];
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 1500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [query]);
 
   useEffect(() => {
     isErrorReadCompletedGroups &&
@@ -40,6 +52,13 @@ const CompletedClassesFeedback = () => {
   return (
     <>
       <Grid container spacing={2}>
+      <input
+        name="searchBar"
+        placeholder="Search"
+        style={{ width: "250px", height: "30px", margin: "10px 20px" }}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
         {isLoadingReadCompletedGroups ? (
           <Grid item xs={12}>
             <Paper

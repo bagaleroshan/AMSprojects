@@ -92,12 +92,6 @@ const GroupTable: React.FC = () => {
     });
   };
 
-  // const handleDeleteClick = (selectedRowData: IData[]) => {
-  //   selectedRowData.forEach((value: IData) => {
-  //     deleteGroups(value.id);
-  //     refetch();
-  //   });
-  // };
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     setSelectedStudentIds(selectedRowData.map((value: IData) => value.id));

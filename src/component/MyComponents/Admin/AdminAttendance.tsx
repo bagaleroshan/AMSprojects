@@ -9,6 +9,7 @@ import { useTakeAttendanceMutation } from "../../../services/api/AttendanceServi
 import { toast } from "react-toastify";
 import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../../utils/utils";
 import { showSuccessToast } from "../../../muiModals/toastConfig";
+import   './adminAttendance.css'
 
 const AdminAttendance = (id) => {
   const { data: groupData, isLoading: isGroupDataLoading, error: groupError } = useReadGroupByIdQuery(id.id || "");
@@ -120,11 +121,13 @@ const AdminAttendance = (id) => {
               onChange={(date) => setSelectedDate(date || new Date())} 
               dateFormat="yyyy/MM/dd"
               customInput={<TextField />}
-              popperPlacement="bottom-start" 
-              portalId="root-portal" 
+              popperPlacement="top-start" 
+              portalId="root-portal"
+              className="custom-date-picker" // Add this line
             />
           </Box>
-          <AttendanceTableComponent columns={columns} data={students} />
+          <div className="tableclass" >
+            <AttendanceTableComponent columns={columns} data={students} />
           <Button
             variant="contained"
             color="primary"
@@ -132,7 +135,8 @@ const AdminAttendance = (id) => {
             sx={{ mt: 2 }}
           >
             Log Attendance
-          </Button>
+          </Button></div>
+          
         </Box>
       </div>
     </>
