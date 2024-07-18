@@ -28,13 +28,13 @@ const AdminReport = () => {
 
   return (
     <div className="teacherReport">
-      <h1>Attendance </h1>
+      <h1>Take Attendance </h1>
       <Box height={60} />
       <Formik initialValues={{ group: "" }}>
         {(formik) => (
           <Form>
             <Stack display="flex" direction="row" spacing={10}>
-              <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
+              <FormControl sx={{ m: 1, minWidth: 400 ,p:4}} size="small">
                 {isLoadingAllGroups ? (
                   <CircularProgress />
                 ) : (
@@ -47,6 +47,7 @@ const AdminReport = () => {
                     }}
                     selectLabels={groups}
                     isLoading={isLoadingAllGroups}
+                    
                   />
                 )}
               </FormControl>

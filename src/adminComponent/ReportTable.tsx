@@ -6,7 +6,7 @@ const ReportTable = ({ id }) => {
   const groupId = id?.selectedGroupId || "abc";
   const { data } = useReadAllAttendanceQuery(groupId);
 
-  const attendanceData = data?.result || [];
+  const attendanceData = data?.result?.data || [];
   // console.log(attendanceData)
   const formatDate = (dateString) => {
     const date = new Date(dateString);

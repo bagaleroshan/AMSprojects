@@ -13,7 +13,7 @@ const AdminGroupReport = ({ groupId }) => {
     refetch();
   }, [groupId, refetch]);
 
-  const attendanceData = data?.result || [];
+  const attendanceData = data?.result?.data || [];
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);

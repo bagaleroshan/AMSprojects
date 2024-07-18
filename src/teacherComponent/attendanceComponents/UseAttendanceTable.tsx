@@ -85,7 +85,7 @@ const UseAttendanceTable = () => {
         },
         {}
       );
-      attendanceData.result.forEach((student) => {
+      attendanceData?.result?.data.forEach((student) => {
         student.attendance.forEach((record) => {
           if (
             new Date(record.date).toDateString() === new Date().toDateString()
@@ -135,7 +135,7 @@ const UseAttendanceTable = () => {
   }, {});
 
   if (attendanceData?.result) {
-    attendanceData.result.forEach((student) => {
+    attendanceData.result.data.forEach((student) => {
       const { _id, studentId, attendance } = student;
       const idToUse = _id || studentId; // Use _id if available, otherwise use studentId
       if (attendanceByStudent[idToUse]) {
@@ -215,12 +215,16 @@ const UseAttendanceTable = () => {
     const data = { date: currentDate, attendance: attendanceDataToLog };
     takeAttendance({ id, data });
   };
-
   return (
     <div>
       <h1>Attendance Table</h1>
       <Box width={"79%"}>
-
+      <Box>
+        <div>
+        {attendanceData?.result?.daysLeft}
+        </div>
+        
+      </Box>
       
       <AttendanceTableComponent columns={columns} data={filteredTableData} />
       {!todaysAttendanceExists && (

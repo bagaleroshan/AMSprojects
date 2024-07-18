@@ -210,5 +210,7 @@ td .ellipsis{
 }
 
 
-
+.custom-date-picker .react-datepicker__portal {
+  z-index: 1001;
+}
 
