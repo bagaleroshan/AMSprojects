@@ -5,13 +5,8 @@ const groupValidationSchema = yup.object({
   teacher: yup.string().required("Teacher is required."),
   groupName: yup
     .string()
-    .required("Group name is required.")
-    .matches(
-      /^[a-zA-Z0-9 ]+$/,
-      "Group name must contain only letters, numbers, and spaces."
-    )
-    .min(3, "Group name must be at least 3 characters long.")
-    .max(50, "Group name must be at most 50 characters long."),
+    .required("Group name is required."),
+   
   startTime: yup
     .date()
     .typeError("Invalid start time")

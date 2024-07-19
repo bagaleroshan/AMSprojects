@@ -29,7 +29,7 @@ const AdminGroupReport = ({ groupId }) => {
       accessor: `attendance[${index}].status`,
       // Cell rendering with conditional styling
       Cell: ({ value }) => (
-        <div style={{ color: getColorForAttendance(value) }}>{value}</div>
+        <div>{value}</div>
       ),
     }));
 

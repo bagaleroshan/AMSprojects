@@ -14,6 +14,7 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import { Box, Button, Stack } from "@mui/material";
+import { Margin } from "@mui/icons-material";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -156,13 +157,12 @@ const UseAttendanceTable = () => {
     day: "numeric",
   });
 
+  // Reverse lastThreeDays array here
   const columns = [
     { Header: "Student Name", accessor: "studentName" },
-
-    ...lastThreeDays.map((date) => ({
+    ...lastThreeDays.reverse().map((date) => ({
       Header: date,
       accessor: date,
-
       Cell: ({ value }) => value || "-",
     })),
     {
@@ -215,25 +215,27 @@ const UseAttendanceTable = () => {
     const data = { date: currentDate, attendance: attendanceDataToLog };
     takeAttendance({ id, data });
   };
+
   return (
     <div>
       <h1>Attendance Table</h1>
       <Box width={"79%"}>
-      <Box>
-        <div>
-        {attendanceData?.result?.daysLeft}
-        </div>
-        
-      </Box>
-      
-      <AttendanceTableComponent columns={columns} data={filteredTableData} />
-      {!todaysAttendanceExists && (
-        <Stack display="flex" flexDirection="row" justifyContent="flex-end">
-          <Box height={5} >
-          <Button onClick={logAttendance} sx={{border:"solid lightblue", backgroundColor:"lightblue", margin:'20px 20px'}}>Take Attendance</Button>
-          </Box>
-        </Stack>
-      )}
+        <Box>
+          <div style={{margin:'20px', padding:"20px", textAlign:"center"}}> Number of days Left :{attendanceData?.result?.daysLeft}</div>
+        </Box>
+        <AttendanceTableComponent columns={columns} data={filteredTableData} />
+        {!todaysAttendanceExists && (
+          <Stack display="flex" flexDirection="row" justifyContent="flex-end">
+            <Box height={5}>
+              <Button
+                onClick={logAttendance}
+                sx={{ border: "solid lightblue", backgroundColor: "lightblue", margin: '20px 20px' }}
+              >
+                Take Attendance
+              </Button>
+            </Box>
+          </Stack>
+        )}
       </Box>
     </div>
   );
