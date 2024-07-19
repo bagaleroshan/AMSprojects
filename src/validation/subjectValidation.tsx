@@ -9,7 +9,5 @@ export const validationSchema = yup.object({
   subjectCode: yup.string().min(3).max(30).required("Subject Code is required"),
   numberOfClasses: yup
     .number()
-    .min(10, "You should at least have 10 classes")
-    .max(500)
     .required("Please choose the number of classes"),
 });

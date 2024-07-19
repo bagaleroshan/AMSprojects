@@ -11,7 +11,7 @@ import { useReadGroupQuery } from "../../../services/api/GroupService";
 import DwSelect from "../../dwComponents/DwSelect";
 
 const AdminReport = () => {
-  const [groupId, setGroupId] = useState("asdada");
+  const [groupId, setGroupId] = useState("");
   const query = { page: 0, limit: 0, findQuery: "", sort: "" };
   const { data: dataAllGroups, isLoading: isLoadingAllGroups } =
     useReadGroupQuery(query);

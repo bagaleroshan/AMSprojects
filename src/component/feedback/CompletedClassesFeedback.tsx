@@ -171,12 +171,13 @@ const CompletedClassesFeedback = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Button
+                    <Button 
                       onClick={() => navigate(`/admin/feedback/${group.id}`)}
                       color="primary"
                       variant="contained"
+                     
                     >
-                      View Feedbacks
+                      View Feedback
                     </Button>
                   </Grid>
                 </Grid>

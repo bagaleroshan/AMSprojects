@@ -124,6 +124,7 @@ const RoughMuiSelect: React.FC<IFormValues> = ({
                       value={month}
                       label="Month"
                       onChange={handleChange}
+                      style={{height:'40px'}}
                     >
                       <MenuItem value={1}>Jan</MenuItem>
                       <MenuItem value={2}>Feb</MenuItem>

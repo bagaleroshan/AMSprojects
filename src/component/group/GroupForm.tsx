@@ -128,7 +128,7 @@ const GroupForm: React.FC<IFormValues> = ({
                       <Grid item xs={12}>
                         <DwInput
                           name="groupName"
-                          label="Group Name"
+                          label="Group Name : Nitan.T_mern_Jul-24_6-8_E1"
                           type="text"
                           fullWidth
                           onChange={(e) => {

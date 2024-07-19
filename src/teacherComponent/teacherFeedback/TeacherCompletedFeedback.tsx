@@ -124,7 +124,15 @@ const TeacherCompletedFeedback = () => {
                     <Typography variant="body2" color="textSecondary">
                       Group Name: {group.groupName}
                     </Typography>
+                    
                   </Grid>
+                  <Button
+                      onClick={() => navigate(`/teachers/feedback/${group.id}`)}
+                      color="primary"
+                      variant="contained"
+                    >
+                      View Feedbacks
+                    </Button>
                   <Grid
                     item
                     xs={12}
@@ -134,31 +142,8 @@ const TeacherCompletedFeedback = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Button
-                      onClick={() => navigate(`/teachers/feedback/${group.id}`)}
-                      color="primary"
-                      variant="contained"
-                    >
-                      View Feedbacks
-                    </Button>
+
                   </Grid>
-                  {/* <Grid
-                    item
-                    xs={3}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Button
-                      onClick={() => navigate(`/admin/feedback/${group.id}`)}
-                      color="primary"
-                      variant="contained"
-                    >
-                      Feedbacks
-                    </Button>
-                  </Grid> */}
                 </Grid>
               </Paper>
             </Grid>
