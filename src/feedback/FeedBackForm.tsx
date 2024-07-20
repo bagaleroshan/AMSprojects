@@ -109,23 +109,32 @@ const FeedbackForm: React.FC = () => {
               <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   {[
-                    { name: "onTime", label: "On Time" },
-                    { name: "hasDeliveryPower", label: "Has Delivery Power" },
-                    { name: "hasSkills", label: "Has Skills" },
-                    { name: "hasInteraction", label: "Has Interaction" },
-                    { name: "isClassFruitful", label: "Is Class Fruitful" },
+                    { name: "onTime", label: "Does class starts on time?" },
+                    {
+                      name: "hasDeliveryPower",
+                      label: "Is lessons delivered properly?",
+                    },
+                    { name: "hasSkills", label: "Is teacher skilled?" },
+                    {
+                      name: "hasInteraction",
+                      label: "Is class fully interactive?",
+                    },
+                    { name: "isClassFruitful", label: "Is Class Fruitful?" },
                     {
                       name: "isClassRoomComfortable",
-                      label: "Is Class Comfortable",
+                      label: "Is Classroom comfortable?",
                     },
                     {
                       name: "hasClearConversation",
-                      label: "Has Clear Conversation",
+                      label: "Does teacher communicate properly?",
                     },
-                    { name: "doesInternetWork", label: "Does Internet Work" },
+                    {
+                      name: "doesInternetWork",
+                      label: "Does internet work properly?",
+                    },
                     {
                       name: "feelChangeOnYourself",
-                      label: "Feel Change On Yourself",
+                      label: "Did you feel change on yourself?",
                     },
                   ].map((item) => (
                     <Grid item xs={12} key={item.name}>
@@ -178,7 +187,9 @@ const FeedbackForm: React.FC = () => {
                         Boolean(formik.errors.description)
                       }
                     >
-                      <FormLabel>Your Thoughts</FormLabel>
+                      <FormLabel>
+                        Mention more of your thoughts here:{" "}
+                      </FormLabel>
                       <ReactQuill
                         value={formik.values.description}
                         onChange={(content) => {

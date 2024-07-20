@@ -1,12 +1,5 @@
 import LockResetIcon from "@mui/icons-material/LockReset";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import { userUpdatePassValidation } from "../../validation/userValidation";
 import DwHideAndShowPass from "../dwComponents/DwHideAndShowPass";
