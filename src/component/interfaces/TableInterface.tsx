@@ -22,5 +22,18 @@ export interface Query {
   limit: number;
   findQuery: string;
   sort: string[];
-  role:string
+  role: string;
+}
+
+/* Group Export CSV */
+
+export interface DataItem {
+  id: string;
+  groupName: string;
+  subject: {
+    subjectName: string;
+  };
+  teacher: {
+    fullName: string;
+  };
 }

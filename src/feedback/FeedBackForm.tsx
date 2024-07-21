@@ -17,7 +17,10 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { IFeedback } from "../component/interfaces/FeedbackInterface";
+import {
+  feedbackColumns,
+  IFeedback,
+} from "../component/interfaces/FeedbackInterface";
 import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
@@ -108,35 +111,7 @@ const FeedbackForm: React.FC = () => {
               />
               <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
-                  {[
-                    { name: "onTime", label: "Does class starts on time?" },
-                    {
-                      name: "hasDeliveryPower",
-                      label: "Is lessons delivered properly?",
-                    },
-                    { name: "hasSkills", label: "Is teacher skilled?" },
-                    {
-                      name: "hasInteraction",
-                      label: "Is class fully interactive?",
-                    },
-                    { name: "isClassFruitful", label: "Is Class Fruitful?" },
-                    {
-                      name: "isClassRoomComfortable",
-                      label: "Is Classroom comfortable?",
-                    },
-                    {
-                      name: "hasClearConversation",
-                      label: "Does teacher communicate properly?",
-                    },
-                    {
-                      name: "doesInternetWork",
-                      label: "Does internet work properly?",
-                    },
-                    {
-                      name: "feelChangeOnYourself",
-                      label: "Did you feel change on yourself?",
-                    },
-                  ].map((item) => (
+                  {feedbackColumns.map((item) => (
                     <Grid item xs={12} key={item.name}>
                       <FormControl
                         fullWidth
@@ -188,7 +163,7 @@ const FeedbackForm: React.FC = () => {
                       }
                     >
                       <FormLabel>
-                        Mention more of your thoughts here:{" "}
+                        Mention some of your thoughts here:{" "}
                       </FormLabel>
                       <ReactQuill
                         value={formik.values.description}
