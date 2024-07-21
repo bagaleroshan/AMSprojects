@@ -5,13 +5,19 @@ import {
   Grid,
   IconButton,
   Paper,
+  Rating,
   TextField,
   Typography,
 } from "@mui/material";
+import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Feedback } from "../component/interfaces/FeedbackInterface";
+import FeedbackExportExcel from "../component/ExportCSV/FeedbackExportCSV";
+import {
+  exportFeedbackColumn,
+  Feedback,
+} from "../component/interfaces/FeedbackInterface";
 import { useReadFeedbackByGroupIdQuery } from "../services/api/FeedbackApi";
 import {
   changeFirstName,
@@ -20,23 +26,22 @@ import {
   isSerializedError,
   stripHtmlTags,
 } from "../utils/utils";
-import DOMPurify from "dompurify";
 
 const ShowGroupFeedback = () => {
   const { id } = useParams();
-  /* State for search query */
   const [searchQuery, setSearchQuery] = useState<string>("");
-
   const {
     isError: isErrorReadFeedbackById,
     error: errorReadFeedbackById,
     data: dataReadFeedbackById,
+    isLoading: isLoadingReadFeedbackById,
   } = useReadFeedbackByGroupIdQuery(id);
 
   const feedbacks = dataReadFeedbackById?.result?.results || [];
-  // console.log("feedbacks", feedbacks);
 
-  // Filter feedbacks based on search query
+  // Extract group name from the first feedback item
+  const groupName = feedbacks.length > 0 ? feedbacks[0]?.group?.groupName : "";
+
   const filteredFeedbacks: Feedback[] = feedbacks.filter((feedback: Feedback) =>
     feedback.student?.fullName.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -55,20 +60,57 @@ const ShowGroupFeedback = () => {
 
   return (
     <>
+      {groupName && (
+        <Typography variant="h4" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+          {groupName}
+        </Typography>
+      )}
       <Box height={50} />
       {feedbacks.length > 0 && (
         <Box mb={3}>
-          <TextField
-            label="Search by Student Name"
-            variant="outlined"
-            size="small"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <Grid container>
+            <Grid item xs={2.3}>
+              <TextField
+                label="Search by Student Name"
+                variant="outlined"
+                size="small"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </Grid>
+            <Grid item>
+              <FeedbackExportExcel
+                data={feedbacks}
+                columns={exportFeedbackColumn}
+                fileName="Group Feedback"
+              />
+            </Grid>
+          </Grid>
         </Box>
       )}
       <Grid container spacing={2}>
-        {filteredFeedbacks.length > 0 ? (
+        {isLoadingReadFeedbackById ? (
+          <Grid item xs={12}>
+            <Box
+              mt={15}
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h5"
+                color="textSecondary"
+                sx={{ fontStyle: "italic" }}
+              >
+                Ratings are loading...
+              </Typography>
+            </Box>
+          </Grid>
+        ) : filteredFeedbacks.length > 0 ? (
           filteredFeedbacks.map((value, i) => (
             <Grid item key={i} xs={12} sm={6} md={4}>
               <Paper
@@ -107,31 +149,40 @@ const ShowGroupFeedback = () => {
                   <Typography variant="body1" gutterBottom>
                     Feedbacks:
                   </Typography>
-                  <Typography>On Time: {value.onTime}</Typography>
-                  <Typography gutterBottom>
-                    Delivery Power: {value.hasDeliveryPower}
-                  </Typography>
-                  <Typography gutterBottom>
-                    Has Skills: {value.hasSkills}
-                  </Typography>
-                  <Typography gutterBottom>
-                    Interactive Class: {value.hasInteraction}
-                  </Typography>
-                  <Typography gutterBottom>
-                    Class Fruitful: {value.isClassFruitful}
-                  </Typography>
-                  <Typography gutterBottom>
-                    Classroom Comfort: {value.isClassRoomComfortable}
-                  </Typography>
-                  <Typography gutterBottom>
-                    Internet Working: {value.doesInternetWork}
-                  </Typography>
-                  <Typography gutterBottom>
-                    Self Improvement: {value.feelChangeOnYourself}
-                  </Typography>
-                  <Typography gutterBottom>
-                    Clear Communication: {value.hasClearConversation}
-                  </Typography>
+                  {[
+                    { label: "On Time", value: value.onTime },
+                    { label: "Delivery Power", value: value.hasDeliveryPower },
+                    { label: "Has Skills", value: value.hasSkills },
+                    { label: "Interactive Class", value: value.hasInteraction },
+                    { label: "Class Fruitful", value: value.isClassFruitful },
+                    {
+                      label: "Classroom Comfort",
+                      value: value.isClassRoomComfortable,
+                    },
+                    {
+                      label: "Internet Working",
+                      value: value.doesInternetWork,
+                    },
+                    {
+                      label: "Self Improvement",
+                      value: value.feelChangeOnYourself,
+                    },
+                    {
+                      label: "Clear Communication",
+                      value: value.hasClearConversation,
+                    },
+                  ].map((item, index) => (
+                    <Box
+                      key={index}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                      mb={1}
+                    >
+                      <Typography>{item.label}:</Typography>
+                      <Rating value={item.value} readOnly precision={1} />
+                    </Box>
+                  ))}
                   <Typography
                     sx={{
                       wordBreak: "break-word",
@@ -139,7 +190,7 @@ const ShowGroupFeedback = () => {
                   >
                     Thoughts:{" "}
                     <Box
-                      component="span"
+                      component="div"
                       dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(
                           stripHtmlTags(value.description)
@@ -176,7 +227,7 @@ const ShowGroupFeedback = () => {
                 color="textSecondary"
                 sx={{ fontStyle: "italic" }}
               >
-                No Feedbacks Yet...
+                No Feedbacks For This Group Yet...
               </Typography>
             </Box>
           </Grid>

@@ -17,7 +17,10 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { IFeedback } from "../component/interfaces/FeedbackInterface";
+import {
+  feedbackColumns,
+  IFeedback,
+} from "../component/interfaces/FeedbackInterface";
 import { useCreateFeedbackMutation } from "../services/api/FeedbackApi";
 import {
   getErrorMessage,
@@ -108,26 +111,7 @@ const FeedbackForm: React.FC = () => {
               />
               <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
-                  {[
-                    { name: "onTime", label: "On Time" },
-                    { name: "hasDeliveryPower", label: "Has Delivery Power" },
-                    { name: "hasSkills", label: "Has Skills" },
-                    { name: "hasInteraction", label: "Has Interaction" },
-                    { name: "isClassFruitful", label: "Is Class Fruitful" },
-                    {
-                      name: "isClassRoomComfortable",
-                      label: "Is Class Comfortable",
-                    },
-                    {
-                      name: "hasClearConversation",
-                      label: "Has Clear Conversation",
-                    },
-                    { name: "doesInternetWork", label: "Does Internet Work" },
-                    {
-                      name: "feelChangeOnYourself",
-                      label: "Feel Change On Yourself",
-                    },
-                  ].map((item) => (
+                  {feedbackColumns.map((item) => (
                     <Grid item xs={12} key={item.name}>
                       <FormControl
                         fullWidth
@@ -178,7 +162,9 @@ const FeedbackForm: React.FC = () => {
                         Boolean(formik.errors.description)
                       }
                     >
-                      <FormLabel>Your Thoughts</FormLabel>
+                      <FormLabel>
+                        Mention some of your thoughts here:{" "}
+                      </FormLabel>
                       <ReactQuill
                         value={formik.values.description}
                         onChange={(content) => {

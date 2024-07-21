@@ -1,4 +1,6 @@
 import { FormikProps } from "formik";
+import { Column } from "./FeedbackInterface";
+import { DataItem } from "./TableInterface";
 
 export interface IGroup {
   id?: string;
@@ -6,7 +8,7 @@ export interface IGroup {
   teacher: string;
   groupName: string;
   students?: string;
-  startTime: string ;
+  startTime: string;
   endTime: string;
 }
 export interface IFormValues {
@@ -16,4 +18,12 @@ export interface IFormValues {
   onSubmit: (values: IGroup) => void;
   group?: IGroup;
   autofocus?: boolean;
+}
+
+/* Export CSV */
+
+export interface GroupExportExcelProps {
+  data: DataItem[];
+  columns: Column[];
+  fileName: string;
 }

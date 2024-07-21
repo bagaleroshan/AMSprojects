@@ -1,4 +1,5 @@
 import { FormikProps } from "formik";
+import { DataItem } from "./TableInterface";
 
 export interface IFeedback {
   onTime: number;
@@ -12,6 +13,36 @@ export interface IFeedback {
   feelChangeOnYourself: number;
   description: string;
 }
+
+export const feedbackColumns = [
+  { name: "onTime", label: "Does class starts on time?" },
+  {
+    name: "hasDeliveryPower",
+    label: "Is lessons delivered properly?",
+  },
+  { name: "hasSkills", label: "Is teacher skilled?" },
+  {
+    name: "hasInteraction",
+    label: "Is class fully interactive?",
+  },
+  { name: "isClassFruitful", label: "Is Class Fruitful?" },
+  {
+    name: "isClassRoomComfortable",
+    label: "Is Classroom comfortable?",
+  },
+  {
+    name: "hasClearConversation",
+    label: "Does teacher communicate properly?",
+  },
+  {
+    name: "doesInternetWork",
+    label: "Does internet work properly?",
+  },
+  {
+    name: "feelChangeOnYourself",
+    label: "Did you feel change on yourself?",
+  },
+];
 export interface IFormValues {
   buttonName: string;
   isLoading: boolean;
@@ -55,4 +86,46 @@ export interface Group {
   groupName: string;
   teacher: Teacher;
   subject: Subject;
+}
+
+/* Feedback Export */
+export interface Column {
+  key: string;
+  header: string;
+}
+
+export const exportFeedbackColumn = [
+  { key: "onTime", header: "Does class starts on time?" },
+  {
+    key: "hasDeliveryPower",
+    header: "Is lessons delivered properly?",
+  },
+  { key: "hasSkills", header: "Is teacher skilled?" },
+  {
+    key: "hasInteraction",
+    header: "Is class fully interactive?",
+  },
+  { key: "isClassFruitful", header: "Is Class Fruitful?" },
+  {
+    key: "isClassRoomComfortable",
+    header: "Is Classroom comfortable?",
+  },
+  {
+    key: "hasClearConversation",
+    header: "Does teacher communicate properly?",
+  },
+  {
+    key: "doesInternetWork",
+    header: "Does internet work properly?",
+  },
+  {
+    key: "feelChangeOnYourself",
+    header: "Did you feel change on yourself?",
+  },
+];
+
+export interface FeedbackExportExcelProps {
+  data: DataItem[];
+  columns: Column[];
+  fileName: string;
 }
