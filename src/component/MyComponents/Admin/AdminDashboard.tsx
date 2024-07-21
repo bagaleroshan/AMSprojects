@@ -16,7 +16,7 @@ import {
 } from "../../../services/api/GroupService";
 import { useGetTodayAttendanceQuery } from "../../../services/api/AttendanceService";
 const AdminDashboard = () => {
-  const { data: dataCount } = useReadActiveGroupQuery("true");
+  const { data: dataCount } = useReadActiveGroupQuery({activeQuery:"true",findQuery:""});
   const { data: completedCount } = useGetTodayAttendanceQuery("");
   const Role = useSelector((store: RootState) => store.user.role);
   const query = {
@@ -90,9 +90,7 @@ const AdminDashboard = () => {
           </Grid>
         </Box>
         <Box height={50} />
-        {/* <Typography variant="h4">Recent Login</Typography> */}
-        {/* </Box>
-      </Box> */}
+      
       </div>
     </>
   );

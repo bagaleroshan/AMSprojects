@@ -82,7 +82,7 @@ const CompletedCourses = () => {
               item
               xs={12}
               key={index}
-              onClick={() => navigate(`/teachers/${group.id}`)}
+              onClick={() => navigate(`/teachers/attendance/report/${group.id}`)}
             >
               <Paper
                 elevation={3}
@@ -122,9 +122,7 @@ const CompletedCourses = () => {
                     >
                       {group.subject.subjectName}
                     </Typography>
-                    {/* <Typography variant="body2" color="textSecondary">
-                      Group Name: {group.groupName}
-                    </Typography> */}
+                  
                   </Grid>
                   <Grid
                     item

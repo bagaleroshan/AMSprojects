@@ -3,6 +3,7 @@ import { Box, Tab, Typography } from "@mui/material";
 import React, { useState } from "react";
 import CompletedCourses from "../../../teacherComponent/teacherDashboard/CompletedCourses";
 import OngoingCourses from "../../../teacherComponent/teacherDashboard/OngoingCourses";
+import { useDaysLeftQuery } from "../../../services/api/GroupService";
 
 const TeacherDashboard = () => {
   const [value, setValue] = useState("1");
@@ -12,8 +13,6 @@ const TeacherDashboard = () => {
   return (
     <>
       <div className="teacherDashboard">
-        {/* <Box sx={{ display: "flex" }}>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Teacher Dashboard
             </Typography>

@@ -4,7 +4,8 @@ import AttendanceTableComponent from "../../../teacherComponent/attendanceCompon
 
 const UseTeacherReportTable = (groupId) => {
   const { data } = useReadAllAttendanceQuery(groupId?.groupId);
-  const attendanceData = data?.result || [];
+  const attendanceData = data?.result?.data || [];
+  console.log(attendanceData)
   console.log(attendanceData, "data");
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -22,8 +23,6 @@ const UseTeacherReportTable = (groupId) => {
 
     return [
       { Header: "Student Name", accessor: "studentName" },
-    //   { Header: "Address Name", accessor: "addressName" },
-    // { Header: "City Name", accessor: "cityName" },
       ...dateColumns,
     ];
   }, [attendanceData]);

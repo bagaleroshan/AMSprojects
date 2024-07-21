@@ -120,17 +120,20 @@ const TeacherOngoingFeedback = () => {
                     <Typography variant="h6" color="primary" gutterBottom>
                       {group.groupName}
                     </Typography>
-                    {/* <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      gutterBottom
-                    >
-                      Teacher: {group.teacher.fullName}
-                    </Typography> */}
+                    
                     <Typography variant="body2" color="textSecondary">
                       Subject Name: {group.subject.subjectName}
                     </Typography>
                   </Grid>
+                  <Button
+                      onClick={() =>
+                        navigate(`/teachers/feedbacks/${group.id}`)
+                      }
+                      color="primary"
+                      variant="contained"
+                    >
+                      View Feedbacks
+                    </Button>
                   <Grid
                     item
                     xs={3}
@@ -140,33 +143,9 @@ const TeacherOngoingFeedback = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Button
-                      onClick={() =>
-                        navigate(`/teachers/feedbacks/${group.id}`)
-                      }
-                      color="primary"
-                      variant="contained"
-                    >
-                      View Feedbacks
-                    </Button>
+                    
                   </Grid>
-                  {/* <Grid
-                    item
-                    xs={3}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Button
-                      onClick={() => navigate(`/admin/feedback/${group.id}`)}
-                      color="primary"
-                      variant="contained"
-                    >
-                      Feedbacks
-                    </Button>
-                  </Grid> */}
+              
                 </Grid>
               </Paper>
             </Grid>

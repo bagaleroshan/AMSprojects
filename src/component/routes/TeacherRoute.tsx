@@ -19,7 +19,8 @@ const TeacherRoute = () => {
         <Route path="update-password" element={<UpdatePassword />} />
         <Route path="my-profile" element={<MyProfile />} />
         <Route path="update-profile" element={<UpdateProfile />} />
-        <Route path="messages" element={<TeacherMessages />} />
+        <Route path="attendanceDetails" element={<Outlet></Outlet>} />
+        <Route index element={<TeacherMessages />} />
         {/* ------------------------ Feedbacks-------------------------- */}
         <Route path="feedback" element={<Outlet />}>
           <Route index element={<TeacherFeedback />} />

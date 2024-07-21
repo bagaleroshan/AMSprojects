@@ -9,17 +9,15 @@ import { useTakeAttendanceMutation } from "../../../services/api/AttendanceServi
 import { toast } from "react-toastify";
 import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../../utils/utils";
 import { showSuccessToast } from "../../../muiModals/toastConfig";
+import   './adminAttendance.css'
 
-const AdminAttendance = () => {
-  const params = useParams();
-  const id = params.id;
-  const { data:groupData, isLoading:isGroupDataLoading, error:groupError } = useReadGroupByIdQuery(id);
-  const [takeAttendance,{isSuccess:successTakingAttendance,isError:errorTakingAttendance,error:attendanceError,data:successAttendance }]=useTakeAttendanceMutation()
+const AdminAttendance = (id) => {
+  const { data: groupData, isLoading: isGroupDataLoading, error: groupError } = useReadGroupByIdQuery(id.id || "");
+  const [takeAttendance, { isSuccess: successTakingAttendance, isError: errorTakingAttendance, error: attendanceError, data: successAttendance }] = useTakeAttendanceMutation();
 
   // State to manage students and the selected date
   const [students, setStudents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-
 
   useEffect(() => {
     if (errorTakingAttendance) {
@@ -71,10 +69,11 @@ const AdminAttendance = () => {
       status: student.attendance,
     })),
   };
+
   // Log attendance data with the selected date
   const logAttendance = () => {
-    console.log(attendanceData)
-    takeAttendance({id:id,data:attendanceData})
+    console.log(attendanceData);
+    takeAttendance({ id: id.id, data: attendanceData });
   };
 
   // Define columns for the attendance table
@@ -95,14 +94,11 @@ const AdminAttendance = () => {
   ];
 
   if (isGroupDataLoading) return <Typography>Loading...</Typography>;
-  if (groupError) return <Typography>Error loading data</Typography>;
+  if (groupError) return <Typography>Select Group</Typography>;
 
   return (
     <>
       <div className="teacherDashboard">
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Admin Attendance
-        </Typography>
         <Box
           component="main"
           sx={{
@@ -117,18 +113,21 @@ const AdminAttendance = () => {
               mb: 2,
               width: "100%",
               maxWidth: 600,
-              position: "relative", // Ensure relative positioning
+              position: "relative", 
             }}
           >
             <DatePicker
               selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
+              onChange={(date) => setSelectedDate(date || new Date())} 
               dateFormat="yyyy/MM/dd"
               customInput={<TextField />}
-              popperPlacement="bottom-start" // Adjust popper placement
+              popperPlacement="top-start" 
+              portalId="root-portal"
+              className="custom-date-picker" // Add this line
             />
           </Box>
-          <AttendanceTableComponent columns={columns} data={students} />
+          <div className="tableclass" >
+            <AttendanceTableComponent columns={columns} data={students} />
           <Button
             variant="contained"
             color="primary"
@@ -136,7 +135,8 @@ const AdminAttendance = () => {
             sx={{ mt: 2 }}
           >
             Log Attendance
-          </Button>
+          </Button></div>
+          
         </Box>
       </div>
     </>

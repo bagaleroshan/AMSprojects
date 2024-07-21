@@ -19,8 +19,10 @@ const OngoingCourses = () => {
     error: errorReadGroups,
     isLoading: isLoadingReadGroups,
   } = useReadGroupsByTeacherIdQuery("active=true");
-  console.log("dataReadGroups*************", dataReadGroups?.result?.results);
+
+  // console.log("dataReadGroups*************", dataReadGroups?.result?.results);
   const groups: Group[] = dataReadGroups?.result?.results || [];
+  
 
   useEffect(() => {
     isErrorReadGroups &&
@@ -84,7 +86,7 @@ const OngoingCourses = () => {
               xs={12}
               key={index}
               onClick={() =>
-                navigate(`/teachers/attendance/report/${group.id}`)
+                navigate(`/teachers/attendance/${group.id}`)
               }
             >
               <Paper
@@ -125,9 +127,7 @@ const OngoingCourses = () => {
                     >
                       {group.subject.subjectName}
                     </Typography>
-                    {/* <Typography variant="body2" color="textSecondary">
-                      Group Name: {group.groupName}
-                    </Typography> */}
+                    
                   </Grid>
                   <Grid
                     item

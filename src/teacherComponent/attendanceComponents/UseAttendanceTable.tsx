@@ -14,6 +14,7 @@ import {
   isSerializedError,
 } from "../../utils/utils";
 import { Box, Button, Stack } from "@mui/material";
+import { Margin } from "@mui/icons-material";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -85,7 +86,7 @@ const UseAttendanceTable = () => {
         },
         {}
       );
-      attendanceData.result.forEach((student) => {
+      attendanceData?.result?.data.forEach((student) => {
         student.attendance.forEach((record) => {
           if (
             new Date(record.date).toDateString() === new Date().toDateString()
@@ -135,7 +136,7 @@ const UseAttendanceTable = () => {
   }, {});
 
   if (attendanceData?.result) {
-    attendanceData.result.forEach((student) => {
+    attendanceData.result.data.forEach((student) => {
       const { _id, studentId, attendance } = student;
       const idToUse = _id || studentId; // Use _id if available, otherwise use studentId
       if (attendanceByStudent[idToUse]) {
@@ -156,13 +157,12 @@ const UseAttendanceTable = () => {
     day: "numeric",
   });
 
+  // Reverse lastThreeDays array here
   const columns = [
     { Header: "Student Name", accessor: "studentName" },
-
-    ...lastThreeDays.map((date) => ({
+    ...lastThreeDays.reverse().map((date) => ({
       Header: date,
       accessor: date,
-
       Cell: ({ value }) => value || "-",
     })),
     {
@@ -220,16 +220,22 @@ const UseAttendanceTable = () => {
     <div>
       <h1>Attendance Table</h1>
       <Box width={"79%"}>
-
-      
-      <AttendanceTableComponent columns={columns} data={filteredTableData} />
-      {!todaysAttendanceExists && (
-        <Stack display="flex" flexDirection="row" justifyContent="flex-end">
-          <Box height={5} >
-          <Button onClick={logAttendance} sx={{border:"solid lightblue", backgroundColor:"lightblue", margin:'20px 20px'}}>Take Attendance</Button>
-          </Box>
-        </Stack>
-      )}
+        <Box>
+          <div style={{margin:'20px', padding:"20px", textAlign:"center"}}> Number of days Left :{attendanceData?.result?.daysLeft}</div>
+        </Box>
+        <AttendanceTableComponent columns={columns} data={filteredTableData} />
+        {!todaysAttendanceExists && (
+          <Stack display="flex" flexDirection="row" justifyContent="flex-end">
+            <Box height={5}>
+              <Button
+                onClick={logAttendance}
+                sx={{ border: "solid lightblue", backgroundColor: "lightblue", margin: '20px 20px' }}
+              >
+                Take Attendance
+              </Button>
+            </Box>
+          </Stack>
+        )}
       </Box>
     </div>
   );
