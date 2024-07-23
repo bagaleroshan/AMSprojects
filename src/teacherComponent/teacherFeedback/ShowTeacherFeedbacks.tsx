@@ -66,7 +66,7 @@ const ShowGroupFeedback = () => {
       {feedbacks.length > 0 && (
         <Box mb={3}>
           <Grid container>
-            <Grid item xs={2.3}>
+            {/* <Grid item xs={2.3}>
               <TextField
                 label="Search by Student Name"
                 variant="outlined"
@@ -81,7 +81,7 @@ const ShowGroupFeedback = () => {
                 columns={exportFeedbackColumn}
                 fileName="Group Feedback"
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
       )}
