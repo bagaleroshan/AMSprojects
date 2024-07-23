@@ -24,7 +24,6 @@ import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
-  stripHtmlTags,
 } from "../utils/utils";
 
 const ShowGroupFeedback = () => {
@@ -38,6 +37,14 @@ const ShowGroupFeedback = () => {
   } = useReadFeedbackByGroupIdQuery(id);
 
   const feedbacks = dataReadFeedbackById?.result?.results || [];
+  console.log(feedbacks);
+
+  // Update the data to include studentName and studentEmail
+  const feedbacksWithStudentInfo = feedbacks.map((feedback) => ({
+    ...feedback,
+    studentName: feedback.student.fullName,
+    phoneNumber: feedback.student.phoneNumber,
+  }));
 
   // Extract group name from the first feedback item
   const groupName = feedbacks.length > 0 ? feedbacks[0]?.group?.groupName : "";
@@ -80,7 +87,7 @@ const ShowGroupFeedback = () => {
             </Grid>
             <Grid item>
               <FeedbackExportExcel
-                data={feedbacks}
+                data={feedbacksWithStudentInfo}
                 columns={exportFeedbackColumn}
                 fileName="Group Feedback"
               />
@@ -106,7 +113,7 @@ const ShowGroupFeedback = () => {
                 color="textSecondary"
                 sx={{ fontStyle: "italic" }}
               >
-                Ratings are loading...
+                Feedbacks are loading...
               </Typography>
             </Box>
           </Grid>

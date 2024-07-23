@@ -2,8 +2,9 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { FC } from "react";
-import { LightTooltip } from "../theme/MuiSidebarTheme";
+import { stripHtmlTagsCSV } from "../../utils/utils";
 import { FeedbackExportExcelProps } from "../interfaces/FeedbackInterface";
+import { LightTooltip } from "../theme/MuiSidebarTheme";
 
 const FeedbackExportExcel: FC<FeedbackExportExcelProps> = ({
   data,
@@ -43,7 +44,7 @@ const FeedbackExportExcel: FC<FeedbackExportExcelProps> = ({
       worksheet
         .addRow(
           columns.reduce((acc, col) => {
-            acc[col.key] = item[col.key];
+            acc[col.key] = stripHtmlTagsCSV(item[col.key]);
             return acc;
           }, {} as { [key: string]: any })
         )
