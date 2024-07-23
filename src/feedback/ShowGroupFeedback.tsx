@@ -127,7 +127,7 @@ const ShowGroupFeedback = () => {
                     cursor: "pointer",
                     boxShadow: 4,
                     borderColor: (theme) => theme.palette.primary.main,
-                    borderWidth: 2,
+                    // borderWidth: 2,
                     borderStyle: "ridge",
                   },
                 }}
@@ -186,20 +186,25 @@ const ShowGroupFeedback = () => {
                   <Typography
                     sx={{
                       wordBreak: "break-word",
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     Thoughts:{" "}
                     <Box
+                      // component="pre"
                       component="div"
+                      sx={{
+                        wordWrap: "break-word",
+                        whiteSpace: "pre-wrap",
+                        overflowWrap: "break-word",
+                      }}
                       dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(
-                          stripHtmlTags(value.description)
-                        ),
+                        __html: DOMPurify.sanitize(value.description),
                       }}
                     />
                   </Typography>
                 </Box>
-                <Box mt={1} display="flex" alignItems="center">
+                <Box display="flex" alignItems="center">
                   <IconButton>
                     <AccountCircle color="primary" />
                   </IconButton>
