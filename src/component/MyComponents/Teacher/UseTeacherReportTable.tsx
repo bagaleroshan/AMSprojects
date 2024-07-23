@@ -1,13 +1,14 @@
 import React, { useMemo } from "react";
 import { useReadAllAttendanceQuery } from "../../../services/api/AttendanceService";
 import AttendanceTableComponent from "../../../teacherComponent/attendanceComponents/AttendanceTableComponent";
+import { changeFirstName } from "../../../utils/utils";
 
 const UseTeacherReportTable = ({ groupId }) => {
-  console.log(groupId,"jenissssssssssssssss")
+  // console.log(groupId,"jenissssssssssssssss")
 
   const { data } = useReadAllAttendanceQuery(groupId);
   const attendanceData = data?.result?.data || [];
-  
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { month: "long", day: "numeric" };
@@ -20,13 +21,15 @@ const UseTeacherReportTable = ({ groupId }) => {
     const dateColumns = attendanceData[0].attendance.map((att, index) => ({
       Header: formatDate(att.date), // Format date here
       accessor: `attendance[${index}].status`,
-      Cell: ({ value }) => (
-        <div>{value || '-'}</div>
-      ),
+      Cell: ({ value }) => <div>{value || "-"}</div>,
     }));
 
     return [
-      { Header: "Student Name", accessor: "studentName" },
+      {
+        Header: "Student Name",
+        accessor: "studentName",
+        Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      },
       ...dateColumns,
     ];
   }, [attendanceData]);
