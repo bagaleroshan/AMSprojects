@@ -162,7 +162,13 @@ const OngoingCourses = () => {
                       variant="body1"
                       sx={{ fontWeight: "normal", color: "#43a047" }}
                     >
-                      Number of Days Left:0
+                      Number of Presentees:{group.attendanceStats.presentees}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{ fontWeight: "normal", color: "#43a047", marginLeft:'30px'}}
+                    >
+                      Number of Days Absentees:{group.attendanceStats.absentees}
                     </Typography>
                   </Grid>
                 </Grid>
