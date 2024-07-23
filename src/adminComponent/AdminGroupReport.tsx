@@ -5,6 +5,8 @@ import { useReadAllAttendanceQuery } from "../services/api/AttendanceService";
 import AttendanceTableComponent from "../teacherComponent/attendanceComponents/AttendanceTableComponent";
 
 const AdminGroupReport = ({ groupId }) => {
+  console.log(groupId,"jenissssssssssssssss")
+
   const { data, isLoading, error, refetch } =
     useReadAllAttendanceQuery(groupId);
 
@@ -29,7 +31,7 @@ const AdminGroupReport = ({ groupId }) => {
       accessor: `attendance[${index}].status`,
       // Cell rendering with conditional styling
       Cell: ({ value }) => (
-       ( <div>{value}</div>)
+        <div>{value || '-'}</div>
       ),
     }));
 
@@ -46,9 +48,6 @@ const AdminGroupReport = ({ groupId }) => {
       attendance: student.attendance || [],
     }));
   }, [attendanceData]);
-
-  // Function to determine cell color based on attendance status
- 
 
   if (isLoading) {
     return (
