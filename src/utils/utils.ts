@@ -1,3 +1,4 @@
+import { styled } from "@mui/material";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { format, isValid } from "date-fns";
@@ -81,3 +82,14 @@ export const stripHtmlTagsCSV = (html) => {
     .replace(/<\/li>/gi, '')
     .replace(/<[^>]+>/g, ''); // Remove remaining HTML tags
 };
+
+
+/* Theme */
+
+export const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.h6,
+  // backgroundColor: 'theme.palette.background.paper',
+  backgroundColor: 'transparent',
+  padding: theme.spacing(1),
+  textAlign: 'end',
+}));

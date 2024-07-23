@@ -3,9 +3,10 @@ import { useEffect, useMemo } from "react";
 import AdminReportExcel from "../component/ExportCSV/AdminRepordExcel";
 import { useReadAllAttendanceQuery } from "../services/api/AttendanceService";
 import AttendanceTableComponent from "../teacherComponent/attendanceComponents/AttendanceTableComponent";
+import { changeFirstName } from "../utils/utils";
 
 const AdminGroupReport = ({ groupId }) => {
-  console.log(groupId,"jenissssssssssssssss")
+  console.log(groupId, "jenissssssssssssssss");
 
   const { data, isLoading, error, refetch } =
     useReadAllAttendanceQuery(groupId);
@@ -30,13 +31,15 @@ const AdminGroupReport = ({ groupId }) => {
       Header: formatDate(att.date), // Format date here
       accessor: `attendance[${index}].status`,
       // Cell rendering with conditional styling
-      Cell: ({ value }) => (
-        <div>{value || '-'}</div>
-      ),
+      Cell: ({ value }) => <div>{value || "-"}</div>,
     }));
 
     return [
-      { Header: "Student Name", accessor: "studentName" },
+      {
+        Header: "Student Name",
+        accessor: "studentName",
+        Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      },
       ...dateColumns,
     ];
   }, [attendanceData]);

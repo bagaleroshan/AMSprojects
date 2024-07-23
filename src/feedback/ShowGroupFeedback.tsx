@@ -37,7 +37,7 @@ const ShowGroupFeedback = () => {
   } = useReadFeedbackByGroupIdQuery(id);
 
   const feedbacks = dataReadFeedbackById?.result?.results || [];
-  console.log(feedbacks);
+  // console.log(feedbacks);
 
   // Update the data to include studentName and studentEmail
   const feedbacksWithStudentInfo = feedbacks.map((feedback) => ({

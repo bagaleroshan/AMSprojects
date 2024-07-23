@@ -25,11 +25,16 @@ const GroupTable: React.FC = () => {
     {
       Header: "Group Name",
       accessor: "groupName",
-      Cell: (row) => <span>{(row.value)}</span>,
+      Cell: (row) => <span>{row.value}</span>,
       width: "350px",
     },
     { Header: "Subject Code", accessor: "subject.subjectCode", width: "350px" },
-    { Header: "Teacher Name", accessor: "teacher.fullName", width: "350px" },
+    {
+      Header: "Teacher Name",
+      accessor: "teacher.fullName",
+      Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      width: "350px",
+    },
     { Header: "IsActive", accessor: "active", width: "350px" },
   ];
 
@@ -92,7 +97,6 @@ const GroupTable: React.FC = () => {
       replace: true,
     });
   };
-
 
   const handleDeleteClick = (selectedRowData: IData[]) => {
     setSelectedStudentIds(selectedRowData.map((value: IData) => value.id));
