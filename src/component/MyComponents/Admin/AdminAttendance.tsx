@@ -1,23 +1,37 @@
 import { Box, Typography, Button, TextField } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
 import { useReadGroupByIdQuery } from "../../../services/api/GroupService";
-import { useState, useEffect } from "react";
+import {
+  useReadAttendanceForGroupQuery,
+  useTakeAttendanceMutation,
+} from "../../../services/api/AttendanceService";
 import AttendanceTableComponent from "../../../teacherComponent/attendanceComponents/AttendanceTableComponent";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useTakeAttendanceMutation } from "../../../services/api/AttendanceService";
 import { toast } from "react-toastify";
-import { getErrorMessage, isFetchBaseQueryError, isSerializedError } from "../../../utils/utils";
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from "../../../utils/utils";
 import { showSuccessToast } from "../../../muiModals/toastConfig";
-import   './adminAttendance.css'
+import "./adminAttendance.css";
 
-const AdminAttendance = (id) => {
-  const { data: groupData, isLoading: isGroupDataLoading, error: groupError } = useReadGroupByIdQuery(id.id || "");
+const AdminAttendance = ({ id }) => {
+  console.log(id)
+  const {
+    data: groupData,
+    isLoading: isGroupDataLoading,
+    error: groupError,
+  } = useReadGroupByIdQuery(id || "");
   const [takeAttendance, { isSuccess: successTakingAttendance, isError: errorTakingAttendance, error: attendanceError, data: successAttendance }] = useTakeAttendanceMutation();
+  const { data: attendanceDataForGroup } = useReadAttendanceForGroupQuery(
+    id || ""
+  );
 
-  // State to manage students and the selected date
   const [students, setStudents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [filteredAttendance, setFilteredAttendance] = useState([]);
 
   useEffect(() => {
     if (errorTakingAttendance) {
@@ -41,16 +55,37 @@ const AdminAttendance = (id) => {
     if (groupData && groupData.result && groupData.result.students) {
       const initialStudents = groupData.result.students.map((student) => ({
         studentId: student.id,
-        student: student.fullName,
+        fullName: student.fullName,
         attendance: "P",
       }));
       setStudents(initialStudents);
     }
   }, [groupData]);
 
-  // Toggle attendance status between "P" and "A"
+  useEffect(() => {
+    const selectedDateString = new Date(selectedDate).toDateString();
+    const selectedDateAttendance = attendanceDataForGroup?.result?.results?.filter(
+      (att) => new Date(att.date).toDateString() === selectedDateString
+    );
+
+    if (selectedDateAttendance?.length) {
+      const updatedStudents = students.map((student) => {
+        const attendanceRecord = selectedDateAttendance.find(
+          (att) => att.studentId._id === student.studentId
+        );
+        return {
+          ...student,
+          attendance: attendanceRecord ? attendanceRecord.status : "P",
+        };
+      });
+      setFilteredAttendance(updatedStudents);
+    } else {
+      setFilteredAttendance(students);
+    }
+  }, [selectedDate, students, attendanceDataForGroup]);
+
   const toggleAttendance = (index) => {
-    setStudents((prevStudents) =>
+    setFilteredAttendance((prevStudents) =>
       prevStudents.map((student, i) =>
         i === index
           ? {
@@ -64,70 +99,74 @@ const AdminAttendance = (id) => {
 
   const attendanceData = {
     date: selectedDate.toISOString(),
-    attendance: students.map((student) => ({
+    attendance: filteredAttendance.map((student) => ({
       studentId: student.studentId,
       status: student.attendance,
     })),
   };
 
-  // Log attendance data with the selected date
   const logAttendance = () => {
     console.log(attendanceData);
-    takeAttendance({ id: id.id, data: attendanceData });
+    takeAttendance({ id, data: attendanceData });
   };
 
-  // Define columns for the attendance table
-  const columns = [
-    { Header: "Student Name", accessor: "student" },
-    {
-      Header: "Attendance",
-      accessor: "attendance",
-      Cell: ({ row }) => (
-        <Button
-          onClick={() => toggleAttendance(row.index)}
-          sx={{ width: "100%", justifyContent: "left", textTransform: "none" }}
-        >
-          {students[row.index].attendance}
-        </Button>
-      ),
-    },
-  ];
+  const columns = useMemo(
+    () => [
+      { Header: "Student Name", accessor: "fullName" },
+      {
+        Header: "Attendance",
+        accessor: "attendance",
+        Cell: ({ row }) => (
+          <Button
+            onClick={() => toggleAttendance(row.index)}
+            sx={{
+              width: "100%",
+              justifyContent: "left",
+              textTransform: "none",
+            }}
+          >
+            {filteredAttendance[row.index].attendance}
+          </Button>
+        ),
+      },
+    ],
+    [filteredAttendance]
+  );
 
   if (isGroupDataLoading) return <Typography>Loading...</Typography>;
   if (groupError) return <Typography>Select Group</Typography>;
 
   return (
-    <>
-      <div className="teacherDashboard">
+    <div className="teacherDashboard">
+      <Box
+        component="main"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          p: 3,
+        }}
+      >
         <Box
-          component="main"
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            p: 3,
+            mb: 2,
+            width: "100%",
+            maxWidth: 600,
+            position: "relative",
           }}
         >
-          <Box
-            sx={{
-              mb: 2,
-              width: "100%",
-              maxWidth: 600,
-              position: "relative", 
-            }}
-          >
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date || new Date())} 
-              dateFormat="yyyy/MM/dd"
-              customInput={<TextField />}
-              popperPlacement="top-start" 
-              portalId="root-portal"
-              className="custom-date-picker" // Add this line
-            />
-          </Box>
-          <div className="tableclass" >
-            <AttendanceTableComponent columns={columns} data={students} />
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date || new Date())}
+            dateFormat="yyyy/MM/dd"
+            customInput={<TextField />}
+            popperPlacement="top-start"
+            portalId="root-portal"
+            className="custom-date-picker"
+          />
+        </Box>
+        <div className="tableclass">
+          <AttendanceTableComponent columns={columns} data={filteredAttendance} />
           <Button
             variant="contained"
             color="primary"
@@ -135,11 +174,10 @@ const AdminAttendance = (id) => {
             sx={{ mt: 2 }}
           >
             Log Attendance
-          </Button></div>
-          
-        </Box>
-      </div>
-    </>
+          </Button>
+        </div>
+      </Box>
+    </div>
   );
 };
 

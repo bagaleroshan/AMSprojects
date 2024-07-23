@@ -2,11 +2,12 @@ import React, { useMemo } from "react";
 import { useReadAllAttendanceQuery } from "../../../services/api/AttendanceService";
 import AttendanceTableComponent from "../../../teacherComponent/attendanceComponents/AttendanceTableComponent";
 
-const UseTeacherReportTable = (groupId) => {
-  const { data } = useReadAllAttendanceQuery(groupId?.groupId);
+const UseTeacherReportTable = ({ groupId }) => {
+  console.log(groupId,"jenissssssssssssssss")
+
+  const { data } = useReadAllAttendanceQuery(groupId);
   const attendanceData = data?.result?.data || [];
-  console.log(attendanceData)
-  console.log(attendanceData, "data");
+  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { month: "long", day: "numeric" };
@@ -19,6 +20,9 @@ const UseTeacherReportTable = (groupId) => {
     const dateColumns = attendanceData[0].attendance.map((att, index) => ({
       Header: formatDate(att.date), // Format date here
       accessor: `attendance[${index}].status`,
+      Cell: ({ value }) => (
+        <div>{value || '-'}</div>
+      ),
     }));
 
     return [
@@ -31,7 +35,7 @@ const UseTeacherReportTable = (groupId) => {
     return attendanceData.map((student) => ({
       _id: student._id,
       studentName: student.studentName,
-      attendance: student.attendance,
+      attendance: student.attendance || [],
     }));
   }, [attendanceData]);
 
