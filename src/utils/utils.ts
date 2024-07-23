@@ -72,3 +72,12 @@ export const stripHtmlTags = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent || "";
   };
+
+export const stripHtmlTagsCSV = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.innerHTML
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<li>/gi, '\n• ')
+    .replace(/<\/li>/gi, '')
+    .replace(/<[^>]+>/g, ''); // Remove remaining HTML tags
+};

@@ -88,13 +88,15 @@ export interface Group {
   subject: Subject;
 }
 
-/* Feedback Export */
+/* **************************Feedback Export CSV*************** */
 export interface Column {
   key: string;
   header: string;
 }
 
 export const exportFeedbackColumn = [
+  { key: "studentName", header: "Student Name" },
+  { key: "phoneNumber", header: "Student Number" },
   { key: "onTime", header: "Does class starts on time?" },
   {
     key: "hasDeliveryPower",
@@ -121,6 +123,10 @@ export const exportFeedbackColumn = [
   {
     key: "feelChangeOnYourself",
     header: "Did you feel change on yourself?",
+  },
+  {
+    key: "description",
+    header: "Thoughts",
   },
 ];
 
