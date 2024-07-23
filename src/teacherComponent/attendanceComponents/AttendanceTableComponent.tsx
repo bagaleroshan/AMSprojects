@@ -3,7 +3,7 @@ import "./attendance.css";
 
 const AttendanceTableComponent = ({ columns, data }) => {
   const tableInstance = useTable({ columns, data });
-  console.log(data);
+  // console.log(data);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 

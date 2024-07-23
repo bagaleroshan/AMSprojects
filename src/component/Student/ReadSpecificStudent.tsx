@@ -10,6 +10,7 @@ import { useReadStudentByIdQuery } from "../../services/api/StudentApi";
 import { useMyProfileQuery } from "../../services/api/UserService";
 import { RootState } from "../../store/store";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -119,7 +120,7 @@ const ReadSpecificStudent = () => {
                     Full Name:{" "}
                   </Typography>
                   <Typography sx={{ marginLeft: "10px" }}>
-                    {student.fullName}
+                    {changeFirstName(student.fullName)}
                   </Typography>
                 </Box>
                 <Box

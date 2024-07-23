@@ -1,3 +1,4 @@
+import { styled } from "@mui/material";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { format, isValid } from "date-fns";
@@ -72,3 +73,23 @@ export const stripHtmlTags = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent || "";
   };
+
+export const stripHtmlTagsCSV = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.innerHTML
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<li>/gi, '\n• ')
+    .replace(/<\/li>/gi, '')
+    .replace(/<[^>]+>/g, ''); // Remove remaining HTML tags
+};
+
+
+/* Theme */
+
+export const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.h6,
+  // backgroundColor: 'theme.palette.background.paper',
+  backgroundColor: 'transparent',
+  padding: theme.spacing(1),
+  textAlign: 'end',
+}));

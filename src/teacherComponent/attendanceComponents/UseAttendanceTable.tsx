@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { Box, Button, Stack } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   useReadAllAttendanceQuery,
   useReadAttendanceForGroupQuery,
   useTakeAttendanceMutation,
 } from "../../services/api/AttendanceService";
-import AttendanceTableComponent from "./AttendanceTableComponent";
 import { useReadGroupByIdQuery } from "../../services/api/GroupService";
-import { toast } from "react-toastify";
 import {
+  changeFirstName,
+  Div,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from "../../utils/utils";
-import { Box, Button, Stack } from "@mui/material";
-import { Margin } from "@mui/icons-material";
+import AttendanceTableComponent from "./AttendanceTableComponent";
 
 const UseAttendanceTable = () => {
   const { id } = useParams();
@@ -22,7 +23,6 @@ const UseAttendanceTable = () => {
     data: groupData,
     isLoading: groupDataIsLoading,
     isError: groupDataIsError,
-    error: groupError,
   } = useReadGroupByIdQuery(id);
   const {
     data: attendanceData,
@@ -159,7 +159,11 @@ const UseAttendanceTable = () => {
 
   // Reverse lastThreeDays array here
   const columns = [
-    { Header: "Student Name", accessor: "studentName" },
+    {
+      Header: "Student Name",
+      accessor: "studentName",
+      Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+    },
     ...lastThreeDays.reverse().map((date) => ({
       Header: date,
       accessor: date,
@@ -221,7 +225,7 @@ const UseAttendanceTable = () => {
       <h1>Attendance Table</h1>
       <Box width={"79%"}>
         <Box>
-          <div style={{margin:'20px', padding:"20px", textAlign:"center"}}> Number of days Left :{attendanceData?.result?.daysLeft}</div>
+          <Div>Number of days Left :{attendanceData?.result?.daysLeft}</Div>
         </Box>
         <AttendanceTableComponent columns={columns} data={filteredTableData} />
         {!todaysAttendanceExists && (
@@ -229,7 +233,11 @@ const UseAttendanceTable = () => {
             <Box height={5}>
               <Button
                 onClick={logAttendance}
-                sx={{ border: "solid lightblue", backgroundColor: "lightblue", margin: '20px 20px' }}
+                sx={{
+                  border: "solid lightblue",
+                  backgroundColor: "lightblue",
+                  margin: "20px 20px",
+                }}
               >
                 Take Attendance
               </Button>
