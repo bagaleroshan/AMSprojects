@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useReadUserByIdQuery } from "../../services/api/UserService";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -56,7 +57,9 @@ const ReadSpecificUser = () => {
               sx={{ marginBottom: "0.5rem", width: "20%", height: "20%" }}
             ></Avatar>
             <Box height={20} />
-            <Typography variant="h5">{user.fullName}</Typography>
+            <Typography variant="h5">
+              {changeFirstName(user.fullName)}
+            </Typography>
           </Box>
           <Box height={10} />
           <Box
@@ -84,17 +87,17 @@ const ReadSpecificUser = () => {
                 <EmailIcon sx={{ marginRight: "0.5rem" }} />
                 Email: {user.email}
               </Typography>
-              <Typography>
+              {/* <Typography>
                 <PersonIcon sx={{ marginRight: "0.5rem" }} />
-                Full Name: {user.fullName}
-              </Typography>
+                Full Name: {changeFirstName(user.fullName)}
+              </Typography> */}
               <Typography>
                 <PhoneIcon sx={{ marginRight: "0.5rem" }} />
                 Phone Number: {user.phoneNumber}
               </Typography>
               <Typography>
                 <WorkIcon sx={{ marginRight: "0.5rem" }} />
-                Role: {user.role}
+                Role: {changeFirstName(user.role)}
               </Typography>
             </Box>
           </Box>

@@ -18,6 +18,7 @@ import DwInput from "../dwComponents/DwInput";
 import DwSelect from "../dwComponents/DwSelect";
 import { IFormValues, IGroup } from "../interfaces/GroupInterface";
 import MuiLoadingButtonTheme from "../theme/MuiLoadingButtonTheme";
+import { changeFirstName } from "../../utils/utils";
 
 interface Query {
   page?: number;
@@ -47,11 +48,10 @@ const GroupForm: React.FC<IFormValues> = ({
     ...query,
     sort: query.sort?.join(",") || "",
   });
-  const teachers = (dataReadTeachers?.result?.results || [])
-    .map((value) => ({
-      value: value.id,
-      label: value.fullName,
-    }));
+  const teachers = (dataReadTeachers?.result?.results || []).map((value) => ({
+    value: value.id,
+    label: changeFirstName(value.fullName),
+  }));
 
   /* Subjects */
   const { data: dataReadSubjects } = useReadSubjectsQuery({
