@@ -151,35 +151,18 @@ const CompletedClassesFeedback = () => {
                       Subject Name: {group.subject.subjectName}
                     </Typography>
                   </Grid>
-                  <Grid
-                    item
-                    xs={3}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <RequestFeedback groupId={group.id} />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={3}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Button 
+                  {group.hasRequestedFeedback ? (
+                      <Button
                       onClick={() => navigate(`/admin/feedback/${group.id}`)}
                       color="primary"
                       variant="contained"
-                     
                     >
-                      View Feedback
+                      View Feedbacks
                     </Button>
-                  </Grid>
+                    
+                  ):
+                 <RequestFeedback groupId={group.id} />
+                }
                 </Grid>
               </Paper>
             </Grid>
