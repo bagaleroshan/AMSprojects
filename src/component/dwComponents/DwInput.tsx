@@ -8,7 +8,7 @@ const DwInput: React.FC<IDwInputProps> = ({
   type,
   onChange,
   multiline,
-  isPhoneNumber,
+  isPhoneNumber = false,
   isLoading,
   autofocus = false,
   ...props
