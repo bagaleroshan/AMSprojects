@@ -51,7 +51,7 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                       <Grid item xs={12}>
                         <DwInput
                           name="fullName"
-                          label="Full Name"
+                          label="User Name"
                           type="text"
                           fullWidth
                           id="firstName"
