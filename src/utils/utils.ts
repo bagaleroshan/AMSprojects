@@ -93,3 +93,19 @@ export const Div = styled('div')(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'end',
 }));
+
+/* *********Format Time at Excel Column**************** */
+export const formatTimeRange = (startTime, endTime) => {
+  const start = new Date(startTime);
+  const end = new Date(endTime);
+
+  const formatTime = (date) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const period = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+    return `${formattedHours}:${minutes} ${period}`;
+  };
+
+  return `${formatTime(start)} - ${formatTime(end)}`;
+};

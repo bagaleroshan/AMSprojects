@@ -10,6 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -18,13 +19,21 @@ import { showSuccessToast } from "../../../muiModals/toastConfig";
 import "./adminAttendance.css";
 
 const AdminAttendance = ({ id }) => {
-  console.log(id)
+  console.log(id);
   const {
     data: groupData,
     isLoading: isGroupDataLoading,
     error: groupError,
   } = useReadGroupByIdQuery(id || "");
-  const [takeAttendance, { isSuccess: successTakingAttendance, isError: errorTakingAttendance, error: attendanceError, data: successAttendance }] = useTakeAttendanceMutation();
+  const [
+    takeAttendance,
+    {
+      isSuccess: successTakingAttendance,
+      isError: errorTakingAttendance,
+      error: attendanceError,
+      data: successAttendance,
+    },
+  ] = useTakeAttendanceMutation();
   const { data: attendanceDataForGroup } = useReadAttendanceForGroupQuery(
     id || ""
   );
@@ -64,9 +73,10 @@ const AdminAttendance = ({ id }) => {
 
   useEffect(() => {
     const selectedDateString = new Date(selectedDate).toDateString();
-    const selectedDateAttendance = attendanceDataForGroup?.result?.results?.filter(
-      (att) => new Date(att.date).toDateString() === selectedDateString
-    );
+    const selectedDateAttendance =
+      attendanceDataForGroup?.result?.results?.filter(
+        (att) => new Date(att.date).toDateString() === selectedDateString
+      );
 
     if (selectedDateAttendance?.length) {
       const updatedStudents = students.map((student) => {
@@ -106,13 +116,17 @@ const AdminAttendance = ({ id }) => {
   };
 
   const logAttendance = () => {
-    console.log(attendanceData);
+    // console.log(attendanceData);
     takeAttendance({ id, data: attendanceData });
   };
 
   const columns = useMemo(
     () => [
-      { Header: "Student Name", accessor: "fullName" },
+      {
+        Header: "Student Name",
+        accessor: "fullName",
+        Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      },
       {
         Header: "Attendance",
         accessor: "attendance",
@@ -166,7 +180,10 @@ const AdminAttendance = ({ id }) => {
           />
         </Box>
         <div className="tableclass">
-          <AttendanceTableComponent columns={columns} data={filteredAttendance} />
+          <AttendanceTableComponent
+            columns={columns}
+            data={filteredAttendance}
+          />
           <Button
             variant="contained"
             color="primary"
