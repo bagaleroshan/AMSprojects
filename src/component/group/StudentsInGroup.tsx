@@ -9,6 +9,7 @@ import {
   useRemoveStudentFromGroupMutation,
 } from "../../services/api/StudentApi";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -19,7 +20,12 @@ import { IData, Query } from "../interfaces/TableInterface";
 const StudentsInGroup: React.FC = (id) => {
   const navigate = useNavigate();
   const columns = [
-    { Header: "Name", accessor: "fullName", width: "350px" },
+    {
+      Header: "Name",
+      accessor: "fullName",
+      Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      width: "350px",
+    },
     { Header: "Email", accessor: "email", width: "350px" },
     { Header: "Contact", accessor: "phoneNumber", width: "350px" },
   ];

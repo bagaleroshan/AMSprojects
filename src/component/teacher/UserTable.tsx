@@ -33,8 +33,9 @@ const UserTable: React.FC = () => {
     {
       Header: "Role",
       accessor: "role",
+      Cell: (row) => <span>{changeFirstName(row.value)}</span>,
       width: "350px",
-    }
+    },
   ];
 
   const [query, setQuery] = useState<Query>({
@@ -42,7 +43,7 @@ const UserTable: React.FC = () => {
     limit: 10,
     findQuery: "",
     sort: [],
-    role:"",
+    role: "",
   });
 
   const { data, isLoading, isError, refetch } = useReadUsersQuery({

@@ -15,6 +15,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useReadGroupByIdQuery } from "../../services/api/GroupService";
 import {
+  changeFirstName,
   formatTime,
   getErrorMessage,
   isFetchBaseQueryError,
@@ -72,7 +73,9 @@ const ReadSpecificGroup = () => {
                       <TableRow>
                         <TableCell>{group.groupName}</TableCell>
                         <TableCell>{group.subject?.subjectName}</TableCell>
-                        <TableCell>{group.teacher?.fullName}</TableCell>
+                        <TableCell>
+                          {changeFirstName(group.teacher?.fullName)}
+                        </TableCell>
                         <TableCell>{formatTime(group?.startTime)}</TableCell>
                         <TableCell>{formatTime(group?.endTime)}</TableCell>
                       </TableRow>
