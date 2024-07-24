@@ -6,11 +6,11 @@ const passwordRegex =
 export const userValidation = yup.object().shape({
   fullName: yup
     .string()
-    .test(
-      "is-valid-full-name",
-      "Full name must contain only letters and spaces.",
-      (value) => /^[a-zA-Z ]+$/.test(value || "")
-    )
+    // .test(
+    //   "is-valid-full-name",
+    //   "Full name must contain only letters and spaces.",
+    //   (value) => /^[a-zA-Z ]+$/.test(value || "")
+    // )
     .test(
       "is-correct-length",
       "Full name must be between 3 and 30 characters long.",
