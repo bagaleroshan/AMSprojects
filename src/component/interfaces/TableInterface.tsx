@@ -27,9 +27,14 @@ export interface Query {
 
 /* Group Export CSV */
 
+// interface group {
+//   startTime?: Date;
+//   endTime?: Date;
+// }
 export interface DataItem {
   id: string;
   groupName: string;
+  // group?: group;
   subject: {
     subjectName: string;
   };

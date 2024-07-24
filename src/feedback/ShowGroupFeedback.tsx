@@ -21,6 +21,7 @@ import {
 import { useReadFeedbackByGroupIdQuery } from "../services/api/FeedbackApi";
 import {
   changeFirstName,
+  formatTimeRange,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -37,13 +38,14 @@ const ShowGroupFeedback = () => {
   } = useReadFeedbackByGroupIdQuery(id);
 
   const feedbacks = dataReadFeedbackById?.result?.results || [];
-  // console.log(feedbacks);
+  console.log(feedbacks);
 
   // Update the data to include studentName and studentEmail
-  const feedbacksWithStudentInfo = feedbacks.map((feedback) => ({
+  const feedbacksWithTime = feedbacks.map((feedback) => ({
     ...feedback,
-    studentName: feedback.student.fullName,
-    phoneNumber: feedback.student.phoneNumber,
+    // studentName: feedback.student.fullName,
+    // phoneNumber: feedback.student.phoneNumber,
+    time: formatTimeRange(feedback.group.startTime, feedback.group.endTime),
   }));
 
   // Extract group name from the first feedback item
@@ -87,7 +89,7 @@ const ShowGroupFeedback = () => {
             </Grid>
             <Grid item>
               <FeedbackExportExcel
-                data={feedbacksWithStudentInfo}
+                data={feedbacksWithTime}
                 columns={exportFeedbackColumn}
                 fileName="Group Feedback"
               />
