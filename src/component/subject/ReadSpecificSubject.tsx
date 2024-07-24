@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useReadSubjectByIdQuery } from "../../services/api/SubjectService";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -54,9 +55,9 @@ const ReadSpecificSubject = () => {
             >
               <Avatar
                 src="/deerwalk.png"
-                sx={{ marginBottom: "0.5rem", width: "20%", height: "20%" }}
+                sx={{ mb: "0.5rem", width: "20%", height: "20%" }}
               />
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+              <Typography variant="h4" sx={{ mt: 3, fontWeight: "bold" }}>
                 Subject Details
               </Typography>
             </Box>
@@ -64,6 +65,7 @@ const ReadSpecificSubject = () => {
             <Box
               sx={{
                 height: "40vh",
+                mt: 3,
                 backgroundColor: "white",
                 borderRadius: "15px",
                 padding: "2rem",
@@ -104,7 +106,7 @@ const ReadSpecificSubject = () => {
                     Subject Code:{" "}
                   </Typography>
                   <Typography sx={{ marginLeft: "10px" }}>
-                    {subject.subjectCode}
+                    {changeFirstName(subject.subjectCode)}
                   </Typography>
                 </Box>
                 <Box

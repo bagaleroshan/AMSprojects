@@ -7,6 +7,7 @@ import {
   useReadSubjectsQuery,
 } from "../../services/api/SubjectService";
 import {
+  changeFirstName,
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
@@ -26,7 +27,12 @@ const ShowAllSubjects: React.FC = () => {
   const navigate = useNavigate();
   const columns = [
     { Header: "Name", accessor: "subjectName", width: "350px" },
-    { Header: "Code", accessor: "subjectCode", width: "350px" },
+    {
+      Header: "Code",
+      accessor: "subjectCode",
+      Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+      width: "350px",
+    },
     { Header: "Classes", accessor: "numberOfClasses", width: "350px" },
   ];
 
