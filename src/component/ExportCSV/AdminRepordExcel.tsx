@@ -46,7 +46,7 @@ const AdminReportExcel: FC<UserExportCSVProps> = ({
       return date.toLocaleDateString(undefined, options);
     };
 
-    const allDates = data.flatMap((item) =>
+    const allDates = data?.flatMap((item) =>
       item.attendance.map((att) => att.date)
     );
     const uniqueDates = Array.from(new Set(allDates));
