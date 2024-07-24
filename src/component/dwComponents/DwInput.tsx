@@ -20,13 +20,30 @@ const DwInput: React.FC<IDwInputProps> = ({
           const handleKeyDown = (
             event: React.KeyboardEvent<HTMLInputElement>
           ) => {
-            if (
-              isPhoneNumber &&
-              meta.value.length >= 10 &&
-              event.key !== "Backspace" &&
-              event.key !== "Tab"
-            ) {
-              event.preventDefault();
+            // if (
+            //   isPhoneNumber &&
+            //   meta.value.length >= 10 &&
+            //   event.key !== "Backspace" &&
+            //   event.key !== "Tab"
+            // ) {
+            //   event.preventDefault();
+            // }
+
+            if (isPhoneNumber) {
+              const isNumericInput = /^\d$/.test(event.key);
+              const isControlKey =
+                event.key === "Backspace" ||
+                event.key === "Tab" ||
+                event.key === "ArrowLeft" ||
+                event.key === "ArrowRight";
+
+              if (!isNumericInput && !isControlKey) {
+                event.preventDefault();
+              }
+
+              if (meta.value.length >= 10 && !isControlKey) {
+                event.preventDefault();
+              }
             }
           };
           return (

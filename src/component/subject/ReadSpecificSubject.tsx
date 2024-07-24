@@ -98,7 +98,7 @@ const ReadSpecificSubject = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    alignItems: "center",git
+                    alignItems: "center",
                   }}
                 >
                   <CodeIcon />
