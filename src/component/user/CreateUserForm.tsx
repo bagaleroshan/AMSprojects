@@ -46,7 +46,7 @@ const CreateUserForm: React.FC<IUserFormValues> = ({
                   <Typography component="h1" variant="h5" sx={{ mt: 2 }}>
                     {buttonName}
                   </Typography>
-                  <Box sx={{ mt: 2 }}>
+                  <Box sx={{ mt: 4 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <DwInput

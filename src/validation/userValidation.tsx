@@ -13,10 +13,10 @@ export const userValidation = yup.object().shape({
     )
     .test(
       "is-correct-length",
-      "Full name must be between 3 and 30 characters long.",
+      "User name must be between 3 and 30 characters long.",
       (value) => (value && value.length >= 3 && value.length <= 30) || false
     )
-    .required("Full name is required."),
+    .required("User name is required."),
   email: yup
     .string()
     .test("is-valid-email", "Invalid Email!!", (value): boolean => {
