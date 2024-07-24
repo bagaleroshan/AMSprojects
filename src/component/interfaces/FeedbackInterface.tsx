@@ -96,8 +96,9 @@ export interface Column {
 }
 
 export const exportFeedbackColumn = [
-  { key: "studentName", header: "Student Name" },
-  { key: "phoneNumber", header: "Student Number" },
+  // { key: "studentName", header: "Student Name" },
+  // { key: "phoneNumber", header: "Student Number" },
+  { key: "time", header: "Training Shift (Time)" },
   { key: "onTime", header: "Does class starts on time?" },
   {
     key: "hasDeliveryPower",
