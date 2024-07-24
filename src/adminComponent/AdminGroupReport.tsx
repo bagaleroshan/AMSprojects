@@ -6,7 +6,6 @@ import AttendanceTableComponent from "../teacherComponent/attendanceComponents/A
 import { changeFirstName } from "../utils/utils";
 
 const AdminGroupReport = ({ groupId }) => {
-  console.log(groupId, "jenissssssssssssssss");
 
   const { data, isLoading, error, refetch } =
     useReadAllAttendanceQuery(groupId);
@@ -97,7 +96,7 @@ const AdminGroupReport = ({ groupId }) => {
     <div>
       <Stack display="flex" flexDirection="row" justifyContent="end">
         <AdminReportExcel
-          data={data?.result}
+          data={attendanceData}
           fileName="Attendance Report"
         ></AdminReportExcel>
       </Stack>
