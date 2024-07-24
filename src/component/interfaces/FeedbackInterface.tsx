@@ -86,6 +86,7 @@ export interface Group {
   groupName: string;
   teacher: Teacher;
   subject: Subject;
+  hasRequestedFeedback:String;
 }
 
 /* **************************Feedback Export CSV*************** */
