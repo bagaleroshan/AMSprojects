@@ -25,7 +25,7 @@ export const studentValidationSchema = yup.object({
     .required("Email is required."),
   phoneNumber: yup
     .string()
-    .matches(/^[0-9]{10}$/, "Phone number must have 10 digits")
+    .matches(/^9[0-9]{9}$/, "Phone number must have 10 digits")
     .test("is-valid-phone-number", "Invalid phone number", (value): boolean => {
       if (value === undefined || value === null) {
         return true;
