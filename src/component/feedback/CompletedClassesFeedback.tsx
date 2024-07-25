@@ -22,7 +22,10 @@ const CompletedClassesFeedback = () => {
     data: dataReadCompletedGroups,
     isLoading: isLoadingReadCompletedGroups,
     error: errorReadCompletedGroups,
-  } = useReadActiveGroupQuery({activeQuery:"false",findQuery:debouncedQuery});
+  } = useReadActiveGroupQuery({
+    activeQuery: "false",
+    findQuery: debouncedQuery,
+  });
 
   const resultsArray = dataReadCompletedGroups?.result?.results || [];
 
@@ -52,13 +55,13 @@ const CompletedClassesFeedback = () => {
   return (
     <>
       <Grid container spacing={2}>
-      <input
-        name="searchBar"
-        placeholder="Search"
-        style={{ width: "250px", height: "30px", margin: "10px 20px" }}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+        <input
+          name="searchBar"
+          placeholder="Search"
+          style={{ width: "250px", height: "30px", margin: "10px 20px" }}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
         {isLoadingReadCompletedGroups ? (
           <Grid item xs={12}>
             <Paper
@@ -152,17 +155,16 @@ const CompletedClassesFeedback = () => {
                     </Typography>
                   </Grid>
                   {group.hasRequestedFeedback ? (
-                      <Button
+                    <Button
                       onClick={() => navigate(`/admin/feedback/${group.id}`)}
                       color="primary"
                       variant="contained"
                     >
                       View Feedbacks
                     </Button>
-                    
-                  ):
-                 <RequestFeedback groupId={group.id} />
-                }
+                  ) : (
+                    <RequestFeedback groupId={group.id} />
+                  )}
                 </Grid>
               </Paper>
             </Grid>

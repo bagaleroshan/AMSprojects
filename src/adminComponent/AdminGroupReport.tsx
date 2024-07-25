@@ -6,7 +6,6 @@ import AttendanceTableComponent from "../teacherComponent/attendanceComponents/A
 import { changeFirstName } from "../utils/utils";
 
 const AdminGroupReport = ({ groupId }) => {
-
   const { data, isLoading, error, refetch } =
     useReadAllAttendanceQuery(groupId);
 
@@ -16,6 +15,19 @@ const AdminGroupReport = ({ groupId }) => {
   }, [groupId, refetch]);
 
   const attendanceData = data?.result?.data || [];
+  // const attendanceDataDownload = data?.result || [];
+
+  const subjectName = data?.result?.subjectName;
+  const teacherName = data?.result?.teacherName;
+
+  console.log("attendanceDataDownload ***", data?.result);
+
+  // const combinedDataForDownload = attendanceData.map((item) => ({
+  //   ...item,
+  //   teacherName: attendanceDataDownload.teacherName,
+  //   subjectName: attendanceDataDownload.subjectName,
+  // }));
+  // console.log("combinedDataForDownload", combinedDataForDownload);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -97,8 +109,10 @@ const AdminGroupReport = ({ groupId }) => {
       <Stack display="flex" flexDirection="row" justifyContent="end">
         <AdminReportExcel
           data={attendanceData}
+          subject={subjectName}
+          instructorName={teacherName}
           fileName="Attendance Report"
-        ></AdminReportExcel>
+        />
       </Stack>
       <Box height={10} />
       <AttendanceTableComponent columns={columns} data={formattedData} />
