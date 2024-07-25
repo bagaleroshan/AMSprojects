@@ -15,19 +15,10 @@ const AdminGroupReport = ({ groupId }) => {
   }, [groupId, refetch]);
 
   const attendanceData = data?.result?.data || [];
-  // const attendanceDataDownload = data?.result || [];
-
   const subjectName = data?.result?.subjectName;
   const teacherName = data?.result?.teacherName;
 
   console.log("attendanceDataDownload ***", data?.result);
-
-  // const combinedDataForDownload = attendanceData.map((item) => ({
-  //   ...item,
-  //   teacherName: attendanceDataDownload.teacherName,
-  //   subjectName: attendanceDataDownload.subjectName,
-  // }));
-  // console.log("combinedDataForDownload", combinedDataForDownload);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -42,14 +33,26 @@ const AdminGroupReport = ({ groupId }) => {
       Header: formatDate(att.date), // Format date here
       accessor: `attendance[${index}].status`,
       // Cell rendering with conditional styling
-      Cell: ({ value }) => <div>{value || "-"}</div>,
+      Cell: ({ value }) => (
+        <div
+          style={{
+            backgroundColor: value === "P" ? "green" : value === "A" ? "red" : "grey",
+            color: "white",
+            padding: "0.5rem",
+            margin: "5px",
+            textAlign: "center",
+          }}
+        >
+          {value || "-"}
+        </div>
+      ),
     }));
 
     return [
       {
         Header: "Student Name",
         accessor: "studentName",
-        Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+        Cell: ({ value }) => <span>{changeFirstName(value)}</span>,
       },
       ...dateColumns,
     ];
