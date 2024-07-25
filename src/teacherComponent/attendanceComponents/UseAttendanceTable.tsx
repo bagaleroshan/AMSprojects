@@ -157,7 +157,15 @@ const UseAttendanceTable = () => {
     day: "numeric",
   });
 
-  // Reverse lastThreeDays array here
+  const toggleAttendance = (studentId) => {
+    if (!todaysAttendanceExists) {
+      setAttendanceStatus((prev) => ({
+        ...prev,
+        [studentId]: prev[studentId] === "A" ? "P" : "A",
+      }));
+    }
+  };
+
   const columns = [
     {
       Header: "Student Name",
@@ -167,14 +175,28 @@ const UseAttendanceTable = () => {
     ...lastThreeDays.reverse().map((date) => ({
       Header: date,
       accessor: date,
-      Cell: ({ value }) => value || "-",
+      Cell: ({ value }) => (
+        <div
+          style={{
+            backgroundColor: value === "P" ? "green" : value === "A" ? "red" : "grey",
+            color: "white",
+            padding: "0.5rem",
+            textAlign: "center",
+          }}
+        >
+          {value || "-"}
+        </div>
+      ),
     })),
     {
       Header: todaysAttendanceExists ? todayFormatted : "Take Attendance",
       accessor: "takeAttendance",
       Cell: ({ row }) => (
         <div
-          style={{ cursor: "pointer" }}
+          style={{
+            color: attendanceStatus[row.original.studentId] === "P" ? "green" : "red",
+            cursor: "pointer",
+          }}
           onClick={() => toggleAttendance(row.original.studentId)}
         >
           {todaysAttendanceExists
@@ -186,15 +208,6 @@ const UseAttendanceTable = () => {
       ),
     },
   ];
-
-  const toggleAttendance = (studentId) => {
-    if (!todaysAttendanceExists) {
-      setAttendanceStatus((prev) => ({
-        ...prev,
-        [studentId]: prev[studentId] === "A" ? "P" : "A",
-      }));
-    }
-  };
 
   const filteredTableData = Object.entries(attendanceByStudent).map(
     ([studentId, data]) => ({

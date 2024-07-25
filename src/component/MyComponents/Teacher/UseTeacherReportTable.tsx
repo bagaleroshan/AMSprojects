@@ -4,8 +4,6 @@ import AttendanceTableComponent from "../../../teacherComponent/attendanceCompon
 import { changeFirstName } from "../../../utils/utils";
 
 const UseTeacherReportTable = ({ groupId }) => {
-  // console.log(groupId,"jenissssssssssssssss")
-
   const { data } = useReadAllAttendanceQuery(groupId);
   const attendanceData = data?.result?.data || [];
 
@@ -19,16 +17,28 @@ const UseTeacherReportTable = ({ groupId }) => {
     if (attendanceData.length === 0) return [];
 
     const dateColumns = attendanceData[0].attendance.map((att, index) => ({
-      Header: formatDate(att.date), // Format date here
+      Header: formatDate(att.date),
       accessor: `attendance[${index}].status`,
-      Cell: ({ value }) => <div>{value || "-"}</div>,
+      Cell: ({ value }) => (
+        <div
+          style={{
+            backgroundColor: value === "P" ? "green" : value === "A" ? "red" : "grey",
+            color: "white",
+            padding: "7px",
+            margin:'5px',
+            textAlign: "center",
+          }}
+        >
+          {value || "-"}
+        </div>
+      ),
     }));
 
     return [
       {
         Header: "Student Name",
         accessor: "studentName",
-        Cell: (row) => <span>{changeFirstName(row.value)}</span>,
+        Cell: ({ value }) => <span>{changeFirstName(value)}</span>,
       },
       ...dateColumns,
     ];
