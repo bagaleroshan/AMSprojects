@@ -41,18 +41,18 @@ const MuiLoadingButtonTheme: React.FC<{
             mt: 3,
             mb: 2,
             '& .MuiLoadingButton-loadingIndicator': {
-              color: '#ffffff', // Bright white color for the CircularProgress
+              color: '#ffffff', 
             },
             '& .MuiButton-root': {
-              color: 'white', // Ensure the button text is white
+              color: 'white', 
             },
             '& .MuiLoadingButton-root': {
-              color: 'white', // Ensure the button text is white
+              color: 'white', 
             },
           }}
           fullWidth
         >
-          <p style={{color:'white'}}>Loading ....</p>
+          <span style={{color:'white', }}>Loading </span>
         </LoadingButton>
       ) : (
         <Button
