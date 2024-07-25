@@ -22,13 +22,6 @@ const AdminGroupReport = ({ groupId }) => {
 
   console.log("attendanceDataDownload ***", data?.result);
 
-  // const combinedDataForDownload = attendanceData.map((item) => ({
-  //   ...item,
-  //   teacherName: attendanceDataDownload.teacherName,
-  //   subjectName: attendanceDataDownload.subjectName,
-  // }));
-  // console.log("combinedDataForDownload", combinedDataForDownload);
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { month: "long", day: "numeric" };
