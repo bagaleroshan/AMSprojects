@@ -101,9 +101,6 @@ export default function AdminTabs({ firstTab, secondTab }: AdminTabsProps) {
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     navigate(`/admin/${tabTypes[newValue]}`);
   };
-
-  // console.log("--------", firstTab, secondTab);
-
   const value = tabTypes.indexOf(firstTab);
   return (
     <Box sx={{ width: "100%" }}>

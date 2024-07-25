@@ -1,5 +1,13 @@
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import {
+  Button,
+  Grid,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -55,13 +63,31 @@ const CompletedClassesFeedback = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <input
+        {/* <input
           name="searchBar"
           placeholder="Search"
           style={{ width: "250px", height: "30px", margin: "10px 20px" }}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-        />
+        /> */}
+        <Grid item xs={12} display="flex" justifyContent="flex-end">
+          <TextField
+            size="small"
+            variant="outlined"
+            type="text"
+            placeholder="Search..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ backgroundColor: "#FFFFFF" }}
+          />
+        </Grid>
         {isLoadingReadCompletedGroups ? (
           <Grid item xs={12}>
             <Paper

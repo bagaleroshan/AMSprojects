@@ -150,7 +150,7 @@ const AdminReportExcel: FC<UserExportCSVProps> = ({
   instructorName,
   subject,
 }) => {
-  console.log("data", data);
+  // console.log("data", data);
 
   const handleDownload = async () => {
     const workbook = new ExcelJS.Workbook();
