@@ -146,9 +146,9 @@ const AdminAttendance = ({ id }) => {
     ],
     [filteredAttendance]
   );
-
+  if (!id||id==="") return  <Typography>Select A group</Typography>;
   if (isGroupDataLoading) return <Typography>Loading...</Typography>;
-  if (groupError) return <Typography>Select Group</Typography>;
+  if (groupError) return <Typography>Error Loading group Data</Typography>;
 
   return (
     <div className="teacherDashboard">
