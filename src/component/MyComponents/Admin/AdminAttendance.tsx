@@ -34,7 +34,7 @@ const AdminAttendance = ({ id }) => {
       data: successAttendance,
     },
   ] = useTakeAttendanceMutation();
-  const { data: attendanceDataForGroup } = useReadAttendanceForGroupQuery(
+  const { data: attendanceDataForGroup, refetch } = useReadAttendanceForGroupQuery(
     id || ""
   );
 
@@ -57,8 +57,9 @@ const AdminAttendance = ({ id }) => {
   useEffect(() => {
     if (successTakingAttendance) {
       showSuccessToast(successAttendance.message);
+      refetch(); // Refetch attendance data after successful attendance logging
     }
-  }, [successTakingAttendance, successAttendance]);
+  }, [successTakingAttendance, successAttendance, refetch]);
 
   useEffect(() => {
     if (groupData && groupData.result && groupData.result.students) {
@@ -116,7 +117,6 @@ const AdminAttendance = ({ id }) => {
   };
 
   const logAttendance = () => {
-    // console.log(attendanceData);
     takeAttendance({ id, data: attendanceData });
   };
 
@@ -146,7 +146,8 @@ const AdminAttendance = ({ id }) => {
     ],
     [filteredAttendance]
   );
-  if (!id||id==="") return  <Typography>Select A group</Typography>;
+
+  if (!id || id === "") return <Typography>Select A group</Typography>;
   if (isGroupDataLoading) return <Typography>Loading...</Typography>;
   if (groupError) return <Typography>Error Loading group Data</Typography>;
 
