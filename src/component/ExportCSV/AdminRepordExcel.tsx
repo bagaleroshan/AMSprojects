@@ -142,6 +142,8 @@ interface UserExportCSVProps {
   fileName: string;
   instructorName: string;
   subject: string;
+  groupName: string;
+  time: string;
 }
 
 const AdminReportExcel: FC<UserExportCSVProps> = ({
@@ -149,6 +151,8 @@ const AdminReportExcel: FC<UserExportCSVProps> = ({
   fileName,
   instructorName,
   subject,
+  groupName,
+  time,
 }) => {
   // console.log("data", data);
 
@@ -172,6 +176,16 @@ const AdminReportExcel: FC<UserExportCSVProps> = ({
     worksheet.addRow([`Subject: ${subject}`]).font = {
       name: "Arial",
       size: 12,
+      bold: true,
+    };
+    worksheet.addRow([`GroupName: ${groupName}`]).font = {
+      name: "Arial",
+      size: 10,
+      bold: true,
+    };
+    worksheet.addRow([`Time: ${time}`]).font = {
+      name: "Arial",
+      size: 10,
       bold: true,
     };
     worksheet.addRow([]);
@@ -207,7 +221,7 @@ const AdminReportExcel: FC<UserExportCSVProps> = ({
       worksheet.addRow(row);
     });
 
-    worksheet.getRow(5).eachCell((cell) => {
+    worksheet.getRow(7).eachCell((cell) => {
       cell.font = { bold: true };
       cell.fill = {
         type: "pattern",

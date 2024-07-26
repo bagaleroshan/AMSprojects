@@ -4,12 +4,14 @@ import {
   Divider,
   Grid,
   IconButton,
+  InputAdornment,
   Paper,
   Rating,
   TextField,
   Typography,
 } from "@mui/material";
 import DOMPurify from "dompurify";
+import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -38,7 +40,7 @@ const ShowGroupFeedback = () => {
   } = useReadFeedbackByGroupIdQuery(id);
 
   const feedbacks = dataReadFeedbackById?.result?.results || [];
-  console.log(feedbacks);
+  // console.log(feedbacks);
 
   // Update the data to include studentName and studentEmail
   const feedbacksWithTime = feedbacks.map((feedback) => ({
@@ -78,13 +80,31 @@ const ShowGroupFeedback = () => {
       {feedbacks.length > 0 && (
         <Box mb={3}>
           <Grid container>
-            <Grid item xs={2.3}>
+            {/* <Grid item xs={2.3}>
               <TextField
                 label="Search by Student Name"
                 variant="outlined"
                 size="small"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </Grid> */}
+            <Grid item xs={2.5}>
+              <TextField
+                size="small"
+                variant="outlined"
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ backgroundColor: "#FFFFFF" }}
               />
             </Grid>
             <Grid item>
