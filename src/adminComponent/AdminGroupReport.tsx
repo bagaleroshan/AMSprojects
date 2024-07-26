@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import AdminReportExcel from "../component/ExportCSV/AdminRepordExcel";
 import { useReadAllAttendanceQuery } from "../services/api/AttendanceService";
 import AttendanceTableComponent from "../teacherComponent/attendanceComponents/AttendanceTableComponent";
-import { changeFirstName } from "../utils/utils";
+import { changeFirstName, formatTimeRangeToLocale } from "../utils/utils";
 
 const AdminGroupReport = ({ groupId }) => {
   const { data, isLoading, error, refetch } =
@@ -15,10 +15,16 @@ const AdminGroupReport = ({ groupId }) => {
   }, [groupId, refetch]);
 
   const attendanceData = data?.result?.data || [];
+  console.log("attendanceDataDownload ***", data?.result);
+
   const subjectName = data?.result?.subjectName;
   const teacherName = data?.result?.teacherName;
+  const groupName = data?.result?.groupName;
+  const startTime = data?.result?.startTime;
+  const endTime = data?.result?.endTime;
 
-  console.log("attendanceDataDownload ***", data?.result);
+  // console.log(formatTimeRangeToLocale(startTime, endTime));
+  // console.log("startTime", startTime + "endTime", endTime);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -36,7 +42,8 @@ const AdminGroupReport = ({ groupId }) => {
       Cell: ({ value }) => (
         <div
           style={{
-            backgroundColor: value === "P" ? "green" : value === "A" ? "red" : "grey",
+            backgroundColor:
+              value === "P" ? "green" : value === "A" ? "red" : "grey",
             color: "white",
             padding: "0.5rem",
             margin: "5px",
@@ -113,6 +120,8 @@ const AdminGroupReport = ({ groupId }) => {
         <AdminReportExcel
           data={attendanceData}
           subject={subjectName}
+          groupName={groupName}
+          time={formatTimeRangeToLocale(startTime, endTime)}
           instructorName={teacherName}
           fileName="Attendance Report"
         />

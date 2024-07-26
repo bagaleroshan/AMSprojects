@@ -109,3 +109,18 @@ export const formatTimeRange = (startTime, endTime) => {
 
   return `${formatTime(start)} - ${formatTime(end)}`;
 };
+
+
+
+/* ************************* To Locale Time************************** */
+export function formatTimeRangeToLocale(startTime, endTime) {
+  const options = { hour: "numeric", minute: "numeric", hour12: true };
+
+  const start = new Date(startTime);
+  const end = new Date(endTime);
+
+  const startTimeFormatted = start.toLocaleString("en-US", options);
+  const endTimeFormatted = end.toLocaleString("en-US", options);
+
+  return `${startTimeFormatted} - ${endTimeFormatted}`;
+}
